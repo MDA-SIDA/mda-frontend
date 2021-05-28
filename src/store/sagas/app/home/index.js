@@ -32,13 +32,13 @@ export const actions = {
 export const sagas = {
 	*setLoading() {
 		yield put(actions.setLoading(true));
-        try {
-            // here we make api calls
-        } catch (error) {
-            console.log(error)
-        } finally {
-            yield put(actions.setLoading(false))
-        }
+		try {
+			// here we make api calls
+		} catch (error) {
+			console.log(error);
+		} finally {
+			yield put(actions.setLoading(false));
+		}
 	},
 };
 
