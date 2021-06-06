@@ -6,5 +6,5 @@
   "eslint.validate": [
     "javascript"
   ],
-  "prettier.tabWidth": 2,
+  "prettier.tabWidth": 4,
  }

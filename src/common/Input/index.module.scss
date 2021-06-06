@@ -1,0 +1,29 @@
+.input_container {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  font-family: "Heebo Medium", sans-serif;
+
+  label {
+    color: #757998;
+    padding-bottom: 2px;
+    font-size: 1.3rem;
+  }
+
+  input {
+    background-color: #eaeaea;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+    padding-left: 10px;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &__error {
+    color: red;
+    font-size: 1.2rem;
+  }
+}

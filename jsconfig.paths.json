@@ -6,7 +6,7 @@
         "@reduxComponents/*": ["src/all/reduxComponents/*"],
         "@common/*": ["src/common/*"],
         "@assets/*": ["src/assets/*"],
-        "@img/*": ["src/common/assets/img/*"],
+        "@img/*": ["src/assets/img/*"],
         "@sagas/*": ["src/store/sagas/app/*"],
         "@components/*": ["src/components/*"],
         "@utils/*": ["src/utils/*"]

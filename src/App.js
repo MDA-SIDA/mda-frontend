@@ -1,21 +1,20 @@
+import ProtectedRoute from "@common/ProtectedRoute";
 import React from "react";
-import "./App.css";
-import {withRouter} from "react-router";
-import {Redirect, Route, Router, Switch} from "react-router-dom";
-import Home from "./components/Home";
-import history from "./utils/history";
+import {Redirect, Route, Switch, Router} from "react-router-dom";
+import history from "@utils/history";
+import Home from "@components/Home";
+import Login from "@components/Login";
+import Dashboard from "@components/Dashboard";
 
 const App = () => (
 	<Router history={history}>
-		<Route
-			render={() => (
-				<Switch>
-					<Route component={Home} exact path="/" />
-					<Redirect to="/" />
-				</Switch>
-			)}
-		/>
+		<Switch>
+			<Route path="/auth" component={Login} />
+			<ProtectedRoute exact path="/" component={Home} />
+			<ProtectedRoute exact path="/dashboard" component={Dashboard} />
+			<Redirect to="/" />
+		</Switch>
 	</Router>
 );
 
-export default withRouter(App);
+export default App;

@@ -1,0 +1,18 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+html {
+  //This defines what 1rem is
+  font-size: 62.5%;
+  font-family: "Heebo Regular", sans-serif;
+}
+body {
+  box-sizing: border-box;
+  --color-blue-light: #F2F4FB;
+  --color-blue-dark: #356FCF;
+  --color-background: #F5F5F5;
+}

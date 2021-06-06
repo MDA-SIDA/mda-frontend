@@ -1,0 +1,24 @@
+.alert_container {
+    height: 50px;
+    width: 600px;
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+
+    &__text {
+        display: flex;
+        align-content: center;
+        align-items: center;
+        span {
+            font-size: 1.8rem;
+        }
+        span:first-child {
+            font-family: 'Heebo Bold' sans-serif;
+            font-size: 2.5rem;
+            padding-right: 30px;
+        }
+    }
+}
