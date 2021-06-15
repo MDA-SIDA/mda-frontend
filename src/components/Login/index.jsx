@@ -5,7 +5,6 @@ import * as Yup from "yup";
 import {Formik, Form} from "formik";
 import Input from "@common/Input";
 import Button from "@common/Button";
-import logo from "@img/logo.png";
 import {actions} from "@sagas/login";
 import styles from "./index.module.scss";
 
