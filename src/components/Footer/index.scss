@@ -1,0 +1,30 @@
+footer {
+  align-items: flex-end;
+  height: 200px;
+
+  .main {
+    height: 80%;
+    padding-top: 2rem;
+    background-color: red;
+    background-color: #005293;
+
+    img {
+      width: 10%;
+      margin: 2rem;
+      margin-left: 8rem;
+  }
+  }
+  .collab {
+    height: 20%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    color: #005490;
+
+    &>img {
+      height: 50%;
+      margin-left: 1rem;
+    }
+  }
+}

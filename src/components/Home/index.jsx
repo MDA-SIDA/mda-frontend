@@ -3,12 +3,13 @@ import {withRouter} from "react-router";
 import {connect} from "react-redux";
 import "./index.scss";
 import Header from "@components/Header";
+import Footer from "@components/Footer";
 
 const Home = () => (
 	<div className="container">
 		<Header />
 		<div></div>
-		<footer></footer>
+		<Footer />
 	</div>
 );
 
