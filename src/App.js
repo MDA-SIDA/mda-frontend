@@ -10,7 +10,7 @@ const App = () => (
 	<Router history={history}>
 		<Switch>
 			<Route path="/auth" component={Login} />
-			<ProtectedRoute exact path="/" component={Home} />
+			<Route exact path="/" component={Home} />
 			<ProtectedRoute exact path="/dashboard" component={Dashboard} />
 			<Redirect to="/" />
 		</Switch>

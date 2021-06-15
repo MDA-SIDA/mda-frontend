@@ -1,18 +1,16 @@
-.hamburger-button {
-    position: fixed;
-    width: 40px;
-    height: 40px;
-    background-color: #fff;
-    top: 10px;
-    right: 10px;
-    border-radius: 5px;
-    z-index: 11;
+.container {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    img {
-        width: 30px;
-        height: 30px;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+
+    header {
+        height: 100px;
+        background-color: #005293;
+    }
+    footer {
+        align-items: flex-end;
+        background-color: #005293;
+        height: 200px;
     }
 }
