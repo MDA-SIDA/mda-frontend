@@ -1,5 +1,5 @@
 import React from "react";
-import Logo from "@img/svg/logo.svg";
+import Logo from "@img/logo.png";
 import SELogo from "@img/svg/se_logo.svg";
 import MDALogo from "@img/svg/mda_logo.svg";
 import "./index.scss";
