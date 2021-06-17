@@ -8,6 +8,29 @@ footer {
     background-color: red;
     background-color: #005293;
 
+    &_first {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+
+      &__info {
+        &__address {
+          margin-bottom: 1rem;
+        }
+        font-size: 1.8rem;
+        line-height: 1.2;
+        color: #fff;
+        margin-right: 10rem;
+      }
+    }
+
+    .copyright {
+      font-size: 1.4rem;
+      color: #fff;
+      text-align: center;
+    }
+
     img {
       width: 18.8rem;
       margin: 2rem;
