@@ -6,6 +6,10 @@ import ValueContainer from "@common/Select/ValueContainer";
 import "./index.scss";
 
 const styles = {
+	container: (base) => ({
+		...base,
+		height: "100%",
+	}),
 	control: (base) => ({
 		...base,
 		width: 220,
@@ -30,6 +34,8 @@ const styles = {
 		position: "",
 		borderRadius: 0,
 		boxShadow: "none",
+		height: "70%",
+		maxHeight: "90%",
 	}),
 	menuList: (base) => ({
 		...base,
@@ -37,7 +43,7 @@ const styles = {
 		paddingBottom: 0,
 		paddingTop: 0,
 		padding: 0,
-		// overflow: "scroll",
+		height: "100%",
 		"::-webkit-scrollbar": {
 			width: 2,
 		},
