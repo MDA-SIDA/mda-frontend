@@ -4,12 +4,13 @@ import {connect} from "react-redux";
 import "./index.scss";
 import Header from "@components/Header";
 import Footer from "@components/Footer";
+import Filters from "@components/Filters";
 
 const Home = () => (
 	<div className="container">
 		<Header />
 		<div className="content">
-			<div className="content_selects"></div>
+			<Filters />
 			<div className="content_graphs"></div>
 		</div>
 		<Footer />
