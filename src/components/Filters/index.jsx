@@ -1,8 +1,15 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
+import {connect} from "react-redux";
 import Select from "@common/Select";
+import {actions} from "@sagas/filters";
 import "./index.scss";
 
-function Filters() {
+function Filters({vendbanimet, fetch}) {
+	const [selectedVendbanimet, setSelectedVendbanimet] = useState([]);
+	useEffect(() => {
+		fetch();
+	}, [fetch]);
+
 	return (
 		<div className="fitlers_container">
 			<Select
@@ -54,18 +61,13 @@ function Filters() {
 				placeholder="Kerko komunen"
 			/>
 			<Select
-				value="ARBK"
-				options={[
-					{value: "arbk", label: "ARBK"},
-					{value: "facebook", label: "Facebook"},
-					{value: "facebook", label: "Facebook"},
-					{value: "facebook", label: "Facebook"},
-				]}
+				value={selectedVendbanimet}
+				options={vendbanimet}
 				isSearchable
 				isMulti
 				closeMenuOnSelect={false}
 				hideSelectedOptions={false}
-				onChange={(value) => console.log(value)}
+				onChange={(value) => setSelectedVendbanimet(value)}
 				menuIsOpen={true}
 				placeholder="Kerko vendbanimin"
 			/>
@@ -73,4 +75,12 @@ function Filters() {
 	);
 }
 
-export default Filters;
+const mapDispatchToProps = {
+	fetch: actions.fetch,
+};
+
+const mapStateToProps = (state) => ({
+	vendbanimet: state.app.filters.index.vendbanimet,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Filters);

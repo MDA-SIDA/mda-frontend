@@ -17,8 +17,4 @@ const Home = () => (
 	</div>
 );
 
-const mapStateToProps = (state) => ({
-	data: state.app.home.index,
-});
-
-export default connect(mapStateToProps, null)(withRouter(Home));
+export default connect(null, null)(withRouter(Home));

@@ -3,7 +3,7 @@ import axios from "axios";
 const {REACT_APP_WEB_API_URL} = process.env;
 
 // configure axios defaults
-axios.defaults.baseURL = `${REACT_APP_WEB_API_URL}`;
+axios.defaults.baseURL = `${REACT_APP_WEB_API_URL}/api`;
 axios.defaults.config = {
 	headers: {"Content-Type": "multipart/form-data"},
 };
