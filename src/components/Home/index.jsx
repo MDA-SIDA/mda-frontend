@@ -5,13 +5,14 @@ import "./index.scss";
 import Header from "@components/Header";
 import Footer from "@components/Footer";
 import Filters from "@components/Filters";
+import Graphs from "@components/Graphs";
 
 const Home = () => (
 	<div className="container">
 		<Header />
 		<div className="content">
 			<Filters />
-			<div className="content_graphs"></div>
+			<Graphs />
 		</div>
 		<Footer />
 	</div>
