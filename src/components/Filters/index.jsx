@@ -4,8 +4,11 @@ import Select from "@common/Select";
 import {actions} from "@sagas/filters";
 import "./index.scss";
 
-function Filters({vendbanimet, fetch}) {
+function Filters({vendbanimet, komunat, regjionet, industrite, fetch}) {
 	const [selectedVendbanimet, setSelectedVendbanimet] = useState([]);
+	const [selectedKomunat, setSelectedKomunat] = useState([]);
+	const [selectedRegjionet, setSelectedRegjionet] = useState([]);
+	const [selectedIndustries, setSelectedIndustries] = useState([]);
 	useEffect(() => {
 		fetch();
 	}, [fetch]);
@@ -13,50 +16,35 @@ function Filters({vendbanimet, fetch}) {
 	return (
 		<div className="fitlers_container">
 			<Select
-				value="ARBK"
-				options={[
-					{value: "arbk", label: "ARBK"},
-					{value: "facebook", label: "Facebook"},
-					{value: "facebook", label: "Facebook"},
-					{value: "facebook", label: "Facebook"},
-				]}
+				value={selectedIndustries}
+				options={industrite}
 				isSearchable
 				isMulti
 				closeMenuOnSelect={false}
 				hideSelectedOptions={false}
-				onChange={(value) => console.log(value)}
+				onChange={(value) => setSelectedIndustries(value)}
 				menuIsOpen={true}
 				placeholder="Kerko industrine"
 			/>
 			<Select
-				value="ARBK"
-				options={[
-					{value: "arbk", label: "ARBK"},
-					{value: "facebook", label: "Facebook"},
-					{value: "facebook", label: "Facebook"},
-					{value: "facebook", label: "Facebook"},
-				]}
+				value={selectedRegjionet}
+				options={regjionet}
 				isSearchable
 				isMulti
 				closeMenuOnSelect={false}
 				hideSelectedOptions={false}
-				onChange={(value) => console.log(value)}
+				onChange={(value) => setSelectedRegjionet(value)}
 				menuIsOpen={true}
 				placeholder="Kerko regjionin"
 			/>
 			<Select
-				value="ARBK"
-				options={[
-					{value: "arbk", label: "ARBK"},
-					{value: "facebook", label: "Facebook"},
-					{value: "facebook", label: "Facebook"},
-					{value: "facebook", label: "Facebook"},
-				]}
+				value={selectedKomunat}
+				options={komunat}
 				isSearchable
 				isMulti
 				closeMenuOnSelect={false}
 				hideSelectedOptions={false}
-				onChange={(value) => console.log(value)}
+				onChange={(value) => setSelectedKomunat(value)}
 				menuIsOpen={true}
 				placeholder="Kerko komunen"
 			/>
@@ -81,6 +69,9 @@ const mapDispatchToProps = {
 
 const mapStateToProps = (state) => ({
 	vendbanimet: state.app.filters.index.vendbanimet,
+	komunat: state.app.filters.index.komunat,
+	regjionet: state.app.filters.index.regjionet,
+	industrite: state.app.filters.index.industrite,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Filters);

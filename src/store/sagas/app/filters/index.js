@@ -20,7 +20,7 @@ const reducer = (state = _state, action) =>
 	produce(state, (draft) => {
 		switch (action.type) {
 			case FETCH_SUCCESS:
-				draft.vendbanimet = action.payload;
+				draft[action.payload.name] = action.payload.data;
 				break;
 
 			default:
@@ -37,14 +37,36 @@ export const actions = {
 export const sagas = {
 	*fetch() {
 		try {
-			const response = yield axios.get(`/filters/vendbanimet`);
+			const vendbanimet = yield axios.get(`/filters/?name=vendbanimi`);
+			const komunat = yield axios.get(`/filters/?name=komuna`);
+			const regjionet = yield axios.get(`/filters/?name=regjioni`);
 
-			const options = response?.data?.map((vendbanimi) => ({
+			const vendbanimetOptions = vendbanimet?.data?.map((vendbanimi) => ({
 				value: vendbanimi.vendbanimiemri,
 				label: vendbanimi.vendbanimiemri,
 			}));
 
-			yield put(actions.fetchSuccess(options));
+			const komunaOptions = komunat?.data?.map((komuna) => ({
+				value: komuna.komunaemri,
+				label: komuna.komunaemri,
+			}));
+
+			const regjionetOptions = regjionet?.data?.map((regjioni) => ({
+				value: regjioni.regjioniemri,
+				label: regjioni.regjioniemri,
+			}));
+
+			// TODO: take them from db
+			const indistriteOptions = [
+				{value: "ARBK", label: "ARBK"},
+				{value: "shkolla", label: "Shkolla"},
+				{value: "ATK", label: "ATK"},
+			];
+
+			yield put(actions.fetchSuccess({data: vendbanimetOptions, name: "vendbanimet"}));
+			yield put(actions.fetchSuccess({data: komunaOptions, name: "komunat"}));
+			yield put(actions.fetchSuccess({data: regjionetOptions, name: "regjionet"}));
+			yield put(actions.fetchSuccess({data: indistriteOptions, name: "industrite"}));
 		} catch (error) {
 			logger.error(error);
 		}
