@@ -3,16 +3,12 @@
   flex: 1;
   height: 100vh;
   width: 100vw;
-  background-color: var(--color-background);
   &__sidebar {
     flex: 0.2;
   }
 
   &__main {
     flex: 0.8;
-    border: 1px solid #ddd;
-    border-top-left-radius: 30px;
-    background-color: #fff;
     padding: 20px;
     position: relative;
     z-index: 0;
