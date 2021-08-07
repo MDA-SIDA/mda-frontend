@@ -1,7 +1,6 @@
 .container {
   height: 100vh;
   width: 100vw;
-  background-color: var(--color-background);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -10,25 +9,38 @@
     background-color: #fff;
     width: 370px;
     height: auto;
-    box-shadow: 0px 3px 1px 0px #ddd;
-    border-radius: 5px;
+    border: 1px solid #EBEBEB;
+    box-shadow: 0px 0px 5px 2px rgba(197,197,197,0.3);
+    border-radius: 10px;
     padding-bottom: 30px;
     &__form {
       padding: 20px;
       padding-top: 25px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       &__items {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
       }
     }
+    & img {
+      width: 70px;
+      margin: 20px 0;
+    }
   }
+}
+form {
+  width: 100%;
 }
 
 .button {
+  color: red;
   padding: 10px;
   margin-top: 25px;
   button {
     width: 100%;
+    background-color: #005293;
   }
 }
