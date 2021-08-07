@@ -40,6 +40,7 @@ export const sagas = {
 			const vendbanimet = yield axios.get(`/filters/?name=vendbanimi`);
 			const komunat = yield axios.get(`/filters/?name=komuna`);
 			const regjionet = yield axios.get(`/filters/?name=regjioni`);
+			const industrite = yield axios.get(`/filters/?name=industrite`);
 
 			const vendbanimetOptions = vendbanimet?.data?.map((vendbanimi) => ({
 				value: vendbanimi.vendbanimiemri,
@@ -56,12 +57,10 @@ export const sagas = {
 				label: regjioni.regjioniemri,
 			}));
 
-			// TODO: take them from db
-			const indistriteOptions = [
-				{value: "ARBK", label: "ARBK"},
-				{value: "shkolla", label: "Shkolla"},
-				{value: "ATK", label: "ATK"},
-			];
+			const indistriteOptions = industrite?.data?.map((industria) => ({
+				value: industria.industriaEmri,
+				label: industria.industriaEmri,
+			}));
 
 			yield put(actions.fetchSuccess({data: vendbanimetOptions, name: "vendbanimet"}));
 			yield put(actions.fetchSuccess({data: komunaOptions, name: "komunat"}));
