@@ -3,7 +3,10 @@ import {getCurrentUser} from "@utils/currentUser";
 import React from "react";
 import {Redirect, Route} from "react-router-dom";
 const ProtectedRoute = ({component: Component, render, ...rest}) => {
-	const user = getCurrentUser();
+	const user = {
+		id: "1",
+		name: "Eduana",
+	};
 	return (
 		<Route
 			{...rest}

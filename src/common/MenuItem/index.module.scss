@@ -2,17 +2,24 @@
   display: flex;
   align-items: center;
   width: 100%;
-  padding: 8px;
-  margin-bottom: 10px;
+  padding: 15px 20px;
+  margin-bottom: 5px;
   &:hover {
-      background-color: #E0E0E0;
-      border-radius: 5px;
+    width: 100%;  
+    background-color: rgba(0, 82, 147, 0.07);
+    border-right-style: solid;
+    border-right-color: #005293;
   }
   &__icon {
     padding-right: 20px;
+    width: 60px;
+    display: flex;
+    justify-content: center;
   }
 
   &__name {
       font-size: 1.6rem;
+      color: #005293;
+      font-family: "Sweden Sans Book";
   }
 }
