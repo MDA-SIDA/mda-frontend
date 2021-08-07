@@ -12,8 +12,7 @@ const ProtectedRoute = ({component: Component, render, ...rest}) => {
 				// if (!user) {
 				// 	return <Redirect to="/auth" />;
 				// }
-				// TODO: if (user)
-				if (!user) {
+				if (user) {
 					return Component ? (
 						<Layout>
 							<Component {...props} {...rest} />
