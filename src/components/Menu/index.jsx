@@ -21,7 +21,7 @@ const items = [
 	{
 		name: "Manage User",
 		icon: manageIcon,
-		path: "/manage-users",
+		path: "/manage",
 	},
 ];
 
