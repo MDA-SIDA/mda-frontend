@@ -1,12 +1,27 @@
 import Alert from "@common/Alert";
 import Sidebar from "@components/Sidebar";
-import React from "react";
+import {React, useState} from "react";
 import styles from "./index.module.scss";
+import Sidedrawer from "../Sidedrawer/index"
+import Backdrop from "../Backdrop/index"
 
-function Layout({children}) {
+function Layout({ children }) {
+
+	const [showDrawer, setShowDrawer] = useState(false);
+
+	const drawerHandler = () => {
+		setShowDrawer(!showDrawer)
+	}
+
+
 	return (
 		<div className={styles.layout_container}>
 			<Sidebar overrideStyle={styles.layout_container__sidebar} />
+			<Sidedrawer
+				drawerHandler={drawerHandler}
+				showDrawer={showDrawer}
+				 />
+			<Backdrop />
 			<div className={styles.layout_container__main}>
 				{children}
 				{/* TODO: will be rendered conditionally */}

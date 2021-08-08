@@ -1,5 +1,5 @@
 import ProtectedRoute from "@common/ProtectedRoute";
-import React from "react";
+import React, { useState } from "react";
 import {Redirect, Route, Switch, Router} from "react-router-dom";
 import history from "@utils/history";
 import Home from "@components/Home";
@@ -9,6 +9,7 @@ import Profile from "@components/Profile";
 import Manage from "@components/ManageUsers";
 
 const App = () => (
+	
 	<Router history={history}>
 		<Switch>
 			<Route path="/auth" component={Login} />

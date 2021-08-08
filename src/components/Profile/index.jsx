@@ -4,7 +4,8 @@ import { connect } from "react-redux";
 import styles from "./index.module.scss";
 import profile from "../../assets/img/picture.png"
 import EditButton from "../SecondaryButton/index"
-
+import Sidedrawer from "../Sidedrawer"
+import Backdrop from "../Backdrop/index"
 
 const Profile = () => <div className={styles.container}>
   <h1>Profili</h1>
@@ -38,6 +39,8 @@ const Profile = () => <div className={styles.container}>
     </div>
     <EditButton name="Edit" />
   </div>
+  <Sidedrawer />
+  <Backdrop />
 </div>;
 
 export default connect(null, null)(withRouter(Profile));
