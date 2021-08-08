@@ -1,0 +1,16 @@
+.container {
+  &__button button {
+    display: flex;
+    border: 1px solid #005293;
+    padding: 8px 25px;
+    background-color: #fff;
+    border-radius: 6px;
+    color: #005293;
+    font-family: 'Sweden Sans Regular';
+    font-size: 16px;
+    cursor: pointer;
+  }
+  :hover {
+    opacity: 0.8;
+  }
+}

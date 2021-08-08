@@ -1,10 +1,11 @@
 .menu_container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 
   &__title {
-    color: #757998;
+    color: #005293;
     padding-bottom: 4px;
     font-size: 1.4rem;
     padding-left: 10px;
@@ -12,5 +13,7 @@
 
   &__list {
     width: 100%;
-  };
+  } & img {
+    height: 22px;
+  }
 }
