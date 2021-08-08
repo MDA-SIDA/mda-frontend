@@ -15,5 +15,4 @@ const SecondaryButton = ({ name, color, drawerHandler }) => {
   )
 }
 
-
 export default connect(null, null)(withRouter(SecondaryButton));

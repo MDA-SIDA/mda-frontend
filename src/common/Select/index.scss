@@ -1,10 +1,12 @@
 .select_wrapper {
-  border-radius: 5px;
+  border-radius: 10px;
   box-shadow: 2px 2px 2px 2px ;
   box-shadow:#CCCCCC 0px 1px 3px, #CCCCCC 0px 1px 2px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
   margin-bottom: 10px !important;
-  width: 230px !important;
+  width: 100% !important;
+  overflow: hidden;
+  padding: 4px;
 }
 .select_wrapper img {
   width:15px;
