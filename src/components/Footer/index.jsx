@@ -11,7 +11,7 @@ function Footer() {
 				<div className="main_first">
 					<img src={Logo} alt="logo" />
 					<div className="main_first__info">
-						<p className="main_first__info__address">Adresa:</p>
+						<p className="main_first__info__address">Adresa</p>
 						<p>Bill Clinton Boulevard, 5/8 D, 10000 Pristina,</p>
 						<p> Kosovo.</p>
 					</div>

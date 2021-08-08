@@ -5,17 +5,15 @@ header {
   justify-content: space-between;
   height: 10%;
   background-color: #005293;
+  padding:2rem;
 
   img {
       width: 18.8rem;
-      margin: 2rem;
-      margin-left: 8rem;
   }
 
   .language {
      color: #fff;
      font-size: 1.4rem;
-     margin-right: 8rem;
      cursor: pointer;
 
      .active {
