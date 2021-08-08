@@ -7,7 +7,7 @@ import EditButton from "../SecondaryButton/index"
 import Sidedrawer from "../Sidedrawer"
 import Backdrop from "../Backdrop/index"
 
-const Profile = () => <div className={styles.container}>
+const Profile = (props) => <div className={styles.container}>
   <h1>Profili</h1>
   <div className={styles.container__profile}>
     <img src={profile}></img>
@@ -37,9 +37,12 @@ const Profile = () => <div className={styles.container}>
         <p className={styles.name}>Superadmin</p>
       </div>
     </div>
-    <EditButton name="Edit" />
+    <EditButton name="Edit"
+      click={props.drawerHandler}
+      showDrawer
+    />
   </div>
-  <Sidedrawer />
+  <Sidedrawer showDrawer />
   <Backdrop />
 </div>;
 
