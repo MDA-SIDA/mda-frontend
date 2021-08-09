@@ -10,6 +10,7 @@ import Graphs from "@components/Graphs";
 const Home = () => (
 	<div className="container">
 		<Header />
+		{/* test */}
 		<div className="content">
 			<Filters />
 			<Graphs />
