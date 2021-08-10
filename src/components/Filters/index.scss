@@ -1,15 +1,21 @@
 .fitlers_container {
-  width: 20%;
+  width: 23%;
   height: 100%;
-  padding: 3rem;
   padding-top: 0rem;
   display: flex;
   flex-direction: column;
   align-items: center;
 
   & > div {
-    margin-bottom: 10.9rem;
-    height: 25%;
-    max-height: 25%;
+    // margin-bottom: 10.9rem;
+    // height: 25%;
+    // max-height: 25%;
   }
+}
+
+.buttons {
+  width: 100%;
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
 }

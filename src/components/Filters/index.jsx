@@ -3,6 +3,9 @@ import {connect} from "react-redux";
 import Select from "@common/Select";
 import {actions} from "@sagas/filters";
 import "./index.scss";
+import PrimaryButton from "../PrimaryButton"
+import CancelButton from "../CancelButton"
+
 
 function Filters({vendbanimet, komunat, regjionet, industrite, fetch}) {
 	const [selectedVendbanimet, setSelectedVendbanimet] = useState([]);
@@ -24,7 +27,7 @@ function Filters({vendbanimet, komunat, regjionet, industrite, fetch}) {
 				hideSelectedOptions={false}
 				onChange={(value) => setSelectedIndustries(value)}
 				menuIsOpen={true}
-				placeholder="Kerko industrine"
+				placeholder="Industria"
 			/>
 			<Select
 				value={selectedRegjionet}
@@ -35,7 +38,7 @@ function Filters({vendbanimet, komunat, regjionet, industrite, fetch}) {
 				hideSelectedOptions={false}
 				onChange={(value) => setSelectedRegjionet(value)}
 				menuIsOpen={true}
-				placeholder="Kerko regjionin"
+				placeholder="Regjioni"
 			/>
 			<Select
 				value={selectedKomunat}
@@ -46,7 +49,7 @@ function Filters({vendbanimet, komunat, regjionet, industrite, fetch}) {
 				hideSelectedOptions={false}
 				onChange={(value) => setSelectedKomunat(value)}
 				menuIsOpen={true}
-				placeholder="Kerko komunen"
+				placeholder="Komuna"
 			/>
 			<Select
 				value={selectedVendbanimet}
@@ -57,8 +60,12 @@ function Filters({vendbanimet, komunat, regjionet, industrite, fetch}) {
 				hideSelectedOptions={false}
 				onChange={(value) => setSelectedVendbanimet(value)}
 				menuIsOpen={true}
-				placeholder="Kerko vendbanimin"
+				placeholder="Vendbanimi"
 			/>
+			<div className="buttons">
+				<PrimaryButton name="Gjenero Statistikat"/>
+				<CancelButton name="Anulo"/>
+			</div>
 		</div>
 	);
 }
