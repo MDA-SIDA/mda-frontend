@@ -28,10 +28,6 @@ const tables = [
 ]
 
 const Dashboard = (props) => {
-  const tableDetailsHandler = () => {
-    props.history.replace('/dashboard/table-details')
-  }
-
   return (
     <div className={styles.container}>
       <h1>Të dhënat</h1>
@@ -44,10 +40,8 @@ const Dashboard = (props) => {
               name={table.name}
               // data={table.data}
               // path={table.path}
-              goToDetails={tableDetailsHandler}
             />
           ))}
-          <Route path={props.match.path + '/table-details'} component={Table} />
         </div>
       </div>
     </div>

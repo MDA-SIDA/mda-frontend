@@ -15,9 +15,9 @@ const App = () => (
       <Route path="/auth" component={Login} />
       <Route exact path="/" component={Home} />
       <ProtectedRoute exact path="/dashboard" component={Dashboard} />
-      <ProtectedRoute path="/:name" component={Table} />
       <ProtectedRoute exact path="/profile" component={Profile} />
       <ProtectedRoute exact path="/manage" component={Manage} />
+      <ProtectedRoute path="/:name" component={Table} />
       <Redirect to="/" />
     </Switch>
   </Router>
