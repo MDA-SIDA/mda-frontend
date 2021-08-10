@@ -1,16 +1,22 @@
-import React from "react";
-import { withRouter } from "react-router";
-import { connect } from "react-redux";
-import styles from "./index.module.scss";
+import Search from '@components/Search'
+import React from 'react'
+import styles from './index.module.scss'
+import DataGrid from '@common/DataTable/index'
+import AddData from '@components/SecondaryButton/index'
 
-const Table = ({ name, data }) => <div class={styles.container__table}>
-  <div className={styles.container__table__header}>
-    <p>{name}</p>
-    <span>{data} të dhëna</span>
-  </div>
-  <a href="google.com" className={styles.container__table__footer}>
-    See Details
-  </a>
-</div>;
+const Table = () => {
+  return (
+    <div className={styles.container}>
+      <h1>Të dhënat</h1>
+      <div class={styles.container__table}>
+        <div className={styles.container__table__header}>
+          <Search />
+          <AddData name="Shto të dhëna" />
+        </div>
+        <DataGrid />
+      </div>
+    </div>
+  )
+}
 
-export default connect(null, null)(withRouter(Table));
+export default Table
