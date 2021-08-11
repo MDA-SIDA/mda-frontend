@@ -6,19 +6,23 @@ import "./index.scss";
 import PrimaryButton from "../PrimaryButton";
 import CancelButton from "../CancelButton";
 
-function Filters({vendbanimet, komunat, regjionet, industrite, fetch}) {
-	const [selectedFilters, setSelectedFilter] = useState({
-		vendbanimet: [],
-		komunat: [],
-		regjionet: [],
-		industria: null,
-	});
+const filtersInitialState = {
+	vendbanimet: [],
+	komunat: [],
+	regjionet: [],
+	industria: null,
+};
 
-	const [isDisabled, setIsDisabled] = useState({
-		vendbanimet: false,
-		komunat: false,
-		regjionet: false,
-	});
+const disabledInitialState = {
+	vendbanimet: false,
+	komunat: false,
+	regjionet: false,
+};
+
+function Filters({vendbanimet, komunat, regjionet, industrite, fetch}) {
+	const [selectedFilters, setSelectedFilter] = useState(filtersInitialState);
+
+	const [isDisabled, setIsDisabled] = useState(disabledInitialState);
 
 	useEffect(() => {
 		fetch();
@@ -86,7 +90,13 @@ function Filters({vendbanimet, komunat, regjionet, industrite, fetch}) {
 			/>
 			<div className="buttons">
 				<PrimaryButton name="Gjenero Statistikat" />
-				<CancelButton name="Anulo" />
+				<CancelButton
+					name="Fshij"
+					onClick={() => {
+						setSelectedFilter(filtersInitialState);
+						setIsDisabled(disabledInitialState);
+					}}
+				/>
 			</div>
 		</div>
 	);
