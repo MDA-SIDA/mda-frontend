@@ -3,9 +3,8 @@ import {connect} from "react-redux";
 import Select from "@common/Select";
 import {actions} from "@sagas/filters";
 import "./index.scss";
-import PrimaryButton from "../PrimaryButton"
-import CancelButton from "../CancelButton"
-
+import PrimaryButton from "../PrimaryButton";
+import CancelButton from "../CancelButton";
 
 function Filters({vendbanimet, komunat, regjionet, industrite, fetch}) {
 	const [selectedVendbanimet, setSelectedVendbanimet] = useState([]);
@@ -22,7 +21,6 @@ function Filters({vendbanimet, komunat, regjionet, industrite, fetch}) {
 				value={selectedIndustries}
 				options={industrite}
 				isSearchable
-				isMulti
 				closeMenuOnSelect={false}
 				hideSelectedOptions={false}
 				onChange={(value) => setSelectedIndustries(value)}
@@ -63,8 +61,8 @@ function Filters({vendbanimet, komunat, regjionet, industrite, fetch}) {
 				placeholder="Vendbanimi"
 			/>
 			<div className="buttons">
-				<PrimaryButton name="Gjenero Statistikat"/>
-				<CancelButton name="Anulo"/>
+				<PrimaryButton name="Gjenero Statistikat" />
+				<CancelButton name="Anulo" />
 			</div>
 		</div>
 	);
