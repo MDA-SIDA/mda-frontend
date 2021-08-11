@@ -7,56 +7,59 @@ import PrimaryButton from "../PrimaryButton";
 import CancelButton from "../CancelButton";
 
 function Filters({vendbanimet, komunat, regjionet, industrite, fetch}) {
-	const [selectedVendbanimet, setSelectedVendbanimet] = useState([]);
-	const [selectedKomunat, setSelectedKomunat] = useState([]);
-	const [selectedRegjionet, setSelectedRegjionet] = useState([]);
-	const [selectedIndustries, setSelectedIndustries] = useState([]);
 	useEffect(() => {
 		fetch();
 	}, [fetch]);
 
+	const [selectedFilters, setSelectedFilter] = useState({
+		vendbanimet: [],
+		komunat: [],
+		regjionet: [],
+		industria: null,
+	});
+
 	return (
 		<div className="fitlers_container">
 			<Select
-				value={selectedIndustries}
+				value={selectedFilters?.industria}
 				options={industrite}
 				isSearchable
 				closeMenuOnSelect={false}
 				hideSelectedOptions={false}
-				onChange={(value) => setSelectedIndustries(value)}
+				onChange={(value) => setSelectedFilter((state) => ({...state, industria: value}))}
 				menuIsOpen={true}
 				placeholder="Industria"
 			/>
 			<Select
-				value={selectedRegjionet}
+				value={selectedFilters?.regjionet}
 				options={regjionet}
 				isSearchable
 				isMulti
 				closeMenuOnSelect={false}
 				hideSelectedOptions={false}
-				onChange={(value) => setSelectedRegjionet(value)}
+				onChange={(value) => setSelectedFilter((state) => ({...state, regjionet: value}))}
 				menuIsOpen={true}
 				placeholder="Regjioni"
 			/>
 			<Select
-				value={selectedKomunat}
+				value={selectedFilters?.komunat}
 				options={komunat}
 				isSearchable
 				isMulti
 				closeMenuOnSelect={false}
 				hideSelectedOptions={false}
-				onChange={(value) => setSelectedKomunat(value)}
+				onChange={(value) => setSelectedFilter((state) => ({...state, komunat: value}))}
 				menuIsOpen={true}
 				placeholder="Komuna"
 			/>
 			<Select
-				value={selectedVendbanimet}
+				value={selectedFilters?.vendbanimet}
 				options={vendbanimet}
 				isSearchable
 				isMulti
 				closeMenuOnSelect={false}
 				hideSelectedOptions={false}
-				onChange={(value) => setSelectedVendbanimet(value)}
+				onChange={(value) => setSelectedFilter((state) => ({...state, vendbanimet: value}))}
 				menuIsOpen={true}
 				placeholder="Vendbanimi"
 			/>
