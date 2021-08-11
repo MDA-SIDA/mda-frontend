@@ -1,0 +1,47 @@
+.input_container {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  font-family: "Heebo Medium", sans-serif;
+
+  label {
+    color: #757998;
+    padding-bottom: 2px;
+    font-size: 1.3rem;
+  }
+
+  input, textarea {
+    background-color: #FAFAFA !important;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+    padding-left: 10px !important;
+    border: 1px #cccccc solid !important;
+
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover, 
+    &:-webkit-autofill:focus, 
+    &:-webkit-autofill:active {
+      -webkit-box-shadow: 0 0 0 30px white inset !important;
+      box-shadow: 0 0 0 30px white inset !important;
+     }
+
+    &:focus {
+      outline: none;
+      border: 1px #cccccc solid !important;
+      background-color: #fff !important;
+    }
+
+    &::placeholder {
+      color: #131313 !important;
+      opacity: 0.4 !important;
+      font-size: 1.3rem !important;
+      font-family: 'Heebo Medium' !important;
+  }
+  }
+
+  &__error {
+    color: red;
+    font-size: 1.2rem;
+  }
+}
