@@ -16,7 +16,7 @@ const styles = {
 		fontSize: 13,
 		zIndex: 100,
 		color: "#005293",
-		fontFamily: 'Sweden Sans Book',
+		fontFamily: "Sweden Sans Book",
 		marginRight: 0,
 		border: 0,
 		boxShadow: 0,
@@ -27,7 +27,7 @@ const styles = {
 	menu: (base) => ({
 		...base,
 		zIndex: 100,
-		fontFamily: 'Sweden Sans Book',
+		fontFamily: "Sweden Sans Book",
 		// width: 220,
 		fontSize: 14,
 		color: "#191919",
