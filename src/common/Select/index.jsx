@@ -109,9 +109,11 @@ const Select = ({
 	closeMenuOnSelect,
 	hideSelectedOptions,
 	placeholder,
+	isDisabled,
 }) => (
 	<div className="select_wrapper">
 		<ReactSelect
+			isDisabled={isDisabled}
 			value={value}
 			options={options}
 			isSearchable={true}

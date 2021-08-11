@@ -7,16 +7,22 @@ import PrimaryButton from "../PrimaryButton";
 import CancelButton from "../CancelButton";
 
 function Filters({vendbanimet, komunat, regjionet, industrite, fetch}) {
-	useEffect(() => {
-		fetch();
-	}, [fetch]);
-
 	const [selectedFilters, setSelectedFilter] = useState({
 		vendbanimet: [],
 		komunat: [],
 		regjionet: [],
 		industria: null,
 	});
+
+	const [isDisabled, setIsDisabled] = useState({
+		vendbanimet: false,
+		komunat: false,
+		regjionet: false,
+	});
+
+	useEffect(() => {
+		fetch();
+	}, [fetch]);
 
 	return (
 		<div className="fitlers_container">
@@ -35,9 +41,14 @@ function Filters({vendbanimet, komunat, regjionet, industrite, fetch}) {
 				options={regjionet}
 				isSearchable
 				isMulti
+				isDisabled={isDisabled.regjionet}
 				closeMenuOnSelect={false}
 				hideSelectedOptions={false}
-				onChange={(value) => setSelectedFilter((state) => ({...state, regjionet: value}))}
+				onChange={(value) => {
+					if (selectedFilters?.regjionet?.length >= 3) {
+						setIsDisabled((state) => ({...state, regjionet: true}));
+					} else setSelectedFilter((state) => ({...state, regjionet: value}));
+				}}
 				menuIsOpen={true}
 				placeholder="Regjioni"
 			/>
@@ -45,10 +56,15 @@ function Filters({vendbanimet, komunat, regjionet, industrite, fetch}) {
 				value={selectedFilters?.komunat}
 				options={komunat}
 				isSearchable
+				isDisabled={isDisabled.komunat}
 				isMulti
 				closeMenuOnSelect={false}
 				hideSelectedOptions={false}
-				onChange={(value) => setSelectedFilter((state) => ({...state, komunat: value}))}
+				onChange={(value) => {
+					if (selectedFilters?.komunat?.length >= 3) {
+						setIsDisabled((state) => ({...state, komunat: true}));
+					} else setSelectedFilter((state) => ({...state, komunat: value}));
+				}}
 				menuIsOpen={true}
 				placeholder="Komuna"
 			/>
@@ -57,9 +73,14 @@ function Filters({vendbanimet, komunat, regjionet, industrite, fetch}) {
 				options={vendbanimet}
 				isSearchable
 				isMulti
+				isDisabled={isDisabled.vendbanimet}
 				closeMenuOnSelect={false}
 				hideSelectedOptions={false}
-				onChange={(value) => setSelectedFilter((state) => ({...state, vendbanimet: value}))}
+				onChange={(value) => {
+					if (selectedFilters?.vendbanimet?.length >= 3) {
+						setIsDisabled((state) => ({...state, vendbanimet: true}));
+					} else setSelectedFilter((state) => ({...state, vendbanimet: value}));
+				}}
 				menuIsOpen={true}
 				placeholder="Vendbanimi"
 			/>
