@@ -1,16 +1,35 @@
-import React from "react";
-import { withRouter } from "react-router";
-import { connect } from "react-redux";
+import React, {useState} from "react";
+import Search from "@components/Search";
+import DataGrid from "@common/DataTable/index";
+import AddData from "@components/SecondaryButton/index";
+import Sidedrawer from "@components/Sidedrawer";
+import Input from "@common/Input";
 import styles from "./index.module.scss";
 
-const Table = ({ name, data }) => <div class={styles.container__table}>
-  <div className={styles.container__table__header}>
-    <p>{name}</p>
-    <span>{data} të dhëna</span>
-  </div>
-  <a href="google.com" className={styles.container__table__footer}>
-    See Details
-  </a>
-</div>;
+const Table = () => {
+	const [sideDrawerIsVisible, setSideDrawerIsVisible] = useState(false);
 
-export default connect(null, null)(withRouter(Table));
+	const sideDrawerCloseHandler = () => {
+		setSideDrawerIsVisible(false);
+	};
+	const sideDrawerToggleHandler = () => {
+		setSideDrawerIsVisible(!sideDrawerIsVisible);
+	};
+	return (
+		<div className={styles.container}>
+			<h1>Të dhënat</h1>
+			<div className={styles.container__table}>
+				<div className={styles.container__table__header}>
+					<Sidedrawer open={sideDrawerIsVisible} closed={sideDrawerCloseHandler}>
+						<p>Test</p>
+					</Sidedrawer>
+					<Search />
+					<AddData drawerHandler={sideDrawerToggleHandler} name="Shto të dhëna" />
+				</div>
+				<DataGrid />
+			</div>
+		</div>
+	);
+};
+
+export default Table;

@@ -1,14 +1,38 @@
-.container {
-  height: 100vh;
-  background-color: lightblue;
-  width: 40%;
-  position: absolute;
-  right: 0;
-  top:0;
+.SideDrawer {
+  position: fixed;
+  padding: 30px 20px;
+  width: 30%;
+  min-width: 400px;
+  max-width: 70%;
+  height: 100%;
+  left: 100%;
+  top: 0;
   z-index: 200;
-  // display: none;
-}
+  background-color: white;
 
-.container.open {
-  display: block;
+  box-sizing: border-box;
+  transition: transform 0.3s ease-out;
+  background-color: white;
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    & > img {
+      cursor: pointer;
+      &:hover {
+        transform: scale(1.2);
+      }
+      &:active {
+        transform: scale(0.9);
+      }
+    }
+  }
+}
+.Open {
+  transform: translateX(-100%);
+  box-shadow: -1px 0px 50px 0.2px #aaaaaa;
+}
+.Close {
+  transform: translateX(0);
 }

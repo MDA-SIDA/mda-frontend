@@ -3,8 +3,7 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
-  "eslint.validate": [
-    "javascript"
-  ],
+  "eslint.validate": ["javascript"],
   "prettier.tabWidth": 4,
- }
+  "javascript.format.enable": false
+}
