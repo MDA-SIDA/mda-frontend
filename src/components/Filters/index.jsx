@@ -34,8 +34,8 @@ function Filters({vendbanimet, komunat, regjionet, industrite, fetch}) {
 				value={selectedFilters?.industria}
 				options={industrite}
 				isSearchable
+				isMulti={false}
 				closeMenuOnSelect={false}
-				hideSelectedOptions={false}
 				onChange={(value) => setSelectedFilter((state) => ({...state, industria: value}))}
 				menuIsOpen={true}
 				placeholder="Industria"

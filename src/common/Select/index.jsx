@@ -124,7 +124,7 @@ const Select = ({
 				Placeholder: (props) => <Placeholder {...props} label={placeholder} />,
 				IndicatorSeparator: () => null,
 				DropdownIndicator: () => null,
-				Option,
+				Option: (props) => <Option {...props} isMulti={isMulti} />,
 				ValueContainer,
 			}}
 			styles={styles}
