@@ -19,7 +19,7 @@ const disabledInitialState = {
 	regjionet: false,
 };
 
-function Filters({vendbanimet, komunat, regjionet, industrite, fetch}) {
+function Filters({vendbanimet, komunat, regjionet, industrite, fetch, getFilters}) {
 	const [selectedFilters, setSelectedFilter] = useState(filtersInitialState);
 
 	const [isDisabled, setIsDisabled] = useState(disabledInitialState);
@@ -89,7 +89,10 @@ function Filters({vendbanimet, komunat, regjionet, industrite, fetch}) {
 				placeholder="Vendbanimi"
 			/>
 			<div className="buttons">
-				<PrimaryButton name="Gjenero Statistikat" />
+				<PrimaryButton
+					name="Gjenero Statistikat"
+					onClick={() => getFilters(selectedFilters)}
+				/>
 				<CancelButton
 					name="Fshij"
 					onClick={() => {
