@@ -6,7 +6,7 @@ const Chart = ({type = "line", data, options, title, value, showYears, className
 	<div className="chart_container">
 		<div className="chart_title">
 			<p style={{display: "flex"}}>
-				{title} {showYears && <span>2016-2021</span>}
+				{title} {showYears && <span>2017-2021</span>}
 			</p>
 			<p className="value">{value}</p>
 		</div>
