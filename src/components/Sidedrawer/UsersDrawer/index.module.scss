@@ -1,0 +1,37 @@
+.container{
+    margin: 10px;
+&__header{
+    display: flex;
+    justify-content: space-between;
+   padding-bottom: 2rem;
+    border-bottom: 0.1 rem solid #F6F9FF;
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+    font-weight: 100;
+    button{
+        color: #F75C5C;
+        background-color: white;
+       border:1px solid #F75C5C;
+        border-radius: 0.5rem;
+        padding:0.7rem;
+    }
+}
+
+&__picture{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 2rem;
+p{padding-top:.5rem;
+    padding-left: .5rem;
+    font-size: 1.4rem;
+    color: #005293;
+}
+}
+
+&__submitButton{
+    width: 200px;
+   margin:auto
+}
+
+}

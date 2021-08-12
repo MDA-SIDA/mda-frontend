@@ -13,7 +13,7 @@ const Sidedrawer = (props) => {
 	return (
 		<>
 			<Backdrop show={props.open} clicked={props.closed} />
-			<div className={attachedClasses.join(" ")} onClick={props.closed}>
+			<div className={attachedClasses.join(" ")}>
 				<div className={classes.SideDrawer__header}>
 					<img src={RightArrow} onClick={props.closed} alt="" />
 				</div>
