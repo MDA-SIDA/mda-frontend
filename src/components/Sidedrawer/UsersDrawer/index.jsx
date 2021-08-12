@@ -32,16 +32,19 @@ const initialValues = (current) => ({
 })
 
 const Index = (props) => {
-  const { handleRegister, isSubmitting, edit } = props
+  const { handleRegister, isSubmitting, user, mode, setAdmin, editAdmin } =
+    props
   const [id, setId] = useState(1)
+
+  console.log(mode)
 
   const submitHandler = (values, id, resetForm) => {
     setId(id + 1)
-    resetForm()
-    props.closed()
 
+    const action = mode === 'create' ? setAdmin : editAdmin
+	props.closed()
     handleRegister(
-      props.setAdmin({
+      action({
         ID: id,
         Email: values.Email,
         Name: values.Name,
@@ -55,8 +58,8 @@ const Index = (props) => {
     <Sidedrawer open={props.open} closed={props.closed}>
       <div className={styles.container}>
         <div className={styles.container__header}>
-          {props.edit ? <p>Edit Admin</p> : <p>Add Admin</p>}
-          {props.edit && <button type>Delete</button>}
+          {mode === 'edit' ? <p>Edit Admin</p> : <p>Add Admin</p>}
+          {mode === 'edit' && <button type>Delete</button>}
         </div>
         <div className={styles.container__picture}>
           <Avatar style={{ height: '80px', width: '80px' }} />
@@ -65,7 +68,7 @@ const Index = (props) => {
 
         <Formik
           enableReinitialize={true}
-          initialValues={initialValues(edit)}
+          initialValues={initialValues(user)}
           onSubmit={(values, { resetForm, setFieldValue }) =>
             submitHandler(values, id, resetForm, setFieldValue)
           }
@@ -101,7 +104,7 @@ const Index = (props) => {
                   label="Role"
                 />
                 <Button
-                  text={props.edit ? 'Edit Admin' : 'Add Admin'}
+                  text={mode === 'edit' ? 'Edit Admin' : 'Add Admin'}
                   type="submit"
                   disabled={isSubmitting}
                   overrideStyle={styles.container__submitButton}
@@ -116,6 +119,7 @@ const Index = (props) => {
 }
 const mapDispatchToProps = {
   setAdmin: actions.setAdmin,
+  editAdmin: actions.editAdmin,
 }
 
 export default connect(null, mapDispatchToProps)(withRouter(Index))

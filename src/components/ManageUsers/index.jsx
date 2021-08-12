@@ -1,16 +1,16 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import {withRouter} from "react-router";
 import {connect} from "react-redux";
 import DataGrid from "@common/DataTable/index";
 import UsersDrawer from "@components/Sidedrawer/UsersDrawer/index";
-import {Avatar} from "@material-ui/core";
 import styles from "./index.module.scss";
 import Search from "../Search/index";
 import Add from "../SecondaryButton/index";
 
 const ManageUsers = ({admins}) => {
 	const [sideDrawerIsVisible, setSideDrawerIsVisible] = useState(false);
-	const [edit, setEdit] = useState(false);
+	const [mode, setMode] = useState("create");
+	const [user, setUser] = useState(null);
 	// eslint-disable-next-line no-console
 
 	const sideDrawerCloseHandler = () => {
@@ -30,8 +30,9 @@ const ManageUsers = ({admins}) => {
 	];
 
 	const editAdmin = (rowData) => {
+		setMode("edit");
 		sideDrawerToggleHandler();
-		setEdit(rowData);
+		setUser(rowData);
 	};
 
 	// eslint-disable-next-line no-console
@@ -44,11 +45,12 @@ const ManageUsers = ({admins}) => {
 					<Search />
 					<Add name="Add New" drawerHandler={sideDrawerToggleHandler} />
 					<UsersDrawer
-						edit={edit}
+						user={user}
+						mode={mode}
 						open={sideDrawerIsVisible}
 						closed={() => {
 							sideDrawerCloseHandler();
-							setEdit(false);
+							setMode("create");
 						}}
 					/>
 				</div>
