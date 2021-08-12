@@ -29,8 +29,8 @@ const ManageUsers = () => {
 		{
 			Admin: <Avatar size={10} round={true} />,
 			ID: "77",
-			Name: "Armend",
-			Email: "armend@gmail.com",
+			Name: "John",
+			Email: "john@gmail.com",
 			Role: "Admin",
 			Date: "12/12/2001",
 		},
