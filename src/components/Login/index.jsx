@@ -7,8 +7,8 @@ import Input from "@common/Input";
 import Button from "@common/Button";
 import {actions} from "@sagas/login";
 import styles from "./index.module.scss";
-import Footer from "../Footer/index"
-import logo from "../../assets/img/svg/logoLogin.svg"
+import Footer from "../Footer/index";
+import logo from "../../assets/img/svg/logoLogin.svg";
 
 const validationSchema = Yup.object().shape({
 	email: Yup.string().email("Invalid email.").required("Email is required!"),
@@ -30,7 +30,7 @@ function Login(props) {
 		<div className={styles.container}>
 			<div className={styles.container__card}>
 				<div className={styles.container__card__form}>
-					<img src={logo}></img>
+					<img src={logo} alt=""></img>
 					<Formik
 						enableReinitialize={true}
 						initialValues={initialValues}
