@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import {Formik, Form} from "formik";
 import Input from "@common/Input";
 import * as Yup from "yup";
@@ -6,31 +6,60 @@ import Button from "@common/Button";
 import Sidedrawer from "..";
 import {Avatar} from '@material-ui/core';
 import styles from "./index.module.scss";
+import {withRouter} from "react-router";
+import {connect} from "react-redux";
+import {actions} from "@sagas/admins/index";
+import moment from 'moment';
+
 
 const validationSchema = Yup.object().shape({
-	email: Yup.string().email("Invalid email.").required("Email is required!"),
-	name: Yup.string()
+	Email: Yup.string().email("Invalid email.").required("Email is required!"),
+	Name: Yup.string()
 		.max(30, "Name is too long").min(2,'Name is too short')
 		.required("Name is required!"),
-        	role: Yup.string()
+        	Role: Yup.string()
 		.max(30, "Role is too long").min(2,'Role is too short')
 		.required("Role is required!")
 
 });
 
 const initialValues = {
-	email: "",
-	name: "",
-    role:""
+	ID: "",
+	Email: "",
+	Name: "",
+    Role:"",
+	Date: ""
 };
-const index = (props) => {
-	const {handleRegister, isSubmitting} = props;
+
+const Index = (props) => {
+		const {handleRegister, isSubmitting } = props;
+		const [id, setId] = useState(1)
+
+
+
+const submitHandler= (values,id,resetForm)=>{
+
+			setId(id+1)
+			resetForm()
+			props.closed()
+					
+ handleRegister(props.setAdmin({
+	 				ID:id  ,
+					Email:values.Email,
+					Name:values.Name,
+					Role:values.Role,
+					Date: moment().format('DD-MM-YYYY')
+				}))}	
+
+				
+
+		
 	return (
 		<Sidedrawer open={props.open} closed={props.closed}>
 			<div className={styles.container}>
 				<div className={styles.container__header}>
-					<p>Add Admin</p>
-                	<button type>Delete</button>
+				{props.edit?<p>Edit Admin</p>:	<p>Add Admin</p>}
+                {props.edit&&<button type>Delete</button>}
 				</div>
                 <div  className={styles.container__picture}><Avatar  style={{ height: '80px', width: '80px' }}/>
               <p>Add Picture</p>
@@ -39,41 +68,44 @@ const index = (props) => {
 				<Formik
 					enableReinitialize={true}
 					initialValues={initialValues}
-					onSubmit={(values) => handleRegister(values)}
+					onSubmit={(values,{resetForm,setFieldValue}) =>submitHandler(values,id,resetForm ,setFieldValue)}
 					validationSchema={validationSchema}
 				>
 					{({errors, touched}) => (
 						<Form>
 							<div>
 								<Input
-									id="email"
-									name="email"
-									error={errors.email}
-									touched={touched.email}
+									id="Email"
+									name="Email"
+									error={errors.Email}
+									touched={touched.Email}
 									label="Email"
+									
 								/>
 								<Input
-									id="name"
-									name="name"
-									type="name"
-									error={errors.name}
-									touched={touched.name}
+									id="Name"
+									name="Name"
+									type="Name"
+									error={errors.Name}
+									touched={touched.Name}
 									label="Name"
 								/>
                                 	<Input
-									id="role"
-									name="role"
-									type="role"
-									error={errors.role}
-									touched={touched.role}
+									id="Role"
+									name="Role"
+									type="Role"
+									error={errors.Role}
+									touched={touched.Role}
 									label="Role"
 								/>
 								<Button
-									text="Add Admin"
+									text={props.edit?'Edit Admin':"Add Admin"}
 									type="submit"
 									disabled={isSubmitting}
 									overrideStyle={styles.container__submitButton}
+									
 								/>
+						
 							</div>
 						</Form>
 					)}
@@ -82,5 +114,8 @@ const index = (props) => {
 		</Sidedrawer>
 	);
 };
+const mapDispatchToProps = {
+	setAdmin: actions.setAdmin,
+};
 
-export default index;
+export default connect(null, mapDispatchToProps)(withRouter(Index));
