@@ -43,17 +43,17 @@ export const sagas = {
 			const industrite = yield axios.get(`/filters/?name=industrite`);
 
 			const vendbanimetOptions = vendbanimet?.data?.map((vendbanimi) => ({
-				value: vendbanimi.vendbanimiemri,
+				value: vendbanimi.vendbanimiid,
 				label: vendbanimi.vendbanimiemri,
 			}));
 
 			const komunaOptions = komunat?.data?.map((komuna) => ({
-				value: komuna.komunaemri,
+				value: komuna.komunaid,
 				label: komuna.komunaemri,
 			}));
 
 			const regjionetOptions = regjionet?.data?.map((regjioni) => ({
-				value: regjioni.regjioniemri,
+				value: regjioni.regjioniid,
 				label: regjioni.regjioniemri,
 			}));
 
