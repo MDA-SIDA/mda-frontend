@@ -89,7 +89,7 @@ function Filters({vendbanimet, komunat, regjionet, industrite, fetch}) {
 				placeholder="Vendbanimi"
 			/>
 			<div className="buttons">
-				<PrimaryButton name="Gjenero Statistikat" />
+				<PrimaryButton name="Gjenero" />
 				<CancelButton
 					name="Fshij"
 					onClick={() => {
