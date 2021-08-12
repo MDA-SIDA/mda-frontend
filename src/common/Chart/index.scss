@@ -1,8 +1,10 @@
 .chart_container {
   background-color: #f2f2f2;
-  border-radius: 12px;
+  border-radius: 10px;
   min-height: 200px;
+  height: min-content;
   width: 32%;
+  margin: 5px;
   canvas {
     height: 70% !important;
     width: 70% !important;
@@ -26,7 +28,36 @@
     font-size: 1.2rem;
   }
 }
-
+.no-data {
+  padding: 15px 20px;
+  border-radius: 8px;
+  display: flex;
+  justify-items: center;
+  width: 70%;
+  background-color: rgba(0, 82, 147, 0.07);
+  p {
+    display: flex;
+    align-items: center;
+    color: rgb(0, 82, 147);
+    font-size: 16px;
+  }
+  & img {
+    margin-left: 15px;
+    width: 20px;
+    height: 20px;
+  }
+}
 .gjinia {
   height: 90% !important;
+}
+
+@media screen and (max-width: 1279px) {
+  .chart_container {
+    width: 47%;
+  }
+}
+@media screen and (max-width: 767px) {
+  .chart_container {
+    width: 100%;
+  }
 }
