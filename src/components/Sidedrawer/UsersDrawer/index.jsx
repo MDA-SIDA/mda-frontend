@@ -23,16 +23,16 @@ const validationSchema = Yup.object().shape({
 
 });
 
-const initialValues = {
-	ID: "",
-	Email: "",
-	Name: "",
-    Role:"",
-	Date: ""
-};
+const initialValues = (current) =>  ({
+	ID: current?.ID ||  "",
+	Email: current?.Email ||  "",
+	Name: current?.Name || "",
+    Role: current?.Role || "",
+	Date: current?.Date || ""
+});
 
 const Index = (props) => {
-		const {handleRegister, isSubmitting } = props;
+		const {handleRegister, isSubmitting, edit } = props;
 		const [id, setId] = useState(1)
 
 
@@ -53,7 +53,6 @@ const submitHandler= (values,id,resetForm)=>{
 
 				
 
-		
 	return (
 		<Sidedrawer open={props.open} closed={props.closed}>
 			<div className={styles.container}>
@@ -67,16 +66,17 @@ const submitHandler= (values,id,resetForm)=>{
             
 				<Formik
 					enableReinitialize={true}
-					initialValues={initialValues}
+					initialValues={initialValues(edit)}
 					onSubmit={(values,{resetForm,setFieldValue}) =>submitHandler(values,id,resetForm ,setFieldValue)}
 					validationSchema={validationSchema}
 				>
-					{({errors, touched}) => (
+					{({values, errors, touched}) => (
 						<Form>
 							<div>
 								<Input
 									id="Email"
 									name="Email"
+									value={values?.Email}
 									error={errors.Email}
 									touched={touched.Email}
 									label="Email"
@@ -86,6 +86,7 @@ const submitHandler= (values,id,resetForm)=>{
 									id="Name"
 									name="Name"
 									type="Name"
+									value={values?.Name}
 									error={errors.Name}
 									touched={touched.Name}
 									label="Name"
@@ -94,6 +95,7 @@ const submitHandler= (values,id,resetForm)=>{
 									id="Role"
 									name="Role"
 									type="Role"
+									value={values?.Role}
 									error={errors.Role}
 									touched={touched.Role}
 									label="Role"
