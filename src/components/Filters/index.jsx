@@ -19,14 +19,27 @@ const disabledInitialState = {
 	regjionet: false,
 };
 
-function Filters({vendbanimet, komunat, regjionet, industrite, fetch, getFilters}) {
+function Filters({
+	vendbanimet,
+	komunat,
+	regjionet,
+	industrite,
+	getFilters,
+	fetchRegjionet,
+	fetchIndustrite,
+	fetchKomunat,
+	fetchVendbanimet,
+}) {
 	const [selectedFilters, setSelectedFilter] = useState(filtersInitialState);
 
 	const [isDisabled, setIsDisabled] = useState(disabledInitialState);
 
 	useEffect(() => {
-		fetch();
-	}, [fetch]);
+		fetchRegjionet();
+		fetchIndustrite();
+		fetchKomunat();
+		fetchVendbanimet();
+	}, [fetchRegjionet, fetchIndustrite, fetchKomunat, fetchVendbanimet]);
 
 	return (
 		<div className="fitlers_container">
@@ -106,7 +119,10 @@ function Filters({vendbanimet, komunat, regjionet, industrite, fetch, getFilters
 }
 
 const mapDispatchToProps = {
-	fetch: actions.fetch,
+	fetchIndustrite: actions.fetchIndustrite,
+	fetchRegjionet: actions.fetchRegjionet,
+	fetchKomunat: actions.fetchKomunat,
+	fetchVendbanimet: actions.fetchVendbanimet,
 };
 
 const mapStateToProps = (state) => ({
