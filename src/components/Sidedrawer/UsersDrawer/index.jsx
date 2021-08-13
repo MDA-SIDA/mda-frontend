@@ -36,11 +36,10 @@ const Index = (props) => {
     props
   const [id, setId] = useState(1)
 
-  console.log(mode)
-
+  
   const submitHandler = (values, id, resetForm) => {
-    setId(id + 1)
-
+	  setId(id + 1)
+	  
     const action = mode === 'create' ? setAdmin : editAdmin
 	props.closed()
     handleRegister(

@@ -1,17 +1,21 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {withRouter} from "react-router";
 import {connect} from "react-redux";
 import DataGrid from "@common/DataTable/index";
 import UsersDrawer from "@components/Sidedrawer/UsersDrawer/index";
+import {actions} from "@sagas/admins";
 import styles from "./index.module.scss";
 import Search from "../Search/index";
 import Add from "../SecondaryButton/index";
 
-const ManageUsers = ({admins}) => {
+const ManageUsers = ({admins, fetch}) => {
 	const [sideDrawerIsVisible, setSideDrawerIsVisible] = useState(false);
 	const [mode, setMode] = useState("create");
 	const [user, setUser] = useState(null);
-	// eslint-disable-next-line no-console
+
+	useEffect(() => {
+		fetch();
+	}, [fetch]);
 
 	const sideDrawerCloseHandler = () => {
 		setSideDrawerIsVisible(false);
@@ -73,4 +77,8 @@ const mapStateToProps = (state) => ({
 	admins: state.app.admins.index.admins.map((o) => ({...o, tableData: {}})).reverse(),
 });
 
-export default connect(mapStateToProps, null)(withRouter(ManageUsers));
+const mapDispatchToProps = {
+	fetch: actions.fetchSuccess,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ManageUsers));
