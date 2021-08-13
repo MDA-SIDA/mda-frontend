@@ -4,15 +4,18 @@ import {connect} from "react-redux";
 import "./index.scss";
 import excl from "../../assets/img/exclamation.svg";
 import UP from "./UP";
+import ATK from "./ATK";
 
 const Graphs = ({filters}) => {
 	const [isUp, setIsUp] = useState(false);
+	const [isAtk, setIsAtk] = useState(false);
 	const [isEmpty, setIsEmpty] = useState(false);
 	useEffect(() => {
 		if (!filters?.industria) {
 			setIsEmpty(true);
 		} else setIsEmpty(false);
 		if (filters?.industria?.value === "UP") setIsUp(true);
+		if (filters?.industria?.value === "ATK") setIsAtk(true);
 	}, [filters]);
 	return (
 		<div className="content_graphs">
@@ -28,6 +31,7 @@ const Graphs = ({filters}) => {
 					</div>
 				)}
 				{isUp && <UP />}
+				{isAtk && <ATK />}
 			</div>
 		</div>
 	);

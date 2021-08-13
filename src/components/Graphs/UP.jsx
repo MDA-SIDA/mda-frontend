@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import {connect} from "react-redux";
 import "./index.scss";
 import Chart from "@common/Chart";
-import {actions} from "@sagas/industries";
+import {actions} from "@sagas/industries/up";
 
 const UP = ({
 	fetchDiplomuarBrendaVitit,
@@ -175,11 +175,10 @@ const mapDispatchToProps = {
 };
 
 const mapStateToProps = (state) => ({
-	// UP
-	diplomuarBrendaVitit: state.app.industries.index.diplomuarBrendaVitit,
-	meshkujFemra: state.app.industries.index.meshkujFemra,
-	shtetesia: state.app.industries.index.shtetesia,
-	fakultetetBrendaKomunave: state.app.industries.index.fakultetetBrendaKomunave,
+	diplomuarBrendaVitit: state.app.industries.up.diplomuarBrendaVitit,
+	meshkujFemra: state.app.industries.up.meshkujFemra,
+	shtetesia: state.app.industries.up.shtetesia,
+	fakultetetBrendaKomunave: state.app.industries.up.fakultetetBrendaKomunave,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UP);
