@@ -13,7 +13,6 @@ const UP = ({
 	diplomuarBrendaVitit,
 	meshkujFemra,
 	shtetesia,
-	fakultetetBrendaKomunave,
 }) => {
 	useEffect(() => {
 		fetchFakultetetBrendaKomunave(filters);
