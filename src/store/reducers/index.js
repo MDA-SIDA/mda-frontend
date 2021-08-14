@@ -4,6 +4,7 @@ import up from "@sagas/industries/up";
 import atk from "@sagas/industries/atk";
 import arbk from "@sagas/industries/arbk";
 import mapl from "@sagas/industries/mapl";
+import akk from "@sagas/industries/akk";
 import {connectRouter} from "connected-react-router";
 import {combineReducers} from "redux";
 
@@ -21,6 +22,7 @@ export default function createReducer(injectedReducers, history) {
 				atk,
 				arbk,
 				mapl,
+				akk,
 			}),
 		}),
 		...injectedReducers,
