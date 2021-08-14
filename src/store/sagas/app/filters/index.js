@@ -60,7 +60,7 @@ export const actions = {
 export const sagas = {
 	*fetchIndustrite() {
 		try {
-			const industrite = yield axios.get(`/filters/?name=industrite`);
+			const industrite = yield axios.get(`/filters/?name=Industrite`);
 
 			const indistriteOptions = industrite?.data?.map((industria) => ({
 				value: industria.industriaEmri,
