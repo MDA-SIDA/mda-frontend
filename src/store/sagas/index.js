@@ -7,7 +7,8 @@ import {watcher as atk} from "@sagas/industries/atk";
 import {watcher as arbk} from "@sagas/industries/arbk";
 import {watcher as mapl} from "@sagas/industries/mapl";
 import {watcher as akk} from "@sagas/industries/akk";
+import {watcher as auv} from "@sagas/industries/auv";
 
 export default function* root() {
-	yield all([filters(), login(), navigation(), up(), atk(), arbk(), mapl(), akk()]);
+	yield all([filters(), login(), navigation(), up(), atk(), arbk(), mapl(), akk(), auv()]);
 }
