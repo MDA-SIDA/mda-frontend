@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 // import Logger from "@utils/logger";
 import produce from "immer";
 import {takeLatest, put} from "redux-saga/effects";
@@ -9,6 +10,7 @@ export const FETCH_SUCCESS = `${PREFIX}FETCH_SUCCESS`;
 export const SET_ADMIN = `${PREFIX}SET_ADMIN`;
 export const EDIT_ADMIN = `${PREFIX}EDIT_ADMIN`;
 export const EDIT_ADMIN_SUCCESS = `${PREFIX}EDIT_ADMIN_SUCCESS`;
+export const DELETE_ADMIN = `${PREFIX}DELETE_ADMIN`;
 
 // const logger = new Logger("Saga>Header>Index");
 const _state = {
@@ -24,15 +26,21 @@ const reducer = (state = _state, action) =>
 			case SET_ADMIN:
 				draft.admins = [...state.admins, action.payload];
 				break;
-			case EDIT_ADMIN_SUCCESS:
-				const updatedAdmins = state.data.map((item) => {
-					if (item.id === action.payload.id) {
+			case EDIT_ADMIN:
+				// eslint-disable-next-line no-console
+
+				const updatedAdmins = state.admins.map((item) => {
+					if (item.ID === action.payload.ID) {
 						item = {...action.payload};
 					}
 					return item;
 				});
 
 				draft.admins = updatedAdmins;
+				break;
+			case DELETE_ADMIN:
+				const adminsDeleted = state.admins.filter((item) => item.ID !== action.payload.ID);
+				draft.admins = adminsDeleted;
 				break;
 			default:
 				return state;
@@ -45,6 +53,7 @@ export const actions = {
 	fetchSuccess: (payload) => createAction(FETCH_SUCCESS, {payload}),
 	editAdmin: (payload) => createAction(EDIT_ADMIN, {payload}),
 	editAdminSuccess: (payload) => createAction(EDIT_ADMIN_SUCCESS, {payload}),
+	deleteAdmin: (payload) => createAction(DELETE_ADMIN, {payload}),
 };
 
 export const sagas = {

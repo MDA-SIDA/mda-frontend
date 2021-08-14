@@ -1,55 +1,74 @@
+/* eslint-disable no-console */
 import React, {useState} from "react";
 import {withRouter} from "react-router";
 import {connect} from "react-redux";
+import ProfileDrawer from "@components/Sidedrawer/ProfileDrawer";
+import {actions} from "@sagas/profile";
 import styles from "./index.module.scss";
-import profile from "../../assets/img/picture.png";
+import profileAvatar from "../../assets/img/picture.png";
 import EditButton from "../SecondaryButton/index";
-import Sidedrawer from "../Sidedrawer";
-import Backdrop from "../Backdrop/index";
 
 const Profile = (props) => {
+	const {profile} = props;
 	const [sideDrawerIsVisible, setSideDrawerIsVisible] = useState(false);
 
 	const sideDrawerCloseHandler = () => {
 		setSideDrawerIsVisible(false);
 	};
+	const sideDrawerToggleHandler = () => {
+		setSideDrawerIsVisible(!sideDrawerIsVisible);
+	};
+
 	return (
 		<div className={styles.container}>
 			<h1>Profili</h1>
 			<div className={styles.container__profile}>
-				<img src={profile}></img>
+				<img src={profileAvatar} alt=""></img>
 				<div className={styles.container__profile__card}>
 					<div className={styles.container__profile__card__input}>
 						<p className={styles.label}>Name</p>
-						<p className={styles.name}>Driton Dalipi</p>
+						<p className={styles.name}>{profile.name}</p>
 					</div>
 
 					<div className={styles.container__profile__card__input}>
 						<p className={styles.label}>Username</p>
-						<p className={styles.name}>dritondalipi</p>
+						<p className={styles.name}>{profile.username}</p>
 					</div>
 
 					<div className={styles.container__profile__card__input}>
 						<p className={styles.label}>E-mail</p>
-						<p className={styles.name}>dritondalipi@mda.al</p>
+						<p className={styles.name}>{profile.email}</p>
 					</div>
 
 					<div className={styles.container__profile__card__input}>
 						<p className={styles.label}>Password</p>
-						<p className={styles.name}>******</p>
+						<p className={styles.name}>*******</p>
 					</div>
 
 					<div className={styles.container__profile__card__input}>
 						<p className={styles.label}>Role</p>
-						<p className={styles.name}>Superadmin</p>
+						<p className={styles.name}>{profile.role}</p>
 					</div>
 				</div>
-				<EditButton name="Edit" click={props.drawerHandler} showDrawer />
+				<EditButton name="Edit" drawerHandler={sideDrawerToggleHandler} />
 			</div>
-			<Sidedrawer open={sideDrawerIsVisible} close={sideDrawerCloseHandler} />
-			<Backdrop />
+			<ProfileDrawer
+				open={sideDrawerIsVisible}
+				closed={() => {
+					sideDrawerCloseHandler();
+				}}
+				profile={profile}
+			/>
 		</div>
 	);
 };
 
-export default connect(null, null)(withRouter(Profile));
+const mapStateToProps = (state) => ({
+	profile: state.app.profile.index.profile,
+});
+
+const mapDispatchToProps = {
+	fetch: actions.fetchSuccess,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Profile));

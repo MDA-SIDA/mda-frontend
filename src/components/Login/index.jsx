@@ -13,8 +13,8 @@ import logo from "../../assets/img/svg/logoLogin.svg";
 const validationSchema = Yup.object().shape({
 	email: Yup.string().email("Invalid email.").required("Email is required!"),
 	password: Yup.string()
-		// TODO: change 4 to 8
-		.min(4, "Password must be at least 8 characters long.")
+
+		.min(8, "Password must be at least 8 characters long.")
 		.required("Password is required!"),
 });
 
