@@ -14,7 +14,6 @@ const Chart = ({type = "line", data, options, title, value, showYears, className
 			type={type}
 			data={data}
 			className={className}
-			responsive={true}
 			options={{
 				maintainAspectRatio: false,
 				responsive: true,
