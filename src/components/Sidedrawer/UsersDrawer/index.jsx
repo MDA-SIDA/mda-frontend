@@ -12,23 +12,23 @@ import styles from "./index.module.scss";
 import Sidedrawer from "..";
 
 const validationSchema = Yup.object().shape({
-	Email: Yup.string().email("Invalid email.").required("Email is required!"),
-	Name: Yup.string()
+	email: Yup.string().email("Invalid email.").required("Email is required!"),
+	name: Yup.string()
 		.max(30, "Name is too long")
 		.min(2, "Name is too short")
 		.required("Name is required!"),
-	Role: Yup.string()
+	role: Yup.string()
 		.max(30, "Role is too long")
 		.min(2, "Role is too short")
 		.required("Role is required!"),
 });
 
 const initialValues = (current) => ({
-	ID: current?.ID || "",
-	Email: current?.Email || "",
-	Name: current?.Name || "",
-	Role: current?.Role || "",
-	Date: current?.Date || "",
+	id: current?.id || "",
+	email: current?.email || "",
+	name: current?.name || "",
+	role: current?.role || "",
+	date: current?.date || "",
 });
 
 const Index = (props) => {
@@ -42,11 +42,11 @@ const Index = (props) => {
 		props.closed();
 		setId(id + 1);
 		action({
-			ID: mode === "create" ? id : user.ID,
-			Email: values.Email,
-			Name: values.Name,
-			Role: values.Role,
-			Date: moment().format("DD-MM-YYYY"),
+			id: mode === "create" ? id : user.id,
+			email: values.email,
+			name: values.name,
+			role: values.role,
+			date: moment().format("DD-MM-YYYY"),
 		});
 	};
 
@@ -78,29 +78,29 @@ const Index = (props) => {
 						<Form>
 							<div>
 								<Input
-									id="Email"
-									name="Email"
-									value={values?.Email}
-									error={errors.Email}
-									touched={touched.Email}
+									id="email"
+									name="email"
+									value={values?.email}
+									error={errors.email}
+									touched={touched.email}
 									label="Email"
 								/>
 								<Input
-									id="Name"
-									name="Name"
-									type="Name"
-									value={values?.Name}
-									error={errors.Name}
-									touched={touched.Name}
+									id="name"
+									name="name"
+									type="name"
+									value={values?.name}
+									error={errors.name}
+									touched={touched.name}
 									label="Name"
 								/>
 								<Input
-									id="Role"
-									name="Role"
-									type="Role"
-									value={values?.Role}
-									error={errors.Role}
-									touched={touched.Role}
+									id="role"
+									name="role"
+									type="role"
+									value={values?.role}
+									error={errors.role}
+									touched={touched.role}
 									label="Role"
 								/>
 								<Button

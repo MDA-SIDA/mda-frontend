@@ -15,7 +15,7 @@ const ManageUsers = ({admins, fetch}) => {
 
 	useEffect(() => {
 		fetch();
-	}, [fetch]);
+	}, []);
 
 	const sideDrawerCloseHandler = () => {
 		setSideDrawerIsVisible(false);
@@ -26,11 +26,11 @@ const ManageUsers = ({admins, fetch}) => {
 
 	const columns = [
 		// {title: "Admin", field: "Admin"},
-		{title: "ID", field: "ID", type: "numeric"},
-		{title: "Name", field: "Name"},
-		{title: "Email", field: "Email"},
-		{title: "Role", field: "Role"},
-		{title: "Date Joined", field: "Date", type: "date"},
+		{title: "ID", field: "id", type: "numeric"},
+		{title: "Name", field: "name"},
+		{title: "Email", field: "email"},
+		{title: "Role", field: "role"},
+		{title: "Date Joined", field: "date", type: "date"},
 	];
 
 	const editAdmin = (rowData) => {
@@ -78,7 +78,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-	fetch: actions.fetchSuccess,
+	fetch: actions.fetch,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ManageUsers));
