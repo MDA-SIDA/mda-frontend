@@ -1,11 +1,20 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {connect} from "react-redux";
+import {actions} from "@sagas/industries/akk";
 
-function AKK() {
-	return <div></div>;
+function AKK({fetchNrNdertesave, nrNdertesave}) {
+	useEffect(() => {
+		fetchNrNdertesave();
+	}, [fetchNrNdertesave]);
+
+	return <div>{/* Graphs here */}</div>;
 }
 
-const mapDispatchToProps = {};
-const mapStateToProps = () => ({});
+const mapDispatchToProps = {
+	fetchNrNdertesave: actions.fetchNrNdertesave,
+};
+const mapStateToProps = (state) => ({
+	nrNdertesave: state.app.industries.akk.nrNdertesave,
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(AKK);

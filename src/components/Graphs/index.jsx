@@ -5,6 +5,7 @@ import "./index.scss";
 import excl from "../../assets/img/exclamation.svg";
 import UP from "./UP";
 import ATK from "./ATK";
+import AKK from "./AKK";
 
 const Graphs = ({filters}) => {
 	const [isUp, setIsUp] = useState(false);
@@ -17,6 +18,7 @@ const Graphs = ({filters}) => {
 		if (filters?.industria?.value === "UP") setIsUp(true);
 		if (filters?.industria?.value === "ATK") setIsAtk(true);
 	}, [filters]);
+
 	return (
 		<div className="content_graphs">
 			<div className="content_graphs_graph">
@@ -32,6 +34,7 @@ const Graphs = ({filters}) => {
 				)}
 				{isUp && <UP />}
 				{isAtk && <ATK />}
+				<AKK />
 			</div>
 		</div>
 	);
