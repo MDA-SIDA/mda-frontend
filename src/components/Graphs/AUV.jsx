@@ -1,7 +1,11 @@
 import React from "react";
+import {connect} from "react-redux";
 
 function AUV() {
 	return <div></div>;
 }
 
-export default AUV;
+const mapDispatchToProps = {};
+const mapStateToProps = () => ({});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AUV);

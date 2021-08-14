@@ -1,7 +1,11 @@
 import React from "react";
+import {connect} from "react-redux";
 
 function MASHT() {
 	return <div></div>;
 }
 
-export default MASHT;
+const mapDispatchToProps = {};
+const mapStateToProps = () => ({});
+
+export default connect(mapStateToProps, mapDispatchToProps)(MASHT);

@@ -1,7 +1,11 @@
 import React from "react";
+import {connect} from "react-redux";
 
 function MAPL() {
 	return <div></div>;
 }
 
-export default MAPL;
+const mapDispatchToProps = {};
+const mapStateToProps = () => ({});
+
+export default connect(mapStateToProps, mapDispatchToProps)(MAPL);
