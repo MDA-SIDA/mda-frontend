@@ -14,6 +14,7 @@ function MASHT({
 		fetchGjiniaEntiteti(filters);
 		fetchNrNxenesveShkolla(filters);
 	}, [fetchGjiniaEntiteti, fetchNrNxenesveShkolla, filters]);
+
 	return (
 		<>
 			<Chart

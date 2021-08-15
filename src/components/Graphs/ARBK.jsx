@@ -39,7 +39,7 @@ function ARBK({
 		filters,
 	]);
 
-	console.log(nrBizneseveKomuna, "hh");
+	console.log(llojiBiznesit, "hh");
 	return (
 		<>
 			<Chart
@@ -101,7 +101,6 @@ function ARBK({
 					labels: nrBizneseveKomuna?.map((item) => item.viti),
 					datasets: [
 						{
-							label: "Numri i punetoreve",
 							data: nrBizneseveKomuna?.map((item) => item.counter),
 							backgroundColor: "red",
 						},
@@ -160,7 +159,159 @@ function ARBK({
 				options={{
 					plugins: {
 						legend: {
+							display: true,
+						},
+					},
+					scales: {
+						x: {
+							ticks: {
+								color: "#7C9CBF",
+								padding: 30,
+								fontSize: 14,
+							},
+							grid: {
+								display: false,
+							},
+						},
+						y: {
+							min: 10,
+							// max: 200,
+							grid: {
+								display: true,
+							},
+							ticks: {
+								stepSize: 50,
+								color: "#7C9CBF",
+								padding: 30,
+								fontSize: 11,
+								fontFamily: "Montserrat Medium",
+							},
+						},
+					},
+				}}
+			/>
+			<Chart
+				title="Llojet e bizneseve per komune"
+				type="bar"
+				data={{
+					label: "Vitet",
+					labels: llojiBiznesitKomuna?.map((item) => item.komunaemri),
+					datasets: [
+						{
+							label: "Numri i bizneseve",
+							data: llojiBiznesitKomuna?.map((item) => item.counter),
+							backgroundColor: "#00517D",
+						},
+					],
+				}}
+				options={{
+					plugins: {
+						legend: {
 							display: false,
+						},
+					},
+					scales: {
+						x: {
+							ticks: {
+								color: "#7C9CBF",
+								padding: 30,
+								fontSize: 14,
+							},
+							grid: {
+								display: false,
+							},
+						},
+						y: {
+							min: 10,
+							// max: 200,
+							grid: {
+								display: true,
+							},
+							ticks: {
+								stepSize: 50,
+								color: "#7C9CBF",
+								padding: 30,
+								fontSize: 11,
+								fontFamily: "Montserrat Medium",
+							},
+						},
+					},
+				}}
+			/>
+			<Chart
+				title="Sektore Bujqesi"
+				type="bar"
+				data={{
+					labels: sektoreBujqesi?.map((item) => item.sektori),
+					datasets: [
+						{
+							label: "Numri i punetoreve",
+							data: sektoreBujqesi?.map((item) => item.nrpunetoreve),
+							backgroundColor: "#00517D",
+						},
+						{
+							label: "Pageviews",
+							data: sektoreBujqesi?.map((item) => item.madhesia),
+							backgroundColor: "#000",
+						},
+					],
+				}}
+				options={{
+					plugins: {
+						legend: {
+							display: false,
+						},
+					},
+					scales: {
+						x: {
+							ticks: {
+								color: "#7C9CBF",
+								padding: 30,
+								fontSize: 14,
+							},
+							grid: {
+								display: false,
+							},
+						},
+						y: {
+							min: 10,
+							// max: 200,
+							grid: {
+								display: true,
+							},
+							ticks: {
+								stepSize: 50,
+								color: "#7C9CBF",
+								padding: 30,
+								fontSize: 11,
+								fontFamily: "Montserrat Medium",
+							},
+						},
+					},
+				}}
+			/>
+			<Chart
+				title="Statusi i biznesit"
+				type="bar"
+				data={{
+					labels: statusiBizneseve?.map((item) => item.komunaemri),
+					datasets: [
+						{
+							label: "Aktiv",
+							data: statusiBizneseve?.map((item) => item.countaktiv),
+							backgroundColor: "#00517D",
+						},
+						{
+							label: "Joaktiv",
+							data: statusiBizneseve?.map((item) => item.countjoaktiv),
+							backgroundColor: "#DDB40A",
+						},
+					],
+				}}
+				options={{
+					plugins: {
+						legend: {
+							display: true,
 						},
 					},
 					scales: {
