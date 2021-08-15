@@ -82,7 +82,7 @@ const styles = {
 	valueContainer: (base) => ({
 		...base,
 		fontSize: 15,
-		height: 30,
+		height: 'auto',
 		maxHeight: 50,
 		overflowY: "scroll",
 		"::-webkit-scrollbar": {
