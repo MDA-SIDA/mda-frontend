@@ -44,7 +44,7 @@ function ARBK({
 				title="Sektore Bujqesi"
 				type="bar"
 				data={{
-					labels: sektoreBujqesi?.map((item) => item.sektori),
+					labels: sektoreBujqesi?.map((item) => item.sektori?.substring(0, 10)),
 					datasets: [
 						{
 							label: "Numri i punetoreve",
@@ -236,58 +236,7 @@ function ARBK({
 					},
 				}}
 			/>
-			<Chart
-				title="Sektore Bujqesi"
-				type="bar"
-				data={{
-					labels: sektoreBujqesi?.map((item) => item.sektori),
-					datasets: [
-						{
-							label: "Numri i punetoreve",
-							data: sektoreBujqesi?.map((item) => item.nrpunetoreve),
-							backgroundColor: "#00517D",
-						},
-						{
-							label: "Madheesia",
-							data: sektoreBujqesi?.map((item) => item.madhesia),
-							backgroundColor: "#DDB40A",
-						},
-					],
-				}}
-				options={{
-					plugins: {
-						legend: {
-							display: false,
-						},
-					},
-					scales: {
-						x: {
-							ticks: {
-								color: "#7C9CBF",
-								padding: 30,
-								fontSize: 14,
-							},
-							grid: {
-								display: false,
-							},
-						},
-						y: {
-							min: 10,
-							// max: 200,
-							grid: {
-								display: true,
-							},
-							ticks: {
-								stepSize: 50,
-								color: "#7C9CBF",
-								padding: 30,
-								fontSize: 11,
-								fontFamily: "Montserrat Medium",
-							},
-						},
-					},
-				}}
-			/>
+
 			<Chart
 				title="Statusi i biznesit"
 				type="bar"
