@@ -9,6 +9,7 @@ import AKK from "./AKK";
 import ARBK from "./ARBK";
 import AUV from "./AUV";
 import MAPL from "./MAPL";
+import MASHT from "./MASHT";
 
 const Graphs = ({filters}) => {
 	const [isUp, setIsUp] = useState(false);
@@ -41,6 +42,7 @@ const Graphs = ({filters}) => {
 				<ARBK />
 				<AUV />
 				<MAPL />
+				<MASHT />
 			</div>
 		</div>
 	);
