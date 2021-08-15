@@ -98,11 +98,11 @@ function ARBK({
 				title="Nr i bizneseve ne komuna"
 				type="line"
 				data={{
-					labels: nrBizneseveKomuna?.map((item) => item.counter),
+					labels: nrBizneseveKomuna?.map((item) => item.viti),
 					datasets: [
 						{
 							label: "Numri i punetoreve",
-							data: nrBizneseveKomuna?.map((item) => item.viti),
+							data: nrBizneseveKomuna?.map((item) => item.counter),
 							backgroundColor: "red",
 						},
 						{
@@ -130,8 +130,6 @@ function ARBK({
 							},
 						},
 						y: {
-							min: 10,
-							// max: 200,
 							grid: {
 								display: true,
 							},
