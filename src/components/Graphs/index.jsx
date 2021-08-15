@@ -37,13 +37,13 @@ const Graphs = ({filters}) => {
 						</p>
 					</div>
 				)}
-				{showGraph.up && <UP filters={filters} />}
-				{showGraph.atk && <ATK filters={filters} />}
-				{showGraph.akk && <AKK filters={filters} />}
-				{showGraph.arbk && <ARBK filters={filters} />}
-				{showGraph.auv && <AUV filters={filters} />}
-				{showGraph.mapl && <MAPL filters={filters} />}
-				{showGraph.masht && <MASHT filters={filters} />}
+				{showGraph.UP && <UP filters={filters} />}
+				{showGraph.ATK && <ATK filters={filters} />}
+				{showGraph.AKK && <AKK filters={filters} />}
+				{showGraph.ARBK && <ARBK filters={filters} />}
+				{showGraph.AUV && <AUV filters={filters} />}
+				{showGraph.MAPL && <MAPL filters={filters} />}
+				{showGraph.MASHT && <MASHT filters={filters} />}
 			</div>
 		</div>
 	);
