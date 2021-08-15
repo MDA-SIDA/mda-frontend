@@ -7,6 +7,7 @@ import UP from "./UP";
 import ATK from "./ATK";
 import AKK from "./AKK";
 import ARBK from "./ARBK";
+import AUV from "./AUV";
 
 const Graphs = ({filters}) => {
 	const [isUp, setIsUp] = useState(false);
@@ -37,6 +38,7 @@ const Graphs = ({filters}) => {
 				{isAtk && <ATK />}
 				<AKK />
 				<ARBK />
+				<AUV />
 			</div>
 		</div>
 	);
