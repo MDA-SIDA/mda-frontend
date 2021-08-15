@@ -45,7 +45,10 @@ function Filters({
 		<div className="fitlers_container">
 			<Select
 				value={selectedFilters?.industria}
-				options={industrite}
+				options={industrite?.map((industria) => ({
+					value: industria.industriaEmri,
+					label: industria.industriaEmri,
+				}))}
 				isSearchable
 				isMulti={false}
 				closeMenuOnSelect={false}
@@ -55,7 +58,10 @@ function Filters({
 			/>
 			<Select
 				value={selectedFilters?.regjionet}
-				options={regjionet}
+				options={regjionet?.map((regjioni) => ({
+					value: regjioni.regjioniid,
+					label: regjioni.regjioniemri,
+				}))}
 				isSearchable
 				isMulti
 				isDisabled={isDisabled.regjionet}
@@ -71,7 +77,10 @@ function Filters({
 			/>
 			<Select
 				value={selectedFilters?.komunat}
-				options={komunat}
+				options={komunat?.map((komuna) => ({
+					value: komuna.komunaid,
+					label: komuna.komunaemri,
+				}))}
 				isSearchable
 				isDisabled={isDisabled.komunat}
 				isMulti
@@ -87,7 +96,10 @@ function Filters({
 			/>
 			<Select
 				value={selectedFilters?.vendbanimet}
-				options={vendbanimet}
+				options={vendbanimet?.map((vendbanimi) => ({
+					value: vendbanimi.vendbanimiid,
+					label: vendbanimi.vendbanimiemri,
+				}))}
 				isSearchable
 				isMulti
 				isDisabled={isDisabled.vendbanimet}

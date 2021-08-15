@@ -62,12 +62,7 @@ export const sagas = {
 		try {
 			const industrite = yield axios.get(`/filters/?name=Industrite`);
 
-			const indistriteOptions = industrite?.data?.map((industria) => ({
-				value: industria.industriaEmri,
-				label: industria.industriaEmri,
-			}));
-
-			yield put(actions.fetchIndustriteSuccess(indistriteOptions));
+			yield put(actions.fetchIndustriteSuccess(industrite?.data));
 		} catch (error) {
 			logger.error(error);
 		}
@@ -76,12 +71,7 @@ export const sagas = {
 		try {
 			const regjionet = yield axios.get(`/filters/?name=regjioni`);
 
-			const regjionetOptions = regjionet?.data?.map((regjioni) => ({
-				value: regjioni.regjioniid,
-				label: regjioni.regjioniemri,
-			}));
-
-			yield put(actions.fetchRegjionetSuccess(regjionetOptions));
+			yield put(actions.fetchRegjionetSuccess(regjionet?.data));
 		} catch (error) {
 			logger.error(error);
 		}
@@ -90,12 +80,7 @@ export const sagas = {
 		try {
 			const komunat = yield axios.get(`/filters/?name=komuna`);
 
-			const komunaOptions = komunat?.data?.map((komuna) => ({
-				value: komuna.komunaid,
-				label: komuna.komunaemri,
-			}));
-
-			yield put(actions.fetchKomunatSuccess(komunaOptions));
+			yield put(actions.fetchKomunatSuccess(komunat?.data));
 		} catch (error) {
 			logger.error(error);
 		}
@@ -104,12 +89,7 @@ export const sagas = {
 		try {
 			const vendbanimet = yield axios.get(`/filters/?name=vendbanimi`);
 
-			const vendbanimetOptions = vendbanimet?.data?.map((vendbanimi) => ({
-				value: vendbanimi.vendbanimiid,
-				label: vendbanimi.vendbanimiemri,
-			}));
-
-			yield put(actions.fetchVendbanimetSuccess(vendbanimetOptions));
+			yield put(actions.fetchVendbanimetSuccess(vendbanimet?.data));
 		} catch (error) {
 			logger.error(error);
 		}
