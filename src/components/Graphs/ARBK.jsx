@@ -38,8 +38,6 @@ function ARBK({
 		fetchSektoreBujqesi,
 		filters,
 	]);
-
-	console.log(llojiBiznesit, "hh");
 	return (
 		<>
 			<Chart
@@ -54,16 +52,16 @@ function ARBK({
 							backgroundColor: "#00517D",
 						},
 						{
-							label: "Pageviews",
+							label: "Madhesia",
 							data: sektoreBujqesi?.map((item) => item.madhesia),
-							backgroundColor: "#000",
+							backgroundColor: "#DDB40A",
 						},
 					],
 				}}
 				options={{
 					plugins: {
 						legend: {
-							display: false,
+							display: true,
 						},
 					},
 					scales: {
@@ -84,7 +82,7 @@ function ARBK({
 								display: true,
 							},
 							ticks: {
-								stepSize: 50,
+								stepSize: 1000,
 								color: "#7C9CBF",
 								padding: 30,
 								fontSize: 11,
@@ -250,9 +248,9 @@ function ARBK({
 							backgroundColor: "#00517D",
 						},
 						{
-							label: "Pageviews",
+							label: "Madheesia",
 							data: sektoreBujqesi?.map((item) => item.madhesia),
-							backgroundColor: "#000",
+							backgroundColor: "#DDB40A",
 						},
 					],
 				}}

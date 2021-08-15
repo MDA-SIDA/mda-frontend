@@ -6,8 +6,8 @@
   width: 48.5%;
   margin: 5px;
   canvas {
-    height: 70% !important;
-    width: 70% !important;
+    height: 400px !important;
+    width: 100% !important;
   }
 }
 
@@ -56,7 +56,7 @@
     width: 47%;
   }
 }
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 1024px) {
   .chart_container {
     width: 100%;
   }
