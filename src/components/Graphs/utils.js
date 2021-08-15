@@ -20,4 +20,13 @@ const showGraphInitialState = {
 	DOGANA: false,
 };
 
-export {setIndustry, showGraphInitialState};
+const groupBy = (items, key) =>
+	items?.reduce(
+		(result, item) => ({
+			...result,
+			[item[key]]: [...(result[item[key]] || []), item],
+		}),
+		{},
+	);
+
+export {setIndustry, showGraphInitialState, groupBy};
