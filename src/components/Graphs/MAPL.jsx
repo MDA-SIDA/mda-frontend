@@ -7,11 +7,12 @@ function MAPL({
 	fetchAktivitetiTreguesit,
 	aktivitetiKomunes,
 	aktivitetiTreguesit,
+	filters,
 }) {
 	useEffect(() => {
-		fetchAktivitetiKomunes();
-		fetchAktivitetiTreguesit();
-	}, [fetchAktivitetiKomunes, fetchAktivitetiTreguesit]);
+		fetchAktivitetiKomunes(filters);
+		fetchAktivitetiTreguesit(filters);
+	}, [fetchAktivitetiKomunes, fetchAktivitetiTreguesit, filters]);
 	return <div></div>;
 }
 

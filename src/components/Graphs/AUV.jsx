@@ -2,10 +2,10 @@ import React, {useEffect} from "react";
 import {connect} from "react-redux";
 import {actions} from "@sagas/industries/auv";
 
-function AUV({fetchNrFermaveKomuna, nrFermaveNeKomuna}) {
+function AUV({fetchNrFermaveKomuna, nrFermaveNeKomuna, filters}) {
 	useEffect(() => {
-		fetchNrFermaveKomuna();
-	}, [fetchNrFermaveKomuna]);
+		fetchNrFermaveKomuna(filters);
+	}, [fetchNrFermaveKomuna, filters]);
 	return <div></div>;
 }
 

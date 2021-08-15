@@ -8,11 +8,12 @@ function ATK({
 	fetchLlojiKompaniseMesatarjaPuntoreve,
 	llojiKompaniseMesatarjaPuntoreve,
 	sektoreAktivitetet,
+	filters,
 }) {
 	useEffect(() => {
-		fetchSektoreAktivitetet();
-		fetchLlojiKompaniseMesatarjaPuntoreve();
-	}, [fetchSektoreAktivitetet, fetchLlojiKompaniseMesatarjaPuntoreve]);
+		fetchSektoreAktivitetet(filters);
+		fetchLlojiKompaniseMesatarjaPuntoreve(filters);
+	}, [fetchSektoreAktivitetet, fetchLlojiKompaniseMesatarjaPuntoreve, filters]);
 	return (
 		<>
 			{/* TODO: set proper values to graph */}

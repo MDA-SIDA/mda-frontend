@@ -36,13 +36,13 @@ const Graphs = ({filters}) => {
 						</p>
 					</div>
 				)}
-				{isUp && <UP />}
-				{isAtk && <ATK />}
-				<AKK />
-				<ARBK />
-				<AUV />
-				<MAPL />
-				<MASHT />
+				{isUp && <UP filters={filters} />}
+				{isAtk && <ATK filters={filters} />}
+				<AKK filters={filters} />
+				<ARBK filters={filters} />
+				<AUV filters={filters} />
+				<MAPL filters={filters} />
+				<MASHT filters={filters} />
 			</div>
 		</div>
 	);

@@ -2,11 +2,17 @@ import React, {useEffect} from "react";
 import {connect} from "react-redux";
 import {actions} from "@sagas/industries/masht";
 
-function MASHT({fetchGjiniaEntiteti, fetchNrNxenesveShkolla, gjiniaEntiteti, nrNxenesveShkolla}) {
+function MASHT({
+	fetchGjiniaEntiteti,
+	fetchNrNxenesveShkolla,
+	gjiniaEntiteti,
+	nrNxenesveShkolla,
+	filters,
+}) {
 	useEffect(() => {
-		fetchGjiniaEntiteti();
-		fetchNrNxenesveShkolla();
-	}, [fetchGjiniaEntiteti, fetchNrNxenesveShkolla]);
+		fetchGjiniaEntiteti(filters);
+		fetchNrNxenesveShkolla(filters);
+	}, [fetchGjiniaEntiteti, fetchNrNxenesveShkolla, filters]);
 	return <div></div>;
 }
 

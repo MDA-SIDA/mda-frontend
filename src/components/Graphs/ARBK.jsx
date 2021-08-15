@@ -17,15 +17,16 @@ function ARBK({
 	llojiBiznesitKomuna,
 	statusiBizneseve,
 	sektoreBujqesi,
+	filters,
 }) {
 	useEffect(() => {
-		fetchNrBizneseve();
-		fetchNrBizneseveKomuna();
-		fetchGjinia();
-		fetchLlojiBiznesit();
-		fetchLlojiBiznesitKomuna();
-		fetchStatusiBizneseve();
-		fetchSektoreBujqesi();
+		fetchNrBizneseve(filters);
+		fetchNrBizneseveKomuna(filters);
+		fetchGjinia(filters);
+		fetchLlojiBiznesit(filters);
+		fetchLlojiBiznesitKomuna(filters);
+		fetchStatusiBizneseve(filters);
+		fetchSektoreBujqesi(filters);
 	}, [
 		fetchNrBizneseve,
 		fetchNrBizneseveKomuna,
@@ -34,6 +35,7 @@ function ARBK({
 		fetchLlojiBiznesitKomuna,
 		fetchStatusiBizneseve,
 		fetchSektoreBujqesi,
+		filters,
 	]);
 	return <div></div>;
 }
