@@ -22,13 +22,61 @@ function ATK({
 				value={12092}
 				type="bar"
 				data={{
-					// labels: ["2016", "2017", "2018", "2019", "2020", "2021"],
 					labels: sektoreAktivitetet?.map((item) => item.sektori),
 					datasets: [
 						{
-							label: "Meshkuj",
-							// data: [50, 30, 100, 150, 10],
+							label: "Aktivitetet ne sektore",
 							data: sektoreAktivitetet?.map((item) => item.countaktiviteti),
+							backgroundColor: "#00517D",
+						},
+					],
+				}}
+				options={{
+					plugins: {
+						legend: {
+							display: true,
+						},
+					},
+					scales: {
+						x: {
+							ticks: {
+								color: "#7C9CBF",
+								padding: 30,
+								fontSize: 14,
+							},
+							grid: {
+								display: false,
+							},
+						},
+						y: {
+							min: 0,
+							grid: {
+								display: true,
+							},
+							ticks: {
+								min: 0,
+								stepSize: 20,
+								color: "#7C9CBF",
+								padding: 30,
+								fontSize: 10,
+								fontFamily: "Montserrat Medium",
+							},
+						},
+					},
+				}}
+			/>
+			<Chart
+				title="Nr. total i studenteve"
+				value={12092}
+				type="bar"
+				data={{
+					labels: llojiKompaniseMesatarjaPuntoreve?.map((item) => item.llojikompanis),
+					datasets: [
+						{
+							label: "Aktivitetet ne sektore",
+							data: llojiKompaniseMesatarjaPuntoreve?.map(
+								(item) => item.mesatarjapunetoreve,
+							),
 							backgroundColor: "#00517D",
 						},
 					],
