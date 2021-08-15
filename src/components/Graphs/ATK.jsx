@@ -3,11 +3,16 @@ import Chart from "@common/Chart";
 import {connect} from "react-redux";
 import {actions} from "@sagas/industries/atk";
 
-function ATK({fetchSektoreAktivitetet, sektoreAktivitetet}) {
+function ATK({
+	fetchSektoreAktivitetet,
+	fetchLlojiKompaniseMesatarjaPuntoreve,
+	llojiKompaniseMesatarjaPuntoreve,
+	sektoreAktivitetet,
+}) {
 	useEffect(() => {
 		fetchSektoreAktivitetet();
-	}, [fetchSektoreAktivitetet]);
-
+		fetchLlojiKompaniseMesatarjaPuntoreve();
+	}, [fetchSektoreAktivitetet, fetchLlojiKompaniseMesatarjaPuntoreve]);
 	return (
 		<>
 			{/* TODO: set proper values to graph */}
@@ -67,10 +72,12 @@ function ATK({fetchSektoreAktivitetet, sektoreAktivitetet}) {
 
 const mapDispatchToProps = {
 	fetchSektoreAktivitetet: actions.fetchSektoreAktivitetet,
+	fetchLlojiKompaniseMesatarjaPuntoreve: actions.fetchLlojiKompaniseMesatarjaPuntoreve,
 };
 
 const mapStateToProps = (state) => ({
 	sektoreAktivitetet: state.app.industries.atk.sektoreAktivitetet,
+	llojiKompaniseMesatarjaPuntoreve: state.app.industries.atk.llojiKompaniseMesatarjaPuntoreve,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ATK);
