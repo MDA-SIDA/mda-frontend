@@ -112,7 +112,7 @@ export const sagas = {
 				`/industries/?${komunaQuery}${vendbanimiQuery}${regjioniQuery}&type=nrBizneseveKomuna`,
 			);
 
-			yield put(actions.fetchNrBizneseveKomunaSuccesss(response?.data));
+			yield put(actions.fetchNrBizneseveKomunaSuccess(response?.data));
 		} catch (error) {
 			logger.error(error);
 		}

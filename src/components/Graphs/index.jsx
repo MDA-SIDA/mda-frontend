@@ -6,6 +6,7 @@ import excl from "../../assets/img/exclamation.svg";
 import UP from "./UP";
 import ATK from "./ATK";
 import AKK from "./AKK";
+import ARBK from "./ARBK";
 
 const Graphs = ({filters}) => {
 	const [isUp, setIsUp] = useState(false);
@@ -35,6 +36,7 @@ const Graphs = ({filters}) => {
 				{isUp && <UP />}
 				{isAtk && <ATK />}
 				<AKK />
+				<ARBK />
 			</div>
 		</div>
 	);
