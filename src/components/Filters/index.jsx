@@ -111,6 +111,7 @@ function Filters({
 					onClick={() => {
 						setSelectedFilter(filtersInitialState);
 						setIsDisabled(disabledInitialState);
+						getFilters(filtersInitialState);
 					}}
 				/>
 			</div>

@@ -3,6 +3,7 @@ import {withRouter} from "react-router";
 import {connect} from "react-redux";
 import "./index.scss";
 import excl from "../../assets/img/exclamation.svg";
+import {setIndustry, showGraphInitialState} from "./utils";
 import UP from "./UP";
 import ATK from "./ATK";
 import AKK from "./AKK";
@@ -12,15 +13,15 @@ import MAPL from "./MAPL";
 import MASHT from "./MASHT";
 
 const Graphs = ({filters}) => {
-	const [isUp, setIsUp] = useState(false);
-	const [isAtk, setIsAtk] = useState(false);
 	const [isEmpty, setIsEmpty] = useState(false);
+	const [showGraph, setShowGraph] = useState(showGraphInitialState);
+
 	useEffect(() => {
 		if (!filters?.industria) {
 			setIsEmpty(true);
+			setShowGraph(showGraphInitialState);
 		} else setIsEmpty(false);
-		if (filters?.industria?.value === "UP") setIsUp(true);
-		if (filters?.industria?.value === "ATK") setIsAtk(true);
+		setIndustry(filters, setShowGraph, showGraph);
 	}, [filters]);
 
 	return (
@@ -36,13 +37,13 @@ const Graphs = ({filters}) => {
 						</p>
 					</div>
 				)}
-				{isUp && <UP filters={filters} />}
-				{isAtk && <ATK filters={filters} />}
-				<AKK filters={filters} />
-				<ARBK filters={filters} />
-				<AUV filters={filters} />
-				<MAPL filters={filters} />
-				<MASHT filters={filters} />
+				{showGraph.up && <UP filters={filters} />}
+				{showGraph.atk && <ATK filters={filters} />}
+				{showGraph.akk && <AKK filters={filters} />}
+				{showGraph.arbk && <ARBK filters={filters} />}
+				{showGraph.auv && <AUV filters={filters} />}
+				{showGraph.mapl && <MAPL filters={filters} />}
+				{showGraph.masht && <MASHT filters={filters} />}
 			</div>
 		</div>
 	);
