@@ -36,7 +36,8 @@ const Dashboard = (props) => (
 					<TableCard
 						key={`${table.name} ${index}`}
 						name={table.name}
-						data={table.columns}
+						columns={table.columns}
+						field={table.field}
 						// path={table.path}
 					/>
 				))}

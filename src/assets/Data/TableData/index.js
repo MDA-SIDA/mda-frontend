@@ -2,6 +2,7 @@ export const TableData = [
 	{name: "Akk parcelat ndertesat"},
 	{
 		name: "Arbk",
+		field: "arbk",
 		columns: [
 			{title: "Arbk Id", field: "arbkid"},
 			{title: "Nr Biznesit", field: "nrbiznesit"},
@@ -43,6 +44,26 @@ export const TableData = [
 	{name: "Rruget"},
 	{name: "Shkolla"},
 	{name: "Treguesit"},
-	{name: "Universiteti i Prishtines"},
+	{
+		name: "Universiteti i Prishtines",
+		columns: [
+			{title: "Uni pr id", field: "uniprid"},
+			{title: "Fakulteti", field: "fakulteti"},
+			{title: "Departamenti", field: "departamenti"},
+			{title: "Statusi", field: "statusi"},
+			{title: "Niveli", field: "niveli"},
+			{title: "Gjinia", field: "gjinia"},
+			{title: "Komuna Id", field: "komunaid"},
+			{title: "Vendlindja", field: "vendlindja"},
+			{title: "Komuna e Vendbanimit Id", field: "komunavendbanimitid"},
+			{title: "Kombi", field: "kombi"},
+			{title: "Shtetsia", field: "shtetsia"},
+			{title: "Data e Diplomimit", field: "datadiplomimit"},
+			{title: "Mesatarja", field: "mesatarja"},
+			{title: "Is deleted", field: "isdeleted"},
+			{title: "Diplomuar", field: "diplomuar"},
+			{title: "Fakulteti id", field: "fakultetiid"},
+		],
+	},
 	{name: "Vendbanimi"},
 ];
