@@ -39,6 +39,7 @@ function ARBK({
 		filters,
 	]);
 
+	console.log(nrBizneseveKomuna, "hh");
 	return (
 		<>
 			<Chart
@@ -63,6 +64,58 @@ function ARBK({
 					plugins: {
 						legend: {
 							display: false,
+						},
+					},
+					scales: {
+						x: {
+							ticks: {
+								color: "#7C9CBF",
+								padding: 30,
+								fontSize: 14,
+							},
+							grid: {
+								display: false,
+							},
+						},
+						y: {
+							min: 10,
+							// max: 200,
+							grid: {
+								display: true,
+							},
+							ticks: {
+								stepSize: 50,
+								color: "#7C9CBF",
+								padding: 30,
+								fontSize: 11,
+								fontFamily: "Montserrat Medium",
+							},
+						},
+					},
+				}}
+			/>
+			<Chart
+				title="Nr i bizneseve ne komuna"
+				type="line"
+				data={{
+					labels: nrBizneseveKomuna?.map((item) => item.counter),
+					datasets: [
+						{
+							label: "Numri i punetoreve",
+							data: nrBizneseveKomuna?.map((item) => item.viti),
+							backgroundColor: "red",
+						},
+						{
+							label: "Komuna",
+							data: nrBizneseveKomuna?.map((item) => item.komunaemri),
+							backgroundColor: "blue",
+						},
+					],
+				}}
+				options={{
+					plugins: {
+						legend: {
+							display: true,
 						},
 					},
 					scales: {
