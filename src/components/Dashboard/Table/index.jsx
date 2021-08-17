@@ -3,12 +3,12 @@ import React, {useState, useEffect} from "react";
 import Search from "@components/Search";
 import DataGrid from "@common/DataTable/index";
 import AddData from "@components/SecondaryButton/index";
-import Sidedrawer from "@components/Sidedrawer";
 import {useLocation} from "react-router-dom";
 import {withRouter} from "react-router";
 import {connect} from "react-redux";
 import {actions} from "@sagas/arbk";
 import {actions as uniActions} from "@sagas/universitetet";
+import IndustryDrawer from "@components/Sidedrawer/IndustryDrawer";
 import styles from "./index.module.scss";
 
 const Table = (props) => {
@@ -23,15 +23,11 @@ const Table = (props) => {
 	const sideDrawerToggleHandler = () => {
 		setSideDrawerIsVisible(!sideDrawerIsVisible);
 	};
-	// eslint-disable-next-line no-console
-	console.log("loc", location);
-	// eslint-disable-next-line no-console
+
 	useEffect(() => {
-		if (location.field === "arbk") {
+		if (location.field === "arbk" && arbk?.length < 1) {
 			fetch();
-			console.log("useNo");
-		} else {
-			console.log("usee");
+		} else if (location.field === "uni" && uni?.length < 1) {
 			fetchUni();
 		}
 	}, []);
@@ -39,20 +35,21 @@ const Table = (props) => {
 	useEffect(() => {
 		if (location.field === "arbk") {
 			setTableData(arbk);
-		} else {
+		} else if (location.field === "uni") {
 			setTableData(uni);
 		}
 	}, [arbk, uni]);
-	console.log(uni);
 
 	return (
 		<div className={styles.container}>
-			<h1>Të dhënat</h1>
+			<h1>{`Të dhënat > ${location.name}`}</h1>
 			<div className={styles.container__table}>
 				<div className={styles.container__table__header}>
-					<Sidedrawer open={sideDrawerIsVisible} closed={sideDrawerCloseHandler}>
-						<p>Test</p>
-					</Sidedrawer>
+					<IndustryDrawer
+						open={sideDrawerIsVisible}
+						closed={sideDrawerCloseHandler}
+						industry={location.field}
+					/>
 					<Search />
 					<AddData drawerHandler={sideDrawerToggleHandler} name="Shto të dhëna" />
 				</div>

@@ -10,7 +10,7 @@ const tableCard = ({name, columns, goToDetails, field}) => (
 			<span>{name} të dhëna</span>
 		</div>
 		<Link
-			to={{pathname: `/${name}`, columns, field}}
+			to={{pathname: `/${name}`, columns, field, name}}
 			className={styles.container__table__footer}
 		>
 			See Details

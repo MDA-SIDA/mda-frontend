@@ -46,6 +46,7 @@ export const TableData = [
 	{name: "Treguesit"},
 	{
 		name: "Universiteti i Prishtines",
+		field: "uni",
 		columns: [
 			{title: "Uni pr id", field: "uniprid"},
 			{title: "Fakulteti", field: "fakulteti"},
