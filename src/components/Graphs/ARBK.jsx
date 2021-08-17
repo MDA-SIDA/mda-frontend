@@ -2,6 +2,7 @@ import React, {useEffect} from "react";
 import {connect} from "react-redux";
 import {actions} from "@sagas/industries/arbk";
 import Chart from "@common/Chart";
+import {getDatasets} from "./utils";
 
 function ARBK({
 	fetchNrBizneseve,
@@ -38,6 +39,21 @@ function ARBK({
 		fetchSektoreBujqesi,
 		filters,
 	]);
+
+	const nrBizneseveDataSets = getDatasets({
+		filters,
+		items: nrBizneseve,
+		singleItemLabel: "Numri i bizneseve",
+		property: "nrbizneseve",
+	});
+
+	const sektoreBujqesiDataSets = getDatasets({
+		filters,
+		items: sektoreBujqesi,
+		singleItemLabel: "Numri i sektoreve ne bujqesi",
+		property: "nrpunetoreve",
+	});
+
 	return (
 		<>
 			<Chart
@@ -45,21 +61,17 @@ function ARBK({
 				type="bar"
 				data={{
 					labels: sektoreBujqesi?.map((item) => item.sektori?.substring(0, 10)),
-					datasets: [
-						{
-							label: "Numri i punetoreve",
-							data: sektoreBujqesi?.map((item) => item.nrpunetoreve),
-							backgroundColor: "#00517D",
-						},
-						{
-							label: "Madhesia",
-							data: sektoreBujqesi?.map((item) => item.madhesia),
-							backgroundColor: "#DDB40A",
-						},
-					],
+					datasets: sektoreBujqesiDataSets,
 				}}
 				options={{
 					plugins: {
+						tooltip: {
+							enabled: true,
+							callbacks: {
+								// TODO:
+								footer: (items) => `Numri i punetoreve: 5, madhesia: 4`,
+							},
+						},
 						legend: {
 							display: true,
 						},
@@ -73,69 +85,6 @@ function ARBK({
 							},
 							grid: {
 								display: false,
-							},
-						},
-						y: {
-							min: 10,
-							// max: 200,
-							grid: {
-								display: true,
-							},
-							ticks: {
-								stepSize: 1000,
-								color: "#7C9CBF",
-								padding: 30,
-								fontSize: 11,
-								fontFamily: "Montserrat Medium",
-							},
-						},
-					},
-				}}
-			/>
-			<Chart
-				title="Nr i bizneseve ne komuna"
-				type="line"
-				data={{
-					labels: nrBizneseveKomuna?.map((item) => item.viti),
-					datasets: [
-						{
-							data: nrBizneseveKomuna?.map((item) => item.counter),
-							backgroundColor: "red",
-						},
-						{
-							label: "Komuna",
-							data: nrBizneseveKomuna?.map((item) => item.komunaemri),
-							backgroundColor: "blue",
-						},
-					],
-				}}
-				options={{
-					plugins: {
-						legend: {
-							display: true,
-						},
-					},
-					scales: {
-						x: {
-							ticks: {
-								color: "#7C9CBF",
-								padding: 30,
-								fontSize: 14,
-							},
-							grid: {
-								display: false,
-							},
-						},
-						y: {
-							grid: {
-								display: true,
-							},
-							ticks: {
-								stepSize: 50,
-								color: "#7C9CBF",
-								padding: 30,
-								fontSize: 11,
-								fontFamily: "Montserrat Medium",
 							},
 						},
 					},
@@ -146,20 +95,9 @@ function ARBK({
 				type="bar"
 				data={{
 					labels: nrBizneseve?.map((item) => item.viti),
-					datasets: [
-						{
-							label: "Numri i bizneseve",
-							data: nrBizneseve?.map((item) => item.nrbizneseve),
-							backgroundColor: "#00517D",
-						},
-					],
+					datasets: nrBizneseveDataSets,
 				}}
 				options={{
-					plugins: {
-						legend: {
-							display: true,
-						},
-					},
 					scales: {
 						x: {
 							ticks: {
@@ -171,24 +109,10 @@ function ARBK({
 								display: false,
 							},
 						},
-						y: {
-							min: 10,
-							// max: 200,
-							grid: {
-								display: true,
-							},
-							ticks: {
-								stepSize: 50,
-								color: "#7C9CBF",
-								padding: 30,
-								fontSize: 11,
-								fontFamily: "Montserrat Medium",
-							},
-						},
 					},
 				}}
 			/>
-			<Chart
+			{/* <Chart
 				title="Llojet e bizneseve per komune"
 				type="bar"
 				data={{
@@ -288,7 +212,7 @@ function ARBK({
 						},
 					},
 				}}
-			/>
+			/> */}
 		</>
 	);
 }

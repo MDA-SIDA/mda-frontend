@@ -24,10 +24,14 @@ const Chart = ({type = "line", data, options, title, value, showYears, className
 					...options.layout,
 				},
 				plugins: {
+					tooltip: {
+						...options?.plugins?.tooltip,
+					},
 					legend: {
 						position: "bottom",
 						align: "center",
-						...options?.plugins.legend,
+						display: true,
+						...options?.plugins?.legend,
 					},
 				},
 			}}
