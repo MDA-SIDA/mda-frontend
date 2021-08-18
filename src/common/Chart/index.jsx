@@ -18,10 +18,27 @@ const Chart = ({type = "line", data, options, title, value, showYears, className
 				maintainAspectRatio: false,
 				responsive: true,
 				scales: {
+					x: {
+						ticks: {
+							color: "#7C9CBF",
+							padding: 30,
+							fontSize: 14,
+						},
+						grid: {
+							display: false,
+						},
+						...options?.scales?.x,
+					},
+					y: {
+						ticks: {
+							padding: 30,
+						},
+						...options?.scales?.y,
+					},
 					...options?.scales,
 				},
 				layout: {
-					...options.layout,
+					...options?.layout,
 				},
 				plugins: {
 					tooltip: {

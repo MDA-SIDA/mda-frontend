@@ -22,16 +22,29 @@ const showGraphInitialState = {
 	DOGANA: false,
 };
 
-const getDatasets = ({filters, items, property, singleItemLabel}) => {
+const getDatasets = ({filters, items, property, singleItemLabel, isActiveNoActive = false}) => {
 	const {komunat, regjionet, vendbanimet} = filters;
 	if (komunat?.length === 0 && regjionet?.length === 0 && vendbanimet?.length === 0) {
-		return [
-			{
-				label: singleItemLabel,
-				data: items?.map((item) => item[property]),
-				backgroundColor: colors[0],
-			},
-		];
+		return isActiveNoActive
+			? [
+					{
+						label: "Aktiv",
+						data: items?.map((item) => item.countaktiv),
+						backgroundColor: "#00517D",
+					},
+					{
+						label: "Joaktiv",
+						data: items?.map((item) => item.countjoaktiv),
+						backgroundColor: "#DDB40A",
+					},
+			  ]
+			: [
+					{
+						label: singleItemLabel,
+						data: items?.map((item) => item[property]),
+						backgroundColor: colors[0],
+					},
+			  ];
 	}
 	if (vendbanimet.length > 0) {
 		return generateDatasets({
