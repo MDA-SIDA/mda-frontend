@@ -2,6 +2,7 @@ import React, {useEffect} from "react";
 import {connect} from "react-redux";
 import {actions} from "@sagas/industries/masht";
 import Chart from "@common/Chart";
+import {getDatasets} from "./utils";
 
 function MASHT({
 	fetchGjiniaEntiteti,
@@ -15,6 +16,13 @@ function MASHT({
 		fetchNrNxenesveShkolla(filters);
 	}, [fetchGjiniaEntiteti, fetchNrNxenesveShkolla, filters]);
 
+	const nrNxenesveShkollaDataSets = getDatasets({
+		filters,
+		items: nrNxenesveShkolla,
+		singleItemLabel: "Numri i nxenesve",
+		property: "numrinxenesve",
+	});
+
 	return (
 		<>
 			<Chart
@@ -24,46 +32,26 @@ function MASHT({
 				type="bar"
 				data={{
 					labels: nrNxenesveShkolla?.map((item) => item.shkollaemri),
+					datasets: nrNxenesveShkollaDataSets,
+				}}
+			/>
+			<Chart
+				title="Gjinia ne baze te entiteteve"
+				type="bar"
+				data={{
+					labels: gjiniaEntiteti?.map((item) => item.entiteti),
 					datasets: [
 						{
-							label: "Pageviews",
-							data: nrNxenesveShkolla?.map((item) => item.numrinxenesve),
+							label: "Meshkuj",
+							data: gjiniaEntiteti?.map((item) => item.meshkuj),
 							backgroundColor: "#00517D",
 						},
+						{
+							label: "Femra",
+							data: gjiniaEntiteti?.map((item) => item.femra),
+							backgroundColor: "#DDB40A",
+						},
 					],
-				}}
-				options={{
-					plugins: {
-						legend: {
-							display: false,
-						},
-					},
-					scales: {
-						x: {
-							ticks: {
-								color: "#7C9CBF",
-								padding: 30,
-								fontSize: 14,
-							},
-							grid: {
-								display: false,
-							},
-						},
-						y: {
-							min: 10,
-							// max: 200,
-							grid: {
-								display: true,
-							},
-							ticks: {
-								stepSize: 50,
-								color: "#7C9CBF",
-								padding: 30,
-								fontSize: 11,
-								fontFamily: "Montserrat Medium",
-							},
-						},
-					},
 				}}
 			/>
 		</>
