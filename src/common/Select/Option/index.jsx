@@ -5,8 +5,10 @@ import "./index.scss";
 const Option = ({isCountry, isSelected, value, label, isMulti, ...props}) => (
 	<div>
 		<components.Option {...props}>
-			{isMulti && <input type="checkbox" checked={isSelected} onChange={() => {}} />}
-			<label>{label}</label>
+			<div className="option">
+				<label>{label}</label>
+				{isMulti && <input type="checkbox" checked={isSelected} onChange={() => {}} />}
+			</div>
 		</components.Option>
 	</div>
 );
