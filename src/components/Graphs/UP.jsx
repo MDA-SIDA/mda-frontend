@@ -3,106 +3,75 @@ import {connect} from "react-redux";
 import "./index.scss";
 import Chart from "@common/Chart";
 import {actions} from "@sagas/industries/up";
+import {groupBy} from "lodash";
+import {getDatasets} from "./utils";
 
 const UP = ({
 	fetchDiplomuarBrendaVitit,
 	fetchMeshkujFemra,
 	fetchShtetesia,
 	fetchFakultetetBrendaKomunave,
+	fetchNrUniverziteteveKomuna,
 	filters,
 	diplomuarBrendaVitit,
 	meshkujFemra,
 	shtetesia,
+	nrUniverziteteveKomuna,
 }) => {
 	useEffect(() => {
 		fetchFakultetetBrendaKomunave(filters);
 		fetchMeshkujFemra(filters);
 		fetchDiplomuarBrendaVitit(filters);
+		fetchNrUniverziteteveKomuna(filters);
 		fetchShtetesia(filters);
 	}, [
 		filters,
 		fetchFakultetetBrendaKomunave,
 		fetchMeshkujFemra,
 		fetchDiplomuarBrendaVitit,
+		fetchNrUniverziteteveKomuna,
 		fetchShtetesia,
 	]);
+
+	// TODO: disable vendbanimi filter
+	const diplomuarBrendaVititDataSets = getDatasets({
+		filters,
+		items: diplomuarBrendaVitit,
+		singleItemLabel: "Numri i nxenesve",
+		property: "tediplomuar",
+	});
+
+	const shtetesiaDataSets = getDatasets({
+		filters,
+		items: shtetesia,
+		singleItemLabel: "Numri i nxenesve",
+		property: "studentcount",
+	});
+
+	console.log("shtetesia", groupBy(shtetesia, "shtetesia"));
+	console.log(shtetesia);
+	console.log("shtetesia", shtetesiaDataSets);
+
 	return (
 		<>
 			<Chart
-				title="Nr i studenteve te diplomuar"
-				value={332}
-				showYears
+				title="Numri i studenteve te diplomuar brenda vitit"
 				type="bar"
 				data={{
-					labels: diplomuarBrendaVitit?.map((item) => item.viti).reverse(),
-					datasets: [
-						{
-							label: "Pageviews",
-							data: diplomuarBrendaVitit?.map((item) => item.tediplomuar).reverse(),
-							backgroundColor: "#00517D",
-						},
-					],
-				}}
-				options={{
-					plugins: {
-						legend: {
-							display: false,
-						},
-					},
-					scales: {
-						x: {
-							ticks: {
-								color: "#7C9CBF",
-								padding: 30,
-								fontSize: 14,
-							},
-							grid: {
-								display: false,
-							},
-						},
-						y: {
-							min: 10,
-							// max: 200,
-							grid: {
-								display: true,
-							},
-							ticks: {
-								stepSize: 50,
-								color: "#7C9CBF",
-								padding: 30,
-								fontSize: 11,
-								fontFamily: "Montserrat Medium",
-							},
-						},
-					},
+					labels: diplomuarBrendaVitit?.map((item) => item.komunaemri),
+					datasets: diplomuarBrendaVititDataSets,
 				}}
 			/>
 			{shtetesia && (
 				<Chart
 					title="Nr. total i studenteve"
-					type="doughnut"
+					type="pie"
 					value={3515}
 					className="gjinia"
 					data={{
 						// labels: ["99.9% Kosovar", "0.1% Shqiptar"],
-						labels: shtetesia?.map((item) => item.shtetesia),
-						datasets: [
-							{
-								label: "Dataset 1",
-								// data: ["3513", "2"],
-								data: shtetesia?.map((item) => item.studentcount),
-								backgroundColor: ["#005490", "#FCCB11", "#046FBC"],
-								borderWidth: 0,
-							},
-						],
-					}}
-					options={{
-						plugins: {
-							legend: {
-								display: true,
-								position: "top",
-							},
-						},
+						labels: Object.keys(groupBy(shtetesia, "shtetesia")),
+						datasets: shtetesiaDataSets,
 					}}
 				/>
 			)}
@@ -171,6 +140,7 @@ const mapDispatchToProps = {
 	fetchMeshkujFemra: actions.fetchMeshkujFemra,
 	fetchShtetesia: actions.fetchShtetesia,
 	fetchFakultetetBrendaKomunave: actions.fetchFakultetetBrendaKomunave,
+	fetchNrUniverziteteveKomuna: actions.fetchNrUniverziteteveKomuna,
 };
 
 const mapStateToProps = (state) => ({
@@ -178,6 +148,7 @@ const mapStateToProps = (state) => ({
 	meshkujFemra: state.app.industries.up.meshkujFemra,
 	shtetesia: state.app.industries.up.shtetesia,
 	fakultetetBrendaKomunave: state.app.industries.up.fakultetetBrendaKomunave,
+	nrUniverziteteveKomuna: state.app.industries.up.nrUniverziteteveKomuna,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UP);

@@ -60,7 +60,7 @@ const getDatasets = ({filters, items, property, singleItemLabel, isActiveNoActiv
 			property,
 		});
 	}
-	if (komunat.length > 0) {
+	if (regjionet.length > 0) {
 		return generateDatasets({
 			items,
 			groupByLabel: "regjioniemri",

@@ -15,6 +15,8 @@ export const FETCH_SHTETESIA = `${PREFIX}FETCH_SHTETESIA`;
 export const FETCH_SHTETESIA_SUCCESS = `${PREFIX}FETCH_SHTETESIA_SUCCESS`;
 export const FETCH_FAKULTETET_BRENDA_KOMUNAVE = `${PREFIX}FETCH_FAKULTETET_BRENDA_KOMUNAVE`;
 export const FETCH_FAKULTETET_BRENDA_KOMUNAVE_SUCCESS = `${PREFIX}FETCH_FAKULTETET_BRENDA_KOMUNAVE_SUCCESS`;
+export const FETCH_NR_UNIVERZITETEVE_KOMUNA = `${PREFIX}FETCH_NR_UNIVERZITETEVE_KOMUNA`;
+export const FETCH_NR_UNIVERZITETEVE_KOMUNA_SUCCESS = `${PREFIX}FETCH_NR_UNIVERZITETEVE_KOMUNA_SUCCESS`;
 
 const logger = new Logger("Saga>UP>Index");
 const _state = {
@@ -22,6 +24,7 @@ const _state = {
 	meshkujFemra: null,
 	shtetesia: null,
 	fakultetetBrendaKomunave: null,
+	nrUniverziteteveKomuna: null,
 };
 
 const reducer = (state = _state, action) =>
@@ -42,6 +45,10 @@ const reducer = (state = _state, action) =>
 			case FETCH_FAKULTETET_BRENDA_KOMUNAVE_SUCCESS:
 				draft.fakultetetBrendaKomunave = action.payload;
 				break;
+
+			case FETCH_NR_UNIVERZITETEVE_KOMUNA_SUCCESS:
+				draft.nrUniverziteteveKomuna = action.payload;
+				break;
 			default:
 				return state;
 		}
@@ -60,6 +67,10 @@ export const actions = {
 		createAction(FETCH_FAKULTETET_BRENDA_KOMUNAVE, {payload}),
 	fetchFakultetetBrendaKomunaveSuccess: (payload) =>
 		createAction(FETCH_FAKULTETET_BRENDA_KOMUNAVE_SUCCESS, {payload}),
+	fetchNrUniverziteteveKomuna: (payload) =>
+		createAction(FETCH_NR_UNIVERZITETEVE_KOMUNA, {payload}),
+	fetchNrUniverziteteveKomunaSuccess: (payload) =>
+		createAction(FETCH_NR_UNIVERZITETEVE_KOMUNA_SUCCESS, {payload}),
 };
 
 export const sagas = {
@@ -115,6 +126,19 @@ export const sagas = {
 			logger.error(error);
 		}
 	},
+	*fetchNrUniverziteteveKomuna({payload}) {
+		try {
+			const {komunaQuery, vendbanimiQuery, regjioniQuery} = getParams(payload);
+			const response = yield axios.get(
+				// eslint-disable-next-line max-len
+				`/industries/?${komunaQuery}${vendbanimiQuery}${regjioniQuery}&type=nrUniverziteteveKomuna`,
+			);
+
+			yield put(actions.fetchNrUniverziteteveKomunaSuccess(response?.data));
+		} catch (error) {
+			logger.error(error);
+		}
+	},
 };
 
 export const watcher = function* w() {
@@ -122,4 +146,5 @@ export const watcher = function* w() {
 	yield takeLatest(FETCH_MESHKUJ_FEMRA, sagas.fetchMeshkujFemra);
 	yield takeLatest(FETCH_SHTETESIA, sagas.fetchShtetesia);
 	yield takeLatest(FETCH_FAKULTETET_BRENDA_KOMUNAVE, sagas.fetchFakultetetBrendaKomunave);
+	yield takeLatest(FETCH_NR_UNIVERZITETEVE_KOMUNA, sagas.fetchNrUniverziteteveKomuna);
 };
