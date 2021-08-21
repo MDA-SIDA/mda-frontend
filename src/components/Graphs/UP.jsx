@@ -33,7 +33,7 @@ const UP = ({
 		fetchShtetesia,
 	]);
 
-	// TODO: disable vendbanimi filter
+	// TODO: remove vendbanimi filter
 	const diplomuarBrendaVititDataSets = getDatasets({
 		filters,
 		items: diplomuarBrendaVitit,
@@ -41,16 +41,31 @@ const UP = ({
 		property: "tediplomuar",
 	});
 
+	// TODO: remove vendbanimi filter
 	const shtetesiaDataSets = getDatasets({
 		filters,
-		items: shtetesia,
-		singleItemLabel: "Numri i nxenesve",
+		items: Object.values(groupBy(shtetesia, "shtetesia")).flat(),
+		singleItemLabel: "Shtetesia e studenteve",
 		property: "studentcount",
 	});
 
-	console.log("shtetesia", groupBy(shtetesia, "shtetesia"));
-	console.log(shtetesia);
-	console.log("shtetesia", shtetesiaDataSets);
+	const meshkujDataSets = getDatasets({
+		filters,
+		items: Object.values(groupBy(meshkujFemra, "viti")).flat(),
+		singleItemLabel: "Shtetesia e studenteve",
+		property: "meshkuj",
+		isMeshkujFemra: true,
+		filterBy: "viti",
+	});
+
+	const femraDataSets = getDatasets({
+		filters,
+		items: meshkujFemra,
+		singleItemLabel: "Shtetesia e studenteve",
+		property: "femra",
+		isMeshkujFemra: true,
+		filterBy: "viti",
+	});
 
 	return (
 		<>
@@ -62,75 +77,48 @@ const UP = ({
 					datasets: diplomuarBrendaVititDataSets,
 				}}
 			/>
-			{shtetesia && (
-				<Chart
-					title="Nr. total i studenteve"
-					type="pie"
-					value={3515}
-					className="gjinia"
-					data={{
-						// labels: ["99.9% Kosovar", "0.1% Shqiptar"],
-						labels: Object.keys(groupBy(shtetesia, "shtetesia")),
-						datasets: shtetesiaDataSets,
-					}}
-				/>
-			)}
 			<Chart
-				title="Nr. total i studenteve"
-				value={12092}
+				title="Shtetesia e studenteve"
 				type="bar"
 				data={{
-					// labels: ["2016", "2017", "2018", "2019", "2020", "2021"],
-					labels: meshkujFemra?.map((item) => item.viti),
-					datasets: [
-						{
-							label: "Meshkuj",
-							// data: [50, 30, 100, 150, 10],
-							data: meshkujFemra?.map((item) => item.meshkuj),
-							backgroundColor: "#00517D",
-						},
-						{
-							label: "Femra",
-							// data: [19, 40, 32, 45, 150],
-							data: meshkujFemra?.map((item) => item.femra),
-							backgroundColor: "#FCCB11",
-						},
-					],
-				}}
-				options={{
-					plugins: {
-						legend: {
-							display: true,
-						},
-					},
-					scales: {
-						x: {
-							ticks: {
-								color: "#7C9CBF",
-								padding: 30,
-								fontSize: 14,
-							},
-							grid: {
-								display: false,
-							},
-						},
-						y: {
-							min: 0,
-							grid: {
-								display: true,
-							},
-							ticks: {
-								min: 0,
-								stepSize: 20,
-								color: "#7C9CBF",
-								padding: 30,
-								fontSize: 10,
-								fontFamily: "Montserrat Medium",
-							},
-						},
-					},
+					labels: Object.keys(groupBy(shtetesia, "shtetesia")),
+					datasets: shtetesiaDataSets,
 				}}
 			/>
+			{/* <Chart
+				title="Numri i studenteve ne baze te gjinise pergjate viteve"
+				type="bar"
+				data={{
+					labels: Object.keys(groupBy(meshkujFemra, "viti")),
+					datasets: [...femraDataSets, ...meshkujDataSets],
+				}}
+				options={{
+					scales: {
+						y: {
+							type: "linear",
+							display: true,
+							position: "left",
+							title: {
+								display: true,
+								text: "Meshkuj",
+							},
+						},
+						y1: {
+							type: "linear",
+							display: true,
+							position: "right",
+							title: {
+								display: true,
+								text: "Femra",
+							},
+							// grid line settings
+							grid: {
+								drawOnChartArea: false,
+							},
+						},
+					},
+				}}
+			/> */}
 		</>
 	);
 };

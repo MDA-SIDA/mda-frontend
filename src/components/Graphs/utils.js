@@ -22,7 +22,15 @@ const showGraphInitialState = {
 	DOGANA: false,
 };
 
-const getDatasets = ({filters, items, property, singleItemLabel, isActiveNoActive = false}) => {
+const getDatasets = ({
+	filters,
+	items,
+	property,
+	singleItemLabel,
+	isActiveNoActive = false,
+	filterBy = null,
+	isUp,
+}) => {
 	const {komunat, regjionet, vendbanimet} = filters;
 	if (komunat?.length === 0 && regjionet?.length === 0 && vendbanimet?.length === 0) {
 		return isActiveNoActive
@@ -51,6 +59,8 @@ const getDatasets = ({filters, items, property, singleItemLabel, isActiveNoActiv
 			items,
 			groupByLabel: "vendbanimiemri",
 			property,
+			filterBy,
+			isUp,
 		});
 	}
 	if (komunat.length > 0) {
@@ -58,6 +68,8 @@ const getDatasets = ({filters, items, property, singleItemLabel, isActiveNoActiv
 			items,
 			groupByLabel: "komunaemri",
 			property,
+			filterBy,
+			isUp,
 		});
 	}
 	if (regjionet.length > 0) {
@@ -65,6 +77,8 @@ const getDatasets = ({filters, items, property, singleItemLabel, isActiveNoActiv
 			items,
 			groupByLabel: "regjioniemri",
 			property,
+			filterBy,
+			isUp,
 		});
 	}
 };
@@ -75,13 +89,30 @@ const colors = {
 	2: "#02BC77",
 };
 
-const generateDatasets = ({items, groupByLabel, property}) => {
+const generateDatasets = ({items, groupByLabel, property, filterBy, isUp = false}) => {
 	const groupedItems = groupBy(items, groupByLabel);
-	return Object.keys(groupedItems)?.map((key, index) => ({
-		label: key,
-		data: groupedItems[key]?.map((item) => item[property]),
-		backgroundColor: colors[index],
-	}));
+	return Object.keys(groupedItems)?.map((key, index) => {
+		let data;
+		if (isUp) {
+			const filteredItems = groupBy(groupedItems[key], filterBy);
+			const array = Object.keys(filteredItems)?.map((x) => {
+				let sum = 0;
+				const tes = filteredItems[x]?.forEach((element) => {
+					sum += Number(element[property]);
+				});
+				return sum;
+			});
+			data = array;
+		} else {
+			data = groupedItems[key]?.map((item) => item[property]);
+		}
+
+		return {
+			label: key,
+			data,
+			backgroundColor: colors[index],
+		};
+	});
 };
 
 export {setIndustry, showGraphInitialState, getDatasets};
