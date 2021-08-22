@@ -2,6 +2,8 @@ import React, {useEffect} from "react";
 import Chart from "@common/Chart";
 import {connect} from "react-redux";
 import {actions} from "@sagas/industries/atk";
+import {groupBy} from "lodash";
+import {getDatasets} from "./utils";
 
 function ATK({
 	fetchSektoreAktivitetet,
@@ -14,105 +16,41 @@ function ATK({
 		fetchSektoreAktivitetet(filters);
 		fetchLlojiKompaniseMesatarjaPuntoreve(filters);
 	}, [fetchSektoreAktivitetet, fetchLlojiKompaniseMesatarjaPuntoreve, filters]);
+
+	const sektoreAktivitetetDataSets = getDatasets({
+		filters,
+		items: sektoreAktivitetet,
+		singleItemLabel: "Aktivitetet e sektoreve",
+		property: "countaktiviteti",
+		filterBy: "sektori",
+	});
+
+	const llojiKompaniseMesatarjaPuntoreveDataSets = getDatasets({
+		filters,
+		items: llojiKompaniseMesatarjaPuntoreve,
+		singleItemLabel: "Aktivitetet e sektoreve",
+		property: "mesatarjapunetoreve",
+		filterBy: "llojikompanis",
+	});
+
 	return (
 		<>
-			{/* TODO: set proper values to graph */}
 			<Chart
-				title="Nr. total i studenteve"
-				value={12092}
+				title="Aktivitetet e sektoreve"
 				type="bar"
 				data={{
-					labels: sektoreAktivitetet?.map((item) => item.sektori),
-					datasets: [
-						{
-							label: "Aktivitetet ne sektore",
-							data: sektoreAktivitetet?.map((item) => item.countaktiviteti),
-							backgroundColor: "#00517D",
-						},
-					],
-				}}
-				options={{
-					plugins: {
-						legend: {
-							display: true,
-						},
-					},
-					scales: {
-						x: {
-							ticks: {
-								color: "#7C9CBF",
-								padding: 30,
-								fontSize: 14,
-							},
-							grid: {
-								display: false,
-							},
-						},
-						y: {
-							min: 0,
-							grid: {
-								display: true,
-							},
-							ticks: {
-								min: 0,
-								stepSize: 20,
-								color: "#7C9CBF",
-								padding: 30,
-								fontSize: 10,
-								fontFamily: "Montserrat Medium",
-							},
-						},
-					},
+					labels: Object.values(groupBy(sektoreAktivitetet, "sektori")).map(
+						(item) => item[0].pershkrimisektorit,
+					),
+					datasets: sektoreAktivitetetDataSets,
 				}}
 			/>
 			<Chart
 				title="Nr. total i studenteve"
-				value={12092}
 				type="bar"
 				data={{
-					labels: llojiKompaniseMesatarjaPuntoreve?.map((item) => item.llojikompanis),
-					datasets: [
-						{
-							label: "Aktivitetet ne sektore",
-							data: llojiKompaniseMesatarjaPuntoreve?.map(
-								(item) => item.mesatarjapunetoreve,
-							),
-							backgroundColor: "#00517D",
-						},
-					],
-				}}
-				options={{
-					plugins: {
-						legend: {
-							display: true,
-						},
-					},
-					scales: {
-						x: {
-							ticks: {
-								color: "#7C9CBF",
-								padding: 30,
-								fontSize: 14,
-							},
-							grid: {
-								display: false,
-							},
-						},
-						y: {
-							min: 0,
-							grid: {
-								display: true,
-							},
-							ticks: {
-								min: 0,
-								stepSize: 20,
-								color: "#7C9CBF",
-								padding: 30,
-								fontSize: 10,
-								fontFamily: "Montserrat Medium",
-							},
-						},
-					},
+					labels: Object.keys(groupBy(llojiKompaniseMesatarjaPuntoreve, "llojikompanis")),
+					datasets: llojiKompaniseMesatarjaPuntoreveDataSets,
 				}}
 			/>
 		</>
