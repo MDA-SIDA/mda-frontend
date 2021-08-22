@@ -2,6 +2,7 @@ import React, {useEffect} from "react";
 import {connect} from "react-redux";
 import {actions} from "@sagas/industries/arbk";
 import Chart from "@common/Chart";
+import {groupBy} from "lodash";
 import {getDatasets} from "./utils";
 
 function ARBK({
@@ -43,6 +44,7 @@ function ARBK({
 		items: nrBizneseve,
 		singleItemLabel: "Numri i bizneseve",
 		property: "nrbizneseve",
+		filterBy: "viti",
 	});
 
 	const sektoreBujqesiDataSets = getDatasets({
@@ -50,6 +52,7 @@ function ARBK({
 		items: sektoreBujqesi,
 		singleItemLabel: "Numri i sektoreve ne bujqesi",
 		property: "nrpunetoreve",
+		filterBy: "sektori",
 	});
 
 	const statusiBizneseveDataSets = getDatasets({
@@ -65,7 +68,10 @@ function ARBK({
 		items: llojiBiznesit,
 		singleItemLabel: "Numri i llojit te biznesit",
 		property: "counter",
+		filterBy: "llojibiznesit",
 	});
+
+	// TODO: add graph for gjinia
 
 	return (
 		<>
@@ -73,29 +79,19 @@ function ARBK({
 				title="Sektore Bujqesi"
 				type="bar"
 				data={{
-					labels: sektoreBujqesi?.map((item) => item.sektori?.substring(0, 10)),
+					labels: Object.keys(groupBy(sektoreBujqesi, "sektori")),
 					datasets: sektoreBujqesiDataSets,
-				}}
-				options={{
-					plugins: {
-						tooltip: {
-							enabled: true,
-							callbacks: {
-								// TODO:
-								footer: (items) => `Numri i punetoreve: 5, madhesia: 4`,
-							},
-						},
-					},
 				}}
 			/>
 			<Chart
 				title="Numri Bizneseve"
 				type="bar"
 				data={{
-					labels: nrBizneseve?.map((item) => item.viti),
+					labels: Object.keys(groupBy(nrBizneseve, "viti")),
 					datasets: nrBizneseveDataSets,
 				}}
 			/>
+			{/* TODO */}
 			<Chart
 				title="Statusi i biznesit"
 				type="bar"
@@ -119,20 +115,20 @@ function ARBK({
 				title="Lloji Biznesit"
 				type="bar"
 				data={{
-					labels: llojiBiznesit?.map((item) => item.llojibiznesit),
+					labels: Object.keys(groupBy(llojiBiznesit, "llojibiznesit")),
 					datasets: llojiBiznesitDataSets,
 				}}
-				options={{
-					plugins: {
-						tooltip: {
-							enabled: true,
-							callbacks: {
-								// TODO:
-								footer: (items) => `Regjioni: test, Komuna: test, Vendbanimi: test`,
-							},
-						},
-					},
-				}}
+				// options={{
+				// 	plugins: {
+				// 		tooltip: {
+				// 			enabled: true,
+				// 			callbacks: {
+				// 				// TODO:
+				// 				footer: (items) => `Regjioni: test, Komuna: test, Vendbanimi: test`,
+				// 			},
+				// 		},
+				// 	},
+				// }}
 			/>
 		</>
 	);
