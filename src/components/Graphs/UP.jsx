@@ -3,8 +3,8 @@ import {connect} from "react-redux";
 import "./index.scss";
 import Chart from "@common/Chart";
 import {actions} from "@sagas/industries/up";
-import {groupBy} from "lodash";
-import {getDatasets} from "./utils";
+import {groupBy, isArray} from "lodash";
+import {getDatasets, areFiltersEmpty} from "./utils";
 
 const UP = ({
 	fetchDiplomuarBrendaVitit,
@@ -44,27 +44,33 @@ const UP = ({
 	// TODO: remove vendbanimi filter
 	const shtetesiaDataSets = getDatasets({
 		filters,
-		items: Object.values(groupBy(shtetesia, "shtetesia")).flat(),
+		items: shtetesia,
 		singleItemLabel: "Shtetesia e studenteve",
 		property: "studentcount",
+		filterBy: "shtetesia",
 	});
 
 	const meshkujDataSets = getDatasets({
 		filters,
-		items: Object.values(groupBy(meshkujFemra, "viti")).flat(),
-		singleItemLabel: "Shtetesia e studenteve",
+		items: meshkujFemra,
+		singleItemLabel: "Studentet Meshkuj",
 		property: "meshkuj",
-		isMeshkujFemra: true,
 		filterBy: "viti",
 	});
 
 	const femraDataSets = getDatasets({
 		filters,
 		items: meshkujFemra,
-		singleItemLabel: "Shtetesia e studenteve",
+		singleItemLabel: "Studentet Femra",
 		property: "femra",
-		isMeshkujFemra: true,
 		filterBy: "viti",
+	});
+
+	const nrUniverziteteveKomunaDataSets = getDatasets({
+		filters,
+		items: nrUniverziteteveKomuna,
+		singleItemLabel: "Numri i studenteve te komunave",
+		property: "studentcount",
 	});
 
 	return (
@@ -85,6 +91,39 @@ const UP = ({
 					datasets: shtetesiaDataSets,
 				}}
 			/>
+			<Chart
+				title="Numri i studenteve femra pergjate viteve"
+				type="bar"
+				data={{
+					labels: Object.keys(groupBy(meshkujFemra, "viti")),
+					datasets: femraDataSets,
+				}}
+			/>
+			<Chart
+				title="Numri i studenteve meshkuj pergjate viteve"
+				type="bar"
+				data={{
+					labels: Object.keys(groupBy(meshkujFemra, "viti")),
+					datasets: meshkujDataSets,
+				}}
+			/>
+			{!areFiltersEmpty(filters) && (
+				<Chart
+					title="Numri i studenteve te komunave"
+					type="bar"
+					data={{
+						labels: nrUniverziteteveKomunaDataSets.map((item) => item?.label),
+						datasets: nrUniverziteteveKomunaDataSets.map((item) => {
+							const data =
+								isArray(item?.data) &&
+								item?.data?.reduce((a, b) => Number(a) + Number(b), 0);
+							item.data = [data];
+
+							return item;
+						}),
+					}}
+				/>
+			)}
 			{/* <Chart
 				title="Numri i studenteve ne baze te gjinise pergjate viteve"
 				type="bar"

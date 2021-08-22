@@ -1,4 +1,4 @@
-import {groupBy} from "lodash";
+import _, {groupBy} from "lodash";
 
 const setIndustry = (filters, setShowGraph, showGraph) => {
 	if (filters?.industria?.value) {
@@ -9,6 +9,12 @@ const setIndustry = (filters, setShowGraph, showGraph) => {
 const setKeyToTrue = (object, key) => ({
 	...Object.keys(object).reduce((result, k) => ({...result, [k]: false, [key]: true}), {}),
 });
+
+const areFiltersEmpty = (filters) => {
+	const {regjionet, komunat, vendbanimet} = filters;
+	if (komunat?.length === 0 && regjionet?.length === 0 && vendbanimet?.length === 0) return true;
+	return false;
+};
 
 const showGraphInitialState = {
 	UP: false,
@@ -89,30 +95,29 @@ const colors = {
 	2: "#02BC77",
 };
 
-const generateDatasets = ({items, groupByLabel, property, filterBy, isUp = false}) => {
+const generateDatasets = ({items, groupByLabel, property, filterBy = null}) => {
 	const groupedItems = groupBy(items, groupByLabel);
+	const labels = Object.keys(groupBy(items, filterBy));
+
 	return Object.keys(groupedItems)?.map((key, index) => {
-		let data;
-		if (isUp) {
-			const filteredItems = groupBy(groupedItems[key], filterBy);
-			const array = Object.keys(filteredItems)?.map((x) => {
-				let sum = 0;
-				const tes = filteredItems[x]?.forEach((element) => {
-					sum += Number(element[property]);
+		let data = null;
+		if (filterBy) {
+			data = labels?.map((item) => {
+				const filtered = groupedItems[key].filter((x) => {
+					// eslint-disable-next-line eqeqeq
+					if (x[filterBy] == item) return true;
+					return false;
 				});
-				return sum;
+				return filtered.map((y) => y[property])?.reduce((a, b) => Number(a) + Number(b), 0);
 			});
-			data = array;
-		} else {
-			data = groupedItems[key]?.map((item) => item[property]);
 		}
 
 		return {
 			label: key,
-			data,
+			data: filterBy ? data : groupedItems[key]?.map((item) => item[property]),
 			backgroundColor: colors[index],
 		};
 	});
 };
 
-export {setIndustry, showGraphInitialState, getDatasets};
+export {setIndustry, showGraphInitialState, getDatasets, areFiltersEmpty};
