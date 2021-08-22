@@ -36,7 +36,7 @@ function MASHT({
 	const gjiniaEntitetiMeshkujDataSets = getDatasets({
 		filters,
 		items: gjiniaEntiteti,
-		singleItemLabel: "Numri i nxenesve femra ne baze te entiteteve",
+		singleItemLabel: "Numri i nxenesve meshkuj ne baze te entiteteve",
 		property: "meshkuj",
 		filterBy: "entiteti",
 	});
