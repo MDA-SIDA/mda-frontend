@@ -38,6 +38,7 @@ const getDatasets = ({
 	isUp,
 }) => {
 	const {komunat, regjionet, vendbanimet} = filters;
+
 	if (komunat?.length === 0 && regjionet?.length === 0 && vendbanimet?.length === 0) {
 		return isActiveNoActive
 			? [
@@ -55,7 +56,9 @@ const getDatasets = ({
 			: [
 					{
 						label: singleItemLabel,
-						data: items?.map((item) => item[property]),
+						data: filterBy
+							? getFilteredItems({items, filterBy, property})
+							: items?.map((item) => item[property]),
 						backgroundColor: colors[0],
 					},
 			  ];
@@ -97,19 +100,11 @@ const colors = {
 
 const generateDatasets = ({items, groupByLabel, property, filterBy = null}) => {
 	const groupedItems = groupBy(items, groupByLabel);
-	const labels = Object.keys(groupBy(items, filterBy));
 
 	return Object.keys(groupedItems)?.map((key, index) => {
 		let data = null;
 		if (filterBy) {
-			data = labels?.map((item) => {
-				const filtered = groupedItems[key].filter((x) => {
-					// eslint-disable-next-line eqeqeq
-					if (x[filterBy] == item) return true;
-					return false;
-				});
-				return filtered.map((y) => y[property])?.reduce((a, b) => Number(a) + Number(b), 0);
-			});
+			data = getFilteredItems({items: groupedItems[key], filterBy, property});
 		}
 
 		return {
@@ -117,6 +112,19 @@ const generateDatasets = ({items, groupByLabel, property, filterBy = null}) => {
 			data: filterBy ? data : groupedItems[key]?.map((item) => item[property]),
 			backgroundColor: colors[index],
 		};
+	});
+};
+
+const getFilteredItems = ({items, filterBy, property}) => {
+	const labels = Object.keys(groupBy(items, filterBy));
+
+	return labels?.map((item) => {
+		const filtered = items.filter((x) => {
+			// eslint-disable-next-line eqeqeq
+			if (x[filterBy] == item) return true;
+			return false;
+		});
+		return filtered.map((y) => y[property])?.reduce((a, b) => Number(a) + Number(b), 0);
 	});
 };
 
