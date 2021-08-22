@@ -1,42 +1,14 @@
 import React, {useState} from "react";
 import {Formik, Form} from "formik";
 import Input from "@common/Input";
-import * as yup from "yup";
 import {withRouter} from "react-router";
 import {connect} from "react-redux";
 import {actions} from "@sagas/profile/index";
 import SideDrawer from "@components/Sidedrawer/index";
+import {industryInputs} from "@assets/Data/SideDrawerInputs";
 import styles from "./index.module.scss";
 
 // TODO: add this object to a separate file
-const industryInputs = {
-	arbk: {
-		validationSchema: yup.object().shape({
-			companyName: yup.string().label("Company Name").required().nullable(),
-		}),
-		inputs: [
-			{
-				type: "text",
-				placeholder: "Company Name",
-				name: "companyName",
-				label: "Company Name",
-			},
-		],
-	},
-	masht: {
-		validationSchema: yup.object().shape({
-			companyName: yup.string().label("Test").required().nullable(),
-		}),
-		inputs: [
-			{
-				type: "text",
-				placeholder: "Test",
-				name: "test",
-				label: "Test",
-			},
-		],
-	},
-};
 
 const IndustryDrawer = ({open, closed, onSubmit, industry}) => {
 	const {inputs} = industryInputs[industry];

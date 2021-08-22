@@ -17,32 +17,34 @@ export const DELETE_UNI = `${PREFIX}DELETE_UNI`;
 
 // const logger = new Logger("Saga>Header>Index");
 const _state = {
-	uni: [],
+	universitetiiprishtines: [],
 };
 
 const reducer = (state = _state, action) =>
 	produce(state, (draft) => {
 		switch (action.type) {
 			case FETCH_SUCCESS:
-				draft.uni = action.payload;
+				draft.universitetiiprishtines = action.payload;
 				break;
 			case SET_UNI:
-				draft.uni = [...state.uni, action.payload];
+				draft.universitetiiprishtines = [...state.universitetiiprishtines, action.payload];
 				break;
 			case EDIT_UNI:
 				// eslint-disable-next-line no-console
-				const updatedUni = state.uni.map((item) => {
+				const updatedUni = state.universitetiiprishtines.map((item) => {
 					if (item.id === action.payload.id) {
 						item = {...action.payload};
 					}
 					return item;
 				});
 
-				draft.uni = updatedUni;
+				draft.universitetiiprishtines = updatedUni;
 				break;
 			case DELETE_UNI:
-				const uniDeleted = state.uni.filter((item) => item.id !== action.payload.id);
-				draft.uni = uniDeleted;
+				const uniDeleted = state.universitetiiprishtines.filter(
+					(item) => item.id !== action.payload.id,
+				);
+				draft.universitetiiprishtines = uniDeleted;
 				break;
 			default:
 				return state;

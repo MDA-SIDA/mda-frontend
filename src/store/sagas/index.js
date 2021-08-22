@@ -5,8 +5,16 @@ import {watcher as navigation} from "@sagas/navigation";
 import {watcher as admins} from "@sagas/admins";
 import {watcher as profile} from "@sagas/profile";
 import {watcher as arbk} from "@sagas/arbk";
-import {watcher as uni} from "@sagas/universitetet";
+import {watcher as universitetiiprishtines} from "@sagas/universitetet";
 
 export default function* root() {
-	yield all([filters(), login(), navigation(), admins(), profile(), arbk(), uni()]);
+	yield all([
+		filters(),
+		login(),
+		navigation(),
+		admins(),
+		profile(),
+		arbk(),
+		universitetiiprishtines(),
+	]);
 }

@@ -5,7 +5,7 @@ import profile from "@sagas/profile";
 import arbk from "@sagas/arbk";
 import {connectRouter} from "connected-react-router";
 import {combineReducers} from "redux";
-import uni from "@sagas/universitetet";
+import universitetiiprishtines from "@sagas/universitetet";
 
 export default function createReducer(injectedReducers, history) {
 	return combineReducers({
@@ -25,8 +25,8 @@ export default function createReducer(injectedReducers, history) {
 			arbk: combineReducers({
 				index: arbk,
 			}),
-			uni: combineReducers({
-				index: uni,
+			universitetiiprishtines: combineReducers({
+				index: universitetiiprishtines,
 			}),
 		}),
 		...injectedReducers,

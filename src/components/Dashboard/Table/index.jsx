@@ -27,7 +27,7 @@ const Table = (props) => {
 	useEffect(() => {
 		if (location.field === "arbk" && arbk?.length < 1) {
 			fetch();
-		} else if (location.field === "uni" && uni?.length < 1) {
+		} else if (location.field === "universitetiiprishtines" && uni?.length < 1) {
 			fetchUni();
 		}
 	}, []);
@@ -35,7 +35,7 @@ const Table = (props) => {
 	useEffect(() => {
 		if (location.field === "arbk") {
 			setTableData(arbk);
-		} else if (location.field === "uni") {
+		} else if (location.field === "universitetiiprishtines") {
 			setTableData(uni);
 		}
 	}, [arbk, uni]);
@@ -61,7 +61,9 @@ const Table = (props) => {
 };
 const mapStateToProps = (state) => ({
 	arbk: state.app.arbk?.index?.arbk.map((o) => ({...o, tableData: {}})).reverse(),
-	uni: state.app.uni?.index?.uni.map((o) => ({...o, tableData: {}})).reverse(),
+	uni: state.app.universitetiiprishtines?.index?.universitetiiprishtines
+		.map((o) => ({...o, tableData: {}}))
+		.reverse(),
 });
 
 const mapDispatchToProps = {
