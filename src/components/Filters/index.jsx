@@ -53,7 +53,6 @@ function Filters({
 				isMulti={false}
 				closeMenuOnSelect={false}
 				onChange={(value) => setSelectedFilter((state) => ({...state, industria: value}))}
-				menuIsOpen={true}
 				placeholder="Industria"
 			/>
 			<Select
@@ -72,7 +71,6 @@ function Filters({
 						setIsDisabled((state) => ({...state, regjionet: true}));
 					} else setSelectedFilter((state) => ({...state, regjionet: value}));
 				}}
-				menuIsOpen={true}
 				placeholder="Regjioni"
 			/>
 			<Select
@@ -91,7 +89,6 @@ function Filters({
 						setIsDisabled((state) => ({...state, komunat: true}));
 					} else setSelectedFilter((state) => ({...state, komunat: value}));
 				}}
-				menuIsOpen={true}
 				placeholder="Komuna"
 			/>
 			<Select
@@ -110,7 +107,6 @@ function Filters({
 						setIsDisabled((state) => ({...state, vendbanimet: true}));
 					} else setSelectedFilter((state) => ({...state, vendbanimet: value}));
 				}}
-				menuIsOpen={true}
 				placeholder="Vendbanimi"
 			/>
 			<div className="buttons">

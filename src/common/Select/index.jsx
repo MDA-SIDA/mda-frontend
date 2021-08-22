@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import ReactSelect from "react-select";
 import Placeholder from "@common/Select/Placeholder";
 import Option from "@common/Select/Option";
@@ -104,34 +104,44 @@ const Select = ({
 	value,
 	options,
 	onChange,
-	menuIsOpen,
 	isMulti,
 	closeMenuOnSelect,
 	hideSelectedOptions,
 	placeholder,
 	isDisabled,
-}) => (
-	<div className="select_wrapper">
-		<ReactSelect
-			isDisabled={isDisabled}
-			value={value}
-			options={options}
-			isSearchable={true}
-			isMulti={isMulti}
-			closeMenuOnSelect={closeMenuOnSelect}
-			hideSelectedOptions={hideSelectedOptions}
-			components={{
-				Placeholder: (props) => <Placeholder {...props} label={placeholder} />,
-				IndicatorSeparator: () => null,
-				DropdownIndicator: () => null,
-				Option: (props) => <Option {...props} isMulti={isMulti} />,
-				ValueContainer,
-			}}
-			styles={styles}
-			onChange={onChange}
-			menuIsOpen={menuIsOpen}
-		/>
-	</div>
-);
+}) => {
+	const [isOpenMenu, setisOpenMenu] = useState(true);
+	return (
+		<div className="select_wrapper">
+			<ReactSelect
+				isDisabled={isDisabled}
+				value={value}
+				options={options}
+				isSearchable={true}
+				isMulti={isMulti}
+				closeMenuOnSelect={closeMenuOnSelect}
+				hideSelectedOptions={hideSelectedOptions}
+				components={{
+					Placeholder: (props) => (
+						<Placeholder {...props} label={placeholder} isOpenMenu={isOpenMenu} />
+					),
+					IndicatorSeparator: () => null,
+					DropdownIndicator: () => null,
+					Option: (props) => <Option {...props} isMulti={isMulti} />,
+					ValueContainer: (props) => (
+						<ValueContainer
+							{...props}
+							isOpenMenu={isOpenMenu}
+							changeMenuIsOpen={(state) => setisOpenMenu(state)}
+						/>
+					),
+				}}
+				styles={styles}
+				onChange={onChange}
+				menuIsOpen={isOpenMenu}
+			/>
+		</div>
+	);
+};
 
 export default Select;

@@ -2,11 +2,11 @@ import React from "react";
 import {components} from "react-select";
 import "./index.scss";
 
-const Placeholder = ({label, isFocused}) =>
+const Placeholder = ({label, isFocused, isOpenMenu}) =>
 	components.Placeholder && (
 		<>
 			&nbsp;
-			{!isFocused && <span className="label">{label}</span>}
+			{(!isFocused || !isOpenMenu) && <span className="label">{label}</span>}
 		</>
 	);
 
