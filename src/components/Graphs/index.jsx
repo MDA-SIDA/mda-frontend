@@ -11,6 +11,8 @@ import ARBK from "./ARBK";
 import AUV from "./AUV";
 import MAPL from "./MAPL";
 import MASHT from "./MASHT";
+import MPBZhR from "./MPBZhR";
+import DOGANA from "./DOGANA";
 
 const Graphs = ({filters}) => {
 	const [isEmpty, setIsEmpty] = useState(false);
@@ -57,6 +59,12 @@ const Graphs = ({filters}) => {
 				)}
 				{!isEmpty && showGraph.MASHT && (
 					<MASHT filters={filters} changeIsEmpty={(state) => setIsEmpty(state)} />
+				)}
+				{!isEmpty && showGraph.MPBZhR && (
+					<MPBZhR filters={filters} changeIsEmpty={(state) => setIsEmpty(state)} />
+				)}
+				{!isEmpty && showGraph.DOGANA && (
+					<DOGANA filters={filters} changeIsEmpty={(state) => setIsEmpty(state)} />
 				)}
 			</div>
 		</div>
