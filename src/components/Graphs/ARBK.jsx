@@ -85,7 +85,7 @@ function ARBK({
 			/>
 			<Chart
 				title="Numri Bizneseve"
-				type="bar"
+				type="line"
 				data={{
 					labels: Object.keys(groupBy(nrBizneseve, "viti")),
 					datasets: nrBizneseveDataSets,
@@ -118,17 +118,6 @@ function ARBK({
 					labels: Object.keys(groupBy(llojiBiznesit, "llojibiznesit")),
 					datasets: llojiBiznesitDataSets,
 				}}
-				// options={{
-				// 	plugins: {
-				// 		tooltip: {
-				// 			enabled: true,
-				// 			callbacks: {
-				// 				// TODO:
-				// 				footer: (items) => `Regjioni: test, Komuna: test, Vendbanimi: test`,
-				// 			},
-				// 		},
-				// 	},
-				// }}
 			/>
 		</>
 	);
