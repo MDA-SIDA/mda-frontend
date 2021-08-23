@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import {actions} from "@sagas/industries/arbk";
 import Chart from "@common/Chart";
 import {groupBy} from "lodash";
+import ProgressBar from "@common/ProgressBar";
 import {getDatasets} from "./utils";
 
 function ARBK({
@@ -119,6 +120,33 @@ function ARBK({
 					datasets: llojiBiznesitDataSets,
 				}}
 			/>
+			<div className="card_container">
+				<div
+					className="chart_title"
+					style={{paddingLeft: 0, paddingTop: 5, paddingBottom: 10}}
+				>
+					Total pronarë
+				</div>
+				<div className="card_item">
+					<div className="card_item_femra">
+						<ProgressBar bgcolor="#ddb40a" completed="50" />
+					</div>
+					<div className="card_item_place">Malisheve</div>
+					<div className="card_item_meshkuj">
+						<ProgressBar bgcolor="#00517D" completed="90" />
+					</div>
+				</div>
+				<div className="legend">
+					<div className="legend_item">
+						<div className="legend_item__icon" style={{backgroundColor: "#ddb40a"}} />
+						<div className="legend_item__label">Femra</div>
+					</div>
+					<div className="legend_item">
+						<div className="legend_item__icon" style={{backgroundColor: "#00517D"}} />
+						<div className="legend_item__label">Meshkuj</div>
+					</div>
+				</div>
+			</div>
 		</>
 	);
 }
