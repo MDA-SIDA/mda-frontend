@@ -16,6 +16,11 @@ const areFiltersEmpty = (filters) => {
 	return false;
 };
 
+const areArraysEmpty = ({arrays}) => {
+	const checkedArrays = arrays?.map((item) => item?.length === 0 || !item);
+	return !checkedArrays?.some((item) => !item);
+};
+
 const showGraphInitialState = {
 	UP: false,
 	ATK: false,
@@ -128,4 +133,4 @@ const getFilteredItems = ({items, filterBy, property}) => {
 	});
 };
 
-export {setIndustry, showGraphInitialState, getDatasets, areFiltersEmpty};
+export {setIndustry, showGraphInitialState, getDatasets, areFiltersEmpty, areArraysEmpty};
