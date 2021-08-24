@@ -4,7 +4,7 @@ import {actions} from "@sagas/industries/arbk";
 import Chart from "@common/Chart";
 import {groupBy} from "lodash";
 import ProgressBar from "@common/ProgressBar";
-import {getDatasets} from "./utils";
+import {getDatasets, getGjiniaDataset, getGjiniaMesatarja} from "./utils";
 
 function ARBK({
 	fetchNrBizneseve,
@@ -72,7 +72,7 @@ function ARBK({
 		filterBy: "llojibiznesit",
 	});
 
-	// TODO: add graph for gjinia
+	const data = getGjiniaDataset({items: gjinia, filters});
 
 	return (
 		<>
@@ -127,15 +127,29 @@ function ARBK({
 				>
 					Total pronarë
 				</div>
-				<div className="card_item">
-					<div className="card_item_femra">
-						<ProgressBar bgcolor="#ddb40a" completed="50" />
+				{data?.map((item, index) => (
+					<div className="card_item" key={`${index} item`}>
+						<div className="card_item_femra">
+							<ProgressBar
+								bgcolor="#ddb40a"
+								completed={getGjiniaMesatarja(
+									item?.data?.totalfemra,
+									item?.data?.maxfemra,
+								)?.toFixed()}
+							/>
+						</div>
+						<div className="card_item_place">{item?.label}</div>
+						<div className="card_item_meshkuj">
+							<ProgressBar
+								bgcolor="#00517D"
+								completed={getGjiniaMesatarja(
+									item?.data?.totalmeshkuj,
+									item?.data?.maxmeshkuj,
+								)?.toFixed()}
+							/>
+						</div>
 					</div>
-					<div className="card_item_place">Malisheve</div>
-					<div className="card_item_meshkuj">
-						<ProgressBar bgcolor="#00517D" completed="90" />
-					</div>
-				</div>
+				))}
 				<div className="legend">
 					<div className="legend_item">
 						<div className="legend_item__icon" style={{backgroundColor: "#ddb40a"}} />
