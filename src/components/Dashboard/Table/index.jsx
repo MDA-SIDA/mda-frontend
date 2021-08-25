@@ -60,7 +60,7 @@ const Table = (props) => {
 	);
 };
 const mapStateToProps = (state) => ({
-	arbk: state.app.arbk?.index?.arbk.map((o) => ({...o, tableData: {}})).reverse(),
+	arbk: state.app.arbk?.index?.arbk?.map((o) => ({...o, tableData: {}})).reverse(),
 	uni: state.app.universitetiiprishtines?.index?.universitetiiprishtines
 		.map((o) => ({...o, tableData: {}}))
 		.reverse(),

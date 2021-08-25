@@ -4,6 +4,7 @@ import {watcher as login} from "@sagas/login";
 import {watcher as navigation} from "@sagas/navigation";
 import {watcher as admins} from "@sagas/admins";
 import {watcher as profile} from "@sagas/profile";
+import {watcher as tablesArbk} from "@sagas/arbk";
 import {watcher as universitetiiprishtines} from "@sagas/universitetet";
 import {watcher as up} from "@sagas/industries/up";
 import {watcher as atk} from "@sagas/industries/atk";
@@ -25,6 +26,7 @@ export default function* root() {
 		up(),
 		atk(),
 		arbk(),
+		tablesArbk(),
 		mapl(),
 		akk(),
 		auv(),
