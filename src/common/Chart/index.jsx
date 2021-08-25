@@ -17,7 +17,7 @@ const Chart = ({type = "line", data, options, title, value, showYears, className
 			options={{
 				maintainAspectRatio: false,
 				responsive: true,
-				scales: {
+				scales: type !== "pie" && {
 					x: {
 						ticks: {
 							color: "#7C9CBF",

@@ -8,12 +8,19 @@
     margin-bottom: 1.5rem;
     font-size: 2rem;
     font-weight: 100;
-    button{
+    &>button{
         color: #F75C5C;
         background-color: white;
        border:1px solid #F75C5C;
         border-radius: 0.5rem;
         padding:0.7rem;
+         cursor: pointer;
+      &:hover {
+        transform: scale(1.1);
+      }
+      &:active {
+        transform: scale(0.99);
+      }
     }
 }
 

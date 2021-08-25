@@ -20,7 +20,7 @@ function Layout({children}) {
 			<Sidebar overrideStyle={styles.layout_container__sidebar} />
 			<Sidedrawer open={sideDrawerIsVisible} closed={sideDrawerCloseHandler} />
 			<Backdrop />
-			<SecondaryButton drawerHandler={sideDrawerToggleHandler} />
+			{/* <SecondaryButton drawerHandler={sideDrawerToggleHandler} /> */}
 			<div className={styles.layout_container__main}>
 				{children}
 				{/* TODO: will be rendered conditionally */}

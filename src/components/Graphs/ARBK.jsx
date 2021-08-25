@@ -3,7 +3,13 @@ import {connect} from "react-redux";
 import {actions} from "@sagas/industries/arbk";
 import Chart from "@common/Chart";
 import {groupBy} from "lodash";
-import {getDatasets} from "./utils";
+import ProgressBar from "@common/ProgressBar";
+import {
+	getDatasets,
+	getGjiniaDataset,
+	getGjiniaMesatarja,
+	getStatusiBizneseveDataset,
+} from "./utils";
 
 function ARBK({
 	fetchNrBizneseve,
@@ -55,14 +61,6 @@ function ARBK({
 		filterBy: "sektori",
 	});
 
-	const statusiBizneseveDataSets = getDatasets({
-		filters,
-		items: statusiBizneseve,
-		singleItemLabel: "",
-		property: "countaktiv",
-		isActiveNoActive: true,
-	});
-
 	const llojiBiznesitDataSets = getDatasets({
 		filters,
 		items: llojiBiznesit,
@@ -71,7 +69,8 @@ function ARBK({
 		filterBy: "llojibiznesit",
 	});
 
-	// TODO: add graph for gjinia
+	const gjiniaData = getGjiniaDataset({items: gjinia, filters});
+	const statusiBizneseveData = getStatusiBizneseveDataset({items: statusiBizneseve, filters});
 
 	return (
 		<>
@@ -85,32 +84,37 @@ function ARBK({
 			/>
 			<Chart
 				title="Numri Bizneseve"
-				type="bar"
+				type="line"
 				data={{
 					labels: Object.keys(groupBy(nrBizneseve, "viti")),
 					datasets: nrBizneseveDataSets,
 				}}
 			/>
-			{/* TODO */}
-			<Chart
-				title="Statusi i biznesit"
-				type="bar"
-				data={{
-					labels: statusiBizneseve?.map((item) => item.komunaemri),
-					datasets: statusiBizneseveDataSets,
-				}}
-				options={{
-					plugins: {
-						tooltip: {
-							enabled: true,
-							callbacks: {
-								// TODO:
-								footer: (items) => `Aktiv: 5, Joaktiv: 4`,
+			{statusiBizneseveData?.map((item, index) => (
+				<Chart
+					key={`${index} item=index`}
+					title={`Statusi i biznesit ${item.label}`}
+					type="pie"
+					data={{
+						labels: ["Aktiv", "Jo aktiv"],
+						datasets: [
+							{
+								label: item.label,
+								data: [item.data?.countaktiv, item.data?.countjoaktiv],
+								backgroundColor: ["#005293", "#BABABA"],
+							},
+						],
+					}}
+					options={{
+						responsive: true,
+						plugins: {
+							legend: {
+								position: "bottom",
 							},
 						},
-					},
-				}}
-			/>
+					}}
+				/>
+			))}
 			<Chart
 				title="Lloji Biznesit"
 				type="bar"
@@ -118,18 +122,48 @@ function ARBK({
 					labels: Object.keys(groupBy(llojiBiznesit, "llojibiznesit")),
 					datasets: llojiBiznesitDataSets,
 				}}
-				// options={{
-				// 	plugins: {
-				// 		tooltip: {
-				// 			enabled: true,
-				// 			callbacks: {
-				// 				// TODO:
-				// 				footer: (items) => `Regjioni: test, Komuna: test, Vendbanimi: test`,
-				// 			},
-				// 		},
-				// 	},
-				// }}
 			/>
+			<div className="card_container">
+				<div
+					className="chart_title"
+					style={{paddingLeft: 0, paddingTop: 5, paddingBottom: 10}}
+				>
+					Total pronarë
+				</div>
+				{gjiniaData?.map((item, index) => (
+					<div className="card_item" key={`${index} item`}>
+						<div className="card_item_femra">
+							<ProgressBar
+								bgcolor="#ddb40a"
+								completed={getGjiniaMesatarja(
+									item?.data?.totalfemra,
+									item?.data?.maxfemra,
+								)?.toFixed()}
+							/>
+						</div>
+						<div className="card_item_place">{item?.label}</div>
+						<div className="card_item_meshkuj">
+							<ProgressBar
+								bgcolor="#00517D"
+								completed={getGjiniaMesatarja(
+									item?.data?.totalmeshkuj,
+									item?.data?.maxmeshkuj,
+								)?.toFixed()}
+							/>
+						</div>
+					</div>
+				))}
+				<div className="legend">
+					<div className="legend_item">
+						<div className="legend_item__icon" style={{backgroundColor: "#ddb40a"}} />
+						<div className="legend_item__label">Femra</div>
+					</div>
+					<div className="legend_item">
+						<div className="legend_item__icon" style={{backgroundColor: "#00517D"}} />
+						<div className="legend_item__label">Meshkuj</div>
+					</div>
+				</div>
+			</div>
 		</>
 	);
 }

@@ -42,10 +42,9 @@ export const sagas = {
 	*post({payload}) {
 		yield put(actions.setIsSubmitting(true));
 		try {
-			// TODO: uncomment when server is ready
-			// const response = yield axios.post("/auth/login/", payload);
-			// yield localStorage.setItem("token", response?.data?.jwtToken);
-			yield put(navigation.navigate("/"));
+			const response = yield axios.post("/login", payload);
+			yield localStorage.setItem("token", response?.data?.token);
+			yield put(navigation.navigate("/dashboard"));
 		} catch (error) {
 			logger.error(error);
 		} finally {

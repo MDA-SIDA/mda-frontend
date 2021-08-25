@@ -1,21 +1,16 @@
 import Layout from "@components/Layout";
-import {getCurrentUser} from "@utils/currentUser";
 import React from "react";
 import {Redirect, Route} from "react-router-dom";
 const ProtectedRoute = ({component: Component, render, ...rest}) => {
-	const user = {
-		id: "1",
-		name: "Eduana",
-	};
+	const token = localStorage.getItem("token");
 	return (
 		<Route
 			{...rest}
 			render={(props) => {
-				// TODO: uncomment
-				// if (!user) {
-				// 	return <Redirect to="/auth" />;
-				// }
-				if (user) {
+				if (!token) {
+					return <Redirect to="/auth" />;
+				}
+				if (token) {
 					return Component ? (
 						<Layout>
 							<Component {...props} {...rest} />

@@ -11,6 +11,8 @@ import ARBK from "./ARBK";
 import AUV from "./AUV";
 import MAPL from "./MAPL";
 import MASHT from "./MASHT";
+import MPBZhR from "./MPBZhR";
+import DOGANA from "./DOGANA";
 
 const Graphs = ({filters}) => {
 	const [isEmpty, setIsEmpty] = useState(false);
@@ -37,13 +39,33 @@ const Graphs = ({filters}) => {
 						</p>
 					</div>
 				)}
-				{showGraph.UP && <UP filters={filters} />}
-				{showGraph.ATK && <ATK filters={filters} />}
-				{showGraph.AKK && <AKK filters={filters} />}
-				{showGraph.ARBK && <ARBK filters={filters} />}
-				{showGraph.AUV && <AUV filters={filters} />}
-				{showGraph.MAPL && <MAPL filters={filters} />}
-				{showGraph.MASHT && <MASHT filters={filters} />}
+				{!isEmpty && showGraph.UP && (
+					<UP filters={filters} changeIsEmpty={(state) => setIsEmpty(state)} />
+				)}
+				{!isEmpty && showGraph.ATK && (
+					<ATK filters={filters} changeIsEmpty={(state) => setIsEmpty(state)} />
+				)}
+				{!isEmpty && showGraph.AKK && (
+					<AKK filters={filters} changeIsEmpty={(state) => setIsEmpty(state)} />
+				)}
+				{!isEmpty && showGraph.ARBK && (
+					<ARBK filters={filters} changeIsEmpty={(state) => setIsEmpty(state)} />
+				)}
+				{!isEmpty && showGraph.AUV && (
+					<AUV filters={filters} changeIsEmpty={(state) => setIsEmpty(state)} />
+				)}
+				{!isEmpty && showGraph.MAPL && (
+					<MAPL filters={filters} changeIsEmpty={(state) => setIsEmpty(state)} />
+				)}
+				{!isEmpty && showGraph.MASHT && (
+					<MASHT filters={filters} changeIsEmpty={(state) => setIsEmpty(state)} />
+				)}
+				{!isEmpty && showGraph.MPBZhR && (
+					<MPBZhR filters={filters} changeIsEmpty={(state) => setIsEmpty(state)} />
+				)}
+				{!isEmpty && showGraph.DOGANA && (
+					<DOGANA filters={filters} changeIsEmpty={(state) => setIsEmpty(state)} />
+				)}
 			</div>
 		</div>
 	);

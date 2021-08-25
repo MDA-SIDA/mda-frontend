@@ -46,7 +46,7 @@ function ATK({
 				}}
 			/>
 			<Chart
-				title="Nr. total i studenteve"
+				title="Lloji i kompanise dhe mesatarja e puntoreve"
 				type="bar"
 				data={{
 					labels: Object.keys(groupBy(llojiKompaniseMesatarjaPuntoreve, "llojikompanis")),

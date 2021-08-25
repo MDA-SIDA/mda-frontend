@@ -17,7 +17,7 @@ import Remove from "@material-ui/icons/Remove";
 import SaveAlt from "@material-ui/icons/SaveAlt";
 import Search from "@material-ui/icons/Search";
 import ViewColumn from "@material-ui/icons/ViewColumn";
-const index = ({columns, tableData}) => {
+const index = ({columns, tableData, onRowClickHandler}) => {
 	const getMuiTheme = () =>
 		createTheme({
 			overrides: {
@@ -127,6 +127,9 @@ const index = ({columns, tableData}) => {
 					data={tableData}
 					title=""
 					icons={tableIcons}
+					// eslint-disable-next-line no-console
+					// eslint-disable-next-line no-undef
+					onRowClick={(event, rowData) => onRowClickHandler(event, rowData)}
 				/>
 			</div>
 		</MuiThemeProvider>

@@ -1,15 +1,21 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {withRouter} from "react-router";
 import {connect} from "react-redux";
 import DataGrid from "@common/DataTable/index";
 import UsersDrawer from "@components/Sidedrawer/UsersDrawer/index";
-import {Avatar} from "@material-ui/core";
+import {actions} from "@sagas/admins";
 import styles from "./index.module.scss";
 import Search from "../Search/index";
 import Add from "../SecondaryButton/index";
 
-const ManageUsers = () => {
+const ManageUsers = ({admins, fetch}) => {
 	const [sideDrawerIsVisible, setSideDrawerIsVisible] = useState(false);
+	const [mode, setMode] = useState("create");
+	const [user, setUser] = useState(null);
+
+	useEffect(() => {
+		fetch();
+	}, []);
 
 	const sideDrawerCloseHandler = () => {
 		setSideDrawerIsVisible(false);
@@ -17,24 +23,23 @@ const ManageUsers = () => {
 	const sideDrawerToggleHandler = () => {
 		setSideDrawerIsVisible(!sideDrawerIsVisible);
 	};
+
 	const columns = [
-		{title: "Admin", field: "Admin"},
-		{title: "ID", field: "ID", type: "numeric"},
-		{title: "Name", field: "Name"},
-		{title: "Email", field: "Email"},
-		{title: "Role", field: "Role"},
-		{title: "Date Joined", field: "Date", type: "date"},
+		// {title: "Admin", field: "Admin"},
+		{title: "ID", field: "id", type: "numeric"},
+		{title: "Name", field: "name"},
+		{title: "Email", field: "email"},
+		{title: "Role", field: "role"},
+		{title: "Date Joined", field: "date", type: "date"},
 	];
-	const data = [
-		{
-			Admin: <Avatar size={10} round={true} />,
-			ID: "77",
-			Name: "John",
-			Email: "john@gmail.com",
-			Role: "Admin",
-			Date: "12/12/2001",
-		},
-	];
+
+	const editAdmin = (rowData) => {
+		setMode("edit");
+		sideDrawerToggleHandler();
+		setUser(rowData);
+	};
+
+	// eslint-disable-next-line no-console
 
 	return (
 		<div className={styles.container}>
@@ -43,12 +48,37 @@ const ManageUsers = () => {
 				<div className={styles.container__table__header}>
 					<Search />
 					<Add name="Add New" drawerHandler={sideDrawerToggleHandler} />
-					<UsersDrawer open={sideDrawerIsVisible} closed={sideDrawerCloseHandler} />
+					<UsersDrawer
+						user={user}
+						mode={mode}
+						open={sideDrawerIsVisible}
+						closed={() => {
+							sideDrawerCloseHandler();
+							setMode("create");
+						}}
+					/>
 				</div>
-				<DataGrid columns={columns} tableData={data} />
+				<DataGrid
+					columns={columns}
+					tableData={admins}
+					// eslint-disable-next-line no-console
+					onRowClickHandler={(event, rowData) => {
+						// eslint-disable-next-line no-console
+
+						editAdmin(rowData);
+					}}
+				/>
 			</div>
 		</div>
 	);
 };
 
-export default connect(null, null)(withRouter(ManageUsers));
+const mapStateToProps = (state) => ({
+	admins: state.app.admins.index.admins.map((o) => ({...o, tableData: {}})).reverse(),
+});
+
+const mapDispatchToProps = {
+	fetch: actions.fetch,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ManageUsers));

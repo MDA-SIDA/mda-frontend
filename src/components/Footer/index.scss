@@ -2,15 +2,13 @@ footer {
   align-items: flex-end;
   .main {
     padding: 4rem 2rem;
-    background-color: red;
     background-color: #005293;
 
     &_first {
       display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-
+      flex-direction: column;
+      justify-content: center;
+      
       &__info {
         &__address {
           margin-bottom: 1rem;
@@ -45,4 +43,13 @@ footer {
       margin-left: 1rem;
     }
   }
+}
+
+@media (min-width: 500px) {
+    .main{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+    
 }

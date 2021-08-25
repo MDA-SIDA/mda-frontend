@@ -1,0 +1,22 @@
+.container{
+overflow-y: scroll;
+    &__header{
+        margin-top: 1rem;
+        &>p{
+            font-size: large;
+            margin:2rem 0
+        }
+    }
+
+&__profile{
+    &>img{
+         width: 12rem;
+      border-radius: 50%;
+      border: 0.2rem solid #005293;
+    }
+}
+&__submitButton{
+   width: 93%;
+    margin: auto;
+}
+}

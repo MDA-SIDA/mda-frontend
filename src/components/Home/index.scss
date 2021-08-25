@@ -12,4 +12,35 @@
     justify-content: space-between;
     padding: 2rem;
   }
+.mainFilters{
+  width: 100%;
 }
+}
+.drawerButton{
+  width: 129px;
+  height: 50px;
+  border-radius:3px;
+  border: 2px solid #00517D ;
+  background-color: white;
+  color: #00517D;
+  margin:25px 12px
+}
+
+
+
+@media (min-width: 500px) {
+    .sideDrawerFilter {
+     display: none;
+
+    }
+.drawerButton{
+  display: none;
+}
+    
+}
+@media (max-width: 500px) {
+  .mainFilters{
+    display: none;
+  }
+}
+
