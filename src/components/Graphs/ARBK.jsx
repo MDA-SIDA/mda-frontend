@@ -4,7 +4,12 @@ import {actions} from "@sagas/industries/arbk";
 import Chart from "@common/Chart";
 import {groupBy} from "lodash";
 import ProgressBar from "@common/ProgressBar";
-import {getDatasets, getGjiniaDataset, getGjiniaMesatarja} from "./utils";
+import {
+	getDatasets,
+	getGjiniaDataset,
+	getGjiniaMesatarja,
+	getStatusiBizneseveDataset,
+} from "./utils";
 
 function ARBK({
 	fetchNrBizneseve,
@@ -56,14 +61,6 @@ function ARBK({
 		filterBy: "sektori",
 	});
 
-	const statusiBizneseveDataSets = getDatasets({
-		filters,
-		items: statusiBizneseve,
-		singleItemLabel: "",
-		property: "countaktiv",
-		isActiveNoActive: true,
-	});
-
 	const llojiBiznesitDataSets = getDatasets({
 		filters,
 		items: llojiBiznesit,
@@ -72,7 +69,8 @@ function ARBK({
 		filterBy: "llojibiznesit",
 	});
 
-	const data = getGjiniaDataset({items: gjinia, filters});
+	const gjiniaData = getGjiniaDataset({items: gjinia, filters});
+	const statusiBizneseveData = getStatusiBizneseveDataset({items: statusiBizneseve, filters});
 
 	return (
 		<>
@@ -92,26 +90,31 @@ function ARBK({
 					datasets: nrBizneseveDataSets,
 				}}
 			/>
-			{/* TODO */}
-			<Chart
-				title="Statusi i biznesit"
-				type="bar"
-				data={{
-					labels: statusiBizneseve?.map((item) => item.komunaemri),
-					datasets: statusiBizneseveDataSets,
-				}}
-				options={{
-					plugins: {
-						tooltip: {
-							enabled: true,
-							callbacks: {
-								// TODO:
-								footer: (items) => `Aktiv: 5, Joaktiv: 4`,
+			{statusiBizneseveData?.map((item, index) => (
+				<Chart
+					key={`${index} item=index`}
+					title={`Statusi i biznesit ${item.label}`}
+					type="pie"
+					data={{
+						labels: ["Aktiv", "Jo aktiv"],
+						datasets: [
+							{
+								label: item.label,
+								data: [item.data?.countaktiv, item.data?.countjoaktiv],
+								backgroundColor: ["#005293", "#BABABA"],
+							},
+						],
+					}}
+					options={{
+						responsive: true,
+						plugins: {
+							legend: {
+								position: "bottom",
 							},
 						},
-					},
-				}}
-			/>
+					}}
+				/>
+			))}
 			<Chart
 				title="Lloji Biznesit"
 				type="bar"
@@ -127,7 +130,7 @@ function ARBK({
 				>
 					Total pronarë
 				</div>
-				{data?.map((item, index) => (
+				{gjiniaData?.map((item, index) => (
 					<div className="card_item" key={`${index} item`}>
 						<div className="card_item_femra">
 							<ProgressBar

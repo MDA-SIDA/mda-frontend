@@ -186,6 +186,52 @@ const getGjiniaMesatarja = (total, max) => {
 	return (total / max) * 100;
 };
 
+const getStatusiBizneseveDataset = ({items, filters}) => {
+	const {komunat, regjionet, vendbanimet} = filters;
+
+	if (komunat?.length === 0 && regjionet?.length === 0 && vendbanimet?.length === 0) {
+		return [
+			{
+				label: "",
+				data: getStatusiBizneseveDataForDatasets(items),
+			},
+		];
+	}
+
+	if (vendbanimet?.length > 0) {
+		const groupedItems = groupBy(items, "vendbanimiemri");
+		return Object.keys(groupedItems)?.map((key) => ({
+			label: key,
+			data: getStatusiBizneseveDataForDatasets(groupedItems[key]),
+		}));
+	}
+
+	if (komunat.length > 0) {
+		const groupedItems = groupBy(items, "komunaemri");
+		return Object.keys(groupedItems)?.map((key) => ({
+			label: key,
+			data: getStatusiBizneseveDataForDatasets(groupedItems[key]),
+		}));
+	}
+
+	if (regjionet.length > 0) {
+		const groupedItems = groupBy(items, "regjioniemri");
+		return Object.keys(groupedItems)?.map((key) => ({
+			label: key,
+			data: getStatusiBizneseveDataForDatasets(groupedItems[key]),
+		}));
+	}
+};
+
+const getStatusiBizneseveDataForDatasets = (items) =>
+	items?.reduce(
+		({countaktiv, countjoaktiv}, item) => ({
+			countaktiv: countaktiv + Number(item.countaktiv),
+			countjoaktiv: countjoaktiv + Number(item.countjoaktiv),
+		}),
+		{countaktiv: 0, countjoaktiv: 0},
+	);
+
 export {
 	setIndustry,
 	showGraphInitialState,
@@ -194,4 +240,5 @@ export {
 	areArraysEmpty,
 	getGjiniaDataset,
 	getGjiniaMesatarja,
+	getStatusiBizneseveDataset,
 };
