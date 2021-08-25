@@ -6,7 +6,7 @@ const Chart = ({type = "line", data, options, title, value, showYears, className
 	<div className="chart_container">
 		<div className="chart_title">
 			<p style={{display: "flex"}}>
-				{title} {showYears && <span>2016-2021</span>}
+				{title} {showYears && <span>2017-2021</span>}
 			</p>
 			<p className="value">{value}</p>
 		</div>
@@ -14,21 +14,41 @@ const Chart = ({type = "line", data, options, title, value, showYears, className
 			type={type}
 			data={data}
 			className={className}
-			responsive={true}
 			options={{
 				maintainAspectRatio: false,
 				responsive: true,
-				scales: {
+				scales: type !== "pie" && {
+					x: {
+						ticks: {
+							color: "#7C9CBF",
+							padding: 30,
+							fontSize: 14,
+						},
+						grid: {
+							display: false,
+						},
+						...options?.scales?.x,
+					},
+					y: {
+						ticks: {
+							padding: 30,
+						},
+						...options?.scales?.y,
+					},
 					...options?.scales,
 				},
 				layout: {
-					...options.layout,
+					...options?.layout,
 				},
 				plugins: {
+					tooltip: {
+						...options?.plugins?.tooltip,
+					},
 					legend: {
 						position: "bottom",
 						align: "center",
-						...options?.plugins.legend,
+						display: true,
+						...options?.plugins?.legend,
 					},
 				},
 			}}

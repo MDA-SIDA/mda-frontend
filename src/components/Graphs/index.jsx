@@ -1,161 +1,74 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import {withRouter} from "react-router";
 import {connect} from "react-redux";
 import "./index.scss";
-import Chart from "@common/Chart";
+import excl from "../../assets/img/exclamation.svg";
+import {setIndustry, showGraphInitialState} from "./utils";
+import UP from "./UP";
+import ATK from "./ATK";
+import AKK from "./AKK";
+import ARBK from "./ARBK";
+import AUV from "./AUV";
+import MAPL from "./MAPL";
+import MASHT from "./MASHT";
+import MPBZhR from "./MPBZhR";
+import DOGANA from "./DOGANA";
 
-const Graphs = () => (
-	<div className="content_graphs">
-		<div className="content_graphs__row">
-			<Chart
-				title="Numri i bizneseve nder vite"
-				value={340}
-				type="line"
-				showYears
-				data={{
-					labels: ["2016", "2017", "2018", "2019", "2020", "2021"],
-					datasets: [
-						{
-							label: "Pageviews",
-							data: [50, 30, 100, 150, 10],
-							borderColor: "#005293",
-						},
-					],
-				}}
-				options={{
-					plugins: {
-						legend: {
-							display: false,
-						},
-					},
-					scales: {
-						x: {
-							ticks: {
-								color: "#7C9CBF",
-								padding: 30,
-								fontSize: 14,
-							},
-							grid: {
-								display: false,
-							},
-						},
-						y: {
-							min: 10,
-							max: 200,
-							grid: {
-								display: true,
-							},
-							ticks: {
-								stepSize: 50,
-								color: "#7C9CBF",
-								padding: 30,
-								fontSize: 11,
-								fontFamily: "Montserrat Medium",
-							},
-						},
-					},
-				}}
-			/>
-			<Chart
-				title="Numri i bizneseve nder vite"
-				value={340}
-				type="bar"
-				data={{
-					labels: ["2016", "2017", "2018", "2019", "2020", "2021"],
-					datasets: [
-						{
-							label: "Pageviews",
-							data: [50, 30, 100, 150, 10],
-							backgroundColor: "#00517D",
-						},
-					],
-				}}
-				options={{
-					plugins: {
-						legend: {
-							display: false,
-						},
-					},
-					scales: {
-						x: {
-							ticks: {
-								color: "#7C9CBF",
-								padding: 30,
-								fontSize: 14,
-							},
-							grid: {
-								display: false,
-							},
-						},
-						y: {
-							min: 10,
-							max: 200,
-							grid: {
-								display: true,
-							},
-							ticks: {
-								stepSize: 50,
-								color: "#7C9CBF",
-								padding: 30,
-								fontSize: 11,
-								fontFamily: "Montserrat Medium",
-							},
-						},
-					},
-				}}
-			/>
-			<Chart
-				title="Gjinia"
-				type="pie"
-				className="gjinia"
-				data={{
-					labels: ["% Meshkuj", "% Femra"],
-					datasets: [
-						{
-							label: "Dataset 1",
-							data: ["77", "23"],
-							backgroundColor: ["#005490", "#FCCB11"],
-						},
-					],
-				}}
-				options={{
-					plugins: {
-						legend: {
-							display: true,
-							position: "top",
-						},
-					},
-				}}
-			/>
+const Graphs = ({filters}) => {
+	const [isEmpty, setIsEmpty] = useState(false);
+	const [showGraph, setShowGraph] = useState(showGraphInitialState);
+
+	useEffect(() => {
+		if (!filters?.industria) {
+			setIsEmpty(true);
+			setShowGraph(showGraphInitialState);
+		} else setIsEmpty(false);
+		setIndustry(filters, setShowGraph, showGraph);
+	}, [filters]);
+
+	return (
+		<div className="content_graphs">
+			<div className="content_graphs_graph">
+				{isEmpty && (
+					<div className="no-data">
+						<p>
+							Nuk ka asnje te dhene per t&apos;u shfaqur{" "}
+							<span>
+								<img src={excl} alt=""></img>
+							</span>
+						</p>
+					</div>
+				)}
+				{!isEmpty && showGraph.UP && (
+					<UP filters={filters} changeIsEmpty={(state) => setIsEmpty(state)} />
+				)}
+				{!isEmpty && showGraph.ATK && (
+					<ATK filters={filters} changeIsEmpty={(state) => setIsEmpty(state)} />
+				)}
+				{!isEmpty && showGraph.AKK && (
+					<AKK filters={filters} changeIsEmpty={(state) => setIsEmpty(state)} />
+				)}
+				{!isEmpty && showGraph.ARBK && (
+					<ARBK filters={filters} changeIsEmpty={(state) => setIsEmpty(state)} />
+				)}
+				{!isEmpty && showGraph.AUV && (
+					<AUV filters={filters} changeIsEmpty={(state) => setIsEmpty(state)} />
+				)}
+				{!isEmpty && showGraph.MAPL && (
+					<MAPL filters={filters} changeIsEmpty={(state) => setIsEmpty(state)} />
+				)}
+				{!isEmpty && showGraph.MASHT && (
+					<MASHT filters={filters} changeIsEmpty={(state) => setIsEmpty(state)} />
+				)}
+				{!isEmpty && showGraph.MPBZhR && (
+					<MPBZhR filters={filters} changeIsEmpty={(state) => setIsEmpty(state)} />
+				)}
+				{!isEmpty && showGraph.DOGANA && (
+					<DOGANA filters={filters} changeIsEmpty={(state) => setIsEmpty(state)} />
+				)}
+			</div>
 		</div>
-		<div className="content_graphs__row">
-			<Chart
-				title="Gjinia"
-				type="pie"
-				className="gjinia"
-				data={{
-					labels: ["% Meshkuj", "% Femra"],
-					datasets: [
-						{
-							label: "Dataset 1",
-							data: ["77", "23"],
-							backgroundColor: ["#005490", "#FCCB11"],
-						},
-					],
-				}}
-				options={{
-					plugins: {
-						legend: {
-							display: true,
-							position: "top",
-						},
-					},
-				}}
-			/>
-		</div>
-		<div />
-		<div />
-	</div>
-);
+	);
+};
 
 export default connect(null, null)(withRouter(Graphs));

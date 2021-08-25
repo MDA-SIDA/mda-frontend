@@ -19,30 +19,48 @@ const disabledInitialState = {
 	regjionet: false,
 };
 
-function Filters({vendbanimet, komunat, regjionet, industrite, fetch, getFilters}) {
+function Filters({
+	vendbanimet,
+	komunat,
+	regjionet,
+	industrite,
+	getFilters,
+	fetchRegjionet,
+	fetchIndustrite,
+	fetchKomunat,
+	fetchVendbanimet,
+}) {
 	const [selectedFilters, setSelectedFilter] = useState(filtersInitialState);
 
 	const [isDisabled, setIsDisabled] = useState(disabledInitialState);
 
 	useEffect(() => {
-		fetch();
-	}, [fetch]);
+		fetchRegjionet();
+		fetchIndustrite();
+		fetchKomunat();
+		fetchVendbanimet();
+	}, [fetchRegjionet, fetchIndustrite, fetchKomunat, fetchVendbanimet]);
 
 	return (
 		<div className="fitlers_container">
 			<Select
 				value={selectedFilters?.industria}
-				options={industrite}
+				options={industrite?.map((industria) => ({
+					value: industria.industriaEmri,
+					label: industria.industriaEmri,
+				}))}
 				isSearchable
 				isMulti={false}
 				closeMenuOnSelect={false}
 				onChange={(value) => setSelectedFilter((state) => ({...state, industria: value}))}
-				menuIsOpen={true}
 				placeholder="Industria"
 			/>
 			<Select
 				value={selectedFilters?.regjionet}
-				options={regjionet}
+				options={regjionet?.map((regjioni) => ({
+					value: regjioni.regjioniid,
+					label: regjioni.regjioniemri,
+				}))}
 				isSearchable
 				isMulti
 				isDisabled={isDisabled.regjionet}
@@ -53,12 +71,14 @@ function Filters({vendbanimet, komunat, regjionet, industrite, fetch, getFilters
 						setIsDisabled((state) => ({...state, regjionet: true}));
 					} else setSelectedFilter((state) => ({...state, regjionet: value}));
 				}}
-				menuIsOpen={true}
 				placeholder="Regjioni"
 			/>
 			<Select
 				value={selectedFilters?.komunat}
-				options={komunat}
+				options={komunat?.map((komuna) => ({
+					value: komuna.komunaid,
+					label: komuna.komunaemri,
+				}))}
 				isSearchable
 				isDisabled={isDisabled.komunat}
 				isMulti
@@ -69,12 +89,14 @@ function Filters({vendbanimet, komunat, regjionet, industrite, fetch, getFilters
 						setIsDisabled((state) => ({...state, komunat: true}));
 					} else setSelectedFilter((state) => ({...state, komunat: value}));
 				}}
-				menuIsOpen={true}
 				placeholder="Komuna"
 			/>
 			<Select
 				value={selectedFilters?.vendbanimet}
-				options={vendbanimet}
+				options={vendbanimet?.map((vendbanimi) => ({
+					value: vendbanimi.vendbanimiid,
+					label: vendbanimi.vendbanimiemri,
+				}))}
 				isSearchable
 				isMulti
 				isDisabled={isDisabled.vendbanimet}
@@ -85,7 +107,6 @@ function Filters({vendbanimet, komunat, regjionet, industrite, fetch, getFilters
 						setIsDisabled((state) => ({...state, vendbanimet: true}));
 					} else setSelectedFilter((state) => ({...state, vendbanimet: value}));
 				}}
-				menuIsOpen={true}
 				placeholder="Vendbanimi"
 			/>
 			<div className="buttons">
@@ -98,6 +119,7 @@ function Filters({vendbanimet, komunat, regjionet, industrite, fetch, getFilters
 					onClick={() => {
 						setSelectedFilter(filtersInitialState);
 						setIsDisabled(disabledInitialState);
+						getFilters(filtersInitialState);
 					}}
 				/>
 			</div>
@@ -106,7 +128,10 @@ function Filters({vendbanimet, komunat, regjionet, industrite, fetch, getFilters
 }
 
 const mapDispatchToProps = {
-	fetch: actions.fetch,
+	fetchIndustrite: actions.fetchIndustrite,
+	fetchRegjionet: actions.fetchRegjionet,
+	fetchKomunat: actions.fetchKomunat,
+	fetchVendbanimet: actions.fetchVendbanimet,
 };
 
 const mapStateToProps = (state) => ({

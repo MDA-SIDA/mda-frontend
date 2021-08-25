@@ -1,11 +1,12 @@
 .content_graphs {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
   width: 76%;
-  height: auto;
-  min-height: 100%;
+  min-height: min-content;
   background-color: #fff;
-  border-radius: 12px;
+  border-radius: 10px;
   box-shadow: 2px 2px 2px 2px;
   padding: 2rem;
   box-shadow: #cccccc 0px 1px 3px, #cccccc 0px 1px 2px;
@@ -19,3 +20,74 @@
     margin-bottom: 20px;
   }
 }
+
+.content_graphs_graph {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  min-height: min-content;
+  height: min-content;
+
+}
+
+.card_container {
+  width: 429.91px;
+  height: 202.96px;
+  border-radius: 10px;
+  background: #f2f2f2;
+  padding: 10px 15px;
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+}
+
+.card_item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: 1.4rem;
+  color: #707070;
+  padding: 12px 0;
+
+  &_femra, &_meshkuj {
+    display: flex;
+    flex-direction: row;
+  }
+  &_femra {
+    &__progress {
+      flex: 1;
+    }
+  }
+
+}
+
+.legend {
+  display: flex;
+  flex-direction: row;
+  // justify-content: space-between;
+  align-items: center;
+  font-size: 1.4rem;
+  color: #707070;
+  padding-top: 10px;
+  margin-top: auto;
+  &_item {
+    width: 82px;
+    height: 18px;
+    background: transparent;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-right: 10px;
+
+    &__icon {
+      margin-right: 10px;
+      width: 16px;
+      height: 16px;
+      border-radius: 2px;
+      background: #ddb40a;
+    }
+  }
+}
+
+

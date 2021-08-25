@@ -3,6 +3,13 @@ import login from "@sagas/login";
 import admins from "@sagas/admins";
 import profile from "@sagas/profile";
 import arbk from "@sagas/arbk";
+import up from "@sagas/industries/up";
+import atk from "@sagas/industries/atk";
+import arbk from "@sagas/industries/arbk";
+import mapl from "@sagas/industries/mapl";
+import akk from "@sagas/industries/akk";
+import auv from "@sagas/industries/auv";
+import masht from "@sagas/industries/masht";
 import {connectRouter} from "connected-react-router";
 import {combineReducers} from "redux";
 import universitetiiprishtines from "@sagas/universitetet";
@@ -27,6 +34,15 @@ export default function createReducer(injectedReducers, history) {
 			}),
 			universitetiiprishtines: combineReducers({
 				index: universitetiiprishtines,
+      }),
+			industries: combineReducers({
+				up,
+				atk,
+				arbk,
+				mapl,
+				akk,
+				auv,
+				masht,
 			}),
 		}),
 		...injectedReducers,
