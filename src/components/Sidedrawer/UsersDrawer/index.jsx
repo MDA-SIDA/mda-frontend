@@ -52,6 +52,7 @@ const Index = (props) => {
 
   const deleteHandler=()=>{
     deleteAdmin(user)
+	props.closed()
   }
 
 	return (

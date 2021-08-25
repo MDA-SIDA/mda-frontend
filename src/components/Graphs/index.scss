@@ -12,7 +12,6 @@
   box-shadow: #cccccc 0px 1px 3px, #cccccc 0px 1px 2px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px,
     rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
-
   &__row {
     width: 100%;
     display: flex;
@@ -20,7 +19,6 @@
     margin-bottom: 20px;
   }
 }
-
 .content_graphs_graph {
   width: 100%;
   display: flex;
@@ -28,9 +26,7 @@
   flex-wrap: wrap;
   min-height: min-content;
   height: min-content;
-
 }
-
 .card_container {
   width: 429.91px;
   height: 202.96px;
@@ -41,7 +37,6 @@
   flex-direction: column;
   margin: 5px;
 }
-
 .card_item {
   display: flex;
   flex-direction: row;
@@ -49,7 +44,6 @@
   font-size: 1.4rem;
   color: #707070;
   padding: 12px 0;
-
   &_femra, &_meshkuj {
     display: flex;
     flex-direction: row;
@@ -59,9 +53,7 @@
       flex: 1;
     }
   }
-
 }
-
 .legend {
   display: flex;
   flex-direction: row;
@@ -79,7 +71,6 @@
     flex-direction: row;
     align-items: center;
     margin-right: 10px;
-
     &__icon {
       margin-right: 10px;
       width: 16px;
@@ -89,5 +80,8 @@
     }
   }
 }
-
-
+@media (max-width:500px) {
+  .content_graphs{
+   width: 100%;
+  }
+}

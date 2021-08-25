@@ -26,7 +26,7 @@ const Home = () => {
 			<div className="content">
 				<div className="sideDrawerFilter">
 					<SideDrawer left open={sideDrawerIsVisible} closed={sideDrawerCloseHandler}>
-						<Filters getFilters={(filters) => setFilters(filters)} />
+						<Filters getFilters={(filters) => setFilters(filters)}  closeDrawer={sideDrawerCloseHandler}/>
 					</SideDrawer>
 				</div>
 				<div className="mainFilters">

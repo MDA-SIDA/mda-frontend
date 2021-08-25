@@ -25,6 +25,7 @@ function Filters({
 	regjionet,
 	industrite,
 	getFilters,
+	closeDrawer,
 	fetchRegjionet,
 	fetchIndustrite,
 	fetchKomunat,
@@ -112,7 +113,10 @@ function Filters({
 			<div className="buttons">
 				<PrimaryButton
 					name="Gjenero Statistikat"
-					onClick={() => getFilters(selectedFilters)}
+					onClick={() => {
+						getFilters(selectedFilters);
+						closeDrawer();
+					}}
 				/>
 				<CancelButton
 					name="Fshij"
@@ -120,6 +124,7 @@ function Filters({
 						setSelectedFilter(filtersInitialState);
 						setIsDisabled(disabledInitialState);
 						getFilters(filtersInitialState);
+						closeDrawer();
 					}}
 				/>
 			</div>
