@@ -30,7 +30,7 @@ const Home = () => {
 					</SideDrawer>
 				</div>
 				<div className="mainFilters">
-					<Filters getFilters={(filters) => setFilters(filters)} />
+					<Filters getFilters={(filters) => setFilters(filters)} closeDrawer={sideDrawerCloseHandler}/>
 				</div>
 				<Graphs filters={filters} />
 			</div>

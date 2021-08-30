@@ -1,13 +1,11 @@
-import React, {useState} from "react";
+import React from "react";
 import {Formik, Form} from "formik";
 import Input from "@common/Input";
 import * as Yup from "yup";
 import Button from "@common/Button";
-import {Avatar} from "@material-ui/core";
 import {withRouter} from "react-router";
 import {connect} from "react-redux";
 import {actions} from "@sagas/profile/index";
-import moment from "moment";
 import SideDrawer from "@components/Sidedrawer/index";
 import profileAvatar from "@assets/img/picture.png";
 import styles from "./index.module.scss";
@@ -38,7 +36,7 @@ const initialValues = (current) => ({
 	role: current?.role,
 });
 const Index = (props) => {
-	const {isSubmitting, profile, mode, editProfile} = props;
+	const {isSubmitting, profile, editProfile} = props;
 
 	const submitHandler = (values, resetForm) => {
 		editProfile({
