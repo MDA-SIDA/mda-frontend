@@ -14,17 +14,17 @@ import MASHT from "./MASHT";
 import MPBZhR from "./MPBZhR";
 import DOGANA from "./DOGANA";
 
-const Graphs = ({filters}) => {
+const Graphs = ({selectedFilters}) => {
 	const [isEmpty, setIsEmpty] = useState(false);
 	const [showGraph, setShowGraph] = useState(showGraphInitialState);
 
 	useEffect(() => {
-		if (!filters?.industria) {
+		if (!selectedFilters?.industria?.value) {
 			setIsEmpty(true);
 			setShowGraph(showGraphInitialState);
 		} else setIsEmpty(false);
-		setIndustry(filters, setShowGraph, showGraph);
-	}, [filters]);
+		setIndustry(selectedFilters, setShowGraph, showGraph);
+	}, [selectedFilters]);
 
 	return (
 		<div className="content_graphs">
@@ -40,35 +40,49 @@ const Graphs = ({filters}) => {
 					</div>
 				)}
 				{!isEmpty && showGraph.UP && (
-					<UP filters={filters} changeIsEmpty={(state) => setIsEmpty(state)} />
+					<UP filters={selectedFilters} changeIsEmpty={(state) => setIsEmpty(state)} />
 				)}
 				{!isEmpty && showGraph.ATK && (
-					<ATK filters={filters} changeIsEmpty={(state) => setIsEmpty(state)} />
+					<ATK filters={selectedFilters} changeIsEmpty={(state) => setIsEmpty(state)} />
 				)}
 				{!isEmpty && showGraph.AKK && (
-					<AKK filters={filters} changeIsEmpty={(state) => setIsEmpty(state)} />
+					<AKK filters={selectedFilters} changeIsEmpty={(state) => setIsEmpty(state)} />
 				)}
 				{!isEmpty && showGraph.ARBK && (
-					<ARBK filters={filters} changeIsEmpty={(state) => setIsEmpty(state)} />
+					<ARBK filters={selectedFilters} changeIsEmpty={(state) => setIsEmpty(state)} />
 				)}
 				{!isEmpty && showGraph.AUV && (
-					<AUV filters={filters} changeIsEmpty={(state) => setIsEmpty(state)} />
+					<AUV filters={selectedFilters} changeIsEmpty={(state) => setIsEmpty(state)} />
 				)}
 				{!isEmpty && showGraph.MAPL && (
-					<MAPL filters={filters} changeIsEmpty={(state) => setIsEmpty(state)} />
+					<MAPL filters={selectedFilters} changeIsEmpty={(state) => setIsEmpty(state)} />
 				)}
 				{!isEmpty && showGraph.MASHT && (
-					<MASHT filters={filters} changeIsEmpty={(state) => setIsEmpty(state)} />
+					<MASHT filters={selectedFilters} changeIsEmpty={(state) => setIsEmpty(state)} />
 				)}
 				{!isEmpty && showGraph.MPBZhR && (
-					<MPBZhR filters={filters} changeIsEmpty={(state) => setIsEmpty(state)} />
+					<MPBZhR
+						filters={selectedFilters}
+						changeIsEmpty={(state) => setIsEmpty(state)}
+					/>
 				)}
 				{!isEmpty && showGraph.DOGANA && (
-					<DOGANA filters={filters} changeIsEmpty={(state) => setIsEmpty(state)} />
+					<DOGANA
+						filters={selectedFilters}
+						changeIsEmpty={(state) => setIsEmpty(state)}
+					/>
 				)}
 			</div>
 		</div>
 	);
 };
 
-export default connect(null, null)(withRouter(Graphs));
+const mapStateToProps = (state) => ({
+	vendbanimet: state.app.filters.index.all.vendbanimet,
+	komunat: state.app.filters.index.all.komunat,
+	regjionet: state.app.filters.index.all.regjionet,
+	industrite: state.app.filters.index.all.industrite,
+	selectedFilters: state.app.filters.index.selected,
+});
+
+export default connect(mapStateToProps, null)(withRouter(Graphs));

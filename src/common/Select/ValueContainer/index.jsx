@@ -12,7 +12,7 @@ const ValueContainer = ({children, hasValue, getValue, changeMenuIsOpen, isOpenM
 				src={caret}
 				alt="caret"
 				onClick={() => changeMenuIsOpen(!isOpenMenu)}
-				className={!isOpenMenu ? "rotate" : undefined}
+				className={isOpenMenu ? "rotate" : undefined}
 			/>
 		</div>
 		<hr className="hr" />

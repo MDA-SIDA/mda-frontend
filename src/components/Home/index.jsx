@@ -9,7 +9,6 @@ import Graphs from "@components/Graphs";
 import SideDrawer from "@components/Sidedrawer";
 
 const Home = () => {
-	const [filters, setFilters] = useState(null);
 	const [sideDrawerIsVisible, setSideDrawerIsVisible] = useState(false);
 
 	const sideDrawerCloseHandler = () => {
@@ -28,19 +27,13 @@ const Home = () => {
 			<div className="content">
 				<div className="sideDrawerFilter">
 					<SideDrawer left open={sideDrawerIsVisible} closed={sideDrawerCloseHandler}>
-						<Filters
-							getFilters={(filters) => setFilters(filters)}
-							closeDrawer={sideDrawerCloseHandler}
-						/>
+						<Filters closeDrawer={sideDrawerCloseHandler} />
 					</SideDrawer>
 				</div>
 				<div className="mainFilters">
-					<Filters
-						getFilters={(filters) => setFilters(filters)}
-						closeDrawer={sideDrawerCloseHandler}
-					/>
+					<Filters closeDrawer={sideDrawerCloseHandler} />
 				</div>
-				<Graphs filters={filters} />
+				<Graphs />
 			</div>
 			<Footer />
 		</div>
