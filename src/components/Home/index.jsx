@@ -20,17 +20,25 @@ const Home = () => {
 	};
 	return (
 		<div className="container">
-			<Header  />
-			<button type className='drawerButton' onClick={sideDrawerToggleHandler}>Filter</button>
+			<Header />
+			<button type="button" className="drawerButton" onClick={sideDrawerToggleHandler}>
+				Filter
+			</button>
 			{/* test */}
 			<div className="content">
 				<div className="sideDrawerFilter">
 					<SideDrawer left open={sideDrawerIsVisible} closed={sideDrawerCloseHandler}>
-						<Filters getFilters={(filters) => setFilters(filters)}  closeDrawer={sideDrawerCloseHandler}/>
+						<Filters
+							getFilters={(filters) => setFilters(filters)}
+							closeDrawer={sideDrawerCloseHandler}
+						/>
 					</SideDrawer>
 				</div>
 				<div className="mainFilters">
-					<Filters getFilters={(filters) => setFilters(filters)} closeDrawer={sideDrawerCloseHandler}/>
+					<Filters
+						getFilters={(filters) => setFilters(filters)}
+						closeDrawer={sideDrawerCloseHandler}
+					/>
 				</div>
 				<Graphs filters={filters} />
 			</div>
