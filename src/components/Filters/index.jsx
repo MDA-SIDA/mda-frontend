@@ -42,6 +42,8 @@ function Filters({
 		fetchVendbanimet();
 	}, [fetchRegjionet, fetchIndustrite, fetchKomunat, fetchVendbanimet]);
 
+	const removeVendbanimiFilter = selectedFilters?.industria?.value === "UP";
+
 	return (
 		<div className="fitlers_container">
 			<Select
@@ -92,24 +94,26 @@ function Filters({
 				}}
 				placeholder="Komuna"
 			/>
-			<Select
-				value={selectedFilters?.vendbanimet}
-				options={vendbanimet?.map((vendbanimi) => ({
-					value: vendbanimi.vendbanimiid,
-					label: vendbanimi.vendbanimiemri,
-				}))}
-				isSearchable
-				isMulti
-				isDisabled={isDisabled.vendbanimet}
-				closeMenuOnSelect={false}
-				hideSelectedOptions={false}
-				onChange={(value) => {
-					if (selectedFilters?.vendbanimet?.length >= 3) {
-						setIsDisabled((state) => ({...state, vendbanimet: true}));
-					} else setSelectedFilter((state) => ({...state, vendbanimet: value}));
-				}}
-				placeholder="Vendbanimi"
-			/>
+			{!removeVendbanimiFilter && (
+				<Select
+					value={selectedFilters?.vendbanimet}
+					options={vendbanimet?.map((vendbanimi) => ({
+						value: vendbanimi.vendbanimiid,
+						label: vendbanimi.vendbanimiemri,
+					}))}
+					isSearchable
+					isMulti
+					isDisabled={isDisabled.vendbanimet}
+					closeMenuOnSelect={false}
+					hideSelectedOptions={false}
+					onChange={(value) => {
+						if (selectedFilters?.vendbanimet?.length >= 3) {
+							setIsDisabled((state) => ({...state, vendbanimet: true}));
+						} else setSelectedFilter((state) => ({...state, vendbanimet: value}));
+					}}
+					placeholder="Vendbanimi"
+				/>
+			)}
 			<div className="buttons">
 				<PrimaryButton
 					name="Gjenero Statistikat"

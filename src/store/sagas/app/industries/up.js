@@ -7,47 +7,89 @@ import axios from "@utils/axios";
 import {getParams} from "@sagas/utils";
 
 const PREFIX = "@app/UP/index";
-export const FETCH_DIPLOMUAR_BRENDA_VITIT = `${PREFIX}FETCH_DIPLOMUAR_BRENDA_VITIT`;
-export const FETCH_DIPLOMUAR_BRENDA_VITIT_SUCCESS = `${PREFIX}FETCH_DIPLOMUAR_BRENDA_VITIT_SUCCESS`;
-export const FETCH_MESHKUJ_FEMRA = `${PREFIX}FETCH_MESHKUJ_FEMRA`;
-export const FETCH_MESHKUJ_FEMRA_SUCCESS = `${PREFIX}FETCH_MESHKUJ_FEMRA_SUCCESS`;
-export const FETCH_SHTETESIA = `${PREFIX}FETCH_SHTETESIA`;
-export const FETCH_SHTETESIA_SUCCESS = `${PREFIX}FETCH_SHTETESIA_SUCCESS`;
-export const FETCH_FAKULTETET_BRENDA_KOMUNAVE = `${PREFIX}FETCH_FAKULTETET_BRENDA_KOMUNAVE`;
-export const FETCH_FAKULTETET_BRENDA_KOMUNAVE_SUCCESS = `${PREFIX}FETCH_FAKULTETET_BRENDA_KOMUNAVE_SUCCESS`;
-export const FETCH_NR_UNIVERZITETEVE_KOMUNA = `${PREFIX}FETCH_NR_UNIVERZITETEVE_KOMUNA`;
-export const FETCH_NR_UNIVERZITETEVE_KOMUNA_SUCCESS = `${PREFIX}FETCH_NR_UNIVERZITETEVE_KOMUNA_SUCCESS`;
+export const FETCH_STATUSI = `${PREFIX}FETCH_STATUSI`;
+export const FETCH_STATUSI_SUCCESS = `${PREFIX}FETCH_STATUSI_SUCCESS`;
+export const FETCH_NIVELI = `${PREFIX}FETCH_NIVELI`;
+export const FETCH_NIVELI_SUCCESS = `${PREFIX}FETCH_NIVELI_SUCCESS`;
+export const FETCH_KOMBI_NUMRI_STUDENTEVE = `${PREFIX}FETCH_KOMBI_NUMRI_STUDENTEVE`;
+export const FETCH_KOMBI_NUMRI_STUDENTEVE_SUCCESS = `${PREFIX}FETCH_KOMBI_NUMRI_STUDENTEVE_SUCCESS`;
+export const FETCH_GJINIA = `${PREFIX}FETCH_GJINIA`;
+export const FETCH_GJINIA_SUCCESS = `${PREFIX}FETCH_GJINIA_SUCCESS`;
+export const FETCH_FAKULTETI_NUMRI_STUDENTEVE = `${PREFIX}FETCH_FAKULTETI_NUMRI_STUDENTEVE`;
+export const FETCH_FAKULTETI_NUMRI_STUDENTEVE_SUCCESS = `${PREFIX}FETCH_FAKULTETI_NUMRI_STUDENTEVE_SUCCESS`;
+export const FETCH_VITI_DIPLOMIMIT = `${PREFIX}FETCH_VITI_DIPLOMIMIT`;
+export const FETCH_VITI_DIPLOMIMIT_SUCCESS = `${PREFIX}FETCH_VITI_DIPLOMIMIT_SUCCESS`;
+export const FETCH_KOMUNA_NUMRI_STUDENTEVE = `${PREFIX}FETCH_KOMUNA_NUMRI_STUDENTEVE`;
+export const FETCH_KOMUNA_NUMRI_STUDENTEVE_SUCCESS = `${PREFIX}FETCH_KOMUNA_NUMRI_STUDENTEVE_SUCCESS`;
+export const FETCH_DIPLOMUAR = `${PREFIX}FETCH_DIPLOMUAR`;
+export const FETCH_DIPLOMUAR_SUCCESS = `${PREFIX}FETCH_DIPLOMUAR_SUCCESS`;
+export const FETCH_FAKULTETI_NOTA_MESATARE = `${PREFIX}FETCH_FAKULTETI_NOTA_MESATARE`;
+export const FETCH_FAKULTETI_NOTA_MESATARE_SUCCESS = `${PREFIX}FETCH_FAKULTETI_NOTA_MESATARE_SUCCESS`;
+export const FETCH_KOMUNA_NOTA_MESATARE = `${PREFIX}FETCH_KOMUNA_NOTA_MESATARE`;
+export const FETCH_KOMUNA_NOTA_MESATARE_SUCCESS = `${PREFIX}FETCH_KOMUNA_NOTA_MESATARE_SUCCESS`;
+export const FETCH_KOMBI_NOTA_MESATARE = `${PREFIX}FETCH_KOMBI_NOTA_MESATARE`;
+export const FETCH_KOMBI_NOTA_MESATARE_SUCCESS = `${PREFIX}FETCH_KOMBI_NOTA_MESATARE_SUCCESS`;
 
 const logger = new Logger("Saga>UP>Index");
 const _state = {
-	diplomuarBrendaVitit: null,
-	meshkujFemra: null,
-	shtetesia: null,
-	fakultetetBrendaKomunave: null,
-	nrUniverziteteveKomuna: null,
+	statusi: null,
+	niveli: null,
+	kombiNumriStudenteve: null,
+	gjinia: null,
+	fakultetiNumriStudenteve: null,
+	vitiDiplomimit: null,
+	komunaNumriStudenteve: null,
+	diplomuar: null,
+	fakultetiNotaMesatare: null,
+	komunaNotaMesatare: null,
+	kombiNotaMesatare: null,
 };
 
 const reducer = (state = _state, action) =>
 	produce(state, (draft) => {
 		switch (action.type) {
-			case FETCH_DIPLOMUAR_BRENDA_VITIT_SUCCESS:
-				draft.diplomuarBrendaVitit = action.payload;
+			case FETCH_STATUSI_SUCCESS:
+				draft.statusi = action.payload;
 				break;
 
-			case FETCH_MESHKUJ_FEMRA_SUCCESS:
-				draft.meshkujFemra = action.payload;
+			case FETCH_NIVELI_SUCCESS:
+				draft.niveli = action.payload;
 				break;
 
-			case FETCH_SHTETESIA_SUCCESS:
-				draft.shtetesia = action.payload;
+			case FETCH_KOMBI_NUMRI_STUDENTEVE_SUCCESS:
+				draft.kombiNumriStudenteve = action.payload;
 				break;
 
-			case FETCH_FAKULTETET_BRENDA_KOMUNAVE_SUCCESS:
-				draft.fakultetetBrendaKomunave = action.payload;
+			case FETCH_GJINIA_SUCCESS:
+				draft.gjinia = action.payload;
 				break;
 
-			case FETCH_NR_UNIVERZITETEVE_KOMUNA_SUCCESS:
-				draft.nrUniverziteteveKomuna = action.payload;
+			case FETCH_FAKULTETI_NUMRI_STUDENTEVE_SUCCESS:
+				draft.fakultetiNumriStudenteve = action.payload;
+				break;
+
+			case FETCH_VITI_DIPLOMIMIT_SUCCESS:
+				draft.vitiDiplomimit = action.payload;
+				break;
+
+			case FETCH_KOMUNA_NUMRI_STUDENTEVE_SUCCESS:
+				draft.komunaNumriStudenteve = action.payload;
+				break;
+
+			case FETCH_DIPLOMUAR_SUCCESS:
+				draft.diplomuar = action.payload;
+				break;
+
+			case FETCH_FAKULTETI_NOTA_MESATARE_SUCCESS:
+				draft.fakultetiNotaMesatare = action.payload;
+				break;
+
+			case FETCH_KOMUNA_NOTA_MESATARE_SUCCESS:
+				draft.komunaNotaMesatare = action.payload;
+				break;
+
+			case FETCH_KOMBI_NOTA_MESATARE_SUCCESS:
+				draft.kombiNotaMesatare = action.payload;
 				break;
 			default:
 				return state;
@@ -56,85 +98,177 @@ const reducer = (state = _state, action) =>
 export default reducer;
 
 export const actions = {
-	fetchDiplomuarBrendaVitit: (payload) => createAction(FETCH_DIPLOMUAR_BRENDA_VITIT, {payload}),
-	fetchDiplomuarBrendaVititSuccess: (payload) =>
-		createAction(FETCH_DIPLOMUAR_BRENDA_VITIT_SUCCESS, {payload}),
-	fetchMeshkujFemra: (payload) => createAction(FETCH_MESHKUJ_FEMRA, {payload}),
-	fetchMeshkujFemraSuccess: (payload) => createAction(FETCH_MESHKUJ_FEMRA_SUCCESS, {payload}),
-	fetchShtetesia: (payload) => createAction(FETCH_SHTETESIA, {payload}),
-	fetchShtetesiaSuccess: (payload) => createAction(FETCH_SHTETESIA_SUCCESS, {payload}),
-	fetchFakultetetBrendaKomunave: (payload) =>
-		createAction(FETCH_FAKULTETET_BRENDA_KOMUNAVE, {payload}),
-	fetchFakultetetBrendaKomunaveSuccess: (payload) =>
-		createAction(FETCH_FAKULTETET_BRENDA_KOMUNAVE_SUCCESS, {payload}),
-	fetchNrUniverziteteveKomuna: (payload) =>
-		createAction(FETCH_NR_UNIVERZITETEVE_KOMUNA, {payload}),
-	fetchNrUniverziteteveKomunaSuccess: (payload) =>
-		createAction(FETCH_NR_UNIVERZITETEVE_KOMUNA_SUCCESS, {payload}),
+	fetchStatusi: (payload) => createAction(FETCH_STATUSI, {payload}),
+	fetchStatusiSuccess: (payload) => createAction(FETCH_STATUSI_SUCCESS, {payload}),
+	fetchNiveli: (payload) => createAction(FETCH_NIVELI, {payload}),
+	fetchNiveliSuccess: (payload) => createAction(FETCH_NIVELI_SUCCESS, {payload}),
+	fetchKombiNumriStudenteve: (payload) => createAction(FETCH_KOMBI_NUMRI_STUDENTEVE, {payload}),
+	fetchKombiNumriStudenteveSuccess: (payload) =>
+		createAction(FETCH_KOMBI_NUMRI_STUDENTEVE_SUCCESS, {payload}),
+	fetchGjinia: (payload) => createAction(FETCH_GJINIA, {payload}),
+	fetchGjiniaSuccess: (payload) => createAction(FETCH_GJINIA_SUCCESS, {payload}),
+	fetchFakultetiNumriStudenteve: (payload) =>
+		createAction(FETCH_FAKULTETI_NUMRI_STUDENTEVE, {payload}),
+	fetchFakultetiNumriStudenteveSuccess: (payload) =>
+		createAction(FETCH_FAKULTETI_NUMRI_STUDENTEVE_SUCCESS, {payload}),
+	fetchVitiDiplomimit: (payload) => createAction(FETCH_VITI_DIPLOMIMIT, {payload}),
+	fetchVitiDiplomimitSuccess: (payload) => createAction(FETCH_VITI_DIPLOMIMIT_SUCCESS, {payload}),
+	fetchKomunaNumriStudenteve: (payload) => createAction(FETCH_KOMUNA_NUMRI_STUDENTEVE, {payload}),
+	fetchKomunaNumriStudenteveSuccess: (payload) =>
+		createAction(FETCH_KOMUNA_NUMRI_STUDENTEVE_SUCCESS, {payload}),
+	fetchDiplomuar: (payload) => createAction(FETCH_DIPLOMUAR, {payload}),
+	fetchDiplomuarSuccess: (payload) => createAction(FETCH_DIPLOMUAR_SUCCESS, {payload}),
+	fetchFakultetiNotaMesatare: (payload) => createAction(FETCH_FAKULTETI_NOTA_MESATARE, {payload}),
+	fetchFakultetiNotaMesatareSuccess: (payload) =>
+		createAction(FETCH_FAKULTETI_NOTA_MESATARE_SUCCESS, {payload}),
+	fetchKomunaNotaMesatare: (payload) => createAction(FETCH_KOMUNA_NOTA_MESATARE, {payload}),
+	fetchKomunaNotaMesatareSuccess: (payload) =>
+		createAction(FETCH_KOMUNA_NOTA_MESATARE_SUCCESS, {payload}),
+	fetchKombiNotaMesatare: (payload) => createAction(FETCH_KOMBI_NOTA_MESATARE, {payload}),
+	fetchKombiNotaMesatareSuccess: (payload) =>
+		createAction(FETCH_KOMBI_NOTA_MESATARE_SUCCESS, {payload}),
 };
 
 export const sagas = {
-	*fetchDiplomuarBrendaVitit({payload}) {
+	*fetchStatusi({payload}) {
 		try {
 			const {komunaQuery, vendbanimiQuery, regjioniQuery} = getParams(payload);
 			const response = yield axios.get(
 				// eslint-disable-next-line max-len
-				`/industries/?${komunaQuery}${vendbanimiQuery}${regjioniQuery}&type=diplomuarBrendaVitit`,
+				`/industries/?${komunaQuery}${vendbanimiQuery}${regjioniQuery}&type=statusi`,
 			);
 
-			yield put(actions.fetchDiplomuarBrendaVititSuccess(response?.data));
+			yield put(actions.fetchStatusiSuccess(response?.data));
 		} catch (error) {
 			logger.error(error);
 		}
 	},
-	*fetchMeshkujFemra({payload}) {
+	*fetchNiveli({payload}) {
 		try {
 			const {komunaQuery, vendbanimiQuery, regjioniQuery} = getParams(payload);
 			const response = yield axios.get(
 				// eslint-disable-next-line max-len
-				`/industries/?${komunaQuery}${vendbanimiQuery}${regjioniQuery}&type=meshkujFemra`,
+				`/industries/?${komunaQuery}${vendbanimiQuery}${regjioniQuery}&type=niveli`,
 			);
 
-			yield put(actions.fetchMeshkujFemraSuccess(response?.data));
+			yield put(actions.fetchNiveliSuccess(response?.data));
 		} catch (error) {
 			logger.error(error);
 		}
 	},
-	*fetchShtetesia({payload}) {
+	*fetchKombiNumriStudenteve({payload}) {
 		try {
 			const {komunaQuery, vendbanimiQuery, regjioniQuery} = getParams(payload);
 			const response = yield axios.get(
 				// eslint-disable-next-line max-len
-				`/industries/?${komunaQuery}${vendbanimiQuery}${regjioniQuery}&type=shtetesia`,
+				`/industries/?${komunaQuery}${vendbanimiQuery}${regjioniQuery}&type=kombiNumriStudenteve`,
 			);
 
-			yield put(actions.fetchShtetesiaSuccess(response?.data));
+			yield put(actions.fetchKombiNumriStudenteveSuccess(response?.data));
 		} catch (error) {
 			logger.error(error);
 		}
 	},
-	*fetchFakultetetBrendaKomunave({payload}) {
+	*fetchGjinia({payload}) {
 		try {
 			const {komunaQuery, vendbanimiQuery, regjioniQuery} = getParams(payload);
 			const response = yield axios.get(
 				// eslint-disable-next-line max-len
-				`/industries/?${komunaQuery}${vendbanimiQuery}${regjioniQuery}&type=fakultetetBrendaKomunave`,
+				`/industries/?${komunaQuery}${vendbanimiQuery}${regjioniQuery}&type=gjinia`,
 			);
 
-			yield put(actions.fetchFakultetetBrendaKomunaveSuccess(response?.data));
+			yield put(actions.fetchGjiniaSuccess(response?.data));
 		} catch (error) {
 			logger.error(error);
 		}
 	},
-	*fetchNrUniverziteteveKomuna({payload}) {
+	*fetchFakultetiNumriStudenteve({payload}) {
 		try {
 			const {komunaQuery, vendbanimiQuery, regjioniQuery} = getParams(payload);
 			const response = yield axios.get(
 				// eslint-disable-next-line max-len
-				`/industries/?${komunaQuery}${vendbanimiQuery}${regjioniQuery}&type=nrUniverziteteveKomuna`,
+				`/industries/?${komunaQuery}${vendbanimiQuery}${regjioniQuery}&type=fakultetiNumriStudenteve`,
 			);
 
-			yield put(actions.fetchNrUniverziteteveKomunaSuccess(response?.data));
+			yield put(actions.fetchFakultetiNumriStudenteveSuccess(response?.data));
+		} catch (error) {
+			logger.error(error);
+		}
+	},
+	*fetchVitiDiplomimit({payload}) {
+		try {
+			const {komunaQuery, vendbanimiQuery, regjioniQuery} = getParams(payload);
+			const response = yield axios.get(
+				// eslint-disable-next-line max-len
+				`/industries/?${komunaQuery}${vendbanimiQuery}${regjioniQuery}&type=vitiDiplomimit`,
+			);
+
+			yield put(actions.fetchVitiDiplomimitSuccess(response?.data));
+		} catch (error) {
+			logger.error(error);
+		}
+	},
+	*fetchKomunaNumriStudenteve({payload}) {
+		try {
+			const {komunaQuery, vendbanimiQuery, regjioniQuery} = getParams(payload);
+			const response = yield axios.get(
+				// eslint-disable-next-line max-len
+				`/industries/?${komunaQuery}${vendbanimiQuery}${regjioniQuery}&type=komunaNumriStudenteve`,
+			);
+
+			yield put(actions.fetchKomunaNumriStudenteveSuccess(response?.data));
+		} catch (error) {
+			logger.error(error);
+		}
+	},
+	*fetchDiplomuar({payload}) {
+		try {
+			const {komunaQuery, vendbanimiQuery, regjioniQuery} = getParams(payload);
+			const response = yield axios.get(
+				// eslint-disable-next-line max-len
+				`/industries/?${komunaQuery}${vendbanimiQuery}${regjioniQuery}&type=diplomuar`,
+			);
+
+			yield put(actions.fetchDiplomuarSuccess(response?.data));
+		} catch (error) {
+			logger.error(error);
+		}
+	},
+	*fetchFakultetiNotaMesatare({payload}) {
+		try {
+			const {komunaQuery, vendbanimiQuery, regjioniQuery} = getParams(payload);
+			const response = yield axios.get(
+				// eslint-disable-next-line max-len
+				`/industries/?${komunaQuery}${vendbanimiQuery}${regjioniQuery}&type=fakultetiNotaMesatare`,
+			);
+
+			yield put(actions.fetchFakultetiNotaMesatareSuccess(response?.data));
+		} catch (error) {
+			logger.error(error);
+		}
+	},
+	*fetchKomunaNotaMesatare({payload}) {
+		try {
+			const {komunaQuery, vendbanimiQuery, regjioniQuery} = getParams(payload);
+			const response = yield axios.get(
+				// eslint-disable-next-line max-len
+				`/industries/?${komunaQuery}${vendbanimiQuery}${regjioniQuery}&type=komunaNotaMesatare`,
+			);
+
+			yield put(actions.fetchKomunaNotaMesatareSuccess(response?.data));
+		} catch (error) {
+			logger.error(error);
+		}
+	},
+	*fetchKombiNotaMesatare({payload}) {
+		try {
+			const {komunaQuery, vendbanimiQuery, regjioniQuery} = getParams(payload);
+			const response = yield axios.get(
+				// eslint-disable-next-line max-len
+				`/industries/?${komunaQuery}${vendbanimiQuery}${regjioniQuery}&type=kombiNotaMesatare`,
+			);
+
+			yield put(actions.fetchKombiNotaMesatareSuccess(response?.data));
 		} catch (error) {
 			logger.error(error);
 		}
@@ -142,9 +276,15 @@ export const sagas = {
 };
 
 export const watcher = function* w() {
-	yield takeLatest(FETCH_DIPLOMUAR_BRENDA_VITIT, sagas.fetchDiplomuarBrendaVitit);
-	yield takeLatest(FETCH_MESHKUJ_FEMRA, sagas.fetchMeshkujFemra);
-	yield takeLatest(FETCH_SHTETESIA, sagas.fetchShtetesia);
-	yield takeLatest(FETCH_FAKULTETET_BRENDA_KOMUNAVE, sagas.fetchFakultetetBrendaKomunave);
-	yield takeLatest(FETCH_NR_UNIVERZITETEVE_KOMUNA, sagas.fetchNrUniverziteteveKomuna);
+	yield takeLatest(FETCH_STATUSI, sagas.fetchStatusi);
+	yield takeLatest(FETCH_NIVELI, sagas.fetchNiveli);
+	yield takeLatest(FETCH_KOMBI_NUMRI_STUDENTEVE, sagas.fetchKombiNumriStudenteve);
+	yield takeLatest(FETCH_GJINIA, sagas.fetchGjinia);
+	yield takeLatest(FETCH_FAKULTETI_NUMRI_STUDENTEVE, sagas.fetchFakultetiNumriStudenteve);
+	yield takeLatest(FETCH_VITI_DIPLOMIMIT, sagas.fetchVitiDiplomimit);
+	yield takeLatest(FETCH_KOMUNA_NUMRI_STUDENTEVE, sagas.fetchKomunaNumriStudenteve);
+	yield takeLatest(FETCH_DIPLOMUAR, sagas.fetchDiplomuar);
+	yield takeLatest(FETCH_FAKULTETI_NOTA_MESATARE, sagas.fetchFakultetiNotaMesatare);
+	yield takeLatest(FETCH_KOMUNA_NOTA_MESATARE, sagas.fetchKomunaNotaMesatare);
+	yield takeLatest(FETCH_KOMBI_NOTA_MESATARE, sagas.fetchKombiNotaMesatare);
 };

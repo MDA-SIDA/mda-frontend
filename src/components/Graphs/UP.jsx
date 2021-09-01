@@ -7,106 +7,333 @@ import {groupBy, isArray} from "lodash";
 import {getDatasets, areFiltersEmpty} from "./utils";
 
 const UP = ({
-	fetchDiplomuarBrendaVitit,
-	fetchMeshkujFemra,
-	fetchShtetesia,
-	fetchFakultetetBrendaKomunave,
-	fetchNrUniverziteteveKomuna,
+	fetchStatusi,
+	fetchNiveli,
+	fetchKombiNumriStudenteve,
+	fetchGjinia,
+	fetchFakultetiNumriStudenteve,
+	fetchVitiDiplomimit,
+	fetchKomunaNumriStudenteve,
+	fetchDiplomuar,
+	fetchFakultetiNotaMesatare,
+	fetchKomunaNotaMesatare,
+	fetchKombiNotaMesatare,
+	statusi,
+	niveli,
+	kombiNumriStudenteve,
+	gjinia,
+	fakultetiNumriStudenteve,
+	vitiDiplomimit,
+	komunaNumriStudenteve,
+	diplomuar,
+	fakultetiNotaMesatare,
+	komunaNotaMesatare,
+	kombiNotaMesatare,
 	filters,
-	diplomuarBrendaVitit,
-	meshkujFemra,
-	shtetesia,
-	nrUniverziteteveKomuna,
 }) => {
 	useEffect(() => {
-		fetchFakultetetBrendaKomunave(filters);
-		fetchMeshkujFemra(filters);
-		fetchDiplomuarBrendaVitit(filters);
-		fetchNrUniverziteteveKomuna(filters);
-		fetchShtetesia(filters);
-	}, [
-		filters,
-		fetchFakultetetBrendaKomunave,
-		fetchMeshkujFemra,
-		fetchDiplomuarBrendaVitit,
-		fetchNrUniverziteteveKomuna,
-		fetchShtetesia,
-	]);
+		fetchStatusi(filters);
+		fetchNiveli(filters);
+		fetchKombiNumriStudenteve(filters);
+		fetchGjinia(filters);
+		fetchFakultetiNumriStudenteve(filters);
+		fetchVitiDiplomimit(filters);
+		fetchKomunaNumriStudenteve(filters);
+		fetchDiplomuar(filters);
+		fetchFakultetiNotaMesatare(filters);
+		fetchKomunaNotaMesatare(filters);
+		fetchKombiNotaMesatare(filters);
+	}, [filters]);
+	// console.log("kombiNotaMesatare", kombiNotaMesatare);
 
-	// TODO: remove vendbanimi filter
-	const diplomuarBrendaVititDataSets = getDatasets({
+	// console.log('statusi')
+
+	const statusiDataSets = getDatasets({
 		filters,
-		items: diplomuarBrendaVitit,
-		singleItemLabel: "Numri i nxenesve",
-		property: "tediplomuar",
+		items: statusi,
+		singleItemLabel: "Numri i studenteve",
+		property: "numristudenteve",
+		filterBy: "statusi",
 	});
 
-	// TODO: remove vendbanimi filter
-	const shtetesiaDataSets = getDatasets({
+	const niveliDataSets = getDatasets({
 		filters,
-		items: shtetesia,
-		singleItemLabel: "Shtetesia e studenteve",
-		property: "studentcount",
-		filterBy: "shtetesia",
+		items: niveli,
+		singleItemLabel: "Niveli i studimeve",
+		property: "numristudenteve",
+		filterBy: "niveli",
 	});
 
-	const meshkujDataSets = getDatasets({
+	console.log(niveliDataSets);
+
+	const kombiNumriStudenteveDataSets = getDatasets({
 		filters,
-		items: meshkujFemra,
-		singleItemLabel: "Studentet Meshkuj",
-		property: "meshkuj",
-		filterBy: "viti",
+		items: kombiNumriStudenteve,
+		singleItemLabel: "Numri i studenteve",
+		property: "numristudenteve",
+		filterBy: "kombi",
 	});
 
-	const femraDataSets = getDatasets({
+	const gjiniaDataSets = getDatasets({
 		filters,
-		items: meshkujFemra,
-		singleItemLabel: "Studentet Femra",
-		property: "femra",
-		filterBy: "viti",
+		items: gjinia,
+		singleItemLabel: "Numri i studenteve",
+		property: "numristudenteve",
+		filterBy: "gjinia",
 	});
 
-	const nrUniverziteteveKomunaDataSets = getDatasets({
+	const fakultetiNumriStudenteveDataSets = getDatasets({
 		filters,
-		items: nrUniverziteteveKomuna,
-		singleItemLabel: "Numri i studenteve te komunave",
-		property: "studentcount",
+		items: fakultetiNumriStudenteve,
+		singleItemLabel: "Numri i studenteve",
+		property: "numristudenteve",
+		filterBy: "fakulteti",
 	});
+
+	const vitiDiplomimitDataSets = getDatasets({
+		filters,
+		items: vitiDiplomimit,
+		singleItemLabel: "Numri i studenteve",
+		property: "studentetediplomuar",
+		filterBy: "vitidiplomimit",
+	});
+
+	const komunaNumriStudenteveDataSets = getDatasets({
+		filters,
+		items: komunaNumriStudenteve,
+		singleItemLabel: "Numri i studenteve",
+		property: "numristudenteve",
+		filterBy: "regjioniemri",
+	});
+
+	const diplomuarDataSets = getDatasets({
+		filters,
+		items: diplomuar,
+		singleItemLabel: "Numri i studenteve",
+		property: "studentetediplomuar",
+		filterBy: "komunaemri",
+	});
+
+	// todo: check again to show avg as it is
+	const fakultetiNotaMesatareDataSets = getDatasets({
+		filters,
+		items: fakultetiNotaMesatare,
+		singleItemLabel: "Numri i studenteve",
+		property: "notamesatare",
+		filterBy: "regjioniemri",
+	});
+
+	// todo: check again to show avg as it is, not working on server
+	const komunaNotaMesatareDataSets = getDatasets({
+		filters,
+		items: komunaNotaMesatare,
+		singleItemLabel: "Numri i studenteve",
+		property: "notamesatare",
+		filterBy: "regjioniemri",
+	});
+
+	const kombiNotaMesatareDataSets = getDatasets({
+		filters,
+		items: kombiNotaMesatare,
+		singleItemLabel: "Numri i studenteve",
+		property: "notamesatare",
+		filterBy: "kombi",
+	});
+
+	// const nrUniverziteteveKomunaDataSets = getDatasets({
+	// 	filters,
+	// 	items: nrUniverziteteveKomuna,
+	// 	singleItemLabel: "Numri i studenteve te komunave",
+	// 	property: "studentcount",
+	// });
 
 	return (
 		<>
 			<Chart
-				title="Numri i studenteve te diplomuar brenda vitit"
+				title="Numri i studenteve sipas statusit"
 				type="bar"
 				data={{
-					labels: diplomuarBrendaVitit?.map((item) => item.komunaemri),
-					datasets: diplomuarBrendaVititDataSets,
+					labels: Object.keys(groupBy(statusi, "statusi")),
+					datasets: statusiDataSets,
+				}}
+				options={{
+					interaction: {
+						intersect: false,
+						mode: "index",
+					},
+					plugins: {
+						tooltip: {
+							callbacks: {
+								footer,
+							},
+						},
+					},
 				}}
 			/>
 			<Chart
-				title="Shtetesia e studenteve"
+				title="Numri i studenteve sipas nivelit te studimeve"
 				type="bar"
 				data={{
-					labels: Object.keys(groupBy(shtetesia, "shtetesia")),
-					datasets: shtetesiaDataSets,
+					labels: Object.keys(groupBy(niveli, "niveli")),
+					datasets: niveliDataSets,
+				}}
+				options={{
+					interaction: {
+						intersect: false,
+						mode: "index",
+					},
+					plugins: {
+						tooltip: {
+							callbacks: {
+								footer,
+							},
+						},
+					},
 				}}
 			/>
 			<Chart
-				title="Numri i studenteve femra pergjate viteve"
+				title="Numri i studenteve sipas kombit"
 				type="bar"
 				data={{
-					labels: Object.keys(groupBy(meshkujFemra, "viti")),
-					datasets: femraDataSets,
+					labels: Object.keys(groupBy(kombiNumriStudenteve, "kombi")),
+					datasets: kombiNumriStudenteveDataSets,
+				}}
+				options={{
+					interaction: {
+						intersect: false,
+						mode: "index",
+					},
+					plugins: {
+						tooltip: {
+							callbacks: {
+								footer: (tooltipItems) => footer(tooltipItems),
+							},
+						},
+					},
 				}}
 			/>
 			<Chart
-				title="Numri i studenteve meshkuj pergjate viteve"
+				title="Numri i studenteve sipas gjinise"
 				type="bar"
 				data={{
-					labels: Object.keys(groupBy(meshkujFemra, "viti")),
-					datasets: meshkujDataSets,
+					labels: Object.keys(groupBy(gjinia, "gjinia")),
+					datasets: gjiniaDataSets,
+				}}
+				options={{
+					interaction: {
+						intersect: false,
+						mode: "index",
+					},
+					plugins: {
+						tooltip: {
+							callbacks: {
+								footer,
+							},
+						},
+					},
 				}}
 			/>
+			<Chart
+				title="Numri i studenteve sipas fakulteteve"
+				type="bar"
+				data={{
+					labels: Object.keys(groupBy(fakultetiNumriStudenteve, "fakulteti")),
+					datasets: fakultetiNumriStudenteveDataSets,
+				}}
+				options={{
+					interaction: {
+						intersect: false,
+						mode: "index",
+					},
+					plugins: {
+						tooltip: {
+							callbacks: {
+								footer,
+							},
+						},
+					},
+				}}
+			/>
+			<Chart
+				title="Numri i studenteve sipas vitit te diplomimit"
+				type="line"
+				data={{
+					labels: Object.keys(groupBy(vitiDiplomimit, "vitidiplomimit")),
+					datasets: vitiDiplomimitDataSets,
+				}}
+				options={{
+					interaction: {
+						intersect: false,
+						mode: "index",
+					},
+					plugins: {
+						tooltip: {
+							callbacks: {
+								footer,
+							},
+						},
+					},
+				}}
+			/>
+			<Chart
+				title="Numri i studenteve sipas komunave"
+				type="bar"
+				data={{
+					labels: Object.keys(groupBy(komunaNumriStudenteve, "regjioniemri")),
+					datasets: komunaNumriStudenteveDataSets,
+				}}
+				options={{
+					interaction: {
+						intersect: false,
+						mode: "index",
+					},
+					plugins: {
+						tooltip: {
+							callbacks: {
+								footer,
+							},
+						},
+					},
+				}}
+			/>
+			<Chart
+				title="Numri i studenteve te diplomuar sipas komunave"
+				type="pie"
+				data={{
+					labels: Object.keys(groupBy(diplomuar, "komunaemri")),
+					datasets: diplomuarDataSets,
+				}}
+				options={{
+					interaction: {
+						intersect: false,
+						mode: "index",
+					},
+					plugins: {
+						tooltip: {
+							callbacks: {
+								footer,
+							},
+						},
+					},
+				}}
+			/>
+			<Chart
+				title="Nota mesatare sipas komunave"
+				type="bar"
+				data={{
+					labels: Object.keys(groupBy(fakultetiNotaMesatare, "regjioniemri")),
+					datasets: fakultetiNotaMesatareDataSets,
+				}}
+			/>
+			<Chart
+				title="Nota mesatare sipas komunave"
+				type="bar"
+				data={{
+					labels: Object.keys(groupBy(kombiNotaMesatare, "kombi")),
+					datasets: kombiNotaMesatareDataSets,
+				}}
+			/>
+			{/*
 			{!areFiltersEmpty(filters) && (
 				<Chart
 					title="Numri i studenteve te komunave"
@@ -123,7 +350,7 @@ const UP = ({
 						}),
 					}}
 				/>
-			)}
+			)} */}
 			{/* <Chart
 				title="Numri i studenteve ne baze te gjinise pergjate viteve"
 				type="bar"
@@ -163,19 +390,42 @@ const UP = ({
 };
 
 const mapDispatchToProps = {
-	fetchDiplomuarBrendaVitit: actions.fetchDiplomuarBrendaVitit,
-	fetchMeshkujFemra: actions.fetchMeshkujFemra,
-	fetchShtetesia: actions.fetchShtetesia,
-	fetchFakultetetBrendaKomunave: actions.fetchFakultetetBrendaKomunave,
-	fetchNrUniverziteteveKomuna: actions.fetchNrUniverziteteveKomuna,
+	fetchStatusi: actions.fetchStatusi,
+	fetchNiveli: actions.fetchNiveli,
+	fetchKombiNumriStudenteve: actions.fetchKombiNumriStudenteve,
+	fetchGjinia: actions.fetchGjinia,
+	fetchFakultetiNumriStudenteve: actions.fetchFakultetiNumriStudenteve,
+	fetchVitiDiplomimit: actions.fetchVitiDiplomimit,
+	fetchKomunaNumriStudenteve: actions.fetchKomunaNumriStudenteve,
+	fetchDiplomuar: actions.fetchDiplomuar,
+	fetchFakultetiNotaMesatare: actions.fetchFakultetiNotaMesatare,
+	fetchKomunaNotaMesatare: actions.fetchKomunaNotaMesatare,
+	fetchKombiNotaMesatare: actions.fetchKombiNotaMesatare,
 };
 
 const mapStateToProps = (state) => ({
-	diplomuarBrendaVitit: state.app.industries.up.diplomuarBrendaVitit,
-	meshkujFemra: state.app.industries.up.meshkujFemra,
-	shtetesia: state.app.industries.up.shtetesia,
-	fakultetetBrendaKomunave: state.app.industries.up.fakultetetBrendaKomunave,
-	nrUniverziteteveKomuna: state.app.industries.up.nrUniverziteteveKomuna,
+	statusi: state.app.industries.up.statusi,
+	niveli: state.app.industries.up.niveli,
+	kombiNumriStudenteve: state.app.industries.up.kombiNumriStudenteve,
+	gjinia: state.app.industries.up.gjinia,
+	fakultetiNumriStudenteve: state.app.industries.up.fakultetiNumriStudenteve,
+	vitiDiplomimit: state.app.industries.up.vitiDiplomimit,
+	komunaNumriStudenteve: state.app.industries.up.komunaNumriStudenteve,
+	diplomuar: state.app.industries.up.diplomuar,
+	fakultetiNotaMesatare: state.app.industries.up.fakultetiNotaMesatare,
+	komunaNotaMesatare: state.app.industries.up.komunaNotaMesatare,
+	kombiNotaMesatare: state.app.industries.up.kombiNotaMesatare,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UP);
+
+// test purpose only
+const footer = (tooltipItems) => {
+	console.log("tooltipItems", tooltipItems);
+	let sum = 0;
+
+	tooltipItems.forEach(function (tooltipItem) {
+		sum += tooltipItem.parsed.y;
+	});
+	return `Sum: ${sum}`;
+};
