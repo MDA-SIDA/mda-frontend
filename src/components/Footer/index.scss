@@ -1,36 +1,5 @@
 footer {
-  align-items: flex-end;
-  .main {
-    padding: 4rem 2rem;
-    background-color: #005293;
-
-    &_first {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      
-      &__info {
-        &__address {
-          margin-bottom: 1rem;
-        font-family: 'Sweden Sans Semi Bold';
-        }
-        font-family: 'Sweden Sans Book';
-        font-size: 1.6rem;
-        line-height: 1.2;
-        color: #fff;
-      }
-    }
-    .copyright {
-      font-family: 'Sweden Sans Book';
-      font-size: 1.4rem;
-      color: #fff;
-      text-align: center;
-    }
-
-    img {
-      width: 18.8rem;
-    }
-  }
+  height: 5%;
   .collab {
     padding: 1rem;
     display: flex;
