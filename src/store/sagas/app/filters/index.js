@@ -265,21 +265,24 @@ export const sagas = {
 	*setSelectedVendbanimet({payload}) {
 		try {
 			yield put(actions.setSelectedVendbanimetSuccess(payload));
+			const allRegjionet = yield select((state) => state.app.filters?.index?.all?.regjionet);
+			const allKomunat = yield select((state) => state.app.filters?.index?.all?.komunat);
 			const allVendbanimet = yield select(
 				(state) => state.app.filters?.index?.all?.vendbanimet,
 			);
-			const allRegjionet = yield select((state) => state.app.filters?.index?.all?.regjionet);
-			const allKomunat = yield select((state) => state.app.filters?.index?.all?.komunat);
 
 			const vendbanimetIds = payload?.map((vendbanimi) => vendbanimi.value);
+			const komunatIds = [
+				...new Set(
+					allVendbanimet
+						.filter((vendbanimi) => vendbanimetIds.includes(vendbanimi.vendbanimiid))
+						.map((vendbanimi) => vendbanimi.komunaid),
+				),
+			];
 			if (vendbanimetIds?.length > 0) {
-				const filteredKomunat = allKomunat.filter((komuna) =>
-					vendbanimetIds.includes(komuna.komunaid),
-				);
-
 				const selectedKomunat = allKomunat
 					?.map((komuna) => {
-						if (vendbanimetIds.includes(komuna.komunaid)) {
+						if (komunatIds.includes(komuna.komunaid)) {
 							return {
 								value: komuna.komunaid,
 								label: komuna.komunaemri,
@@ -289,34 +292,34 @@ export const sagas = {
 					})
 					.filter(Boolean);
 
-				yield put(actions.setFilteredKomunatSuccess(filteredKomunat));
 				yield put(actions.setSelectedKomunatSuccess(selectedKomunat));
 
-				// const komunatIds = allKomunat
-				// 	.map((komuna) => {
-				// 		if (vendbanimetIds.includes(komuna.komunaid)) {
-				// 			return komuna.vendbanimiid;
-				// 		}
-				// 		return null;
-				// 	})
-				// 	.filter(Boolean);
+				const selectedKomunatIds = selectedKomunat.map((komuna) => komuna.value);
 
-				// const toSelectKomunat = allKomunat
-				// 	?.map((komuna) => {
-				// 		if (komunatIds.includes(komuna.komunaid)) {
-				// 			return {
-				// 				value: komuna.regjioniid,
-				// 				label: komuna.regjioniemri,
-				// 			};
-				// 		}
-				// 		return null;
-				// 	})
-				// 	.filter(Boolean);
+				const regjionetIds = allKomunat
+					.map((komuna) => {
+						if (selectedKomunatIds.includes(komuna.komunaid)) {
+							return komuna.regjioniid;
+						}
+						return null;
+					})
+					.filter(Boolean);
 
-				// // yield put(actions.setFilteredVendbanimet(filteredVendbanimet));
-				// yield put(actions.setSelectedKomunatSuccess(toSelectKomunat));
+				const toSelectRegjionet = allRegjionet
+					?.map((regjioni) => {
+						if (regjionetIds.includes(regjioni.regjioniid)) {
+							return {
+								value: regjioni.regjioniid,
+								label: regjioni.regjioniemri,
+							};
+						}
+						return null;
+					})
+					.filter(Boolean);
+
+				yield put(actions.setSelectedRegjionetSuccess(toSelectRegjionet));
 			} else {
-				yield put(actions.setFilteredVendbanimet(allVendbanimet));
+				yield put(actions.setSelectedKomunatSuccess([]));
 				yield put(actions.setSelectedRegjionetSuccess([]));
 			}
 		} catch (error) {
