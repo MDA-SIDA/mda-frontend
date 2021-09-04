@@ -296,7 +296,7 @@ const UP = ({
 					},
 				}}
 			/>
-			<Chart
+			{/* <Chart
 				title="Numri i studenteve te diplomuar sipas komunave"
 				type="pie"
 				data={{
@@ -316,7 +316,7 @@ const UP = ({
 						},
 					},
 				}}
-			/>
+			/> */}
 			<Chart
 				title="Nota mesatare sipas komunave"
 				type="bar"
@@ -326,7 +326,7 @@ const UP = ({
 				}}
 			/>
 			<Chart
-				title="Nota mesatare sipas komunave"
+				title="Nota mesatare sipas kombit"
 				type="bar"
 				data={{
 					labels: Object.keys(groupBy(kombiNotaMesatare, "kombi")),
@@ -421,11 +421,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(UP);
 
 // test purpose only
 const footer = (tooltipItems) => {
-	console.log("tooltipItems", tooltipItems);
 	let sum = 0;
 
 	tooltipItems.forEach(function (tooltipItem) {
 		sum += tooltipItem.parsed.y;
 	});
-	return `Sum: ${sum}`;
+	// return `Sum: ${sum}`;
 };

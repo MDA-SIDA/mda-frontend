@@ -37,29 +37,16 @@ function Filters({
 	const [isDisabled, setIsDisabled] = useState(disabledInitialState);
 
 	useEffect(() => {
-		fetchRegjionet();
 		fetchIndustrite();
 		fetchKomunat();
 		fetchVendbanimet();
+		fetchRegjionet();
 	}, [fetchRegjionet, fetchIndustrite, fetchKomunat, fetchVendbanimet]);
 
 	const removeVendbanimiFilter = selectedFilters?.industria?.value === "UP";
 
 	return (
 		<div className="fitlers_container">
-			<div className="buttons">
-				<CancelButton
-					name="Fshij filterat"
-					onClick={() => {
-						setSelectedIndustria(null);
-						setSelectedRegjionet([]);
-						setSelectedKomunat([]);
-						setSelectedVendbanimet([]);
-						setIsDisabled(disabledInitialState);
-						closeDrawer();
-					}}
-				/>
-			</div>
 			<Select
 				value={selectedIndustria}
 				options={industrite?.map((industria) => ({
@@ -128,6 +115,19 @@ function Filters({
 					placeholder="Vendbanimi"
 				/>
 			)}
+			<div className="buttons">
+				<CancelButton
+					name="Fshij filterat"
+					onClick={() => {
+						setSelectedIndustria(null);
+						setSelectedRegjionet([]);
+						setSelectedKomunat([]);
+						setSelectedVendbanimet([]);
+						setIsDisabled(disabledInitialState);
+						closeDrawer();
+					}}
+				/>
+			</div>
 		</div>
 	);
 }
@@ -145,9 +145,9 @@ const mapDispatchToProps = {
 };
 
 const mapStateToProps = (state) => ({
-	vendbanimet: state.app.filters.index.all.vendbanimet,
-	komunat: state.app.filters.index.all.komunat,
-	regjionet: state.app.filters.index.all.regjionet,
+	vendbanimet: state.app.filters.index.filtered.vendbanimet,
+	komunat: state.app.filters.index.filtered.komunat,
+	regjionet: state.app.filters.index.filtered.regjionet,
 	industrite: state.app.filters.index.all.industrite,
 	selectedFilters: state.app.filters.index.selected,
 });

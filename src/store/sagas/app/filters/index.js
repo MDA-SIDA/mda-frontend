@@ -1,8 +1,9 @@
 import Logger from "@utils/logger";
 import produce from "immer";
-import {put, takeLatest} from "redux-saga/effects";
+import {put, takeLatest, select} from "redux-saga/effects";
 import createAction from "@utils/action-creator";
 import axios from "@utils/axios";
+import {capitalizeFirstLetter} from "../utils";
 
 const PREFIX = "@app/Filters/index";
 // all
@@ -18,8 +19,21 @@ export const FETCH_VENDBANIMET_SUCCESS = `${PREFIX}FETCH_VENDBANIMET_SUCCESS`;
 // selected
 export const SET_SELECTED_INDUSTRITE = `${PREFIX}SET_SELECTED_INDUSTRITE`;
 export const SET_SELECTED_REGJIONET = `${PREFIX}SET_SELECTED_REGJIONET`;
+export const SET_SELECTED_REGJIONET_SUCCESS = `${PREFIX}SET_SELECTED_REGJIONET_SUCCESS`;
 export const SET_SELECTED_KOMUNAT = `${PREFIX}SET_SELECTED_KOMUNAT`;
+export const SET_SELECTED_KOMUNAT_SUCCESS = `${PREFIX}SET_SELECTED_KOMUNAT_SUCCESS`;
 export const SET_SELECTED_VENDBANIMET = `${PREFIX}SET_SELECTED_VENDBANIMET`;
+export const SET_SELECTED_VENDBANIMET_SUCCESS = `${PREFIX}SET_SELECTED_VENDBANIMET_SUCCESS`;
+
+// filtered
+export const SET_FILTERED_INDUSTRITE = `${PREFIX}SET_FILTERED_INDUSTRITE`;
+export const SET_FILTERED_REGJIONET = `${PREFIX}SET_FILTERED_REGJIONET`;
+export const SET_FILTERED_REGJIONET_SUCCESS = `${PREFIX}SET_FILTERED_REGJIONET_SUCCESS`;
+export const SET_FILTERED_KOMUNAT = `${PREFIX}SET_FILTERED_KOMUNAT`;
+export const SET_FILTERED_KOMUNAT_SUCCESS = `${PREFIX}SET_FILTERED_KOMUNAT_SUCCESS`;
+export const SET_FILTERED_VENDBANIMET = `${PREFIX}SET_FILTERED_VENDBANIMET`;
+export const SET_FILTERED_VENDBANIMET_SUCCESS = `${PREFIX}SET_FILTERED_VENDBANIMET_SUCCESS`;
+
 const logger = new Logger("Saga>Filters>Index");
 const _state = {
 	all: {
@@ -30,6 +44,11 @@ const _state = {
 	},
 	selected: {
 		industria: null,
+		regjionet: [],
+		komunat: [],
+		vendbanimet: [],
+	},
+	filtered: {
 		regjionet: [],
 		komunat: [],
 		vendbanimet: [],
@@ -45,30 +64,49 @@ const reducer = (state = _state, action) =>
 
 			case FETCH_REGJIONET_SUCCESS:
 				draft.all.regjionet = action.payload;
+				draft.filtered.regjionet = action.payload;
 				break;
 
 			case FETCH_KOMUNAT_SUCCESS:
 				draft.all.komunat = action.payload;
+				draft.filtered.komunat = action.payload;
 				break;
 
 			case FETCH_VENDBANIMET_SUCCESS:
 				draft.all.vendbanimet = action.payload;
+				draft.filtered.vendbanimet = action.payload;
 				break;
 
 			case SET_SELECTED_INDUSTRITE:
 				draft.selected.industria = action.payload;
 				break;
 
-			case SET_SELECTED_REGJIONET:
+			case SET_SELECTED_REGJIONET_SUCCESS:
 				draft.selected.regjionet = action.payload;
 				break;
 
-			case SET_SELECTED_KOMUNAT:
+			case SET_SELECTED_KOMUNAT_SUCCESS:
 				draft.selected.komunat = action.payload;
 				break;
 
 			case SET_SELECTED_VENDBANIMET:
 				draft.selected.vendbanimet = action.payload;
+				break;
+
+			case SET_FILTERED_INDUSTRITE:
+				draft.filtered.industria = action.payload;
+				break;
+
+			case SET_FILTERED_REGJIONET_SUCCESS:
+				draft.filtered.regjionet = action.payload;
+				break;
+
+			case SET_FILTERED_KOMUNAT_SUCCESS:
+				draft.filtered.komunat = action.payload;
+				break;
+
+			case SET_FILTERED_VENDBANIMET_SUCCESS:
+				draft.filtered.vendbanimet = action.payload;
 				break;
 
 			default:
@@ -89,8 +127,23 @@ export const actions = {
 	// selected
 	setSelectedIndustrite: (payload) => createAction(SET_SELECTED_INDUSTRITE, {payload}),
 	setSelectedRegjionet: (payload) => createAction(SET_SELECTED_REGJIONET, {payload}),
+	setSelectedRegjionetSuccess: (payload) =>
+		createAction(SET_SELECTED_REGJIONET_SUCCESS, {payload}),
 	setSelectedKomunat: (payload) => createAction(SET_SELECTED_KOMUNAT, {payload}),
+	setSelectedKomunatSuccess: (payload) => createAction(SET_SELECTED_KOMUNAT_SUCCESS, {payload}),
 	setSelectedVendbanimet: (payload) => createAction(SET_SELECTED_VENDBANIMET, {payload}),
+	setSelectedVendbanimetSuccess: (payload) =>
+		createAction(SET_SELECTED_VENDBANIMET_SUCCESS, {payload}),
+	// filtered
+	setFilteredIndustrite: (payload) => createAction(SET_FILTERED_INDUSTRITE, {payload}),
+	setFilteredRegjionet: (payload) => createAction(SET_FILTERED_REGJIONET, {payload}),
+	setFilteredRegjionetSuccess: (payload) =>
+		createAction(SET_FILTERED_REGJIONET_SUCCESS, {payload}),
+	setFilteredKomunat: (payload) => createAction(SET_FILTERED_KOMUNAT, {payload}),
+	setFilteredKomunatSuccess: (payload) => createAction(SET_FILTERED_KOMUNAT_SUCCESS, {payload}),
+	setFilteredVendbanimet: (payload) => createAction(SET_FILTERED_VENDBANIMET, {payload}),
+	setFilteredVendbanimetSuccess: (payload) =>
+		createAction(SET_FILTERED_VENDBANIMET_SUCCESS, {payload}),
 };
 
 export const sagas = {
@@ -125,7 +178,147 @@ export const sagas = {
 		try {
 			const vendbanimet = yield axios.get(`/filters/?name=vendbanimi`);
 
-			yield put(actions.fetchVendbanimetSuccess(vendbanimet?.data));
+			const capitalizedVendbanimet = vendbanimet?.data.map((vendbanimi) => {
+				vendbanimi.vendbanimiemri = capitalizeFirstLetter(vendbanimi.vendbanimiemri);
+				return vendbanimi;
+			});
+
+			yield put(actions.fetchVendbanimetSuccess(capitalizedVendbanimet));
+		} catch (error) {
+			logger.error(error);
+		}
+	},
+	*setSelectedRegjionet({payload}) {
+		try {
+			yield put(actions.setSelectedRegjionetSuccess(payload));
+			const allKomunat = yield select((state) => state.app.filters?.index?.all?.komunat);
+			const allVendbanimet = yield select(
+				(state) => state.app.filters?.index?.all?.vendbanimet,
+			);
+			const regjionetIds = payload?.map((regjioni) => regjioni.value);
+			if (regjionetIds?.length > 0) {
+				const filteredKomunat = allKomunat.filter((komuna) =>
+					regjionetIds.includes(komuna.regjioniid),
+				);
+				yield put(actions.setFilteredKomunatSuccess(filteredKomunat));
+
+				const filteredKomunatIds = filteredKomunat?.map((item) => item.komunaid);
+				const filteredVendbanimet = allVendbanimet.filter((vendbanimi) =>
+					filteredKomunatIds.includes(vendbanimi.komunaid),
+				);
+				yield put(actions.setFilteredVendbanimetSuccess(filteredVendbanimet));
+			} else {
+				yield put(actions.setFilteredKomunatSuccess(allKomunat));
+				yield put(actions.setFilteredVendbanimetSuccess(allVendbanimet));
+			}
+		} catch (error) {
+			logger.error(error);
+		}
+	},
+	*setSelectedKomunat({payload}) {
+		try {
+			yield put(actions.setSelectedKomunatSuccess(payload));
+			const allVendbanimet = yield select(
+				(state) => state.app.filters?.index?.all?.vendbanimet,
+			);
+			const allRegjionet = yield select((state) => state.app.filters?.index?.all?.regjionet);
+			const allKomunat = yield select((state) => state.app.filters?.index?.all?.komunat);
+
+			const komunatIds = payload?.map((komuna) => komuna.value);
+			if (komunatIds?.length > 0) {
+				const filteredVendbanimet = allVendbanimet.filter((vendbanimi) =>
+					komunatIds.includes(vendbanimi.komunaid),
+				);
+
+				const regjionetIds = allKomunat
+					.map((komuna) => {
+						if (komunatIds.includes(komuna.komunaid)) {
+							return komuna.regjioniid;
+						}
+						return null;
+					})
+					.filter(Boolean);
+
+				const toSelectRegjionet = allRegjionet
+					?.map((regjioni) => {
+						if (regjionetIds.includes(regjioni.regjioniid)) {
+							return {
+								value: regjioni.regjioniid,
+								label: regjioni.regjioniemri,
+							};
+						}
+						return null;
+					})
+					.filter(Boolean);
+
+				yield put(actions.setFilteredVendbanimetSuccess(filteredVendbanimet));
+				yield put(actions.setSelectedRegjionetSuccess(toSelectRegjionet));
+			} else {
+				yield put(actions.setFilteredVendbanimetSuccess(allVendbanimet));
+				yield put(actions.setSelectedRegjionetSuccess([]));
+			}
+		} catch (error) {
+			logger.error(error);
+		}
+	},
+
+	*setSelectedVendbanimet({payload}) {
+		try {
+			yield put(actions.setSelectedVendbanimetSuccess(payload));
+			const allVendbanimet = yield select(
+				(state) => state.app.filters?.index?.all?.vendbanimet,
+			);
+			const allRegjionet = yield select((state) => state.app.filters?.index?.all?.regjionet);
+			const allKomunat = yield select((state) => state.app.filters?.index?.all?.komunat);
+
+			const vendbanimetIds = payload?.map((vendbanimi) => vendbanimi.value);
+			if (vendbanimetIds?.length > 0) {
+				const filteredKomunat = allKomunat.filter((komuna) =>
+					vendbanimetIds.includes(komuna.komunaid),
+				);
+
+				const selectedKomunat = allKomunat
+					?.map((komuna) => {
+						if (vendbanimetIds.includes(komuna.komunaid)) {
+							return {
+								value: komuna.komunaid,
+								label: komuna.komunaemri,
+							};
+						}
+						return null;
+					})
+					.filter(Boolean);
+
+				yield put(actions.setFilteredKomunatSuccess(filteredKomunat));
+				yield put(actions.setSelectedKomunatSuccess(selectedKomunat));
+
+				// const komunatIds = allKomunat
+				// 	.map((komuna) => {
+				// 		if (vendbanimetIds.includes(komuna.komunaid)) {
+				// 			return komuna.vendbanimiid;
+				// 		}
+				// 		return null;
+				// 	})
+				// 	.filter(Boolean);
+
+				// const toSelectKomunat = allKomunat
+				// 	?.map((komuna) => {
+				// 		if (komunatIds.includes(komuna.komunaid)) {
+				// 			return {
+				// 				value: komuna.regjioniid,
+				// 				label: komuna.regjioniemri,
+				// 			};
+				// 		}
+				// 		return null;
+				// 	})
+				// 	.filter(Boolean);
+
+				// // yield put(actions.setFilteredVendbanimet(filteredVendbanimet));
+				// yield put(actions.setSelectedKomunatSuccess(toSelectKomunat));
+			} else {
+				yield put(actions.setFilteredVendbanimet(allVendbanimet));
+				yield put(actions.setSelectedRegjionetSuccess([]));
+			}
 		} catch (error) {
 			logger.error(error);
 		}
@@ -137,4 +330,7 @@ export const watcher = function* w() {
 	yield takeLatest(FETCH_KOMUNAT, sagas.fetchKomunat);
 	yield takeLatest(FETCH_REGJIONET, sagas.fetchRegjionet);
 	yield takeLatest(FETCH_VENDBANIMET, sagas.fetchVendbanimet);
+	yield takeLatest(SET_SELECTED_REGJIONET, sagas.setSelectedRegjionet);
+	yield takeLatest(SET_SELECTED_KOMUNAT, sagas.setSelectedKomunat);
+	yield takeLatest(SET_SELECTED_VENDBANIMET, sagas.setSelectedVendbanimet);
 };

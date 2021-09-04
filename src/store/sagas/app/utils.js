@@ -10,4 +10,8 @@ const getParams = (payload) => {
 	return {komunaQuery, vendbanimiQuery, regjioniQuery};
 };
 
-export {getParams};
+function capitalizeFirstLetter(string) {
+	return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+export {getParams, capitalizeFirstLetter};
