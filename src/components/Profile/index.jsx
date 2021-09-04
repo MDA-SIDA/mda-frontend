@@ -4,9 +4,9 @@ import {withRouter} from "react-router";
 import {connect} from "react-redux";
 import ProfileDrawer from "@components/Sidedrawer/ProfileDrawer";
 import {actions} from "@sagas/profile";
+import EditButton from "@common/SecondaryButton/index";
 import styles from "./index.module.scss";
 import profileAvatar from "../../assets/img/picture.png";
-import EditButton from "../SecondaryButton/index";
 
 const Profile = (props) => {
 	const {profile} = props;

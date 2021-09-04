@@ -1,10 +1,8 @@
-import Alert from "@common/Alert";
 import Sidebar from "@components/Sidebar";
 import React, {useState} from "react";
 import styles from "./index.module.scss";
 import Sidedrawer from "../Sidedrawer/index";
 import Backdrop from "../Backdrop/index";
-import SecondaryButton from "../SecondaryButton";
 
 function Layout({children}) {
 	const [sideDrawerIsVisible, setSideDrawerIsVisible] = useState(false);

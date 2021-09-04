@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import Select from "@common/Select";
 import {actions} from "@sagas/filters";
 import "./index.scss";
-import CancelButton from "../CancelButton";
+import CancelButton from "@common/CancelButton";
 
 const disabledInitialState = {
 	vendbanimet: false,

@@ -4,9 +4,9 @@ import {connect} from "react-redux";
 import DataGrid from "@common/DataTable/index";
 import UsersDrawer from "@components/Sidedrawer/UsersDrawer/index";
 import {actions} from "@sagas/admins";
+import Add from "@common/SecondaryButton/index";
 import styles from "./index.module.scss";
 import Search from "../Search/index";
-import Add from "../SecondaryButton/index";
 
 const ManageUsers = ({admins, fetch}) => {
 	const [sideDrawerIsVisible, setSideDrawerIsVisible] = useState(false);

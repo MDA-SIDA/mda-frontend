@@ -2,7 +2,7 @@
 import React, {useState, useEffect} from "react";
 import Search from "@components/Search";
 import DataGrid from "@common/DataTable/index";
-import AddData from "@components/SecondaryButton/index";
+import AddData from "@common/SecondaryButton/index";
 import {useLocation} from "react-router-dom";
 import {withRouter} from "react-router";
 import {connect} from "react-redux";
