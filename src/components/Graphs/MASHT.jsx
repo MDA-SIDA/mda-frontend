@@ -28,7 +28,7 @@ function MASHT({
 	const gjiniaEntitetiFemraDataSets = getDatasets({
 		filters,
 		items: gjiniaEntiteti,
-		singleItemLabel: "Numri i nxenesve femra ne baze te entiteteve",
+		singleItemLabel: "Numri i nxenesve femra ne baze te etniteteve",
 		property: "femra",
 		filterBy: "entiteti",
 	});
@@ -52,7 +52,7 @@ function MASHT({
 				}}
 			/>
 			<Chart
-				title="Numri i nxenesve femra ne baze te entiteteve"
+				title="Numri i nxenesve femra ne baze te etniteteve"
 				type="bar"
 				data={{
 					labels: Object.keys(groupBy(gjiniaEntiteti, "entiteti")),
