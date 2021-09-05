@@ -1,4 +1,4 @@
-import _, {groupBy} from "lodash";
+import {groupBy} from "lodash";
 
 const setIndustry = (filters, setShowGraph, showGraph) => {
 	if (filters?.industria?.value) {
@@ -38,35 +38,22 @@ const getDatasets = ({
 	items,
 	property,
 	singleItemLabel,
-	isActiveNoActive = false,
 	filterBy = null,
-	isUp,
+	getPercentage,
 }) => {
 	const {komunat, regjionet, vendbanimet} = filters;
+	const xLabels = sortLabels(Object.keys(groupBy(items, filterBy)));
 
 	if (komunat?.length === 0 && regjionet?.length === 0 && vendbanimet?.length === 0) {
-		return isActiveNoActive
-			? [
-					{
-						label: "Aktiv",
-						data: items?.map((item) => item.countaktiv),
-						backgroundColor: "#00517D",
-					},
-					{
-						label: "Joaktiv",
-						data: items?.map((item) => item.countjoaktiv),
-						backgroundColor: "#DDB40A",
-					},
-			  ]
-			: [
-					{
-						label: singleItemLabel,
-						data: filterBy
-							? getFilteredItems({items, filterBy, property})
-							: items?.map((item) => item[property]),
-						backgroundColor: colors[0],
-					},
-			  ];
+		return [
+			{
+				label: singleItemLabel,
+				data: filterBy
+					? getFilteredItems({items, filterBy, property, xLabels, getPercentage})
+					: items?.map((item) => item[property]),
+				backgroundColor: colors[0],
+			},
+		];
 	}
 	if (vendbanimet.length > 0) {
 		return generateDatasets({
@@ -74,7 +61,8 @@ const getDatasets = ({
 			groupByLabel: "vendbanimiemri",
 			property,
 			filterBy,
-			isUp,
+			xLabels,
+			getPercentage,
 		});
 	}
 	if (komunat.length > 0) {
@@ -83,7 +71,8 @@ const getDatasets = ({
 			groupByLabel: "komunaemri",
 			property,
 			filterBy,
-			isUp,
+			xLabels,
+			getPercentage,
 		});
 	}
 	if (regjionet.length > 0) {
@@ -92,7 +81,8 @@ const getDatasets = ({
 			groupByLabel: "regjioniemri",
 			property,
 			filterBy,
-			isUp,
+			xLabels,
+			getPercentage,
 		});
 	}
 };
@@ -103,13 +93,26 @@ const colors = {
 	2: "#02BC77",
 };
 
-const generateDatasets = ({items, groupByLabel, property, filterBy = null}) => {
+const generateDatasets = ({
+	items,
+	groupByLabel,
+	property,
+	filterBy = null,
+	xLabels,
+	getPercentage,
+}) => {
 	const groupedItems = groupBy(items, groupByLabel);
 
 	return Object.keys(groupedItems)?.map((key, index) => {
 		let data = null;
 		if (filterBy) {
-			data = getFilteredItems({items: groupedItems[key], filterBy, property});
+			data = getFilteredItems({
+				items: groupedItems[key],
+				filterBy,
+				property,
+				xLabels,
+				getPercentage,
+			});
 		}
 
 		return {
@@ -120,17 +123,19 @@ const generateDatasets = ({items, groupByLabel, property, filterBy = null}) => {
 	});
 };
 
-const getFilteredItems = ({items, filterBy, property}) => {
-	const labels = Object.keys(groupBy(items, filterBy));
-
-	return labels?.map((item) => {
-		const filtered = items.filter((x) => {
+const getFilteredItems = ({items, filterBy, property, xLabels, getPercentage = false}) => {
+	// const labels = sortLabels(Object.keys(groupBy(items, filterBy)));
+	const test = xLabels?.map((item) => {
+		const filtered = items?.filter((x) => {
 			// eslint-disable-next-line eqeqeq
 			if (x[filterBy] == item) return true;
 			return false;
 		});
-		return filtered.map((y) => y[property])?.reduce((a, b) => Number(a) + Number(b), 0);
+		const sum = filtered?.map((y) => y[property])?.reduce((a, b) => Number(a) + Number(b), 0);
+		if (getPercentage) return sum / filtered?.length;
+		return sum;
 	});
+	return test;
 };
 
 const getGjiniaDataset = ({items, filters}) => {
@@ -232,6 +237,11 @@ const getStatusiBizneseveDataForDatasets = (items) =>
 		{countaktiv: 0, countjoaktiv: 0},
 	);
 
+const sortLabels = (items) =>
+	items.sort(
+		(a, b) => a.localeCompare(b), // using String.prototype.localCompare()
+	);
+
 export {
 	setIndustry,
 	showGraphInitialState,
@@ -241,4 +251,5 @@ export {
 	getGjiniaDataset,
 	getGjiniaMesatarja,
 	getStatusiBizneseveDataset,
+	sortLabels,
 };

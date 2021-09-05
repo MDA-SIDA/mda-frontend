@@ -3,8 +3,8 @@ import {connect} from "react-redux";
 import "./index.scss";
 import Chart from "@common/Chart";
 import {actions} from "@sagas/industries/up";
-import {groupBy, isArray} from "lodash";
-import {getDatasets, areFiltersEmpty} from "./utils";
+import {groupBy} from "lodash";
+import {getDatasets, sortLabels} from "./utils";
 
 const UP = ({
 	fetchStatusi,
@@ -44,10 +44,8 @@ const UP = ({
 		fetchKomunaNotaMesatare(filters);
 		fetchKombiNotaMesatare(filters);
 	}, [filters]);
-	// console.log("kombiNotaMesatare", kombiNotaMesatare);
 
-	// console.log('statusi')
-
+	// DONE: except percentage
 	const statusiDataSets = getDatasets({
 		filters,
 		items: statusi,
@@ -56,6 +54,7 @@ const UP = ({
 		filterBy: "statusi",
 	});
 
+	// DONE: except percentage
 	const niveliDataSets = getDatasets({
 		filters,
 		items: niveli,
@@ -64,8 +63,7 @@ const UP = ({
 		filterBy: "niveli",
 	});
 
-	console.log(niveliDataSets);
-
+	// DONE: except percentage
 	const kombiNumriStudenteveDataSets = getDatasets({
 		filters,
 		items: kombiNumriStudenteve,
@@ -74,6 +72,7 @@ const UP = ({
 		filterBy: "kombi",
 	});
 
+	// DONE: except percentage
 	const gjiniaDataSets = getDatasets({
 		filters,
 		items: gjinia,
@@ -82,6 +81,7 @@ const UP = ({
 		filterBy: "gjinia",
 	});
 
+	// DONE: except percentage
 	const fakultetiNumriStudenteveDataSets = getDatasets({
 		filters,
 		items: fakultetiNumriStudenteve,
@@ -90,6 +90,7 @@ const UP = ({
 		filterBy: "fakulteti",
 	});
 
+	// DONE: except percentage
 	const vitiDiplomimitDataSets = getDatasets({
 		filters,
 		items: vitiDiplomimit,
@@ -98,6 +99,7 @@ const UP = ({
 		filterBy: "vitidiplomimit",
 	});
 
+	// DONE: except percentage
 	const komunaNumriStudenteveDataSets = getDatasets({
 		filters,
 		items: komunaNumriStudenteve,
@@ -106,6 +108,7 @@ const UP = ({
 		filterBy: "regjioniemri",
 	});
 
+	// TODO: custom chart
 	const diplomuarDataSets = getDatasets({
 		filters,
 		items: diplomuar,
@@ -114,38 +117,33 @@ const UP = ({
 		filterBy: "komunaemri",
 	});
 
-	// todo: check again to show avg as it is
 	const fakultetiNotaMesatareDataSets = getDatasets({
 		filters,
 		items: fakultetiNotaMesatare,
-		singleItemLabel: "Numri i studenteve",
+		singleItemLabel: "Nota mesatare",
 		property: "notamesatare",
 		filterBy: "regjioniemri",
+		getPercentage: true,
 	});
 
-	// todo: check again to show avg as it is, not working on server
+	// backend error: column "fakulteti" does not exist
 	const komunaNotaMesatareDataSets = getDatasets({
 		filters,
 		items: komunaNotaMesatare,
-		singleItemLabel: "Numri i studenteve",
+		singleItemLabel: "Nota mesatare",
 		property: "notamesatare",
 		filterBy: "regjioniemri",
+		getPercentage: true,
 	});
 
 	const kombiNotaMesatareDataSets = getDatasets({
 		filters,
 		items: kombiNotaMesatare,
-		singleItemLabel: "Numri i studenteve",
+		singleItemLabel: "Nota mesatare",
 		property: "notamesatare",
 		filterBy: "kombi",
+		getPercentage: true,
 	});
-
-	// const nrUniverziteteveKomunaDataSets = getDatasets({
-	// 	filters,
-	// 	items: nrUniverziteteveKomuna,
-	// 	singleItemLabel: "Numri i studenteve te komunave",
-	// 	property: "studentcount",
-	// });
 
 	return (
 		<>
@@ -153,7 +151,7 @@ const UP = ({
 				title="Numri i studenteve sipas statusit"
 				type="bar"
 				data={{
-					labels: Object.keys(groupBy(statusi, "statusi")),
+					labels: sortLabels(Object.keys(groupBy(statusi, "statusi"))),
 					datasets: statusiDataSets,
 				}}
 				options={{
@@ -174,7 +172,7 @@ const UP = ({
 				title="Numri i studenteve sipas nivelit te studimeve"
 				type="bar"
 				data={{
-					labels: Object.keys(groupBy(niveli, "niveli")),
+					labels: sortLabels(Object.keys(groupBy(niveli, "niveli"))),
 					datasets: niveliDataSets,
 				}}
 				options={{
@@ -195,7 +193,7 @@ const UP = ({
 				title="Numri i studenteve sipas kombit"
 				type="bar"
 				data={{
-					labels: Object.keys(groupBy(kombiNumriStudenteve, "kombi")),
+					labels: sortLabels(Object.keys(groupBy(kombiNumriStudenteve, "kombi"))),
 					datasets: kombiNumriStudenteveDataSets,
 				}}
 				options={{
@@ -214,7 +212,7 @@ const UP = ({
 			/>
 			<Chart
 				title="Numri i studenteve sipas gjinise"
-				type="bar"
+				type="pie"
 				data={{
 					labels: Object.keys(groupBy(gjinia, "gjinia")),
 					datasets: gjiniaDataSets,
@@ -233,11 +231,12 @@ const UP = ({
 					},
 				}}
 			/>
+
 			<Chart
 				title="Numri i studenteve sipas fakulteteve"
 				type="bar"
 				data={{
-					labels: Object.keys(groupBy(fakultetiNumriStudenteve, "fakulteti")),
+					labels: sortLabels(Object.keys(groupBy(fakultetiNumriStudenteve, "fakulteti"))),
 					datasets: fakultetiNumriStudenteveDataSets,
 				}}
 				options={{
@@ -258,7 +257,7 @@ const UP = ({
 				title="Numri i studenteve sipas vitit te diplomimit"
 				type="line"
 				data={{
-					labels: Object.keys(groupBy(vitiDiplomimit, "vitidiplomimit")),
+					labels: sortLabels(Object.keys(groupBy(vitiDiplomimit, "vitidiplomimit"))),
 					datasets: vitiDiplomimitDataSets,
 				}}
 				options={{
@@ -275,6 +274,7 @@ const UP = ({
 					},
 				}}
 			/>
+
 			<Chart
 				title="Numri i studenteve sipas komunave"
 				type="bar"
@@ -296,11 +296,11 @@ const UP = ({
 					},
 				}}
 			/>
-			{/* <Chart
+			<Chart
 				title="Numri i studenteve te diplomuar sipas komunave"
-				type="pie"
+				type="bar"
 				data={{
-					labels: Object.keys(groupBy(diplomuar, "komunaemri")),
+					labels: sortLabels(Object.keys(groupBy(diplomuar, "komunaemri"))),
 					datasets: diplomuarDataSets,
 				}}
 				options={{
@@ -316,41 +316,31 @@ const UP = ({
 						},
 					},
 				}}
-			/> */}
+			/>
+			<Chart
+				title="Nota mesatare sipas regjioneve"
+				type="bar"
+				data={{
+					labels: sortLabels(Object.keys(groupBy(fakultetiNotaMesatare, "regjioniemri"))),
+					datasets: fakultetiNotaMesatareDataSets,
+				}}
+			/>
 			<Chart
 				title="Nota mesatare sipas komunave"
 				type="bar"
 				data={{
-					labels: Object.keys(groupBy(fakultetiNotaMesatare, "regjioniemri")),
-					datasets: fakultetiNotaMesatareDataSets,
+					labels: sortLabels(Object.keys(groupBy(komunaNotaMesatare, "komunaemri"))),
+					datasets: komunaNotaMesatareDataSets,
 				}}
 			/>
 			<Chart
 				title="Nota mesatare sipas kombit"
 				type="bar"
 				data={{
-					labels: Object.keys(groupBy(kombiNotaMesatare, "kombi")),
+					labels: sortLabels(Object.keys(groupBy(kombiNotaMesatare, "kombi"))),
 					datasets: kombiNotaMesatareDataSets,
 				}}
 			/>
-			{/*
-			{!areFiltersEmpty(filters) && (
-				<Chart
-					title="Numri i studenteve te komunave"
-					type="bar"
-					data={{
-						labels: nrUniverziteteveKomunaDataSets.map((item) => item?.label),
-						datasets: nrUniverziteteveKomunaDataSets.map((item) => {
-							const data =
-								isArray(item?.data) &&
-								item?.data?.reduce((a, b) => Number(a) + Number(b), 0);
-							item.data = [data];
-
-							return item;
-						}),
-					}}
-				/>
-			)} */}
 			{/* <Chart
 				title="Numri i studenteve ne baze te gjinise pergjate viteve"
 				type="bar"
