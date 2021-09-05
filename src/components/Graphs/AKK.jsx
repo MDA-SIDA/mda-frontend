@@ -1,24 +1,49 @@
 import React, {useEffect} from "react";
 import {connect} from "react-redux";
 import {actions} from "@sagas/industries/akk";
-import {areArraysEmpty} from "./utils";
 
-function AKK({fetchNrNdertesave, nrNdertesave, filters, changeIsEmpty}) {
+function AKK({
+	fetchKategoria,
+	fetchPronesia,
+	fetchKlasa,
+	fetchLlojiNdertesesSiperfaqja,
+	fetchLlojiNdertesesNumri,
+	fetchTipiPronesNumri,
+	kategoria,
+	pronesia,
+	klasa,
+	llojiNdertesesSiperfaqja,
+	llojiNdertesesNumri,
+	tipiPronesNumri,
+	filters,
+}) {
 	useEffect(() => {
-		fetchNrNdertesave(filters);
-		if (areArraysEmpty({arrays: [nrNdertesave]})) {
-			changeIsEmpty(true);
-		} else changeIsEmpty(false);
-	}, [fetchNrNdertesave, filters]);
+		fetchKategoria();
+		fetchPronesia();
+		fetchKlasa();
+		fetchLlojiNdertesesSiperfaqja();
+		fetchLlojiNdertesesNumri();
+		fetchTipiPronesNumri();
+	}, [filters]);
 
 	return <div>{/* Graphs here */}</div>;
 }
 
 const mapDispatchToProps = {
-	fetchNrNdertesave: actions.fetchNrNdertesave,
+	fetchKategoria: actions.fetchKategoria,
+	fetchPronesia: actions.fetchPronesia,
+	fetchKlasa: actions.fetchKlasa,
+	fetchLlojiNdertesesSiperfaqja: actions.fetchLlojiNdertesesSiperfaqja,
+	fetchLlojiNdertesesNumri: actions.fetchLlojiNdertesesNumri,
+	fetchTipiPronesNumri: actions.fetchTipiPronesNumri,
 };
 const mapStateToProps = (state) => ({
-	nrNdertesave: state.app.industries.akk.nrNdertesave,
+	kategoria: state.app.industries.akk.kategoria,
+	pronesia: state.app.industries.akk.pronesia,
+	klasa: state.app.industries.akk.klasa,
+	llojiNdertesesSiperfaqja: state.app.industries.akk.llojiNdertesesSiperfaqja,
+	llojiNdertesesNumri: state.app.industries.akk.llojiNdertesesNumri,
+	tipiPronesNumri: state.app.industries.akk.tipiPronesNumri,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AKK);

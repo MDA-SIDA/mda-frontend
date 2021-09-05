@@ -7,19 +7,54 @@ import axios from "@utils/axios";
 import {getParams} from "../utils";
 
 const PREFIX = "@app/AKK/index";
-export const FETCH_NR_NDERTESAVE = `${PREFIX}FETCH_NR_NDERTESAVE`;
-export const FETCH_NR_NDERTESAVE_SUCCESS = `${PREFIX}FETCH_NR_NDERTESAVE_SUCCESS`;
+export const FETCH_KATEGORIA = `${PREFIX}FETCH_KATEGORIA`;
+export const FETCH_KATEGORIA_SUCCESS = `${PREFIX}FETCH_KATEGORIA_SUCCESS`;
+export const FETCH_PRONESIA = `${PREFIX}FETCH_PRONESIA`;
+export const FETCH_PRONESIA_SUCCESS = `${PREFIX}FETCH_PRONESIA_SUCCESS`;
+export const FETCH_KLASA = `${PREFIX}FETCH_KLASA`;
+export const FETCH_KLASA_SUCCESS = `${PREFIX}FETCH_KLASA_SUCCESS`;
+export const FETCH_LLOJI_NDERTESES_SIPERFAQJA = `${PREFIX}FETCH_LLOJI_NDERTESES_SIPERFAQJA`;
+export const FETCH_LLOJI_NDERTESES_SIPERFAQJA_SUCCESS = `${PREFIX}FETCH_LLOJI_NDERTESES_SIPERFAQJA_SUCCESS`;
+export const FETCH_LLOJI_NDERTESES_NUMRI = `${PREFIX}FETCH_LLOJI_NDERTESES_NUMRI`;
+export const FETCH_LLOJI_NDERTESES_NUMRI_SUCCESS = `${PREFIX}FETCH_LLOJI_NDERTESES_NUMRI_SUCCESS`;
+export const FETCH_TIPI_PRONES_NUMRI = `${PREFIX}FETCH_TIPI_PRONES_NUMRI`;
+export const FETCH_TIPI_PRONES_NUMRI_SUCCESS = `${PREFIX}FETCH_TIPI_PRONES_NUMRI_SUCCESS`;
 
 const logger = new Logger("Saga>AKK>Index");
 const _state = {
-	nrNdertesave: null,
+	kategoria: null,
+	pronesia: null,
+	klasa: null,
+	llojiNdertesesSiperfaqja: null,
+	llojiNdertesesNumri: null,
+	tipiPronesNumri: null,
 };
 
 const reducer = (state = _state, action) =>
 	produce(state, (draft) => {
 		switch (action.type) {
-			case FETCH_NR_NDERTESAVE_SUCCESS:
-				draft.nrNdertesave = action.payload;
+			case FETCH_KATEGORIA_SUCCESS:
+				draft.kategoria = action.payload;
+				break;
+
+			case FETCH_PRONESIA_SUCCESS:
+				draft.pronesia = action.payload;
+				break;
+
+			case FETCH_KLASA_SUCCESS:
+				draft.klasa = action.payload;
+				break;
+
+			case FETCH_LLOJI_NDERTESES_SIPERFAQJA_SUCCESS:
+				draft.llojiNdertesesSiperfaqja = action.payload;
+				break;
+
+			case FETCH_LLOJI_NDERTESES_NUMRI_SUCCESS:
+				draft.llojiNdertesesNumri = action.payload;
+				break;
+
+			case FETCH_TIPI_PRONES_NUMRI_SUCCESS:
+				draft.tipiPronesNumri = action.payload;
 				break;
 
 			default:
@@ -29,20 +64,93 @@ const reducer = (state = _state, action) =>
 export default reducer;
 
 export const actions = {
-	fetchNrNdertesave: (payload) => createAction(FETCH_NR_NDERTESAVE, {payload}),
-	fetchNrNdertesaveSuccess: (payload) => createAction(FETCH_NR_NDERTESAVE_SUCCESS, {payload}),
+	fetchKategoria: (payload) => createAction(FETCH_KATEGORIA, {payload}),
+	fetchKategoriaSuccess: (payload) => createAction(FETCH_KATEGORIA_SUCCESS, {payload}),
+	fetchPronesia: (payload) => createAction(FETCH_PRONESIA, {payload}),
+	fetchPronesiaSuccess: (payload) => createAction(FETCH_PRONESIA_SUCCESS, {payload}),
+	fetchKlasa: (payload) => createAction(FETCH_KLASA, {payload}),
+	fetchKlasaSuccess: (payload) => createAction(FETCH_KLASA_SUCCESS, {payload}),
+	fetchLlojiNdertesesSiperfaqja: (payload) =>
+		createAction(FETCH_LLOJI_NDERTESES_SIPERFAQJA, {payload}),
+	fetchLlojiNdertesesSiperfaqjaSuccess: (payload) =>
+		createAction(FETCH_LLOJI_NDERTESES_SIPERFAQJA_SUCCESS, {payload}),
+	fetchLlojiNdertesesNumri: (payload) => createAction(FETCH_LLOJI_NDERTESES_NUMRI, {payload}),
+	fetchLlojiNdertesesNumriSuccess: (payload) =>
+		createAction(FETCH_LLOJI_NDERTESES_NUMRI_SUCCESS, {payload}),
+	fetchTipiPronesNumri: (payload) => createAction(FETCH_TIPI_PRONES_NUMRI, {payload}),
+	fetchTipiPronesNumriSuccess: (payload) =>
+		createAction(FETCH_TIPI_PRONES_NUMRI_SUCCESS, {payload}),
 };
 
 export const sagas = {
-	*fetchNrNdertesave({payload}) {
+	*fetchKategoria({payload}) {
 		try {
 			const {komunaQuery, vendbanimiQuery, regjioniQuery} = getParams(payload);
 			const response = yield axios.get(
-				// eslint-disable-next-line max-len
-				`/industries/?${komunaQuery}${vendbanimiQuery}${regjioniQuery}&type=nrNdertesave`,
+				`/industries/?${komunaQuery}${vendbanimiQuery}${regjioniQuery}&type=kategoria`,
 			);
 
-			yield put(actions.fetchNrNdertesaveSuccess(response?.data));
+			yield put(actions.fetchKategoriaSuccess(response?.data));
+		} catch (error) {
+			logger.error(error);
+		}
+	},
+	*fetchPronesia({payload}) {
+		try {
+			const {komunaQuery, vendbanimiQuery, regjioniQuery} = getParams(payload);
+			const response = yield axios.get(
+				`/industries/?${komunaQuery}${vendbanimiQuery}${regjioniQuery}&type=pronesia`,
+			);
+
+			yield put(actions.fetchPronesiaSuccess(response?.data));
+		} catch (error) {
+			logger.error(error);
+		}
+	},
+	*fetchKlasa({payload}) {
+		try {
+			const {komunaQuery, vendbanimiQuery, regjioniQuery} = getParams(payload);
+			const response = yield axios.get(
+				`/industries/?${komunaQuery}${vendbanimiQuery}${regjioniQuery}&type=klasa`,
+			);
+
+			yield put(actions.fetchKlasaSuccess(response?.data));
+		} catch (error) {
+			logger.error(error);
+		}
+	},
+	*fetchLlojiNdertesesSiperfaqja({payload}) {
+		try {
+			const {komunaQuery, vendbanimiQuery, regjioniQuery} = getParams(payload);
+			const response = yield axios.get(
+				`/industries/?${komunaQuery}${vendbanimiQuery}${regjioniQuery}&type=llojiNdertesesSiperfaqja`,
+			);
+
+			yield put(actions.fetchLlojiNdertesesSiperfaqjaSuccess(response?.data));
+		} catch (error) {
+			logger.error(error);
+		}
+	},
+	*fetchLlojiNdertesesNumri({payload}) {
+		try {
+			const {komunaQuery, vendbanimiQuery, regjioniQuery} = getParams(payload);
+			const response = yield axios.get(
+				`/industries/?${komunaQuery}${vendbanimiQuery}${regjioniQuery}&type=llojiNdertesesNumri`,
+			);
+
+			yield put(actions.fetchLlojiNdertesesNumriSuccess(response?.data));
+		} catch (error) {
+			logger.error(error);
+		}
+	},
+	*fetchTipiPronesNumri({payload}) {
+		try {
+			const {komunaQuery, vendbanimiQuery, regjioniQuery} = getParams(payload);
+			const response = yield axios.get(
+				`/industries/?${komunaQuery}${vendbanimiQuery}${regjioniQuery}&type=tipiPronesNumri`,
+			);
+
+			yield put(actions.fetchTipiPronesNumriSuccess(response?.data));
 		} catch (error) {
 			logger.error(error);
 		}
@@ -50,5 +158,10 @@ export const sagas = {
 };
 
 export const watcher = function* w() {
-	yield takeLatest(FETCH_NR_NDERTESAVE, sagas.fetchNrNdertesave);
+	yield takeLatest(FETCH_KATEGORIA, sagas.fetchKategoria);
+	yield takeLatest(FETCH_PRONESIA, sagas.fetchPronesia);
+	yield takeLatest(FETCH_KLASA, sagas.fetchKlasa);
+	yield takeLatest(FETCH_LLOJI_NDERTESES_SIPERFAQJA, sagas.fetchLlojiNdertesesSiperfaqja);
+	yield takeLatest(FETCH_LLOJI_NDERTESES_NUMRI, sagas.fetchLlojiNdertesesNumri);
+	yield takeLatest(FETCH_TIPI_PRONES_NUMRI, sagas.fetchTipiPronesNumri);
 };
