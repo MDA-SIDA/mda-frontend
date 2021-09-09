@@ -27,15 +27,15 @@ function MASHT({
 	filters,
 }) {
 	useEffect(() => {
-		fetchMashtShkolla();
-		fetchMashtGjinia();
-		fetchMashtGjenerata();
-		fetchMashtEtnia();
-		fetchMashtRajoniKomuna();
-		fetchMashtKlasa();
-		fetchMashtQendraBurimoreDemtimi();
-		fetchMashtQendraBurimoreGjenerata();
-		fetchShkollaRajoniKomuna();
+		fetchMashtShkolla(filters);
+		fetchMashtGjinia(filters);
+		fetchMashtGjenerata(filters);
+		fetchMashtEtnia(filters);
+		fetchMashtRajoniKomuna(filters);
+		fetchMashtKlasa(filters);
+		fetchMashtQendraBurimoreDemtimi(filters);
+		fetchMashtQendraBurimoreGjenerata(filters);
+		fetchShkollaRajoniKomuna(filters);
 	}, [filters]);
 
 	// DONE: except percentage
@@ -47,8 +47,6 @@ function MASHT({
 		property: "numrinxenesve",
 		filterBy: "shkolla",
 	});
-	console.log("mashtShkolla", mashtShkolla);
-	console.log("mashtShkollaDataSets", mashtShkollaDataSets);
 
 	const mashtGjiniaDataSets = getDatasets({
 		filters,
