@@ -3,68 +3,188 @@ import {connect} from "react-redux";
 import {actions} from "@sagas/industries/masht";
 import Chart from "@common/Chart";
 import {groupBy} from "lodash";
-import {getDatasets} from "./utils";
+import {getDatasets, sortLabels} from "./utils";
 
 function MASHT({
-	fetchGjiniaEntiteti,
-	fetchNrNxenesveShkolla,
-	gjiniaEntiteti,
-	nrNxenesveShkolla,
+	fetchMashtShkolla,
+	fetchMashtGjinia,
+	fetchMashtGjenerata,
+	fetchMashtEtnia,
+	fetchMashtRajoniKomuna,
+	fetchMashtKlasa,
+	fetchMashtQendraBurimoreDemtimi,
+	fetchMashtQendraBurimoreGjenerata,
+	fetchShkollaRajoniKomuna,
+	mashtShkolla,
+	mashtGjinia,
+	mashtGjenerata,
+	mashtEtnia,
+	mashtRajoniKomuna,
+	mashtKlasa,
+	mashtQendraBurimoreDemtimi,
+	mashtQendraBurimoreGjenerata,
+	shkollaRajoniKomuna,
 	filters,
 }) {
 	useEffect(() => {
-		fetchGjiniaEntiteti(filters);
-		fetchNrNxenesveShkolla(filters);
-	}, [fetchGjiniaEntiteti, fetchNrNxenesveShkolla, filters]);
+		fetchMashtShkolla();
+		fetchMashtGjinia();
+		fetchMashtGjenerata();
+		fetchMashtEtnia();
+		fetchMashtRajoniKomuna();
+		fetchMashtKlasa();
+		fetchMashtQendraBurimoreDemtimi();
+		fetchMashtQendraBurimoreGjenerata();
+		fetchShkollaRajoniKomuna();
+	}, [filters]);
 
-	const nrNxenesveShkollaDataSets = getDatasets({
+	// DONE: except percentage
+
+	const mashtShkollaDataSets = getDatasets({
 		filters,
-		items: nrNxenesveShkolla,
+		items: mashtShkolla,
 		singleItemLabel: "Numri i nxenesve",
 		property: "numrinxenesve",
-		filterBy: "shkollaemri",
+		filterBy: "shkolla",
+	});
+	console.log("mashtShkolla", mashtShkolla);
+	console.log("mashtShkollaDataSets", mashtShkollaDataSets);
+
+	const mashtGjiniaDataSets = getDatasets({
+		filters,
+		items: mashtGjinia,
+		singleItemLabel: "Numri i nxenesve",
+		property: "numrinxenesve",
+		filterBy: "gjinia",
 	});
 
-	const gjiniaEntitetiFemraDataSets = getDatasets({
+	const mashtGjenerataDataSets = getDatasets({
 		filters,
-		items: gjiniaEntiteti,
-		singleItemLabel: "Numri i nxenesve femra ne baze te etniteteve",
-		property: "femra",
+		items: mashtGjenerata,
+		singleItemLabel: "Numri i nxenesve",
+		property: "numrinxenesve",
+		filterBy: "gjenerata",
+	});
+
+	const mashtEtniaDataSets = getDatasets({
+		filters,
+		items: mashtEtnia,
+		singleItemLabel: "Numri i nxenesve",
+		property: "numrinxenesve",
 		filterBy: "entiteti",
 	});
 
-	const gjiniaEntitetiMeshkujDataSets = getDatasets({
+	const mashtRajoniKomunaDataSets = getDatasets({
 		filters,
-		items: gjiniaEntiteti,
-		singleItemLabel: "Numri i nxenesve meshkuj ne baze te entiteteve",
-		property: "meshkuj",
-		filterBy: "entiteti",
+		items: mashtRajoniKomuna,
+		singleItemLabel: "Numri i nxenesve",
+		property: "numrinxenesve",
 	});
 
+	const mashtKlasaDataSets = getDatasets({
+		filters,
+		items: mashtKlasa,
+		singleItemLabel: "Numri i nxenesve",
+		property: "numrinxenesve",
+		filterBy: "klasa",
+	});
+
+	const mashtQendraBurimoreDemtimiDataSets = getDatasets({
+		filters,
+		items: mashtQendraBurimoreDemtimi,
+		singleItemLabel: "Numri i nxenesve",
+		property: "numrinxenesve",
+		filterBy: "demtimi",
+	});
+
+	const mashtQendraBurimoreGjenerataDataSets = getDatasets({
+		filters,
+		items: mashtQendraBurimoreGjenerata,
+		singleItemLabel: "Numri i nxenesve",
+		property: "numrinxenesve",
+		filterBy: "gjenerata",
+	});
+
+	const shkollaRajoniKomunaDataSets = getDatasets({
+		filters,
+		items: shkollaRajoniKomuna,
+		singleItemLabel: "Numri i shkollave",
+		property: "countshkolla",
+	});
 	return (
 		<>
 			<Chart
-				title="Nr i studenteve te diplomuar"
+				title="Numri i nxenesve"
 				type="bar"
 				data={{
-					labels: Object.keys(groupBy(nrNxenesveShkolla, "shkollaemri")),
-					datasets: nrNxenesveShkollaDataSets,
+					labels: sortLabels(Object.keys(groupBy(mashtShkolla, "shkolla"))),
+					datasets: mashtShkollaDataSets,
 				}}
 			/>
 			<Chart
-				title="Numri i nxenesve femra ne baze te etniteteve"
+				title="Numri i nxenesve"
 				type="bar"
 				data={{
-					labels: Object.keys(groupBy(gjiniaEntiteti, "entiteti")),
-					datasets: gjiniaEntitetiFemraDataSets,
+					labels: sortLabels(Object.keys(groupBy(mashtGjinia, "gjinia"))),
+					datasets: mashtGjiniaDataSets,
 				}}
 			/>
 			<Chart
-				title="Numri i nxenesve meshkuj ne baze te entiteteve"
+				title="Numri i nxenesve"
 				type="bar"
 				data={{
-					labels: Object.keys(groupBy(gjiniaEntiteti, "entiteti")),
-					datasets: gjiniaEntitetiMeshkujDataSets,
+					labels: sortLabels(Object.keys(groupBy(mashtGjenerata, "gjenerata"))),
+					datasets: mashtGjenerataDataSets,
+				}}
+			/>
+			<Chart
+				title="Numri i nxenesve"
+				type="bar"
+				data={{
+					labels: sortLabels(Object.keys(groupBy(mashtEtnia, "entiteti"))),
+					datasets: mashtEtniaDataSets,
+				}}
+			/>
+			<Chart
+				title="Numri i nxenesve"
+				type="bar"
+				data={{
+					labels: sortLabels(Object.keys(groupBy(mashtRajoniKomuna, "komunaemri"))),
+					datasets: mashtRajoniKomunaDataSets,
+				}}
+			/>
+			<Chart
+				title="Numri i nxenesve"
+				type="bar"
+				data={{
+					labels: sortLabels(Object.keys(groupBy(mashtKlasa, "klasa"))),
+					datasets: mashtKlasaDataSets,
+				}}
+			/>
+			<Chart
+				title="Numri i nxenesve"
+				type="bar"
+				data={{
+					labels: sortLabels(Object.keys(groupBy(mashtQendraBurimoreDemtimi, "demtimi"))),
+					datasets: mashtQendraBurimoreDemtimiDataSets,
+				}}
+			/>
+			<Chart
+				title="Numri i nxenesve"
+				type="bar"
+				data={{
+					labels: sortLabels(
+						Object.keys(groupBy(mashtQendraBurimoreGjenerata, "gjenerata")),
+					),
+					datasets: mashtQendraBurimoreGjenerataDataSets,
+				}}
+			/>
+			<Chart
+				title="Numri i nxenesve"
+				type="bar"
+				data={{
+					labels: sortLabels(Object.keys(groupBy(shkollaRajoniKomuna, "komunaemri"))),
+					datasets: shkollaRajoniKomunaDataSets,
 				}}
 			/>
 		</>
@@ -72,12 +192,26 @@ function MASHT({
 }
 
 const mapDispatchToProps = {
-	fetchGjiniaEntiteti: actions.fetchGjiniaEntiteti,
-	fetchNrNxenesveShkolla: actions.fetchNrNxenesveShkolla,
+	fetchMashtShkolla: actions.fetchMashtShkolla,
+	fetchMashtGjinia: actions.fetchMashtGjinia,
+	fetchMashtGjenerata: actions.fetchMashtGjenerata,
+	fetchMashtEtnia: actions.fetchMashtEtnia,
+	fetchMashtRajoniKomuna: actions.fetchMashtRajoniKomuna,
+	fetchMashtKlasa: actions.fetchMashtKlasa,
+	fetchMashtQendraBurimoreDemtimi: actions.fetchMashtQendraBurimoreDemtimi,
+	fetchMashtQendraBurimoreGjenerata: actions.fetchMashtQendraBurimoreGjenerata,
+	fetchShkollaRajoniKomuna: actions.fetchShkollaRajoniKomuna,
 };
 const mapStateToProps = (state) => ({
-	gjiniaEntiteti: state.app.industries.masht.gjiniaEntiteti,
-	nrNxenesveShkolla: state.app.industries.masht.nrNxenesveShkolla,
+	mashtShkolla: state.app.industries.masht.mashtShkolla,
+	mashtGjinia: state.app.industries.masht.mashtGjinia,
+	mashtGjenerata: state.app.industries.masht.mashtGjenerata,
+	mashtEtnia: state.app.industries.masht.mashtEtnia,
+	mashtRajoniKomuna: state.app.industries.masht.mashtRajoniKomuna,
+	mashtKlasa: state.app.industries.masht.mashtKlasa,
+	mashtQendraBurimoreDemtimi: state.app.industries.masht.mashtQendraBurimoreDemtimi,
+	mashtQendraBurimoreGjenerata: state.app.industries.masht.mashtQendraBurimoreGjenerata,
+	shkollaRajoniKomuna: state.app.industries.masht.shkollaRajoniKomuna,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MASHT);
