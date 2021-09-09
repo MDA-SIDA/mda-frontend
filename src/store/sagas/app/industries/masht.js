@@ -25,6 +25,10 @@ export const FETCH_MASHT_QENDRA_BURIMORE_GJENERATA = `${PREFIX}FETCH_MASHT_QENDR
 export const FETCH_MASHT_QENDRA_BURIMORE_GJENERATA_SUCCESS = `${PREFIX}FETCH_MASHT_QENDRA_BURIMORE_GJENERATA_SUCCESS`;
 export const FETCH_SHKOLLA_RAJONI_KOMUNA = `${PREFIX}FETCH_SHKOLLA_RAJONI_KOMUNA`;
 export const FETCH_SHKOLLA_RAJONI_KOMUNA_SUCCESS = `${PREFIX}FETCH_SHKOLLA_RAJONI_KOMUNA_SUCCESS`;
+export const FETCH_GJINIA_ETNITETI = `${PREFIX}FETCH_GJINIA_ETNITETI`;
+export const FETCH_GJINIA_ETNITETI_SUCCESS = `${PREFIX}FETCH_GJINIA_ETNITETI_SUCCESS`;
+export const FETCH_NR_NXENESVE_SHKOLLA = `${PREFIX}FETCH_NR_NXENESVE_SHKOLLA`;
+export const FETCH_NR_NXENESVE_SHKOLLA_SUCCESS = `${PREFIX}FETCH_NR_NXENESVE_SHKOLLA_SUCCESS`;
 
 const logger = new Logger("Saga>MASHT>Index");
 const _state = {
@@ -37,6 +41,8 @@ const _state = {
 	mashtQendraBurimoreDemtimi: null,
 	mashtQendraBurimoreGjenerata: null,
 	shkollaRajoniKomuna: null,
+	gjiniaEtniteti: null,
+	nrNxenesveShkolla: null,
 };
 
 const reducer = (state = _state, action) =>
@@ -78,6 +84,14 @@ const reducer = (state = _state, action) =>
 				draft.shkollaRajoniKomuna = action.payload;
 				break;
 
+			case FETCH_GJINIA_ETNITETI_SUCCESS:
+				draft.gjiniaEtniteti = action.payload;
+				break;
+
+			case FETCH_NR_NXENESVE_SHKOLLA_SUCCESS:
+				draft.nrNxenesveShkolla = action.payload;
+				break;
+
 			default:
 				return state;
 		}
@@ -109,6 +123,11 @@ export const actions = {
 	fetchShkollaRajoniKomuna: (payload) => createAction(FETCH_SHKOLLA_RAJONI_KOMUNA, {payload}),
 	fetchShkollaRajoniKomunaSuccess: (payload) =>
 		createAction(FETCH_SHKOLLA_RAJONI_KOMUNA_SUCCESS, {payload}),
+	fetchGjiniaEtniteti: (payload) => createAction(FETCH_GJINIA_ETNITETI, {payload}),
+	fetchGjiniaEtnitetiSuccess: (payload) => createAction(FETCH_GJINIA_ETNITETI_SUCCESS, {payload}),
+	fetchNrNxenesveShkolla: (payload) => createAction(FETCH_NR_NXENESVE_SHKOLLA, {payload}),
+	fetchNrNxenesveShkollaSuccess: (payload) =>
+		createAction(FETCH_NR_NXENESVE_SHKOLLA_SUCCESS, {payload}),
 };
 
 export const sagas = {
@@ -229,6 +248,32 @@ export const sagas = {
 			logger.error(error);
 		}
 	},
+	*fetchGjiniaEtniteti({payload}) {
+		try {
+			const {komunaQuery, vendbanimiQuery, regjioniQuery} = getParams(payload);
+			const response = yield axios.get(
+				// eslint-disable-next-line max-len
+				`/industries/?${komunaQuery}${vendbanimiQuery}${regjioniQuery}&type=gjiniaEtniteti`,
+			);
+
+			yield put(actions.fetchGjiniaEtnitetiSuccess(response?.data));
+		} catch (error) {
+			logger.error(error);
+		}
+	},
+	*fetchNrNxenesveShkolla({payload}) {
+		try {
+			const {komunaQuery, vendbanimiQuery, regjioniQuery} = getParams(payload);
+			const response = yield axios.get(
+				// eslint-disable-next-line max-len
+				`/industries/?${komunaQuery}${vendbanimiQuery}${regjioniQuery}&type=nrNxenesveShkolla`,
+			);
+
+			yield put(actions.fetchNrNxenesveShkollaSuccess(response?.data));
+		} catch (error) {
+			logger.error(error);
+		}
+	},
 };
 
 export const watcher = function* w() {
@@ -244,4 +289,6 @@ export const watcher = function* w() {
 		sagas.fetchMashtQendraBurimoreGjenerata,
 	);
 	yield takeLatest(FETCH_SHKOLLA_RAJONI_KOMUNA, sagas.fetchShkollaRajoniKomuna);
+	yield takeLatest(FETCH_GJINIA_ETNITETI, sagas.fetchGjiniaEtniteti);
+	yield takeLatest(FETCH_NR_NXENESVE_SHKOLLA, sagas.fetchNrNxenesveShkolla);
 };

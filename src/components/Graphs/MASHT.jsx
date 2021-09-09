@@ -15,6 +15,8 @@ function MASHT({
 	fetchMashtQendraBurimoreDemtimi,
 	fetchMashtQendraBurimoreGjenerata,
 	fetchShkollaRajoniKomuna,
+	fetchGjiniaEtniteti,
+	fetchNrNxenesveShkolla,
 	mashtShkolla,
 	mashtGjinia,
 	mashtGjenerata,
@@ -24,6 +26,8 @@ function MASHT({
 	mashtQendraBurimoreDemtimi,
 	mashtQendraBurimoreGjenerata,
 	shkollaRajoniKomuna,
+	gjiniaEtniteti,
+	nrNxenesveShkolla,
 	filters,
 }) {
 	useEffect(() => {
@@ -36,9 +40,11 @@ function MASHT({
 		fetchMashtQendraBurimoreDemtimi(filters);
 		fetchMashtQendraBurimoreGjenerata(filters);
 		fetchShkollaRajoniKomuna(filters);
+		fetchGjiniaEtniteti(filters);
+		fetchNrNxenesveShkolla(filters);
 	}, [filters]);
 
-	// DONE: except percentage
+	// DONE: except percentage, nrNxenesveShkolla
 
 	const mashtShkollaDataSets = getDatasets({
 		filters,
@@ -108,6 +114,21 @@ function MASHT({
 		items: shkollaRajoniKomuna,
 		singleItemLabel: "Numri i shkollave",
 		property: "countshkolla",
+	});
+	const gjiniaEntitetiFemraDataSets = getDatasets({
+		filters,
+		items: gjiniaEtniteti,
+		singleItemLabel: "Numri i nxenesve femra ne baze te etniteteve",
+		property: "femra",
+		filterBy: "entiteti",
+	});
+
+	const gjiniaEntitetiMeshkujDataSets = getDatasets({
+		filters,
+		items: gjiniaEtniteti,
+		singleItemLabel: "Numri i nxenesve meshkuj ne baze te etniteteve",
+		property: "meshkuj",
+		filterBy: "entiteti",
 	});
 	return (
 		<>
@@ -185,6 +206,22 @@ function MASHT({
 					datasets: shkollaRajoniKomunaDataSets,
 				}}
 			/>
+			<Chart
+				title="Numri i nxenesve femra ne baze te etniteteve"
+				type="bar"
+				data={{
+					labels: sortLabels(Object.keys(groupBy(gjiniaEtniteti, "entiteti"))),
+					datasets: gjiniaEntitetiFemraDataSets,
+				}}
+			/>
+			<Chart
+				title="Numri i nxenesve meshkuj ne baze te etniteteve"
+				type="bar"
+				data={{
+					labels: sortLabels(Object.keys(groupBy(gjiniaEtniteti, "entiteti"))),
+					datasets: gjiniaEntitetiMeshkujDataSets,
+				}}
+			/>
 		</>
 	);
 }
@@ -199,6 +236,8 @@ const mapDispatchToProps = {
 	fetchMashtQendraBurimoreDemtimi: actions.fetchMashtQendraBurimoreDemtimi,
 	fetchMashtQendraBurimoreGjenerata: actions.fetchMashtQendraBurimoreGjenerata,
 	fetchShkollaRajoniKomuna: actions.fetchShkollaRajoniKomuna,
+	fetchGjiniaEtniteti: actions.fetchGjiniaEtniteti,
+	fetchNrNxenesveShkolla: actions.fetchNrNxenesveShkolla,
 };
 const mapStateToProps = (state) => ({
 	mashtShkolla: state.app.industries.masht.mashtShkolla,
@@ -210,6 +249,8 @@ const mapStateToProps = (state) => ({
 	mashtQendraBurimoreDemtimi: state.app.industries.masht.mashtQendraBurimoreDemtimi,
 	mashtQendraBurimoreGjenerata: state.app.industries.masht.mashtQendraBurimoreGjenerata,
 	shkollaRajoniKomuna: state.app.industries.masht.shkollaRajoniKomuna,
+	gjiniaEtniteti: state.app.industries.masht.gjiniaEtniteti,
+	nrNxenesveShkolla: state.app.industries.masht.nrNxenesveShkolla,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MASHT);
