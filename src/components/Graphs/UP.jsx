@@ -131,8 +131,8 @@ const UP = ({
 		filters,
 		items: komunaNotaMesatare,
 		singleItemLabel: "Nota mesatare",
-		property: "notamesatare",
-		filterBy: "regjioniemri",
+		property: "numristudenteve",
+		filterBy: "komunaemri",
 		getPercentage: true,
 	});
 
@@ -175,19 +175,6 @@ const UP = ({
 					labels: sortLabels(Object.keys(groupBy(niveli, "niveli"))),
 					datasets: niveliDataSets,
 				}}
-				options={{
-					interaction: {
-						intersect: false,
-						mode: "index",
-					},
-					plugins: {
-						tooltip: {
-							callbacks: {
-								footer,
-							},
-						},
-					},
-				}}
 			/>
 			<Chart
 				title="Numri i studenteve sipas kombit"
@@ -196,19 +183,6 @@ const UP = ({
 					labels: sortLabels(Object.keys(groupBy(kombiNumriStudenteve, "kombi"))),
 					datasets: kombiNumriStudenteveDataSets,
 				}}
-				options={{
-					interaction: {
-						intersect: false,
-						mode: "index",
-					},
-					plugins: {
-						tooltip: {
-							callbacks: {
-								footer: (tooltipItems) => footer(tooltipItems),
-							},
-						},
-					},
-				}}
 			/>
 			<Chart
 				title="Numri i studenteve sipas gjinise"
@@ -216,19 +190,6 @@ const UP = ({
 				data={{
 					labels: Object.keys(groupBy(gjinia, "gjinia")),
 					datasets: gjiniaDataSets,
-				}}
-				options={{
-					interaction: {
-						intersect: false,
-						mode: "index",
-					},
-					plugins: {
-						tooltip: {
-							callbacks: {
-								footer,
-							},
-						},
-					},
 				}}
 			/>
 
@@ -239,19 +200,6 @@ const UP = ({
 					labels: sortLabels(Object.keys(groupBy(fakultetiNumriStudenteve, "fakulteti"))),
 					datasets: fakultetiNumriStudenteveDataSets,
 				}}
-				options={{
-					interaction: {
-						intersect: false,
-						mode: "index",
-					},
-					plugins: {
-						tooltip: {
-							callbacks: {
-								footer,
-							},
-						},
-					},
-				}}
 			/>
 			<Chart
 				title="Numri i studenteve sipas vitit te diplomimit"
@@ -260,40 +208,14 @@ const UP = ({
 					labels: sortLabels(Object.keys(groupBy(vitiDiplomimit, "vitidiplomimit"))),
 					datasets: vitiDiplomimitDataSets,
 				}}
-				options={{
-					interaction: {
-						intersect: false,
-						mode: "index",
-					},
-					plugins: {
-						tooltip: {
-							callbacks: {
-								footer,
-							},
-						},
-					},
-				}}
 			/>
 
 			<Chart
 				title="Numri i studenteve sipas komunave"
 				type="bar"
 				data={{
-					labels: Object.keys(groupBy(komunaNumriStudenteve, "regjioniemri")),
+					labels: sortLabels(Object.keys(groupBy(komunaNumriStudenteve, "komunaemri"))),
 					datasets: komunaNumriStudenteveDataSets,
-				}}
-				options={{
-					interaction: {
-						intersect: false,
-						mode: "index",
-					},
-					plugins: {
-						tooltip: {
-							callbacks: {
-								footer,
-							},
-						},
-					},
 				}}
 			/>
 			<Chart
@@ -302,19 +224,6 @@ const UP = ({
 				data={{
 					labels: sortLabels(Object.keys(groupBy(diplomuar, "komunaemri"))),
 					datasets: diplomuarDataSets,
-				}}
-				options={{
-					interaction: {
-						intersect: false,
-						mode: "index",
-					},
-					plugins: {
-						tooltip: {
-							callbacks: {
-								footer,
-							},
-						},
-					},
 				}}
 			/>
 			<Chart
@@ -341,40 +250,6 @@ const UP = ({
 					datasets: kombiNotaMesatareDataSets,
 				}}
 			/>
-			{/* <Chart
-				title="Numri i studenteve ne baze te gjinise pergjate viteve"
-				type="bar"
-				data={{
-					labels: Object.keys(groupBy(meshkujFemra, "viti")),
-					datasets: [...femraDataSets, ...meshkujDataSets],
-				}}
-				options={{
-					scales: {
-						y: {
-							type: "linear",
-							display: true,
-							position: "left",
-							title: {
-								display: true,
-								text: "Meshkuj",
-							},
-						},
-						y1: {
-							type: "linear",
-							display: true,
-							position: "right",
-							title: {
-								display: true,
-								text: "Femra",
-							},
-							// grid line settings
-							grid: {
-								drawOnChartArea: false,
-							},
-						},
-					},
-				}}
-			/> */}
 		</>
 	);
 };
