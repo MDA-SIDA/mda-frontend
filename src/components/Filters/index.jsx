@@ -181,6 +181,8 @@ function Filters({
 						setSelectedRegjionet([]);
 						setSelectedKomunat([]);
 						setSelectedVendbanimet([]);
+						setSelectedVitet([]);
+						setSelectedRegime([]);
 						setIsDisabled(disabledInitialState);
 						closeDrawer();
 					}}

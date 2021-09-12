@@ -1,17 +1,17 @@
 import React, {useEffect} from "react";
 import {connect} from "react-redux";
-import {areArraysEmpty} from "./utils";
+import {actions} from "@sagas/industries/dogana";
 
-function DOGANA({filters, changeIsEmpty}) {
+function DOGANA({filters, fetchDogana70}) {
 	useEffect(() => {
-		if (areArraysEmpty({arrays: []})) {
-			changeIsEmpty(true);
-		} else changeIsEmpty(false);
+		fetchDogana70(filters);
 	}, [filters]);
 	return <div></div>;
 }
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+	fetchDogana70: actions.fetchDogana70,
+};
 const mapStateToProps = (state) => ({});
 
 export default connect(mapStateToProps, mapDispatchToProps)(DOGANA);

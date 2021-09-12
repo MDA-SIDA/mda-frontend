@@ -7,7 +7,10 @@ const getParams = (payload) => {
 		?.map((regjioni) => `regjioni=${regjioni?.value}`)
 		.join("&");
 
-	return {komunaQuery, vendbanimiQuery, regjioniQuery};
+	const vitetQuery = payload?.vitet?.map((viti) => `viti=${viti?.value}`).join("&");
+	const regimeQuery = payload?.regime?.map((regime) => `regime=${regime?.value}`).join("&");
+
+	return {komunaQuery, vendbanimiQuery, regjioniQuery, vitetQuery, regimeQuery};
 };
 
 function capitalizeFirstLetter(string) {
