@@ -14,6 +14,7 @@ import {watcher as akk} from "@sagas/industries/akk";
 import {watcher as auv} from "@sagas/industries/auv";
 import {watcher as masht} from "@sagas/industries/masht";
 import {watcher as mpbzhr} from "@sagas/industries/mpbzhr";
+import {watcher as rruget} from "@sagas/industries/rruget";
 
 export default function* root() {
 	yield all([
@@ -33,5 +34,6 @@ export default function* root() {
 		auv(),
 		masht(),
 		mpbzhr(),
+		rruget(),
 	]);
 }
