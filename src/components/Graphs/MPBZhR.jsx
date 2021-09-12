@@ -35,6 +35,19 @@ function MPBZhR({
 	mpbzhrViti2019Liter,
 	mpbzhrViti2019Pulavojse,
 	mpbzhrViti2019Thelleza,
+
+	fetchMpbzhrViti2019HaF,
+	fetchMpbzhrViti2019KoshereF,
+	fetchMpbzhrViti2019KrereF,
+	fetchMpbzhrViti2019LiterF,
+	fetchMpbzhrViti2019PulavojseF,
+	fetchMpbzhrViti2019ThellezaF,
+	mpbzhrViti2019HaF,
+	mpbzhrViti2019KoshereF,
+	mpbzhrViti2019KrereF,
+	mpbzhrViti2019LiterF,
+	mpbzhrViti2019PulavojseF,
+	mpbzhrViti2019ThellezaF,
 }) {
 	useEffect(() => {
 		fetchMpbzhrMasaShumaPaguar(filters);
@@ -53,6 +66,15 @@ function MPBZhR({
 		fetchMpbzhrViti2019Liter(filters);
 		fetchMpbzhrViti2019Pulavojse(filters);
 		fetchMpbzhrViti2019Thelleza(filters);
+	}, [filters]);
+
+	useEffect(() => {
+		fetchMpbzhrViti2019HaF(filters);
+		fetchMpbzhrViti2019KoshereF(filters);
+		fetchMpbzhrViti2019KrereF(filters);
+		fetchMpbzhrViti2019LiterF(filters);
+		fetchMpbzhrViti2019PulavojseF(filters);
+		fetchMpbzhrViti2019ThellezaF(filters);
 	}, [filters]);
 
 	const mpbzhrMasaShumaPaguarDataSets = getDatasets({
@@ -157,6 +179,14 @@ function MPBZhR({
 		items: mpbzhrViti2019Thelleza,
 		singleItemLabel: "Numri",
 		property: "thelleza",
+		filterBy: "viti",
+	});
+
+	const mpbzhrViti2019HaFDataSets = getDatasets({
+		filters,
+		items: mpbzhrViti2019HaF,
+		singleItemLabel: "Numri",
+		property: "ha",
 		filterBy: "viti",
 	});
 
@@ -301,6 +331,13 @@ const mapDispatchToProps = {
 	fetchMpbzhrViti2019Liter: actions.fetchMpbzhrViti2019Liter,
 	fetchMpbzhrViti2019Pulavojse: actions.fetchMpbzhrViti2019Pulavojse,
 	fetchMpbzhrViti2019Thelleza: actions.fetchMpbzhrViti2019Thelleza,
+
+	fetchMpbzhrViti2019HaF: actions.fetchMpbzhrViti2019HaF,
+	fetchMpbzhrViti2019KoshereF: actions.fetchMpbzhrViti2019KoshereF,
+	fetchMpbzhrViti2019KrereF: actions.fetchMpbzhrViti2019KrereF,
+	fetchMpbzhrViti2019LiterF: actions.fetchMpbzhrViti2019LiterF,
+	fetchMpbzhrViti2019PulavojseF: actions.fetchMpbzhrViti2019PulavojseF,
+	fetchMpbzhrViti2019ThellezaF: actions.fetchMpbzhrViti2019ThellezaF,
 };
 const mapStateToProps = (state) => ({
 	mpbzhrMasaShumaPaguar: state.app.industries.mpbzhr.mpbzhrMasaShumaPaguar,
@@ -317,6 +354,13 @@ const mapStateToProps = (state) => ({
 	mpbzhrViti2019Liter: state.app.industries.mpbzhr.mpbzhrViti2019Liter,
 	mpbzhrViti2019Pulavojse: state.app.industries.mpbzhr.mpbzhrViti2019Pulavojse,
 	mpbzhrViti2019Thelleza: state.app.industries.mpbzhr.mpbzhrViti2019Thelleza,
+
+	mpbzhrViti2019HaF: state.app.industries.mpbzhr.mpbzhrViti2019HaF,
+	mpbzhrViti2019KoshereF: state.app.industries.mpbzhr.mpbzhrViti2019KoshereF,
+	mpbzhrViti2019KrereF: state.app.industries.mpbzhr.mpbzhrViti2019KrereF,
+	mpbzhrViti2019LiterF: state.app.industries.mpbzhr.mpbzhrViti2019LiterF,
+	mpbzhrViti2019PulavojseF: state.app.industries.mpbzhr.mpbzhrViti2019PulavojseF,
+	mpbzhrViti2019ThellezaF: state.app.industries.mpbzhr.mpbzhrViti2019ThellezaF,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MPBZhR);
