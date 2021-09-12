@@ -9,6 +9,7 @@ import mapl from "@sagas/industries/mapl";
 import akk from "@sagas/industries/akk";
 import auv from "@sagas/industries/auv";
 import masht from "@sagas/industries/masht";
+import mpbzhr from "@sagas/industries/mpbzhr";
 import {connectRouter} from "connected-react-router";
 import {combineReducers} from "redux";
 import universitetiiprishtines from "@sagas/universitetet";
@@ -42,6 +43,7 @@ export default function createReducer(injectedReducers, history) {
 				akk,
 				auv,
 				masht,
+				mpbzhr,
 			}),
 		}),
 		...injectedReducers,

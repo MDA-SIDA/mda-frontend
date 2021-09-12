@@ -298,7 +298,7 @@ export const sagas = {
 				`/industries/?${komunaQuery}${vendbanimiQuery}${regjioniQuery}&type=mpbzhrMasaShumaPaguar`,
 			);
 
-			yield put(actions.fetchStatusiSuccess(response?.data));
+			yield put(actions.fetchMpbzhrMasaShumaPaguarSuccess(response?.data));
 		} catch (error) {
 			logger.error(error);
 		}
