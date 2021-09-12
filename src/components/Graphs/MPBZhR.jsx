@@ -48,6 +48,19 @@ function MPBZhR({
 	mpbzhrViti2019LiterF,
 	mpbzhrViti2019PulavojseF,
 	mpbzhrViti2019ThellezaF,
+
+	fetchMpbzhrViti2019HaM,
+	fetchMpbzhrViti2019KoshereM,
+	fetchMpbzhrViti2019KrereM,
+	fetchMpbzhrViti2019LiterM,
+	fetchMpbzhrViti2019PulavojseM,
+	fetchMpbzhrViti2019ThellezaM,
+	mpbzhrViti2019HaM,
+	mpbzhrViti2019KoshereM,
+	mpbzhrViti2019KrereM,
+	mpbzhrViti2019LiterM,
+	mpbzhrViti2019PulavojseM,
+	mpbzhrViti2019ThellezaM,
 }) {
 	useEffect(() => {
 		fetchMpbzhrMasaShumaPaguar(filters);
@@ -75,6 +88,15 @@ function MPBZhR({
 		fetchMpbzhrViti2019LiterF(filters);
 		fetchMpbzhrViti2019PulavojseF(filters);
 		fetchMpbzhrViti2019ThellezaF(filters);
+	}, [filters]);
+
+	useEffect(() => {
+		fetchMpbzhrViti2019HaM(filters);
+		fetchMpbzhrViti2019KoshereM(filters);
+		fetchMpbzhrViti2019KrereM(filters);
+		fetchMpbzhrViti2019LiterM(filters);
+		fetchMpbzhrViti2019PulavojseM(filters);
+		fetchMpbzhrViti2019ThellezaM(filters);
 	}, [filters]);
 
 	const mpbzhrMasaShumaPaguarDataSets = getDatasets({
@@ -182,11 +204,101 @@ function MPBZhR({
 		filterBy: "viti",
 	});
 
+	// f
 	const mpbzhrViti2019HaFDataSets = getDatasets({
 		filters,
 		items: mpbzhrViti2019HaF,
 		singleItemLabel: "Numri",
 		property: "ha",
+		filterBy: "viti",
+	});
+
+	const mpbzhrViti2019KoshereFDataSets = getDatasets({
+		filters,
+		items: mpbzhrViti2019KoshereF,
+		singleItemLabel: "Numri",
+		property: "koshere",
+		filterBy: "viti",
+	});
+
+	const mpbzhrViti2019KrereFDataSets = getDatasets({
+		filters,
+		items: mpbzhrViti2019KrereF,
+		singleItemLabel: "Numri",
+		property: "krere",
+		filterBy: "viti",
+	});
+
+	const mpbzhrViti2019LiterFDataSets = getDatasets({
+		filters,
+		items: mpbzhrViti2019LiterF,
+		singleItemLabel: "Numri",
+		property: "liter",
+		filterBy: "viti",
+	});
+
+	const mpbzhrViti2019PulavojseFDataSets = getDatasets({
+		filters,
+		items: mpbzhrViti2019PulavojseF,
+		singleItemLabel: "Numri",
+		property: "pulavojse",
+		filterBy: "viti",
+	});
+
+	const mpbzhrViti2019ThellezaFDataSets = getDatasets({
+		filters,
+		items: mpbzhrViti2019ThellezaF,
+		singleItemLabel: "Numri",
+		property: "thelleza",
+		filterBy: "viti",
+	});
+
+	// m
+	const mpbzhrViti2019HaMDataSets = getDatasets({
+		filters,
+		items: mpbzhrViti2019HaM,
+		singleItemLabel: "Numri",
+		property: "ha",
+		filterBy: "viti",
+	});
+
+	const mpbzhrViti2019KoshereMDataSets = getDatasets({
+		filters,
+		items: mpbzhrViti2019KoshereM,
+		singleItemLabel: "Numri",
+		property: "koshere",
+		filterBy: "viti",
+	});
+
+	const mpbzhrViti2019KrereMDataSets = getDatasets({
+		filters,
+		items: mpbzhrViti2019KrereM,
+		singleItemLabel: "Numri",
+		property: "krere",
+		filterBy: "viti",
+	});
+
+	const mpbzhrViti2019LiterMDataSets = getDatasets({
+		filters,
+		items: mpbzhrViti2019LiterM,
+		singleItemLabel: "Numri",
+		property: "liter",
+		filterBy: "viti",
+	});
+
+	const mpbzhrViti2019PulavojseMDataSets = getDatasets({
+		filters,
+		items: mpbzhrViti2019PulavojseM,
+		singleItemLabel: "Numri",
+		property: "pulavojse",
+		filterBy: "viti",
+	});
+
+	const mpbzhrViti2019ThellezaMDataSets = getDatasets({
+		filters,
+		items: mpbzhrViti2019ThellezaM,
+		singleItemLabel: "Numri",
+		property: "thelleza",
 		filterBy: "viti",
 	});
 
@@ -312,6 +424,134 @@ function MPBZhR({
 					</div>
 				</div>
 			)}
+			{mpbzhrViti2019HaF && (
+				<div className="exclude">
+					<div className="ha-2019">
+						<h1>HA - 2019 - F</h1>
+						{mpbzhrViti2019HaFDataSets?.map((item, index) => (
+							<Card
+								style={{backgroundColor: item.backgroundColor}}
+								number={new Intl.NumberFormat().format(Number(item.data[0]))}
+								key={`${item.number} ${index}`}
+							/>
+						))}
+					</div>
+					<div className="ha-2019">
+						<h1>Koshere - 2019 - F</h1>
+						{mpbzhrViti2019KoshereFDataSets?.map((item, index) => (
+							<Card
+								style={{backgroundColor: item.backgroundColor}}
+								number={new Intl.NumberFormat().format(Number(item.data[0]))}
+								key={`${item.number} ${index}`}
+							/>
+						))}
+					</div>
+					<div className="ha-2019">
+						<h1>Krere - 2019 - F</h1>
+						{mpbzhrViti2019KrereFDataSets?.map((item, index) => (
+							<Card
+								style={{backgroundColor: item.backgroundColor}}
+								number={new Intl.NumberFormat().format(Number(item.data[0]))}
+								key={`${item.number} ${index}`}
+							/>
+						))}
+					</div>
+					<div className="ha-2019">
+						<h1>Liter - 2019 - F</h1>
+						{mpbzhrViti2019LiterFDataSets?.map((item, index) => (
+							<Card
+								style={{backgroundColor: item.backgroundColor}}
+								number={new Intl.NumberFormat().format(Number(item.data[0]))}
+								key={`${item.number} ${index}`}
+							/>
+						))}
+					</div>
+					<div className="ha-2019">
+						<h1>Pulavojse - 2019 - F</h1>
+						{mpbzhrViti2019PulavojseFDataSets?.map((item, index) => (
+							<Card
+								style={{backgroundColor: item.backgroundColor}}
+								number={new Intl.NumberFormat().format(Number(item.data[0]))}
+								key={`${item.number} ${index}`}
+							/>
+						))}
+					</div>
+					<div className="ha-2019">
+						<h1>Thelleza - 2019 - F</h1>
+						{mpbzhrViti2019ThellezaFDataSets?.map((item, index) => (
+							<Card
+								style={{backgroundColor: item.backgroundColor}}
+								number={new Intl.NumberFormat().format(Number(item.data[0]))}
+								key={`${item.number} ${index}`}
+							/>
+						))}
+					</div>
+				</div>
+			)}
+			{mpbzhrViti2019HaM && (
+				<div className="exclude">
+					<div className="ha-2019">
+						<h1>HA - 2019 - M</h1>
+						{mpbzhrViti2019HaMDataSets?.map((item, index) => (
+							<Card
+								style={{backgroundColor: item.backgroundColor}}
+								number={new Intl.NumberFormat().format(Number(item.data[0]))}
+								key={`${item.number} ${index}`}
+							/>
+						))}
+					</div>
+					<div className="ha-2019">
+						<h1>Koshere - 2019 - M</h1>
+						{mpbzhrViti2019KoshereMDataSets?.map((item, index) => (
+							<Card
+								style={{backgroundColor: item.backgroundColor}}
+								number={new Intl.NumberFormat().format(Number(item.data[0]))}
+								key={`${item.number} ${index}`}
+							/>
+						))}
+					</div>
+					<div className="ha-2019">
+						<h1>Krere - 2019 - M</h1>
+						{mpbzhrViti2019KrereMDataSets?.map((item, index) => (
+							<Card
+								style={{backgroundColor: item.backgroundColor}}
+								number={new Intl.NumberFormat().format(Number(item.data[0]))}
+								key={`${item.number} ${index}`}
+							/>
+						))}
+					</div>
+					<div className="ha-2019">
+						<h1>Liter - 2019 - M</h1>
+						{mpbzhrViti2019LiterMDataSets?.map((item, index) => (
+							<Card
+								style={{backgroundColor: item.backgroundColor}}
+								number={new Intl.NumberFormat().format(Number(item.data[0]))}
+								key={`${item.number} ${index}`}
+							/>
+						))}
+					</div>
+					<div className="ha-2019">
+						<h1>Pulavojse - 2019 - M</h1>
+						{mpbzhrViti2019PulavojseMDataSets?.map((item, index) => (
+							<Card
+								style={{backgroundColor: item.backgroundColor}}
+								number={new Intl.NumberFormat().format(Number(item.data[0]))}
+								key={`${item.number} ${index}`}
+							/>
+						))}
+					</div>
+					<div className="ha-2019">
+						<h1>Thelleza - 2019 - M</h1>
+						{mpbzhrViti2019ThellezaMDataSets?.map((item, index) => (
+							<Card
+								style={{backgroundColor: item.backgroundColor}}
+								number={new Intl.NumberFormat().format(Number(item.data[0]))}
+								key={`${item.number} ${index}`}
+							/>
+						))}
+					</div>
+				</div>
+			)}
 		</>
 	);
 }
@@ -338,6 +578,13 @@ const mapDispatchToProps = {
 	fetchMpbzhrViti2019LiterF: actions.fetchMpbzhrViti2019LiterF,
 	fetchMpbzhrViti2019PulavojseF: actions.fetchMpbzhrViti2019PulavojseF,
 	fetchMpbzhrViti2019ThellezaF: actions.fetchMpbzhrViti2019ThellezaF,
+
+	fetchMpbzhrViti2019HaM: actions.fetchMpbzhrViti2019HaM,
+	fetchMpbzhrViti2019KoshereM: actions.fetchMpbzhrViti2019KoshereM,
+	fetchMpbzhrViti2019KrereM: actions.fetchMpbzhrViti2019KrereM,
+	fetchMpbzhrViti2019LiterM: actions.fetchMpbzhrViti2019LiterM,
+	fetchMpbzhrViti2019PulavojseM: actions.fetchMpbzhrViti2019PulavojseM,
+	fetchMpbzhrViti2019ThellezaM: actions.fetchMpbzhrViti2019ThellezaM,
 };
 const mapStateToProps = (state) => ({
 	mpbzhrMasaShumaPaguar: state.app.industries.mpbzhr.mpbzhrMasaShumaPaguar,
@@ -361,6 +608,13 @@ const mapStateToProps = (state) => ({
 	mpbzhrViti2019LiterF: state.app.industries.mpbzhr.mpbzhrViti2019LiterF,
 	mpbzhrViti2019PulavojseF: state.app.industries.mpbzhr.mpbzhrViti2019PulavojseF,
 	mpbzhrViti2019ThellezaF: state.app.industries.mpbzhr.mpbzhrViti2019ThellezaF,
+
+	mpbzhrViti2019HaM: state.app.industries.mpbzhr.mpbzhrViti2019HaM,
+	mpbzhrViti2019KoshereM: state.app.industries.mpbzhr.mpbzhrViti2019KoshereM,
+	mpbzhrViti2019KrereM: state.app.industries.mpbzhr.mpbzhrViti2019KrereM,
+	mpbzhrViti2019LiterM: state.app.industries.mpbzhr.mpbzhrViti2019LiterM,
+	mpbzhrViti2019PulavojseM: state.app.industries.mpbzhr.mpbzhrViti2019PulavojseM,
+	mpbzhrViti2019ThellezaM: state.app.industries.mpbzhr.mpbzhrViti2019ThellezaM,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MPBZhR);
