@@ -15,6 +15,10 @@ export const FETCH_KOMUNAT = `${PREFIX}FETCH_KOMUNAT`;
 export const FETCH_KOMUNAT_SUCCESS = `${PREFIX}FETCH_KOMUNAT_SUCCESS`;
 export const FETCH_VENDBANIMET = `${PREFIX}FETCH_VENDBANIMET`;
 export const FETCH_VENDBANIMET_SUCCESS = `${PREFIX}FETCH_VENDBANIMET_SUCCESS`;
+export const FETCH_VITET = `${PREFIX}FETCH_VITET`;
+export const FETCH_VITET_SUCCESS = `${PREFIX}FETCH_VITET_SUCCESS`;
+export const FETCH_REGIME = `${PREFIX}FETCH_REGIME`;
+export const FETCH_REGIME_SUCCESS = `${PREFIX}FETCH_REGIME_SUCCESS`;
 
 // selected
 export const SET_SELECTED_INDUSTRITE = `${PREFIX}SET_SELECTED_INDUSTRITE`;
@@ -24,6 +28,8 @@ export const SET_SELECTED_KOMUNAT = `${PREFIX}SET_SELECTED_KOMUNAT`;
 export const SET_SELECTED_KOMUNAT_SUCCESS = `${PREFIX}SET_SELECTED_KOMUNAT_SUCCESS`;
 export const SET_SELECTED_VENDBANIMET = `${PREFIX}SET_SELECTED_VENDBANIMET`;
 export const SET_SELECTED_VENDBANIMET_SUCCESS = `${PREFIX}SET_SELECTED_VENDBANIMET_SUCCESS`;
+export const SET_SELECTED_VITET = `${PREFIX}SET_SELECTED_VITET`;
+export const SET_SELECTED_REGIME = `${PREFIX}SET_SELECTED_REGIME`;
 
 // filtered
 export const SET_FILTERED_INDUSTRITE = `${PREFIX}SET_FILTERED_INDUSTRITE`;
@@ -41,12 +47,16 @@ const _state = {
 		regjionet: [],
 		komunat: [],
 		vendbanimet: [],
+		vitet: [],
+		regime: [],
 	},
 	selected: {
 		industria: null,
 		regjionet: [],
 		komunat: [],
 		vendbanimet: [],
+		vitet: [],
+		regime: [],
 	},
 	filtered: {
 		regjionet: [],
@@ -77,6 +87,14 @@ const reducer = (state = _state, action) =>
 				draft.filtered.vendbanimet = action.payload;
 				break;
 
+			case FETCH_VITET_SUCCESS:
+				draft.all.vitet = action.payload;
+				break;
+
+			case FETCH_REGIME_SUCCESS:
+				draft.all.regime = action.payload;
+				break;
+
 			case SET_SELECTED_INDUSTRITE:
 				draft.selected.industria = action.payload;
 				break;
@@ -91,6 +109,14 @@ const reducer = (state = _state, action) =>
 
 			case SET_SELECTED_VENDBANIMET:
 				draft.selected.vendbanimet = action.payload;
+				break;
+
+			case SET_SELECTED_VITET:
+				draft.selected.vitet = action.payload;
+				break;
+
+			case SET_SELECTED_REGIME:
+				draft.selected.regime = action.payload;
 				break;
 
 			case SET_FILTERED_INDUSTRITE:
@@ -124,6 +150,10 @@ export const actions = {
 	fetchKomunatSuccess: (payload) => createAction(FETCH_KOMUNAT_SUCCESS, {payload}),
 	fetchVendbanimet: (payload) => createAction(FETCH_VENDBANIMET, {payload}),
 	fetchVendbanimetSuccess: (payload) => createAction(FETCH_VENDBANIMET_SUCCESS, {payload}),
+	fetchVitet: (payload) => createAction(FETCH_VITET, {payload}),
+	fetchVitetSuccess: (payload) => createAction(FETCH_VITET_SUCCESS, {payload}),
+	fetchRegime: (payload) => createAction(FETCH_REGIME, {payload}),
+	fetchRegimeSuccess: (payload) => createAction(FETCH_REGIME_SUCCESS, {payload}),
 	// selected
 	setSelectedIndustrite: (payload) => createAction(SET_SELECTED_INDUSTRITE, {payload}),
 	setSelectedRegjionet: (payload) => createAction(SET_SELECTED_REGJIONET, {payload}),
@@ -134,6 +164,8 @@ export const actions = {
 	setSelectedVendbanimet: (payload) => createAction(SET_SELECTED_VENDBANIMET, {payload}),
 	setSelectedVendbanimetSuccess: (payload) =>
 		createAction(SET_SELECTED_VENDBANIMET_SUCCESS, {payload}),
+	setSelectedVitet: (payload) => createAction(SET_SELECTED_VITET, {payload}),
+	setSelectedRegime: (payload) => createAction(SET_SELECTED_REGIME, {payload}),
 	// filtered
 	setFilteredIndustrite: (payload) => createAction(SET_FILTERED_INDUSTRITE, {payload}),
 	setFilteredRegjionet: (payload) => createAction(SET_FILTERED_REGJIONET, {payload}),
@@ -170,6 +202,40 @@ export const sagas = {
 			const komunat = yield axios.get(`/filters/?name=komuna`);
 
 			yield put(actions.fetchKomunatSuccess(komunat?.data));
+		} catch (error) {
+			logger.error(error);
+		}
+	},
+	*fetchVitet() {
+		try {
+			const vitet = [
+				{
+					value: "2021",
+					label: "2021",
+				},
+				{
+					value: "2020",
+					label: "2020",
+				},
+				{
+					value: "2019",
+					label: "2019",
+				},
+				{
+					value: "2018",
+					label: "2018",
+				},
+			];
+			yield put(actions.fetchVitetSuccess(vitet));
+		} catch (error) {
+			logger.error(error);
+		}
+	},
+	*fetchRegime() {
+		try {
+			const regime = yield axios.get(`/filters/?name=regime`);
+
+			yield put(actions.fetchRegimeSuccess(regime?.data));
 		} catch (error) {
 			logger.error(error);
 		}
@@ -333,6 +399,8 @@ export const watcher = function* w() {
 	yield takeLatest(FETCH_KOMUNAT, sagas.fetchKomunat);
 	yield takeLatest(FETCH_REGJIONET, sagas.fetchRegjionet);
 	yield takeLatest(FETCH_VENDBANIMET, sagas.fetchVendbanimet);
+	yield takeLatest(FETCH_VITET, sagas.fetchVitet);
+	yield takeLatest(FETCH_REGIME, sagas.fetchRegime);
 	yield takeLatest(SET_SELECTED_REGJIONET, sagas.setSelectedRegjionet);
 	yield takeLatest(SET_SELECTED_KOMUNAT, sagas.setSelectedKomunat);
 	yield takeLatest(SET_SELECTED_VENDBANIMET, sagas.setSelectedVendbanimet);
