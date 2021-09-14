@@ -110,7 +110,7 @@ const Select = ({
 	placeholder,
 	isDisabled,
 }) => {
-	const [isOpenMenu, setisOpenMenu] = useState(false);
+	const [isOpenMenu, setisOpenMenu] = useState(true);
 	return (
 		<div className="select_wrapper">
 			<ReactSelect

@@ -239,10 +239,14 @@ const getStatusiBizneseveDataForDatasets = (items) =>
 		{countaktiv: 0, countjoaktiv: 0},
 	);
 
-const sortLabels = (items) =>
-	items.sort(
-		(a, b) => a.localeCompare(b), // using String.prototype.localCompare()
-	);
+const sortLabels = (items) => {
+	const sortedLabels = items
+		.sort(
+			(a, b) => a.localeCompare(b), // using String.prototype.localCompare()
+		)
+		.filter(Boolean);
+	return sortedLabels.filter((item) => item !== "null");
+};
 
 export {
 	setIndustry,
