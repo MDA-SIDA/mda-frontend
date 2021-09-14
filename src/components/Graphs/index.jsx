@@ -14,6 +14,7 @@ import MASHT from "./MASHT";
 import MPBZhR from "./MPBZhR";
 import DOGANA from "./DOGANA";
 import RRUGET from "./RRUGET";
+import MF from "./MF";
 
 const Graphs = ({selectedFilters}) => {
 	const [isEmpty, setIsEmpty] = useState(false);
@@ -60,6 +61,9 @@ const Graphs = ({selectedFilters}) => {
 				)}
 				{!isEmpty && showGraph.MASHT && (
 					<MASHT filters={selectedFilters} changeIsEmpty={(state) => setIsEmpty(state)} />
+				)}
+				{!isEmpty && showGraph.MF && (
+					<MF filters={selectedFilters} changeIsEmpty={(state) => setIsEmpty(state)} />
 				)}
 				{!isEmpty && showGraph.RRUGET && (
 					<RRUGET

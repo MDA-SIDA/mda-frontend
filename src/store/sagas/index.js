@@ -16,6 +16,7 @@ import {watcher as masht} from "@sagas/industries/masht";
 import {watcher as mpbzhr} from "@sagas/industries/mpbzhr";
 import {watcher as rruget} from "@sagas/industries/rruget";
 import {watcher as dogana} from "@sagas/industries/dogana";
+import {watcher as mf} from "@sagas/industries/mf";
 
 export default function* root() {
 	yield all([
@@ -37,5 +38,6 @@ export default function* root() {
 		mpbzhr(),
 		rruget(),
 		dogana(),
+		mf(),
 	]);
 }

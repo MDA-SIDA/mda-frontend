@@ -32,6 +32,7 @@ const showGraphInitialState = {
 	MPBZhR: false,
 	DOGANA: false,
 	RRUGET: false,
+	MF: false,
 };
 
 const getDatasets = ({

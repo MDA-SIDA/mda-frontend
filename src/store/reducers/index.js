@@ -12,6 +12,7 @@ import masht from "@sagas/industries/masht";
 import mpbzhr from "@sagas/industries/mpbzhr";
 import rruget from "@sagas/industries/rruget";
 import dogana from "@sagas/industries/dogana";
+import mf from "@sagas/industries/mf";
 import {connectRouter} from "connected-react-router";
 import {combineReducers} from "redux";
 import universitetiiprishtines from "@sagas/universitetet";
@@ -48,6 +49,7 @@ export default function createReducer(injectedReducers, history) {
 				mpbzhr,
 				rruget,
 				dogana,
+				mf,
 			}),
 		}),
 		...injectedReducers,
