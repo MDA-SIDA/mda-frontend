@@ -27,11 +27,11 @@ const showGraphInitialState = {
 	AKK: false,
 	ARBK: false,
 	AUV: false,
-	MAPL: false,
 	MASHT: false,
 	MPBZhR: false,
 	DOGANA: false,
-	RRUGET: false,
+	// TODO: uncomment when data are ready
+	// RRUGET: false,
 	MF: false,
 };
 
