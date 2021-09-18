@@ -181,7 +181,7 @@ export const actions = {
 export const sagas = {
 	*fetchIndustrite() {
 		try {
-			const industrite = yield axios.get(`/filters/?name=Industrite`);
+			const industrite = yield axios.get(`/filters/?name=industrite`);
 
 			yield put(actions.fetchIndustriteSuccess(industrite?.data));
 		} catch (error) {

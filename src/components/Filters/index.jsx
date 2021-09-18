@@ -73,8 +73,8 @@ function Filters({
 			<Select
 				value={selectedIndustria}
 				options={industrite?.map((industria) => ({
-					value: industria.industriaEmri,
-					label: industria.industriaEmri,
+					value: industria.industriaemri,
+					label: industria.pershkrimi,
 				}))}
 				isSearchable
 				isMulti={false}
