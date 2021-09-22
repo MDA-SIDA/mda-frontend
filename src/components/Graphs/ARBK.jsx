@@ -2,6 +2,7 @@ import React, {useEffect} from "react";
 import {connect} from "react-redux";
 import {actions} from "@sagas/industries/arbk";
 import Chart from "@common/Chart";
+import PieChart from "@common/Chart/Pie";
 import {groupBy} from "lodash";
 import {getDatasets, sortLabels, getStatusiBizneseveDataset, getGjiniaDataset} from "./utils";
 
@@ -106,62 +107,39 @@ function ARBK({
 					datasets: arbkKomunaDataSets,
 				}}
 			/>
-			<div className="exclude">
-				{gjiniaData?.map((item, index) => (
-					<Chart
-						key={`${index} item=index`}
-						title={`Numri i bizneseve sipas gjinise${
-							item.label ? `: ${item.label}` : ""
-						}`}
-						type="pie"
-						data={{
-							labels: ["F", "M"],
-							datasets: [
-								{
-									label: item.label,
-									data: [item.data?.totalfemra, item.data?.totalmeshkuj],
-									backgroundColor: ["#00517D", "#FCCB11"],
-								},
-							],
-						}}
-						options={{
-							responsive: true,
-							plugins: {
-								legend: {
-									position: "bottom",
-								},
+			{gjiniaData?.map((item, index) => (
+				<PieChart
+					key={`${index} item=index`}
+					title={`Numri i bizneseve sipas gjinise${item.label ? `: ${item.label}` : ""}`}
+					data={{
+						labels: ["F", "M"],
+						datasets: [
+							{
+								label: item.label,
+								data: [item.data?.totalfemra, item.data?.totalmeshkuj],
+								backgroundColor: ["#00517D", "#FCCB11"],
 							},
-						}}
-					/>
-				))}
-			</div>
-			<div className="exclude">
-				{statusiBizneseveData?.map((item, index) => (
-					<Chart
-						key={`${index} item=index`}
-						title={`Statusi i bizneseve${item.label ? `: ${item.label}` : ""}`}
-						type="pie"
-						data={{
-							labels: ["Aktiv", "Jo aktiv"],
-							datasets: [
-								{
-									label: item.label,
-									data: [item.data?.countaktiv, item.data?.countjoaktiv],
-									backgroundColor: ["#00517D", "#FCCB11"],
-								},
-							],
-						}}
-						options={{
-							responsive: true,
-							plugins: {
-								legend: {
-									position: "bottom",
-								},
+						],
+					}}
+				/>
+			))}
+			{statusiBizneseveData?.map((item, index) => (
+				<PieChart
+					key={`${index} item=index`}
+					title={`Statusi i bizneseve${item.label ? `: ${item.label}` : ""}`}
+					type="pie"
+					data={{
+						labels: ["Aktiv", "Jo aktiv"],
+						datasets: [
+							{
+								label: item.label,
+								data: [item.data?.countaktiv, item.data?.countjoaktiv],
+								backgroundColor: ["#00517D", "#FCCB11"],
 							},
-						}}
-					/>
-				))}
-			</div>
+						],
+					}}
+				/>
+			))}
 		</>
 	);
 }
