@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import {actions} from "@sagas/industries/arbk";
 import Chart from "@common/Chart";
 import {groupBy} from "lodash";
-import {getDatasets, sortLabels} from "./utils";
+import {getDatasets, sortLabels, getStatusiBizneseveDataset, getGjiniaDataset} from "./utils";
 
 function ARBK({
 	fetchArbkLlojiBiznesit,
@@ -61,22 +61,6 @@ function ARBK({
 		filterBy: "sektori",
 	});
 
-	const arbkGjiniaDataSets = getDatasets({
-		filters,
-		items: arbkGjinia,
-		singleItemLabel: "Numri i bizneseve",
-		property: "numribizneseve",
-		filterBy: "gjinia",
-	});
-
-	const arbkStatusiDataSets = getDatasets({
-		filters,
-		items: arbkStatusi,
-		singleItemLabel: "Numri i bizneseve",
-		property: "numribizneseve",
-		filterBy: "statusiibiznesit",
-	});
-
 	const arbkKomunaDataSets = getDatasets({
 		filters,
 		items: arbkStatusi,
@@ -84,6 +68,9 @@ function ARBK({
 		property: "numribizneseve",
 		filterBy: "komunaemri",
 	});
+
+	const statusiBizneseveData = getStatusiBizneseveDataset({items: arbkStatusi, filters});
+	const gjiniaData = getGjiniaDataset({items: arbkGjinia, filters});
 
 	return (
 		<>
@@ -112,22 +99,6 @@ function ARBK({
 				}}
 			/>
 			<Chart
-				title="Numri i bizneseve sipas gjinise"
-				type="pie"
-				data={{
-					labels: sortLabels(Object.keys(groupBy(arbkGjinia, "gjinia"))),
-					datasets: arbkGjiniaDataSets,
-				}}
-			/>
-			<Chart
-				title="Numri i bizneseve sipas statusit"
-				type="pie"
-				data={{
-					labels: sortLabels(Object.keys(groupBy(arbkStatusi, "statusiibiznesit"))),
-					datasets: arbkStatusiDataSets,
-				}}
-			/>
-			<Chart
 				title="Numri i bizneseve sipas komunave"
 				type="bar"
 				data={{
@@ -135,6 +106,62 @@ function ARBK({
 					datasets: arbkKomunaDataSets,
 				}}
 			/>
+			<div className="exclude">
+				{gjiniaData?.map((item, index) => (
+					<Chart
+						key={`${index} item=index`}
+						title={`Numri i bizneseve sipas gjinise${
+							item.label ? `: ${item.label}` : ""
+						}`}
+						type="pie"
+						data={{
+							labels: ["F", "M"],
+							datasets: [
+								{
+									label: item.label,
+									data: [item.data?.totalfemra, item.data?.totalmeshkuj],
+									backgroundColor: ["#00517D", "#FCCB11"],
+								},
+							],
+						}}
+						options={{
+							responsive: true,
+							plugins: {
+								legend: {
+									position: "bottom",
+								},
+							},
+						}}
+					/>
+				))}
+			</div>
+			<div className="exclude">
+				{statusiBizneseveData?.map((item, index) => (
+					<Chart
+						key={`${index} item=index`}
+						title={`Statusi i bizneseve${item.label ? `: ${item.label}` : ""}`}
+						type="pie"
+						data={{
+							labels: ["Aktiv", "Jo aktiv"],
+							datasets: [
+								{
+									label: item.label,
+									data: [item.data?.countaktiv, item.data?.countjoaktiv],
+									backgroundColor: ["#00517D", "#FCCB11"],
+								},
+							],
+						}}
+						options={{
+							responsive: true,
+							plugins: {
+								legend: {
+									position: "bottom",
+								},
+							},
+						}}
+					/>
+				))}
+			</div>
 		</>
 	);
 }
