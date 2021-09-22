@@ -179,13 +179,12 @@ const getGjiniaDataset = ({items, filters}) => {
 
 const getGjiniaDataForDatasets = (items) =>
 	items?.reduce(
-		({maxfemra, totalfemra, maxmeshkuj, totalmeshkuj}, item) => ({
-			maxfemra: maxfemra + Number(item.maxfemra),
-			totalfemra: totalfemra + Number(item.totalfemra),
-			maxmeshkuj: maxmeshkuj + Number(item.maxmeshkuj),
-			totalmeshkuj: totalmeshkuj + Number(item.totalmeshkuj),
+		({totalfemra, totalmeshkuj}, item) => ({
+			totalfemra: item.gjinia === "F" ? totalfemra + Number(item.numribizneseve) : totalfemra,
+			totalmeshkuj:
+				item.gjinia === "M" ? totalmeshkuj + Number(item.numribizneseve) : totalmeshkuj,
 		}),
-		{maxfemra: 0, totalfemra: 0, maxmeshkuj: 0, totalmeshkuj: 0},
+		{totalfemra: 0, totalmeshkuj: 0},
 	);
 
 const getGjiniaMesatarja = (total, max) => {
@@ -233,8 +232,14 @@ const getStatusiBizneseveDataset = ({items, filters}) => {
 const getStatusiBizneseveDataForDatasets = (items) =>
 	items?.reduce(
 		({countaktiv, countjoaktiv}, item) => ({
-			countaktiv: countaktiv + Number(item.countaktiv),
-			countjoaktiv: countjoaktiv + Number(item.countjoaktiv),
+			countaktiv:
+				item.statusiibiznesit === "Aktiv"
+					? countaktiv + Number(item.numribizneseve)
+					: countaktiv,
+			countjoaktiv:
+				item.statusiibiznesit === "Shuar"
+					? countjoaktiv + Number(item.numribizneseve)
+					: countjoaktiv,
 		}),
 		{countaktiv: 0, countjoaktiv: 0},
 	);

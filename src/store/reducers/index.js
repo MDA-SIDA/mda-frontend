@@ -13,6 +13,7 @@ import mpbzhr from "@sagas/industries/mpbzhr";
 import rruget from "@sagas/industries/rruget";
 import dogana from "@sagas/industries/dogana";
 import mf from "@sagas/industries/mf";
+import layout from "@sagas/layout";
 import {connectRouter} from "connected-react-router";
 import {combineReducers} from "redux";
 import universitetiiprishtines from "@sagas/universitetet";
@@ -50,6 +51,9 @@ export default function createReducer(injectedReducers, history) {
 				rruget,
 				dogana,
 				mf,
+			}),
+			layout: combineReducers({
+				index: layout,
 			}),
 		}),
 		...injectedReducers,

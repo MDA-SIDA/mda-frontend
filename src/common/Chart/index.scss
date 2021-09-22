@@ -11,6 +11,19 @@
   }
 }
 
+.pie_chart_container {
+  background-color: #f2f2f2;
+  border-radius: 10px;
+  min-height: 200px;
+  height: min-content;
+  width: 32%;
+  margin: 5px;
+  canvas {
+    height: 230px !important;
+    width: 90% !important;
+  }
+}
+
 .chart_title {
   font-family: 'Montserrat';
   font-size: 1.6rem;
@@ -52,12 +65,12 @@
 }
 
 @media screen and (max-width: 1279px) {
-  .chart_container {
+  .chart_container, .pie_chart_container {
     width: 47%;
   }
 }
 @media screen and (max-width: 1024px) {
-  .chart_container {
+  .chart_container, .pie_chart_container {
     width: 100%;
   }
 }
