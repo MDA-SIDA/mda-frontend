@@ -174,22 +174,6 @@ const UP = ({
 					datasets: kombiNumriStudenteveDataSets,
 				}}
 			/>
-			{gjiniaData?.map((item, index) => (
-				<PieChart
-					key={`${index} item=index`}
-					title={`Numri i studenteve sipas gjinise${item.label ? `: ${item.label}` : ""}`}
-					data={{
-						labels: ["F", "M"],
-						datasets: [
-							{
-								label: item.label,
-								data: [item.data?.totalfemra, item.data?.totalmeshkuj],
-								backgroundColor: ["#00517D", "#FCCB11"],
-							},
-						],
-					}}
-				/>
-			))}
 			<Chart
 				title="Numri i studenteve sipas fakulteteve"
 				type="bar"
@@ -206,7 +190,6 @@ const UP = ({
 					datasets: vitiDiplomimitDataSets,
 				}}
 			/>
-
 			<Chart
 				title="Numri i studenteve sipas komunave"
 				type="bar"
@@ -247,6 +230,22 @@ const UP = ({
 					datasets: kombiNotaMesatareDataSets,
 				}}
 			/>
+			{gjiniaData?.map((item, index) => (
+				<PieChart
+					key={`${index} item=index`}
+					title={`Numri i studenteve sipas gjinise${item.label ? `: ${item.label}` : ""}`}
+					data={{
+						labels: ["F", "M"],
+						datasets: [
+							{
+								label: item.label,
+								data: [item.data?.totalfemra, item.data?.totalmeshkuj],
+								backgroundColor: ["#00517D", "#FCCB11"],
+							},
+						],
+					}}
+				/>
+			))}
 		</>
 	);
 };
