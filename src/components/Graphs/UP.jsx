@@ -214,14 +214,15 @@ const UP = ({
 					datasets: fakultetiNotaMesatareDataSets,
 				}}
 			/>
-			<Chart
+			{/* TODO: check */}
+			{/* <Chart
 				title="Nota mesatare sipas komunave"
 				type="bar"
 				data={{
 					labels: sortLabels(Object.keys(groupBy(komunaNotaMesatare, "komunaemri"))),
 					datasets: komunaNotaMesatareDataSets,
 				}}
-			/>
+			/> */}
 			<Chart
 				title="Nota mesatare sipas kombit"
 				type="bar"
