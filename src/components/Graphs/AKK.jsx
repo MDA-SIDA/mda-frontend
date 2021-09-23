@@ -2,8 +2,9 @@ import React, {useEffect} from "react";
 import {connect} from "react-redux";
 import {actions} from "@sagas/industries/akk";
 import Chart from "@common/Chart";
+import PieChart from "@common/Chart/Pie";
 import {groupBy} from "lodash";
-import {getDatasets, sortLabels} from "./utils";
+import {getDatasets, sortLabels, getTipiPronesDataset} from "./utils";
 
 function AKK({
 	fetchKategoria,
@@ -69,13 +70,7 @@ function AKK({
 		filterBy: "llojinderteses",
 	});
 
-	const tipiPronesNumriDataSets = getDatasets({
-		filters,
-		items: tipiPronesNumri,
-		singleItemLabel: "Siperfaqja",
-		property: "siperfaqja",
-		filterBy: "tipiprones",
-	});
+	const tipiPronesNumriData = getTipiPronesDataset({items: tipiPronesNumri, filters});
 
 	return (
 		<>
@@ -91,7 +86,9 @@ function AKK({
 				title="Siperfaqja sipas pronesise"
 				type="bar"
 				data={{
-					labels: sortLabels(Object.keys(groupBy(pronesia, "pronesia"))),
+					labels: sortLabels(Object.keys(groupBy(pronesia, "pronesia")))?.map((label) =>
+						label === "NULL" ? "N/A" : label,
+					),
 					datasets: pronesiaDataSets,
 				}}
 			/>
@@ -121,16 +118,24 @@ function AKK({
 					datasets: llojiNdertesesNumriDataSets,
 				}}
 			/>
-			<Chart
-				title="Numri i ndertesave sipas tipit te prones"
-				type="pie"
-				data={{
-					labels: sortLabels(Object.keys(groupBy(tipiPronesNumri, "tipiprones")))?.map(
-						(label) => (label === "NULL" ? "N/A" : label),
-					),
-					datasets: tipiPronesNumriDataSets,
-				}}
-			/>
+			{tipiPronesNumriData?.map((item, index) => (
+				<PieChart
+					key={`${index} item=index`}
+					title={`Numri i ndertesave sipas tipit te prones${
+						item.label ? `: ${item.label}` : ""
+					}`}
+					data={{
+						labels: ["Shoqerore", "Private", "N/A"],
+						datasets: [
+							{
+								label: item.label,
+								data: [item.data?.shoqerore, item.data?.privat, item.data?.na],
+								backgroundColor: ["#00517D", "#FCCB11", "#02BC77"],
+							},
+						],
+					}}
+				/>
+			))}
 		</>
 	);
 }

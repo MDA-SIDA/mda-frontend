@@ -231,6 +231,54 @@ const getStatusiBizneseveDataset = ({items, filters}) => {
 	}
 };
 
+const getTipiPronesDataset = ({items, filters}) => {
+	const {komunat, regjionet, vendbanimet} = filters;
+
+	if (komunat?.length === 0 && regjionet?.length === 0 && vendbanimet?.length === 0) {
+		return [
+			{
+				label: "",
+				data: getTipiPronesDataForDatasets(items),
+			},
+		];
+	}
+
+	if (vendbanimet?.length > 0) {
+		const groupedItems = groupBy(items, "vendbanimiemri");
+		return Object.keys(groupedItems)?.map((key) => ({
+			label: key,
+			data: getTipiPronesDataForDatasets(groupedItems[key]),
+		}));
+	}
+
+	if (komunat.length > 0) {
+		const groupedItems = groupBy(items, "komunaemri");
+		return Object.keys(groupedItems)?.map((key) => ({
+			label: key,
+			data: getTipiPronesDataForDatasets(groupedItems[key]),
+		}));
+	}
+
+	if (regjionet.length > 0) {
+		const groupedItems = groupBy(items, "regjioniemri");
+		return Object.keys(groupedItems)?.map((key) => ({
+			label: key,
+			data: getTipiPronesDataForDatasets(groupedItems[key]),
+		}));
+	}
+};
+
+const getTipiPronesDataForDatasets = (items) =>
+	items?.reduce(
+		({na, privat, shoqerore}, item) => ({
+			na: item.tipiprones === "NULL" ? na + Number(item.siperfaqja) : na,
+			privat: item.tipiprones === "Private" ? privat + Number(item.siperfaqja) : privat,
+			shoqerore:
+				item.tipiprones === "Shoqerore" ? shoqerore + Number(item.siperfaqja) : shoqerore,
+		}),
+		{na: 0, privat: 0, shoqerore: 0},
+	);
+
 const getStatusiBizneseveDataForDatasets = (items) =>
 	items?.reduce(
 		({countaktiv, countjoaktiv}, item) => ({
@@ -265,4 +313,5 @@ export {
 	getGjiniaMesatarja,
 	getStatusiBizneseveDataset,
 	sortLabels,
+	getTipiPronesDataset,
 };
