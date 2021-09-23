@@ -140,14 +140,14 @@ const getFilteredItems = ({items, filterBy, property, xLabels, getPercentage = f
 	return test;
 };
 
-const getGjiniaDataset = ({items, filters}) => {
+const getGjiniaDataset = ({items, filters, property = null}) => {
 	const {komunat, regjionet, vendbanimet} = filters;
 
 	if (komunat?.length === 0 && regjionet?.length === 0 && vendbanimet?.length === 0) {
 		return [
 			{
 				label: "",
-				data: getGjiniaDataForDatasets(items),
+				data: getGjiniaDataForDatasets(items, property),
 			},
 		];
 	}
@@ -156,7 +156,7 @@ const getGjiniaDataset = ({items, filters}) => {
 		const groupedItems = groupBy(items, "vendbanimiemri");
 		return Object.keys(groupedItems)?.map((key) => ({
 			label: key,
-			data: getGjiniaDataForDatasets(groupedItems[key]),
+			data: getGjiniaDataForDatasets(groupedItems[key], property),
 		}));
 	}
 
@@ -164,7 +164,7 @@ const getGjiniaDataset = ({items, filters}) => {
 		const groupedItems = groupBy(items, "komunaemri");
 		return Object.keys(groupedItems)?.map((key) => ({
 			label: key,
-			data: getGjiniaDataForDatasets(groupedItems[key]),
+			data: getGjiniaDataForDatasets(groupedItems[key], property),
 		}));
 	}
 
@@ -172,20 +172,22 @@ const getGjiniaDataset = ({items, filters}) => {
 		const groupedItems = groupBy(items, "regjioniemri");
 		return Object.keys(groupedItems)?.map((key) => ({
 			label: key,
-			data: getGjiniaDataForDatasets(groupedItems[key]),
+			data: getGjiniaDataForDatasets(groupedItems[key], property),
 		}));
 	}
 };
 
-const getGjiniaDataForDatasets = (items) =>
-	items?.reduce(
+const getGjiniaDataForDatasets = (items, property) => {
+	const outsideProp = property || "numribizneseve";
+	return items?.reduce(
 		({totalfemra, totalmeshkuj}, item) => ({
-			totalfemra: item.gjinia === "F" ? totalfemra + Number(item.numribizneseve) : totalfemra,
+			totalfemra: item.gjinia === "F" ? totalfemra + Number(item[outsideProp]) : totalfemra,
 			totalmeshkuj:
-				item.gjinia === "M" ? totalmeshkuj + Number(item.numribizneseve) : totalmeshkuj,
+				item.gjinia === "M" ? totalmeshkuj + Number(item[outsideProp]) : totalmeshkuj,
 		}),
 		{totalfemra: 0, totalmeshkuj: 0},
 	);
+};
 
 const getGjiniaMesatarja = (total, max) => {
 	if (Number(total) === 0 || Number(max) === 0) return 0;

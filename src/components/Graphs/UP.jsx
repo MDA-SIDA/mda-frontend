@@ -2,9 +2,10 @@ import React, {useEffect} from "react";
 import {connect} from "react-redux";
 import "./index.scss";
 import Chart from "@common/Chart";
+import PieChart from "@common/Chart/Pie";
 import {actions} from "@sagas/industries/up";
 import {groupBy} from "lodash";
-import {getDatasets, sortLabels} from "./utils";
+import {getDatasets, getGjiniaDataset, sortLabels} from "./utils";
 
 const UP = ({
 	fetchStatusi,
@@ -145,6 +146,8 @@ const UP = ({
 		getPercentage: true,
 	});
 
+	const gjiniaData = getGjiniaDataset({items: gjinia, filters, property: "numristudenteve"});
+
 	return (
 		<>
 			<Chart
@@ -153,19 +156,6 @@ const UP = ({
 				data={{
 					labels: sortLabels(Object.keys(groupBy(statusi, "statusi"))),
 					datasets: statusiDataSets,
-				}}
-				options={{
-					interaction: {
-						intersect: false,
-						mode: "index",
-					},
-					plugins: {
-						tooltip: {
-							callbacks: {
-								footer,
-							},
-						},
-					},
 				}}
 			/>
 			<Chart
@@ -184,15 +174,22 @@ const UP = ({
 					datasets: kombiNumriStudenteveDataSets,
 				}}
 			/>
-			<Chart
-				title="Numri i studenteve sipas gjinise"
-				type="pie"
-				data={{
-					labels: Object.keys(groupBy(gjinia, "gjinia")),
-					datasets: gjiniaDataSets,
-				}}
-			/>
-
+			{gjiniaData?.map((item, index) => (
+				<PieChart
+					key={`${index} item=index`}
+					title={`Numri i studenteve sipas gjinise${item.label ? `: ${item.label}` : ""}`}
+					data={{
+						labels: ["F", "M"],
+						datasets: [
+							{
+								label: item.label,
+								data: [item.data?.totalfemra, item.data?.totalmeshkuj],
+								backgroundColor: ["#00517D", "#FCCB11"],
+							},
+						],
+					}}
+				/>
+			))}
 			<Chart
 				title="Numri i studenteve sipas fakulteteve"
 				type="bar"
@@ -283,13 +280,3 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UP);
-
-// test purpose only
-const footer = (tooltipItems) => {
-	let sum = 0;
-
-	tooltipItems.forEach(function (tooltipItem) {
-		sum += tooltipItem.parsed.y;
-	});
-	// return `Sum: ${sum}`;
-};
