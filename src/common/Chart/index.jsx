@@ -23,6 +23,14 @@ const Chart = ({type = "line", data, options, title, value, showYears, className
 							color: "#7C9CBF",
 							padding: 30,
 							fontSize: 14,
+							callback(value) {
+								// eslint-disable-next-line react/no-this-in-sfc
+								const label = this?.getLabelForValue(value);
+								if (label?.length > 10) {
+									return `${label?.substr(0, 10)}...`; // truncate
+								}
+								return label;
+							},
 						},
 						grid: {
 							display: false,
@@ -43,6 +51,8 @@ const Chart = ({type = "line", data, options, title, value, showYears, className
 				plugins: {
 					tooltip: {
 						...options?.plugins?.tooltip,
+						mode: "nearest",
+						intersect: false,
 					},
 					legend: {
 						position: "bottom",
