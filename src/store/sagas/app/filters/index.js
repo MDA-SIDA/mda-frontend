@@ -213,10 +213,6 @@ export const sagas = {
 		try {
 			const vitet = [
 				{
-					value: "2021",
-					label: "2021",
-				},
-				{
 					value: "2020",
 					label: "2020",
 				},
