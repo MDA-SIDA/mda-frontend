@@ -27,68 +27,69 @@ function RRUGET({
 		filters,
 		items: rruget18,
 		singleItemLabel: "Gjatesia e segmenteve",
-		property: "GjatesiaSegmenteve",
-		filterBy: "Komunaemri",
+		property: "gjatesiasegmenteve",
+		filterBy: "komunaemri",
 	});
 
 	const rruget19DataSets = getDatasets({
 		filters,
 		items: rruget19,
 		singleItemLabel: "Gjatesia e segmenteve",
-		property: "GjatesiaSegmenteve",
-		filterBy: "Komunaemri",
+		property: "gjatesiasegmenteve",
+		filterBy: "komunaemri",
 	});
 
 	const rruget20DataSets = getDatasets({
 		filters,
 		items: rruget20,
 		singleItemLabel: "Gjatesia e segmenteve",
-		property: "GjatesiaSegmenteve",
-		filterBy: "Komunaemri",
+		property: "gjatesiasegmenteve",
+		filterBy: "komunaemri",
 	});
 
 	const rruget21DataSets = getDatasets({
 		filters,
 		items: rruget21,
 		singleItemLabel: "Gjatesia e segmenteve",
-		property: "GjatesiaSegmenteve",
-		filterBy: "Komunaemri",
+		property: "gjatesiasegmenteve",
+		filterBy: "komunaemri",
 	});
 
 	return (
 		<>
 			<Chart
-				title="Numri i nxenesve"
+				title="Rruget - Gjatesia e segmenteve"
 				type="bar"
 				data={{
-					labels: sortLabels(Object.keys(groupBy(rruget18, "GjatesiaSegmenteve"))),
+					labels: sortLabels(Object.keys(groupBy(rruget18, "komunaemri"))),
 					datasets: rruget18DataSets,
 				}}
 			/>
 			<Chart
-				title="Numri i nxenesve"
+				title="Rruget - Gjatesia e segmenteve"
 				type="bar"
 				data={{
-					labels: sortLabels(Object.keys(groupBy(rruget19, "GjatesiaSegmenteve"))),
+					labels: sortLabels(Object.keys(groupBy(rruget19, "komunaemri"))),
 					datasets: rruget19DataSets,
 				}}
 			/>
-			<Chart
-				title="Numri i nxenesve"
+			{/* TODO: uncomment */}
+			{/* <Chart
+				title="Rruget - Gjatesia e segmenteve"
 				type="bar"
 				data={{
-					labels: sortLabels(Object.keys(groupBy(rruget20, "GjatesiaSegmenteve"))),
+					labels: sortLabels(Object.keys(groupBy(rruget20, "komunaemri"))),
 					datasets: rruget20DataSets,
 				}}
 			/>
 			<Chart
-				title="Numri i nxenesve"
+				title="Rruget - Gjatesia e segmenteve"
 				type="bar"
 				data={{
-					labels: sortLabels(Object.keys(groupBy(rruget21, "GjatesiaSegmenteve"))),
+					labels: sortLabels(Object.keys(groupBy(rruget21, "komunaemri"))),
 					datasets: rruget21DataSets,
 				}}
-			/>
+			/> */}
 		</>
 	);
 }

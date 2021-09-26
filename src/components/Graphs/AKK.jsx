@@ -4,6 +4,7 @@ import {actions} from "@sagas/industries/akk";
 import Chart from "@common/Chart";
 import {groupBy} from "lodash";
 import {getDatasets, sortLabels} from "./utils";
+import RRUGET from "./RRUGET";
 
 function AKK({
 	fetchKategoria,
@@ -131,6 +132,7 @@ function AKK({
 					datasets: tipiPronesNumriDataSets,
 				}}
 			/>
+			<RRUGET filters={filters} />
 		</>
 	);
 }
