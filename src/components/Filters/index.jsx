@@ -5,6 +5,10 @@ import {actions} from "@sagas/filters";
 import "./index.scss";
 import CancelButton from "@common/CancelButton";
 
+const infoMessage =
+	// eslint-disable-next-line max-len
+	"You are allowed to select only a maximum of 3 options. You will need to clear filters to be able to choose other options.";
+
 const disabledInitialState = {
 	vendbanimet: false,
 	komunat: false,
@@ -43,6 +47,7 @@ function Filters({
 	} = selectedFilters;
 
 	const [isDisabled, setIsDisabled] = useState(disabledInitialState);
+	const [error, setError] = useState(null);
 
 	const isDogana = selectedFilters?.industria?.value === "DOGANA";
 
@@ -98,10 +103,17 @@ function Filters({
 						onChange={(value) => {
 							if (selectedFilters?.regjionet?.length >= 3) {
 								setIsDisabled((state) => ({...state, regjionet: true}));
-							} else setSelectedRegjionet(value);
+								setError(infoMessage);
+							} else {
+								setError(null);
+								setSelectedRegjionet(value);
+							}
 						}}
 						placeholder="Regjioni"
 					/>
+					{error && selectedFilters?.regjionet?.length >= 3 && (
+						<div className="info">{infoMessage}</div>
+					)}
 					<Select
 						value={selectedKomunat}
 						options={komunat?.map((komuna) => ({
@@ -116,31 +128,47 @@ function Filters({
 						onChange={(value) => {
 							if (selectedFilters?.komunat?.length >= 3) {
 								setIsDisabled((state) => ({...state, komunat: true}));
-							} else setSelectedKomunat(value);
+								setError(infoMessage);
+							} else {
+								setSelectedKomunat(value);
+								setError(null);
+							}
 						}}
 						placeholder="Komuna"
 					/>
+					{error && selectedFilters?.komunat?.length >= 3 && (
+						<div className="info">{infoMessage}</div>
+					)}
 				</>
 			)}
 			{!removeVendbanimiFilter && (
-				<Select
-					value={selectedVendbanimet}
-					options={vendbanimet?.map((vendbanimi) => ({
-						value: vendbanimi.vendbanimiid,
-						label: vendbanimi.vendbanimiemri,
-					}))}
-					isSearchable
-					isMulti
-					isDisabled={isDisabled.vendbanimet}
-					closeMenuOnSelect={false}
-					hideSelectedOptions={false}
-					onChange={(value) => {
-						if (selectedFilters?.vendbanimet?.length >= 3) {
-							setIsDisabled((state) => ({...state, vendbanimet: true}));
-						} else setSelectedVendbanimet(value);
-					}}
-					placeholder="Vendbanimi"
-				/>
+				<>
+					<Select
+						value={selectedVendbanimet}
+						options={vendbanimet?.map((vendbanimi) => ({
+							value: vendbanimi.vendbanimiid,
+							label: vendbanimi.vendbanimiemri,
+						}))}
+						isSearchable
+						isMulti
+						isDisabled={isDisabled.vendbanimet}
+						closeMenuOnSelect={false}
+						hideSelectedOptions={false}
+						onChange={(value) => {
+							if (selectedFilters?.vendbanimet?.length >= 3) {
+								setIsDisabled((state) => ({...state, vendbanimet: true}));
+								setError(infoMessage);
+							} else {
+								setSelectedVendbanimet(value);
+								setError(null);
+							}
+						}}
+						placeholder="Vendbanimi"
+					/>
+					{error && selectedFilters?.vendbanimet?.length >= 3 && (
+						<div className="info">{infoMessage}</div>
+					)}
+				</>
 			)}
 			{isDogana && (
 				<>
