@@ -52,22 +52,23 @@ function MF({fetchMF81, fetchMF82, fetchMF83, fetchMF84, mf81, mf82, mf83, mf84,
 					datasets: mf81DataSets,
 				}}
 			/>
-			<Chart
+			{/* TODO: uncomment */}
+			{/* <Chart
 				title="Shpenzimet sipas programeve"
 				type="bar"
 				data={{
 					labels: sortLabels(Object.keys(groupBy(mf82, "organizata"))),
 					datasets: mf82DataSets,
 				}}
-			/>
-			<Chart
+			/> */}
+			{/* <Chart
 				title="Kapitalet Lokale"
 				type="bar"
 				data={{
 					labels: sortLabels(Object.keys(groupBy(mf83, "organizata"))),
 					datasets: mf83DataSets,
 				}}
-			/>
+			/> */}
 			<Chart
 				title="Kapitalet Qendrore"
 				type="bar"

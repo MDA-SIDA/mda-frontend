@@ -50,6 +50,7 @@ function Filters({
 	const [error, setError] = useState(null);
 
 	const isDogana = selectedFilters?.industria?.value === "DOGANA";
+	const isMF = selectedFilters?.industria?.value === "MF";
 
 	useEffect(() => {
 		fetchIndustrite();
@@ -73,7 +74,7 @@ function Filters({
 
 	// TODO: temporarily removed Vendbanimi filter for MPBZhR
 	// until it's checked on db if its possible to return vendbanimiemri, if so undo this
-	const removeVendbanimiFilter = ["UP", "DOGANA", "MPBZhR"].includes(
+	const removeVendbanimiFilter = ["UP", "DOGANA", "MPBZhR", "MF"].includes(
 		selectedFilters?.industria?.value,
 	);
 
@@ -91,7 +92,7 @@ function Filters({
 				onChange={(value) => setSelectedIndustria(value)}
 				placeholder="Institucionet"
 			/>
-			{!isDogana && (
+			{!isDogana && !isMF && (
 				<>
 					<Select
 						value={selectedRegjionet}
