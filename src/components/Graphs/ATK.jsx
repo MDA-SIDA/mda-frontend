@@ -3,68 +3,55 @@ import Chart from "@common/Chart";
 import {connect} from "react-redux";
 import {actions} from "@sagas/industries/atk";
 import {groupBy} from "lodash";
+import excl from "../../assets/img/exclamation.svg";
 import {getDatasets} from "./utils";
 
 function ATK({
-	fetchSektoreAktivitetet,
-	fetchLlojiKompaniseMesatarjaPuntoreve,
+	fetchAtkVitiObligimi,
+	fetchAtkKomunaVitiObligimi,
+	fetchAtkSektoriObligimi,
+	fetchAtkAktivitetiObligimi,
+	atkVitiObligimi,
+	atkKomunaVitiObligimi,
+	atkSektoriObligimi,
+	atkAktivitetiObligimi,
 	llojiKompaniseMesatarjaPuntoreve,
 	sektoreAktivitetet,
 	filters,
 }) {
 	useEffect(() => {
-		fetchSektoreAktivitetet(filters);
-		fetchLlojiKompaniseMesatarjaPuntoreve(filters);
-	}, [fetchSektoreAktivitetet, fetchLlojiKompaniseMesatarjaPuntoreve, filters]);
-
-	const sektoreAktivitetetDataSets = getDatasets({
-		filters,
-		items: sektoreAktivitetet,
-		singleItemLabel: "Aktivitetet e sektoreve",
-		property: "countaktiviteti",
-		filterBy: "sektori",
-	});
-
-	const llojiKompaniseMesatarjaPuntoreveDataSets = getDatasets({
-		filters,
-		items: llojiKompaniseMesatarjaPuntoreve,
-		singleItemLabel: "Aktivitetet e sektoreve",
-		property: "mesatarjapunetoreve",
-		filterBy: "llojikompanis",
-	});
+		fetchAtkVitiObligimi(filters);
+		fetchAtkKomunaVitiObligimi(filters);
+		fetchAtkSektoriObligimi(filters);
+		fetchAtkAktivitetiObligimi(filters);
+	}, [filters]);
 
 	return (
 		<>
-			<Chart
-				title="Aktivitetet e sektoreve"
-				type="bar"
-				data={{
-					labels: Object.values(groupBy(sektoreAktivitetet, "sektori")).map(
-						(item) => item[0].pershkrimisektorit,
-					),
-					datasets: sektoreAktivitetetDataSets,
-				}}
-			/>
-			<Chart
-				title="Lloji i kompanise dhe mesatarja e puntoreve"
-				type="bar"
-				data={{
-					labels: Object.keys(groupBy(llojiKompaniseMesatarjaPuntoreve, "llojikompanis")),
-					datasets: llojiKompaniseMesatarjaPuntoreveDataSets,
-				}}
-			/>
+			<div className="no-data">
+				<p>
+					Nuk ka asnje te dhene per t&apos;u shfaqur{" "}
+					<span>
+						<img src={excl} alt=""></img>
+					</span>
+				</p>
+			</div>
 		</>
 	);
 }
 
 const mapDispatchToProps = {
-	fetchSektoreAktivitetet: actions.fetchSektoreAktivitetet,
-	fetchLlojiKompaniseMesatarjaPuntoreve: actions.fetchLlojiKompaniseMesatarjaPuntoreve,
+	fetchAtkVitiObligimi: actions.fetchAtkVitiObligimi,
+	fetchAtkKomunaVitiObligimi: actions.fetchAtkKomunaVitiObligimi,
+	fetchAtkSektoriObligimi: actions.fetchAtkSektoriObligimi,
+	fetchAtkAktivitetiObligimi: actions.fetchAtkAktivitetiObligimi,
 };
 
 const mapStateToProps = (state) => ({
-	sektoreAktivitetet: state.app.industries.atk.sektoreAktivitetet,
-	llojiKompaniseMesatarjaPuntoreve: state.app.industries.atk.llojiKompaniseMesatarjaPuntoreve,
+	atkVitiObligimi: state.app.industries.atk.atkVitiObligimi,
+	atkKomunaVitiObligimi: state.app.industries.atk.atkKomunaVitiObligimi,
+	atkSektoriObligimi: state.app.industries.atk.atkSektoriObligimi,
+	atkAktivitetiObligimi: state.app.industries.atk.atkAktivitetiObligimi,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ATK);
