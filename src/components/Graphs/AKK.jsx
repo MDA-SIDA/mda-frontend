@@ -119,6 +119,7 @@ function AKK({
 					datasets: llojiNdertesesNumriDataSets,
 				}}
 			/>
+			<RRUGET filters={filters} />
 			{tipiPronesNumriData?.map((item, index) => (
 				<PieChart
 					key={`${index} item=index`}
@@ -137,7 +138,6 @@ function AKK({
 					}}
 				/>
 			))}
-			<RRUGET filters={filters} />
 		</>
 	);
 }
