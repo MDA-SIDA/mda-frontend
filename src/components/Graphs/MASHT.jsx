@@ -141,7 +141,7 @@ function MASHT({
 				}}
 			/>
 			<Chart
-				title="Numri i nxenesve"
+				title="Numri i nxenesve sipas gjinise"
 				type="bar"
 				data={{
 					labels: sortLabels(Object.keys(groupBy(mashtGjinia, "gjinia"))),
@@ -149,7 +149,7 @@ function MASHT({
 				}}
 			/>
 			<Chart
-				title="Numri i nxenesve"
+				title="Numri i nxenesve sipas gjenerates"
 				type="bar"
 				data={{
 					labels: sortLabels(Object.keys(groupBy(mashtGjenerata, "gjenerata"))),
@@ -157,7 +157,7 @@ function MASHT({
 				}}
 			/>
 			<Chart
-				title="Numri i nxenesve"
+				title="Numri i nxenesve sipas etniteteve"
 				type="bar"
 				data={{
 					labels: sortLabels(Object.keys(groupBy(mashtEtnia, "entiteti"))),
@@ -165,7 +165,7 @@ function MASHT({
 				}}
 			/>
 			<Chart
-				title="Numri i nxenesve"
+				title="Numri i nxenesve sipas komunave"
 				type="bar"
 				data={{
 					labels: sortLabels(Object.keys(groupBy(mashtRajoniKomuna, "komunaemri"))),
@@ -173,7 +173,7 @@ function MASHT({
 				}}
 			/>
 			<Chart
-				title="Numri i nxenesve"
+				title="Numri i nxenesve sipas klasave"
 				type="bar"
 				data={{
 					labels: sortLabels(Object.keys(groupBy(mashtKlasa, "klasa"))),
@@ -181,7 +181,7 @@ function MASHT({
 				}}
 			/>
 			<Chart
-				title="Numri i nxenesve"
+				title="Numri i nxenesve sipas demtimeve - qendra burimore"
 				type="bar"
 				data={{
 					labels: sortLabels(Object.keys(groupBy(mashtQendraBurimoreDemtimi, "demtimi"))),
@@ -189,7 +189,7 @@ function MASHT({
 				}}
 			/>
 			<Chart
-				title="Numri i nxenesve"
+				title="Numri i nxenesve sipas gjenerates - qendra burimore"
 				type="bar"
 				data={{
 					labels: sortLabels(
@@ -199,7 +199,7 @@ function MASHT({
 				}}
 			/>
 			<Chart
-				title="Numri i nxenesve"
+				title="Numri i nxenesve sipas komunave"
 				type="bar"
 				data={{
 					labels: sortLabels(Object.keys(groupBy(shkollaRajoniKomuna, "komunaemri"))),
