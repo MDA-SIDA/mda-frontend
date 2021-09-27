@@ -69,7 +69,10 @@ const reducer = (state = _state, action) =>
 	produce(state, (draft) => {
 		switch (action.type) {
 			case FETCH_INDUSTRITE_SUCCESS:
-				draft.all.industrite = action.payload;
+				// filtered out MAPL industry
+				draft.all.industrite = action.payload.filter(
+					(item) => item.industriaemri !== "MAPL",
+				);
 				break;
 
 			case FETCH_REGJIONET_SUCCESS:
@@ -209,10 +212,6 @@ export const sagas = {
 	*fetchVitet() {
 		try {
 			const vitet = [
-				{
-					value: "2021",
-					label: "2021",
-				},
 				{
 					value: "2020",
 					label: "2020",

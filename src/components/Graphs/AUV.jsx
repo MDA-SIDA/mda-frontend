@@ -28,10 +28,11 @@ function AUV({
 		filterBy: "komunaemri",
 	});
 
+	// TODO
 	const auvKategoriaDataSets = getDatasets({
 		filters,
 		items: auvKategoria,
-		singleItemLabel: "Numri fermave",
+		singleItemLabel: "Numri i fermave",
 		property: "numrifermave",
 		filterBy: "komunaemri",
 	});
@@ -39,18 +40,26 @@ function AUV({
 	const auvKomunaNrKafsheveDataSets = getDatasets({
 		filters,
 		items: auvKomunaNrKafsheve,
-		singleItemLabel: "Numri fermave",
-		property: "numrifermave",
+		singleItemLabel: "Numri i kafsheve",
+		property: "numrikafsheve",
 		filterBy: "komunaemri",
 	});
 	return (
 		<>
 			<Chart
-				title="Aktivitetet e sektoreve"
+				title="Numri i fermave"
 				type="bar"
 				data={{
 					labels: sortLabels(Object.keys(groupBy(auvRajoniKomuna, "komunaemri"))),
 					datasets: auvRajoniKomunaDataSets,
+				}}
+			/>
+			<Chart
+				title="Numri i kafsheve"
+				type="bar"
+				data={{
+					labels: sortLabels(Object.keys(groupBy(auvKomunaNrKafsheve, "komunaemri"))),
+					datasets: auvKomunaNrKafsheveDataSets,
 				}}
 			/>
 		</>

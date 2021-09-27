@@ -5,6 +5,7 @@ import Chart from "@common/Chart";
 import PieChart from "@common/Chart/Pie";
 import {groupBy} from "lodash";
 import {getDatasets, sortLabels, getTipiPronesDataset} from "./utils";
+import RRUGET from "./RRUGET";
 
 function AKK({
 	fetchKategoria,
@@ -136,6 +137,7 @@ function AKK({
 					}}
 				/>
 			))}
+			<RRUGET filters={filters} />
 		</>
 	);
 }

@@ -48,7 +48,7 @@ const styles = {
 		padding: 0,
 		height: "100%",
 		"::-webkit-scrollbar": {
-			width: 2,
+			width: 3,
 		},
 		"::-webkit-scrollbar-track": {
 			background: "transparent",
