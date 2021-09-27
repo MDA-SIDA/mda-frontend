@@ -71,7 +71,11 @@ function Filters({
 		isDogana,
 	]);
 
-	const removeVendbanimiFilter = ["UP", "DOGANA"].includes(selectedFilters?.industria?.value);
+	// TODO: temporarily removed Vendbanimi filter for MPBZhR
+	// until it's checked on db if its possible to return vendbanimiemri, if so undo this
+	const removeVendbanimiFilter = ["UP", "DOGANA", "MPBZhR"].includes(
+		selectedFilters?.industria?.value,
+	);
 
 	return (
 		<div className="fitlers_container">
