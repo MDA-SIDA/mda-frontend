@@ -1,0 +1,10 @@
+{
+    "empty": "нема података за приказивање",
+    "filters-institutions": "ИНСТИТУЦИЈЕ",
+    "filters-region": "регион",
+    "filters-municipality": "општина",
+    "filters-village": "село",
+    "filters-year": "године",
+    "filters-clear": "прозирни филтери",
+    "filters-info-message": "Дозвољено вам је да изаберете највише 3 опције. Мораћете да обришете филтере да бисте могли да изаберете друге опције."
+}

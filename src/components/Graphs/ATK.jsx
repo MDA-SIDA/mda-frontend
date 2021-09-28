@@ -3,6 +3,7 @@ import Chart from "@common/Chart";
 import {connect} from "react-redux";
 import {actions} from "@sagas/industries/atk";
 import {groupBy} from "lodash";
+import {useTranslation} from "react-i18next";
 import excl from "../../assets/img/exclamation.svg";
 import {getDatasets} from "./utils";
 
@@ -19,6 +20,7 @@ function ATK({
 	sektoreAktivitetet,
 	filters,
 }) {
+	const {t, i18n} = useTranslation();
 	useEffect(() => {
 		fetchAtkVitiObligimi(filters);
 		fetchAtkKomunaVitiObligimi(filters);
@@ -30,7 +32,7 @@ function ATK({
 		<>
 			<div className="no-data">
 				<p>
-					Nuk ka asnje te dhene per t&apos;u shfaqur{" "}
+					{t("empty")}{" "}
 					<span>
 						<img src={excl} alt=""></img>
 					</span>

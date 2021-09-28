@@ -4,10 +4,7 @@ import Select from "@common/Select";
 import {actions} from "@sagas/filters";
 import "./index.scss";
 import CancelButton from "@common/CancelButton";
-
-const infoMessage =
-	// eslint-disable-next-line max-len
-	"You are allowed to select only a maximum of 3 options. You will need to clear filters to be able to choose other options.";
+import {useTranslation} from "react-i18next";
 
 const disabledInitialState = {
 	vendbanimet: false,
@@ -48,6 +45,7 @@ function Filters({
 
 	const [isDisabled, setIsDisabled] = useState(disabledInitialState);
 	const [error, setError] = useState(null);
+	const {t} = useTranslation();
 
 	const isDogana = selectedFilters?.industria?.value === "DOGANA";
 	const isMF = selectedFilters?.industria?.value === "MF";
@@ -72,8 +70,6 @@ function Filters({
 		isDogana,
 	]);
 
-	// TODO: temporarily removed Vendbanimi filter for MPBZhR
-	// until it's checked on db if its possible to return vendbanimiemri, if so undo this
 	const removeVendbanimiFilter = ["UP", "DOGANA", "MPBZhR", "MF"].includes(
 		selectedFilters?.industria?.value,
 	);
@@ -90,7 +86,7 @@ function Filters({
 				isMulti={false}
 				closeMenuOnSelect={false}
 				onChange={(value) => setSelectedIndustria(value)}
-				placeholder="Institucionet"
+				placeholder={t("filters-institutions")}
 			/>
 			{!isDogana && !isMF && (
 				<>
@@ -108,16 +104,16 @@ function Filters({
 						onChange={(value) => {
 							if (selectedFilters?.regjionet?.length >= 3) {
 								setIsDisabled((state) => ({...state, regjionet: true}));
-								setError(infoMessage);
+								setError(t("filters-info-message"));
 							} else {
 								setError(null);
 								setSelectedRegjionet(value);
 							}
 						}}
-						placeholder="Regjioni"
+						placeholder={t("filters-region")}
 					/>
 					{error && selectedFilters?.regjionet?.length >= 3 && (
-						<div className="info">{infoMessage}</div>
+						<div className="info">{t("filters-info-message")}</div>
 					)}
 					<Select
 						value={selectedKomunat}
@@ -133,16 +129,16 @@ function Filters({
 						onChange={(value) => {
 							if (selectedFilters?.komunat?.length >= 3) {
 								setIsDisabled((state) => ({...state, komunat: true}));
-								setError(infoMessage);
+								setError(t("filters-info-message"));
 							} else {
 								setSelectedKomunat(value);
 								setError(null);
 							}
 						}}
-						placeholder="Komuna"
+						placeholder={t("filters-municipality")}
 					/>
 					{error && selectedFilters?.komunat?.length >= 3 && (
-						<div className="info">{infoMessage}</div>
+						<div className="info">{t("filters-info-message")}</div>
 					)}
 				</>
 			)}
@@ -162,16 +158,16 @@ function Filters({
 						onChange={(value) => {
 							if (selectedFilters?.vendbanimet?.length >= 3) {
 								setIsDisabled((state) => ({...state, vendbanimet: true}));
-								setError(infoMessage);
+								setError(t("filters-info-message"));
 							} else {
 								setSelectedVendbanimet(value);
 								setError(null);
 							}
 						}}
-						placeholder="Vendbanimi"
+						placeholder={t("filters-village")}
 					/>
 					{error && selectedFilters?.vendbanimet?.length >= 3 && (
-						<div className="info">{infoMessage}</div>
+						<div className="info">{t("filters-info-message")}</div>
 					)}
 				</>
 			)}
@@ -187,7 +183,7 @@ function Filters({
 						onChange={(value) => {
 							setSelectedVitet(value);
 						}}
-						placeholder="Viti"
+						placeholder={t("filters-year")}
 					/>
 					<Select
 						value={selectedRegime}
@@ -208,7 +204,7 @@ function Filters({
 			)}
 			<div className="buttons">
 				<CancelButton
-					name="Fshij filterat"
+					name={t("filters-clear")}
 					onClick={() => {
 						setSelectedIndustria(null);
 						setSelectedRegjionet([]);
