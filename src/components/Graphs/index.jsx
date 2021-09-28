@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import {withRouter} from "react-router";
 import {connect} from "react-redux";
 import "./index.scss";
+import {useTranslation} from "react-i18next";
 import excl from "../../assets/img/exclamation.svg";
 import {setIndustry, showGraphInitialState} from "./utils";
 import UP from "./UP";
@@ -19,6 +20,7 @@ import MF from "./MF";
 const Graphs = ({selectedFilters}) => {
 	const [isEmpty, setIsEmpty] = useState(false);
 	const [showGraph, setShowGraph] = useState(showGraphInitialState);
+	const {t} = useTranslation();
 
 	useEffect(() => {
 		if (!selectedFilters?.industria?.value) {
@@ -34,7 +36,7 @@ const Graphs = ({selectedFilters}) => {
 				{isEmpty && (
 					<div className="no-data">
 						<p>
-							Nuk ka asnje te dhene per t&apos;u shfaqur{" "}
+							{t("empty")}{" "}
 							<span>
 								<img src={excl} alt=""></img>
 							</span>
