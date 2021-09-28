@@ -7,11 +7,6 @@ function Header() {
 	const [activeLang, setActiveLang] = useState("sq");
 	const {i18n} = useTranslation();
 
-	const changeLanguageHandler = (lang) => {
-		const languageValue = lang;
-		i18n.changeLanguage(languageValue);
-	};
-
 	return (
 		<header>
 			<img src={Logo} alt="logo" />
@@ -19,7 +14,7 @@ function Header() {
 				<span
 					onClick={() => {
 						setActiveLang("sq");
-						changeLanguageHandler("sq");
+						i18n.changeLanguage("sq");
 					}}
 					className={activeLang === "sq" ? "active" : null}
 				>
@@ -29,7 +24,7 @@ function Header() {
 				<span
 					onClick={() => {
 						setActiveLang("en");
-						changeLanguageHandler("en");
+						i18n.changeLanguage("en");
 					}}
 					className={activeLang === "en" ? "active" : null}
 				>
@@ -39,7 +34,7 @@ function Header() {
 				<span
 					onClick={() => {
 						setActiveLang("srb");
-						changeLanguageHandler("srb");
+						i18n.changeLanguage("srb");
 					}}
 					className={activeLang === "srb" ? "active" : null}
 				>
