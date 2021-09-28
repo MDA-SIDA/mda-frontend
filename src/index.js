@@ -9,6 +9,7 @@ import App from "./App";
 import {configureStore} from "./store";
 import * as serviceWorker from "./serviceWorker";
 import "@assets/scss/index.scss";
+import "./i18n";
 
 const store = configureStore();
 setupAxios(store);
