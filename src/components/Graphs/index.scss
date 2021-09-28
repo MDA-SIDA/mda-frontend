@@ -94,4 +94,39 @@
   flex: 0 0 100%;
   margin: 5px;
   padding: 3rem 0;
+
+  &_item {
+    width: 16%;
+  }
+}
+
+@media (max-width:1000px) and (min-width: 500px) {
+  .exclude {
+    display: flex;
+    flex-wrap: wrap;
+    &_item{
+      width: 50%;
+      box-sizing: border-box;
+    }
+  }
+}
+@media (max-width:1277px) and (min-width: 1000px) {
+  .exclude {
+    display: flex;
+    flex-wrap: wrap;
+    &_item{
+      width: 25%;
+      box-sizing: border-box;
+    }
+  }
+}
+
+@media (max-width:500px) {
+  .exclude {
+    display: flex;
+    flex-direction: column;
+    &_item{
+      width: 100%;
+    }
+  }
 }

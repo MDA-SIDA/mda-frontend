@@ -362,7 +362,7 @@ function MPBZhR({
 			/>
 			{mpbzhrViti2019Ha && (
 				<div className="exclude">
-					<div className="ha-2019">
+					<div className="exclude_item">
 						<h1>HA - 2019</h1>
 						{mpbzhrViti2019HaDataSets?.map((item, index) => (
 							<Card
@@ -372,7 +372,7 @@ function MPBZhR({
 							/>
 						))}
 					</div>
-					<div className="ha-2019">
+					<div className="exclude_item">
 						<h1>Koshere - 2019</h1>
 						{mpbzhrViti2019KoshereDataSets?.map((item, index) => (
 							<Card
@@ -382,7 +382,7 @@ function MPBZhR({
 							/>
 						))}
 					</div>
-					<div className="ha-2019">
+					<div className="exclude_item">
 						<h1>Krere - 2019</h1>
 						{mpbzhrViti2019KrereDataSets?.map((item, index) => (
 							<Card
@@ -392,7 +392,7 @@ function MPBZhR({
 							/>
 						))}
 					</div>
-					<div className="ha-2019">
+					<div className="exclude_item">
 						<h1>Liter - 2019</h1>
 						{mpbzhrViti2019LiterDataSets?.map((item, index) => (
 							<Card
@@ -402,7 +402,7 @@ function MPBZhR({
 							/>
 						))}
 					</div>
-					<div className="ha-2019">
+					<div className="exclude_item">
 						<h1>Pulavojse - 2019</h1>
 						{mpbzhrViti2019PulavojseDataSets?.map((item, index) => (
 							<Card
@@ -412,7 +412,7 @@ function MPBZhR({
 							/>
 						))}
 					</div>
-					<div className="ha-2019">
+					<div className="exclude_item">
 						<h1>Thelleza - 2019</h1>
 						{mpbzhrViti2019ThellezaDataSets?.map((item, index) => (
 							<Card
@@ -426,7 +426,7 @@ function MPBZhR({
 			)}
 			{mpbzhrViti2019HaF && (
 				<div className="exclude">
-					<div className="ha-2019">
+					<div className="exclude_item">
 						<h1>HA - 2019 - F</h1>
 						{mpbzhrViti2019HaFDataSets?.map((item, index) => (
 							<Card
@@ -436,7 +436,7 @@ function MPBZhR({
 							/>
 						))}
 					</div>
-					<div className="ha-2019">
+					<div className="exclude_item">
 						<h1>Koshere - 2019 - F</h1>
 						{mpbzhrViti2019KoshereFDataSets?.map((item, index) => (
 							<Card
@@ -446,7 +446,7 @@ function MPBZhR({
 							/>
 						))}
 					</div>
-					<div className="ha-2019">
+					<div className="exclude_item">
 						<h1>Krere - 2019 - F</h1>
 						{mpbzhrViti2019KrereFDataSets?.map((item, index) => (
 							<Card
@@ -456,7 +456,7 @@ function MPBZhR({
 							/>
 						))}
 					</div>
-					<div className="ha-2019">
+					<div className="exclude_item">
 						<h1>Liter - 2019 - F</h1>
 						{mpbzhrViti2019LiterFDataSets?.map((item, index) => (
 							<Card
@@ -466,7 +466,7 @@ function MPBZhR({
 							/>
 						))}
 					</div>
-					<div className="ha-2019">
+					<div className="exclude_item">
 						<h1>Pulavojse - 2019 - F</h1>
 						{mpbzhrViti2019PulavojseFDataSets?.map((item, index) => (
 							<Card
@@ -476,7 +476,7 @@ function MPBZhR({
 							/>
 						))}
 					</div>
-					<div className="ha-2019">
+					<div className="exclude_item">
 						<h1>Thelleza - 2019 - F</h1>
 						{mpbzhrViti2019ThellezaFDataSets?.map((item, index) => (
 							<Card
@@ -490,7 +490,7 @@ function MPBZhR({
 			)}
 			{mpbzhrViti2019HaM && (
 				<div className="exclude">
-					<div className="ha-2019">
+					<div className="exclude_item">
 						<h1>HA - 2019 - M</h1>
 						{mpbzhrViti2019HaMDataSets?.map((item, index) => (
 							<Card
@@ -500,7 +500,7 @@ function MPBZhR({
 							/>
 						))}
 					</div>
-					<div className="ha-2019">
+					<div className="exclude_item">
 						<h1>Koshere - 2019 - M</h1>
 						{mpbzhrViti2019KoshereMDataSets?.map((item, index) => (
 							<Card
@@ -510,7 +510,7 @@ function MPBZhR({
 							/>
 						))}
 					</div>
-					<div className="ha-2019">
+					<div className="exclude_item">
 						<h1>Krere - 2019 - M</h1>
 						{mpbzhrViti2019KrereMDataSets?.map((item, index) => (
 							<Card
@@ -520,7 +520,7 @@ function MPBZhR({
 							/>
 						))}
 					</div>
-					<div className="ha-2019">
+					<div className="exclude_item">
 						<h1>Liter - 2019 - M</h1>
 						{mpbzhrViti2019LiterMDataSets?.map((item, index) => (
 							<Card
@@ -530,7 +530,7 @@ function MPBZhR({
 							/>
 						))}
 					</div>
-					<div className="ha-2019">
+					<div className="exclude_item">
 						<h1>Pulavojse - 2019 - M</h1>
 						{mpbzhrViti2019PulavojseMDataSets?.map((item, index) => (
 							<Card
@@ -540,7 +540,7 @@ function MPBZhR({
 							/>
 						))}
 					</div>
-					<div className="ha-2019">
+					<div className="exclude_item">
 						<h1>Thelleza - 2019 - M</h1>
 						{mpbzhrViti2019ThellezaMDataSets?.map((item, index) => (
 							<Card
