@@ -362,194 +362,32 @@ function MPBZhR({
 			/>
 			{mpbzhrViti2019Ha && (
 				<div className="exclude">
-					<div className="exclude_item">
-						<h1>HA - 2019</h1>
-						{mpbzhrViti2019HaDataSets?.map((item, index) => (
-							<Card
-								style={{backgroundColor: item.backgroundColor}}
-								number={new Intl.NumberFormat().format(Number(item.data[0]))}
-								key={`${item.number} ${index}`}
-							/>
-						))}
-					</div>
-					<div className="exclude_item">
-						<h1>Koshere - 2019</h1>
-						{mpbzhrViti2019KoshereDataSets?.map((item, index) => (
-							<Card
-								style={{backgroundColor: item.backgroundColor}}
-								number={new Intl.NumberFormat().format(Number(item.data[0]))}
-								key={`${item.number} ${index}`}
-							/>
-						))}
-					</div>
-					<div className="exclude_item">
-						<h1>Krere - 2019</h1>
-						{mpbzhrViti2019KrereDataSets?.map((item, index) => (
-							<Card
-								style={{backgroundColor: item.backgroundColor}}
-								number={new Intl.NumberFormat().format(Number(item.data[0]))}
-								key={`${item.number} ${index}`}
-							/>
-						))}
-					</div>
-					<div className="exclude_item">
-						<h1>Liter - 2019</h1>
-						{mpbzhrViti2019LiterDataSets?.map((item, index) => (
-							<Card
-								style={{backgroundColor: item.backgroundColor}}
-								number={new Intl.NumberFormat().format(Number(item.data[0]))}
-								key={`${item.number} ${index}`}
-							/>
-						))}
-					</div>
-					<div className="exclude_item">
-						<h1>Pulavojse - 2019</h1>
-						{mpbzhrViti2019PulavojseDataSets?.map((item, index) => (
-							<Card
-								style={{backgroundColor: item.backgroundColor}}
-								number={new Intl.NumberFormat().format(Number(item.data[0]))}
-								key={`${item.number} ${index}`}
-							/>
-						))}
-					</div>
-					<div className="exclude_item">
-						<h1>Thelleza - 2019</h1>
-						{mpbzhrViti2019ThellezaDataSets?.map((item, index) => (
-							<Card
-								style={{backgroundColor: item.backgroundColor}}
-								number={new Intl.NumberFormat().format(Number(item.data[0]))}
-								key={`${item.number} ${index}`}
-							/>
-						))}
-					</div>
+					<Item title="HA - 2019" items={mpbzhrViti2019HaDataSets} />
+					<Item title="Koshere - 2019" items={mpbzhrViti2019KoshereDataSets} />
+					<Item title="Krere - 2019" items={mpbzhrViti2019KrereDataSets} />
+					<Item title="Liter - 2019" items={mpbzhrViti2019LiterDataSets} />
+					<Item title="Pulavojse - 2019" items={mpbzhrViti2019PulavojseDataSets} />
+					<Item title="Thelleza - 2019" items={mpbzhrViti2019ThellezaDataSets} />
 				</div>
 			)}
 			{mpbzhrViti2019HaF && (
 				<div className="exclude">
-					<div className="exclude_item">
-						<h1>HA - 2019 - F</h1>
-						{mpbzhrViti2019HaFDataSets?.map((item, index) => (
-							<Card
-								style={{backgroundColor: item.backgroundColor}}
-								number={new Intl.NumberFormat().format(Number(item.data[0]))}
-								key={`${item.number} ${index}`}
-							/>
-						))}
-					</div>
-					<div className="exclude_item">
-						<h1>Koshere - 2019 - F</h1>
-						{mpbzhrViti2019KoshereFDataSets?.map((item, index) => (
-							<Card
-								style={{backgroundColor: item.backgroundColor}}
-								number={new Intl.NumberFormat().format(Number(item.data[0]))}
-								key={`${item.number} ${index}`}
-							/>
-						))}
-					</div>
-					<div className="exclude_item">
-						<h1>Krere - 2019 - F</h1>
-						{mpbzhrViti2019KrereFDataSets?.map((item, index) => (
-							<Card
-								style={{backgroundColor: item.backgroundColor}}
-								number={new Intl.NumberFormat().format(Number(item.data[0]))}
-								key={`${item.number} ${index}`}
-							/>
-						))}
-					</div>
-					<div className="exclude_item">
-						<h1>Liter - 2019 - F</h1>
-						{mpbzhrViti2019LiterFDataSets?.map((item, index) => (
-							<Card
-								style={{backgroundColor: item.backgroundColor}}
-								number={new Intl.NumberFormat().format(Number(item.data[0]))}
-								key={`${item.number} ${index}`}
-							/>
-						))}
-					</div>
-					<div className="exclude_item">
-						<h1>Pulavojse - 2019 - F</h1>
-						{mpbzhrViti2019PulavojseFDataSets?.map((item, index) => (
-							<Card
-								style={{backgroundColor: item.backgroundColor}}
-								number={new Intl.NumberFormat().format(Number(item.data[0]))}
-								key={`${item.number} ${index}`}
-							/>
-						))}
-					</div>
-					<div className="exclude_item">
-						<h1>Thelleza - 2019 - F</h1>
-						{mpbzhrViti2019ThellezaFDataSets?.map((item, index) => (
-							<Card
-								style={{backgroundColor: item.backgroundColor}}
-								number={new Intl.NumberFormat().format(Number(item.data[0]))}
-								key={`${item.number} ${index}`}
-							/>
-						))}
-					</div>
+					<Item title="HA - 2019 - F" items={mpbzhrViti2019HaFDataSets} />
+					<Item title="Koshere - 2019 - F" items={mpbzhrViti2019KoshereFDataSets} />
+					<Item title="Krere - 2019 - F" items={mpbzhrViti2019KrereFDataSets} />
+					<Item title="Liter - 2019 - F" items={mpbzhrViti2019LiterFDataSets} />
+					<Item title="Pulavojse - 2019 - F" items={mpbzhrViti2019PulavojseFDataSets} />
+					<Item title="Thelleza - 2019 - F" items={mpbzhrViti2019ThellezaFDataSets} />
 				</div>
 			)}
 			{mpbzhrViti2019HaM && (
 				<div className="exclude">
-					<div className="exclude_item">
-						<h1>HA - 2019 - M</h1>
-						{mpbzhrViti2019HaMDataSets?.map((item, index) => (
-							<Card
-								style={{backgroundColor: item.backgroundColor}}
-								number={new Intl.NumberFormat().format(Number(item.data[0]))}
-								key={`${item.number} ${index}`}
-							/>
-						))}
-					</div>
-					<div className="exclude_item">
-						<h1>Koshere - 2019 - M</h1>
-						{mpbzhrViti2019KoshereMDataSets?.map((item, index) => (
-							<Card
-								style={{backgroundColor: item.backgroundColor}}
-								number={new Intl.NumberFormat().format(Number(item.data[0]))}
-								key={`${item.number} ${index}`}
-							/>
-						))}
-					</div>
-					<div className="exclude_item">
-						<h1>Krere - 2019 - M</h1>
-						{mpbzhrViti2019KrereMDataSets?.map((item, index) => (
-							<Card
-								style={{backgroundColor: item.backgroundColor}}
-								number={new Intl.NumberFormat().format(Number(item.data[0]))}
-								key={`${item.number} ${index}`}
-							/>
-						))}
-					</div>
-					<div className="exclude_item">
-						<h1>Liter - 2019 - M</h1>
-						{mpbzhrViti2019LiterMDataSets?.map((item, index) => (
-							<Card
-								style={{backgroundColor: item.backgroundColor}}
-								number={new Intl.NumberFormat().format(Number(item.data[0]))}
-								key={`${item.number} ${index}`}
-							/>
-						))}
-					</div>
-					<div className="exclude_item">
-						<h1>Pulavojse - 2019 - M</h1>
-						{mpbzhrViti2019PulavojseMDataSets?.map((item, index) => (
-							<Card
-								style={{backgroundColor: item.backgroundColor}}
-								number={new Intl.NumberFormat().format(Number(item.data[0]))}
-								key={`${item.number} ${index}`}
-							/>
-						))}
-					</div>
-					<div className="exclude_item">
-						<h1>Thelleza - 2019 - M</h1>
-						{mpbzhrViti2019ThellezaMDataSets?.map((item, index) => (
-							<Card
-								style={{backgroundColor: item.backgroundColor}}
-								number={new Intl.NumberFormat().format(Number(item.data[0]))}
-								key={`${item.number} ${index}`}
-							/>
-						))}
-					</div>
+					<Item title="HA - 2019 - M" items={mpbzhrViti2019HaMDataSets} />
+					<Item title="Koshere - 2019 - M" items={mpbzhrViti2019KoshereMDataSets} />
+					<Item title="Krere - 2019 - M" items={mpbzhrViti2019KrereMDataSets} />
+					<Item title="Liter - 2019 - M" items={mpbzhrViti2019LiterMDataSets} />
+					<Item title="Pulavojse - 2019 - M" items={mpbzhrViti2019PulavojseMDataSets} />
+					<Item title="Thelleza - 2019 - M" items={mpbzhrViti2019ThellezaMDataSets} />
 				</div>
 			)}
 		</>
@@ -618,3 +456,16 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MPBZhR);
+
+const Item = ({title, items}) => (
+	<div className="exclude_item">
+		<h1>{title}</h1>
+		{items?.map((item, index) => (
+			<Card
+				style={{backgroundColor: item.backgroundColor}}
+				number={new Intl.NumberFormat().format(Number(item.data[0]))}
+				key={`${item.number} ${index}`}
+			/>
+		))}
+	</div>
+);
