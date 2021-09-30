@@ -75,7 +75,7 @@ export const sagas = {
 			const {vitetQuery, regimeQuery} = getParams(payload);
 			const response = yield axios.get(
 				// eslint-disable-next-line max-len
-				`/industries/dogana?${vitetQuery}&${regimeQuery}&type=dogana70`,
+				`/industries/dogana?${vitetQuery}${regimeQuery}type=dogana70`,
 			);
 
 			yield put(actions.fetchDogana70Success(response?.data));
@@ -88,7 +88,7 @@ export const sagas = {
 			const {vitetQuery, regimeQuery} = getParams(payload);
 			const response = yield axios.get(
 				// eslint-disable-next-line max-len
-				`/industries/dogana?${vitetQuery}&${regimeQuery}&type=dogana71`,
+				`/industries/dogana?${vitetQuery}${regimeQuery}type=dogana71`,
 			);
 
 			yield put(actions.fetchDogana71Success(response?.data));
@@ -101,7 +101,7 @@ export const sagas = {
 			const {vitetQuery, regimeQuery} = getParams(payload);
 			const response = yield axios.get(
 				// eslint-disable-next-line max-len
-				`/industries/dogana?${vitetQuery}&${regimeQuery}&type=dogana72`,
+				`/industries/dogana?${vitetQuery}${regimeQuery}type=dogana72`,
 			);
 
 			yield put(actions.fetchDogana72Success(response?.data));
@@ -114,7 +114,7 @@ export const sagas = {
 			const {vitetQuery, regimeQuery} = getParams(payload);
 			const response = yield axios.get(
 				// eslint-disable-next-line max-len
-				`/industries/dogana?${vitetQuery}&${regimeQuery}&type=dogana73`,
+				`/industries/dogana?${vitetQuery}${regimeQuery}type=dogana73`,
 			);
 
 			yield put(actions.fetchDogana73Success(response?.data));
@@ -127,7 +127,7 @@ export const sagas = {
 			const {vitetQuery, regimeQuery} = getParams(payload);
 			const response = yield axios.get(
 				// eslint-disable-next-line max-len
-				`/industries/dogana?${vitetQuery}&${regimeQuery}&type=dogana74`,
+				`/industries/dogana?${vitetQuery}${regimeQuery}type=dogana74`,
 			);
 
 			yield put(actions.fetchDogana74Success(response?.data));

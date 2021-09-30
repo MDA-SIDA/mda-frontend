@@ -6,7 +6,6 @@ import {groupBy} from "lodash";
 import {getDatasets, sortLabels} from "./utils";
 
 function DOGANA({
-	filters,
 	fetchDogana70,
 	fetchDogana71,
 	fetchDogana72,
@@ -17,6 +16,7 @@ function DOGANA({
 	dogana72,
 	dogana73,
 	dogana74,
+	filters,
 }) {
 	useEffect(() => {
 		fetchDogana70(filters);
@@ -27,35 +27,30 @@ function DOGANA({
 	}, [filters]);
 
 	const dogana70DataSets = getDatasets({
-		filters,
 		items: dogana70,
 		singleItemLabel: "Customs Value",
 		property: "customsValue",
 		filterBy: "viti",
 	});
 	const dogana71DataSets = getDatasets({
-		filters,
 		items: dogana71,
 		singleItemLabel: "Customs Value",
 		property: "customsValue",
 		filterBy: "viti",
 	});
 	const dogana72DataSets = getDatasets({
-		filters,
 		items: dogana72,
 		singleItemLabel: "Customs Value",
 		property: "customsValue",
 		filterBy: "viti",
 	});
 	const dogana73DataSets = getDatasets({
-		filters,
 		items: dogana73,
 		singleItemLabel: "Customs Value",
 		property: "customsValue",
 		filterBy: "viti",
 	});
 	const dogana74DataSets = getDatasets({
-		filters,
 		items: dogana74,
 		singleItemLabel: "Customs Value",
 		property: "customsValue",
