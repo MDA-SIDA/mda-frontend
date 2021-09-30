@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {withRouter} from "react-router";
 import {connect} from "react-redux";
 import "./index.scss";
@@ -9,8 +9,10 @@ import Graphs from "@components/Graphs";
 import SideDrawer from "@components/Sidedrawer";
 import useWindowDimensions from "@utils/use_window_dimensions";
 
-const Home = () => {
+const Home = ({selectedFilters}) => {
 	const [sideDrawerIsVisible, setSideDrawerIsVisible] = useState(false);
+	const [isEmpty, setIsEmpty] = useState(false);
+	const [showGraph, setShowGraph] = useState(null);
 	const {width} = useWindowDimensions();
 
 	const sideDrawerCloseHandler = () => {
@@ -19,6 +21,15 @@ const Home = () => {
 	const sideDrawerToggleHandler = () => {
 		setSideDrawerIsVisible(!sideDrawerIsVisible);
 	};
+
+	useEffect(() => {
+		if (!selectedFilters?.industria?.value) {
+			setIsEmpty(true);
+		} else {
+			setIsEmpty(false);
+			setShowGraph(selectedFilters?.industria?.value);
+		}
+	}, [selectedFilters?.industria?.value]);
 	return (
 		<div className="container">
 			<Header />
@@ -34,11 +45,15 @@ const Home = () => {
 				<div className="mainFilters">
 					{width >= 500 && <Filters closeDrawer={sideDrawerCloseHandler} />}
 				</div>
-				<Graphs />
+				<Graphs isEmpty={isEmpty} showGraph={showGraph} />
 			</div>
 			<Footer />
 		</div>
 	);
 };
 
-export default connect(null, null)(withRouter(Home));
+const mapStateToProps = (state) => ({
+	selectedFilters: state.app.filters.index.selected,
+});
+
+export default connect(mapStateToProps, null)(withRouter(Home));

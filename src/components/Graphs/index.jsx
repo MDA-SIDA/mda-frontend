@@ -1,10 +1,9 @@
-import React, {useState, useEffect} from "react";
+import React from "react";
 import {withRouter} from "react-router";
 import {connect} from "react-redux";
 import "./index.scss";
 import {useTranslation} from "react-i18next";
 import excl from "../../assets/img/exclamation.svg";
-import {setIndustry, showGraphInitialState} from "./utils";
 import UP from "./UP";
 import ATK from "./ATK";
 import AKK from "./AKK";
@@ -17,18 +16,8 @@ import DOGANA from "./DOGANA";
 import RRUGET from "./RRUGET";
 import MF from "./MF";
 
-const Graphs = ({selectedFilters}) => {
-	const [isEmpty, setIsEmpty] = useState(false);
-	const [showGraph, setShowGraph] = useState(showGraphInitialState);
+const Graphs = ({selectedFilters, isEmpty, showGraph}) => {
 	const {t} = useTranslation();
-
-	useEffect(() => {
-		if (!selectedFilters?.industria?.value) {
-			setIsEmpty(true);
-			setShowGraph(showGraphInitialState);
-		} else setIsEmpty(false);
-		setIndustry(selectedFilters, setShowGraph, showGraph);
-	}, [selectedFilters]);
 
 	return (
 		<div className="content_graphs">
@@ -43,48 +32,17 @@ const Graphs = ({selectedFilters}) => {
 						</p>
 					</div>
 				)}
-				{!isEmpty && showGraph.UP && (
-					<UP filters={selectedFilters} changeIsEmpty={(state) => setIsEmpty(state)} />
-				)}
-				{!isEmpty && showGraph.ATK && (
-					<ATK filters={selectedFilters} changeIsEmpty={(state) => setIsEmpty(state)} />
-				)}
-				{!isEmpty && showGraph.AKK && (
-					<AKK filters={selectedFilters} changeIsEmpty={(state) => setIsEmpty(state)} />
-				)}
-				{!isEmpty && showGraph.ARBK && (
-					<ARBK filters={selectedFilters} changeIsEmpty={(state) => setIsEmpty(state)} />
-				)}
-				{!isEmpty && showGraph.AUV && (
-					<AUV filters={selectedFilters} changeIsEmpty={(state) => setIsEmpty(state)} />
-				)}
-				{!isEmpty && showGraph.MAPL && (
-					<MAPL filters={selectedFilters} changeIsEmpty={(state) => setIsEmpty(state)} />
-				)}
-				{!isEmpty && showGraph.MASHT && (
-					<MASHT filters={selectedFilters} changeIsEmpty={(state) => setIsEmpty(state)} />
-				)}
-				{!isEmpty && showGraph.MF && (
-					<MF filters={selectedFilters} changeIsEmpty={(state) => setIsEmpty(state)} />
-				)}
-				{!isEmpty && showGraph.RRUGET && (
-					<RRUGET
-						filters={selectedFilters}
-						changeIsEmpty={(state) => setIsEmpty(state)}
-					/>
-				)}
-				{!isEmpty && showGraph.MPBZhR && (
-					<MPBZhR
-						filters={selectedFilters}
-						changeIsEmpty={(state) => setIsEmpty(state)}
-					/>
-				)}
-				{!isEmpty && showGraph.DOGANA && (
-					<DOGANA
-						filters={selectedFilters}
-						changeIsEmpty={(state) => setIsEmpty(state)}
-					/>
-				)}
+				{!isEmpty && showGraph === "UP" && <UP filters={selectedFilters} />}
+				{!isEmpty && showGraph === "ATK" && <ATK filters={selectedFilters} />}
+				{!isEmpty && showGraph === "AKK" && <AKK filters={selectedFilters} />}
+				{!isEmpty && showGraph === "ARBK" && <ARBK filters={selectedFilters} />}
+				{!isEmpty && showGraph === "AUV" && <AUV filters={selectedFilters} />}
+				{!isEmpty && showGraph === "MAPL" && <MAPL filters={selectedFilters} />}
+				{!isEmpty && showGraph === "MASHT" && <MASHT filters={selectedFilters} />}
+				{!isEmpty && showGraph === "MF" && <MF filters={selectedFilters} />}
+				{!isEmpty && showGraph === "RRUGET" && <RRUGET filters={selectedFilters} />}
+				{!isEmpty && showGraph === "MPBZhR" && <MPBZhR filters={selectedFilters} />}
+				{!isEmpty && showGraph === "DOGANA" && <DOGANA filters={selectedFilters} />}
 			</div>
 		</div>
 	);
