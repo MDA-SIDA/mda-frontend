@@ -6,7 +6,14 @@ const Card = ({title, style, icon, number}) => (
 		{title && <h2>{title}</h2>}
 		{icon && <img alt="" src={icon} />}
 		<div className="description" style={{textAlign: "right"}}>
-			<p className="number">{number}</p>
+			<p
+				className="number"
+				style={{
+					color: style.backgroundColor === "#FCCB11" ? "#000" : "#fff",
+				}}
+			>
+				{number}
+			</p>
 		</div>
 	</div>
 );
