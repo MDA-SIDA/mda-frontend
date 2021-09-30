@@ -61,53 +61,33 @@ export const actions = {
 };
 
 export const sagas = {
-	*fetchMF81({payload}) {
+	*fetchMF81() {
 		try {
-			const {komunaQuery, vendbanimiQuery, regjioniQuery} = getParams(payload);
-			const response = yield axios.get(
-				// eslint-disable-next-line max-len
-				`/industries/?${komunaQuery}${vendbanimiQuery}${regjioniQuery}&type=mf81`,
-			);
-
+			const response = yield axios.get(`/industries/?type=mf81`);
 			yield put(actions.fetchMF81Success(response?.data));
 		} catch (error) {
 			logger.error(error);
 		}
 	},
-	*fetchMF82({payload}) {
+	*fetchMF82() {
 		try {
-			const {komunaQuery, vendbanimiQuery, regjioniQuery} = getParams(payload);
-			const response = yield axios.get(
-				// eslint-disable-next-line max-len
-				`/industries/?${komunaQuery}${vendbanimiQuery}${regjioniQuery}&type=mf82`,
-			);
-
+			const response = yield axios.get(`/industries/?type=mf82`);
 			yield put(actions.fetchMF82Success(response?.data));
 		} catch (error) {
 			logger.error(error);
 		}
 	},
-	*fetchMF83({payload}) {
+	*fetchMF83() {
 		try {
-			const {komunaQuery, vendbanimiQuery, regjioniQuery} = getParams(payload);
-			const response = yield axios.get(
-				// eslint-disable-next-line max-len
-				`/industries/?${komunaQuery}${vendbanimiQuery}${regjioniQuery}&type=mf83`,
-			);
-
+			const response = yield axios.get(`/industries/?type=mf83`);
 			yield put(actions.fetchMF83Success(response?.data));
 		} catch (error) {
 			logger.error(error);
 		}
 	},
-	*fetchMF84({payload}) {
+	*fetchMF84() {
 		try {
-			const {komunaQuery, vendbanimiQuery, regjioniQuery} = getParams(payload);
-			const response = yield axios.get(
-				// eslint-disable-next-line max-len
-				`/industries/?${komunaQuery}${vendbanimiQuery}${regjioniQuery}&type=mf84`,
-			);
-
+			const response = yield axios.get(`/industries/?type=mf84`);
 			yield put(actions.fetchMF84Success(response?.data));
 		} catch (error) {
 			logger.error(error);

@@ -5,37 +5,33 @@ import {actions} from "@sagas/industries/mf";
 import {groupBy} from "lodash";
 import {getDatasets, sortLabels} from "./utils";
 
-function MF({fetchMF81, fetchMF82, fetchMF83, fetchMF84, mf81, mf82, mf83, mf84, filters}) {
+function MF({fetchMF81, fetchMF82, fetchMF83, fetchMF84, mf81, mf82, mf83, mf84}) {
 	useEffect(() => {
-		fetchMF81(filters);
-		fetchMF82(filters);
-		fetchMF83(filters);
-		fetchMF84(filters);
-	}, [filters]);
+		fetchMF81();
+		fetchMF82();
+		fetchMF83();
+		fetchMF84();
+	}, []);
 
 	const mf81DataSets = getDatasets({
-		filters,
 		items: mf81,
 		singleItemLabel: "Shpenzimet sipas programeve",
 		property: "paga",
 		filterBy: "organizata",
 	});
 	const mf82DataSets = getDatasets({
-		filters,
 		items: mf82,
 		singleItemLabel: "Shpenzimet sipas programeve",
 		property: "paga",
 		filterBy: "organizata",
 	});
 	const mf83DataSets = getDatasets({
-		filters,
 		items: mf83,
 		singleItemLabel: "Kapitalet",
 		property: "buxheti",
 		filterBy: "organizata",
 	});
 	const mf84DataSets = getDatasets({
-		filters,
 		items: mf84,
 		singleItemLabel: "Kapitalet",
 		property: "buxheti",
