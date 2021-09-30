@@ -7,9 +7,11 @@ import Footer from "@components/Footer";
 import Filters from "@components/Filters";
 import Graphs from "@components/Graphs";
 import SideDrawer from "@components/Sidedrawer";
+import useWindowDimensions from "@utils/use_window_dimensions";
 
 const Home = () => {
 	const [sideDrawerIsVisible, setSideDrawerIsVisible] = useState(false);
+	const {width} = useWindowDimensions();
 
 	const sideDrawerCloseHandler = () => {
 		setSideDrawerIsVisible(false);
@@ -23,15 +25,14 @@ const Home = () => {
 			<button type="button" className="drawerButton" onClick={sideDrawerToggleHandler}>
 				Filter
 			</button>
-			{/* test */}
 			<div className="content">
 				<div className="sideDrawerFilter">
 					<SideDrawer left open={sideDrawerIsVisible} closed={sideDrawerCloseHandler}>
-						<Filters closeDrawer={sideDrawerCloseHandler} />
+						{width < 500 && <Filters closeDrawer={sideDrawerCloseHandler} />}
 					</SideDrawer>
 				</div>
 				<div className="mainFilters">
-					<Filters closeDrawer={sideDrawerCloseHandler} />
+					{width >= 500 && <Filters closeDrawer={sideDrawerCloseHandler} />}
 				</div>
 				<Graphs />
 			</div>
