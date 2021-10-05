@@ -1,10 +1,10 @@
 /* eslint-disable max-len */
 import Logger from "@utils/logger";
 import produce from "immer";
-import {put, takeLatest} from "redux-saga/effects";
+import {put, takeLatest, all, call} from "redux-saga/effects";
 import createAction from "@utils/action-creator";
 import axios from "@utils/axios";
-import {getParams} from "../utils";
+import {actions as layoutActions} from "@sagas/layout";
 
 const PREFIX = "@app/ATK/index";
 export const FETCH_MF_81 = `${PREFIX}FETCH_MF_81`;
@@ -15,6 +15,7 @@ export const FETCH_MF_83 = `${PREFIX}FETCH_MF_83`;
 export const FETCH_MF_83_SUCCESS = `${PREFIX}FETCH_MF_83_SUCCESS`;
 export const FETCH_MF_84 = `${PREFIX}FETCH_MF_84`;
 export const FETCH_MF_84_SUCCESS = `${PREFIX}FETCH_MF_84_SUCCESS`;
+export const FETCH_ALL = `${PREFIX}FETCH_ALL`;
 
 const logger = new Logger("Saga>ATK>Index");
 const _state = {
@@ -58,66 +59,58 @@ export const actions = {
 	fetchMF83Success: (payload) => createAction(FETCH_MF_83_SUCCESS, {payload}),
 	fetchMF84: (payload) => createAction(FETCH_MF_84, {payload}),
 	fetchMF84Success: (payload) => createAction(FETCH_MF_84_SUCCESS, {payload}),
+	fetchAll: (payload) => createAction(FETCH_ALL, {payload}),
 };
 
 export const sagas = {
-	*fetchMF81({payload}) {
+	*fetchMF81() {
 		try {
-			const {komunaQuery, vendbanimiQuery, regjioniQuery} = getParams(payload);
-			const response = yield axios.get(
-				// eslint-disable-next-line max-len
-				`/industries/?${komunaQuery}${vendbanimiQuery}${regjioniQuery}&type=mf81`,
-			);
-
+			const response = yield axios.get(`/industries/?type=mf81`);
 			yield put(actions.fetchMF81Success(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
 	},
-	*fetchMF82({payload}) {
+	*fetchMF82() {
 		try {
-			const {komunaQuery, vendbanimiQuery, regjioniQuery} = getParams(payload);
-			const response = yield axios.get(
-				// eslint-disable-next-line max-len
-				`/industries/?${komunaQuery}${vendbanimiQuery}${regjioniQuery}&type=mf82`,
-			);
-
+			const response = yield axios.get(`/industries/?type=mf82`);
 			yield put(actions.fetchMF82Success(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
 	},
-	*fetchMF83({payload}) {
+	*fetchMF83() {
 		try {
-			const {komunaQuery, vendbanimiQuery, regjioniQuery} = getParams(payload);
-			const response = yield axios.get(
-				// eslint-disable-next-line max-len
-				`/industries/?${komunaQuery}${vendbanimiQuery}${regjioniQuery}&type=mf83`,
-			);
-
+			const response = yield axios.get(`/industries/?type=mf83`);
 			yield put(actions.fetchMF83Success(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
 	},
-	*fetchMF84({payload}) {
+	*fetchMF84() {
 		try {
-			const {komunaQuery, vendbanimiQuery, regjioniQuery} = getParams(payload);
-			const response = yield axios.get(
-				// eslint-disable-next-line max-len
-				`/industries/?${komunaQuery}${vendbanimiQuery}${regjioniQuery}&type=mf84`,
-			);
-
+			const response = yield axios.get(`/industries/?type=mf84`);
 			yield put(actions.fetchMF84Success(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
+	},
+	*fetchAll({payload}) {
+		yield put(layoutActions.setLoading(true));
+		yield all([
+			call(sagas.fetchMF81, {payload}),
+			call(sagas.fetchMF82, {payload}),
+			call(sagas.fetchMF83, {payload}),
+			call(sagas.fetchMF84, {payload}),
+		]);
+		yield put(layoutActions.setLoading(false));
 	},
 };
 
 export const watcher = function* w() {
-	yield takeLatest(FETCH_MF_81, sagas.fetchMF81);
-	yield takeLatest(FETCH_MF_82, sagas.fetchMF82);
-	yield takeLatest(FETCH_MF_83, sagas.fetchMF83);
-	yield takeLatest(FETCH_MF_84, sagas.fetchMF84);
+	yield takeLatest(FETCH_ALL, sagas.fetchAll);
 };

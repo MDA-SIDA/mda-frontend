@@ -1,9 +1,10 @@
 /* eslint-disable max-len */
 import Logger from "@utils/logger";
 import produce from "immer";
-import {put, takeLatest} from "redux-saga/effects";
+import {put, takeLatest, all, call} from "redux-saga/effects";
 import createAction from "@utils/action-creator";
 import axios from "@utils/axios";
+import {actions as layoutActions} from "@sagas/layout";
 import {getParams} from "../utils";
 
 const PREFIX = "@app/ARBK/index";
@@ -19,6 +20,7 @@ export const FETCH_ARBK_STATUSI = `${PREFIX}FETCH_ARBK_STATUSI`;
 export const FETCH_ARBK_STATUSI_SUCCESS = `${PREFIX}FETCH_ARBK_STATUSI_SUCCESS`;
 export const FETCH_ARBK_KOMUNA = `${PREFIX}FETCH_ARBK_KOMUNA`;
 export const FETCH_ARBK_KOMUNA_SUCCESS = `${PREFIX}FETCH_ARBK_KOMUNA_SUCCESS`;
+export const FETCH_ALL = `${PREFIX}FETCH_ALL`;
 
 const logger = new Logger("Saga>ARBK>Index");
 const _state = {
@@ -77,6 +79,7 @@ export const actions = {
 	fetchArbkStatusiSuccess: (payload) => createAction(FETCH_ARBK_STATUSI_SUCCESS, {payload}),
 	fetchArbkKomuna: (payload) => createAction(FETCH_ARBK_KOMUNA, {payload}),
 	fetchArbkKomunaSuccess: (payload) => createAction(FETCH_ARBK_KOMUNA_SUCCESS, {payload}),
+	fetchAll: (payload) => createAction(FETCH_ALL, {payload}),
 };
 
 export const sagas = {
@@ -89,6 +92,7 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchArbkLlojiBiznesitSuccess(response?.data));
+			return response?.data;
 		} catch (error) {
 			logger.error(error);
 		}
@@ -102,6 +106,7 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchArbkVitiSuccess(response?.data));
+			return response?.data;
 		} catch (error) {
 			logger.error(error);
 		}
@@ -115,6 +120,7 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchArbkSektoriSuccess(response?.data));
+			return response?.data;
 		} catch (error) {
 			logger.error(error);
 		}
@@ -128,6 +134,7 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchArbkGjiniaSuccess(response?.data));
+			return response?.data;
 		} catch (error) {
 			logger.error(error);
 		}
@@ -141,6 +148,7 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchArbkStatusiSuccess(response?.data));
+			return response?.data;
 		} catch (error) {
 			logger.error(error);
 		}
@@ -154,17 +162,25 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchArbkKomunaSuccess(response?.data));
+			return response?.data;
 		} catch (error) {
 			logger.error(error);
 		}
 	},
+	*fetchAll({payload}) {
+		yield put(layoutActions.setLoading(true));
+		yield all([
+			call(sagas.fetchArbkLlojiBiznesit, {payload}),
+			call(sagas.fetchArbkViti, {payload}),
+			call(sagas.fetchArbkSektori, {payload}),
+			call(sagas.fetchArbkGjinia, {payload}),
+			call(sagas.fetchArbkStatusi, {payload}),
+			call(sagas.fetchArbkKomuna, {payload}),
+		]);
+		yield put(layoutActions.setLoading(false));
+	},
 };
 
 export const watcher = function* w() {
-	yield takeLatest(FETCH_ARBK_LLOJI_BIZNESIT, sagas.fetchArbkLlojiBiznesit);
-	yield takeLatest(FETCH_ARBK_VITI, sagas.fetchArbkViti);
-	yield takeLatest(FETCH_ARBK_SEKTORI, sagas.fetchArbkSektori);
-	yield takeLatest(FETCH_ARBK_GJINIA, sagas.fetchArbkGjinia);
-	yield takeLatest(FETCH_ARBK_STATUSI, sagas.fetchArbkStatusi);
-	yield takeLatest(FETCH_ARBK_KOMUNA, sagas.fetchArbkKomuna);
+	yield takeLatest(FETCH_ALL, sagas.fetchAll);
 };

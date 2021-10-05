@@ -3,20 +3,12 @@ import {connect} from "react-redux";
 import {actions} from "@sagas/industries/masht";
 import Chart from "@common/Chart";
 import {groupBy} from "lodash";
+import Loader from "@common/Loader";
 import {getDatasets, sortLabels} from "./utils";
 
 function MASHT({
-	fetchMashtShkolla,
-	fetchMashtGjinia,
-	fetchMashtGjenerata,
-	fetchMashtEtnia,
-	fetchMashtRajoniKomuna,
-	fetchMashtKlasa,
-	fetchMashtQendraBurimoreDemtimi,
-	fetchMashtQendraBurimoreGjenerata,
-	fetchShkollaRajoniKomuna,
-	fetchGjiniaEtniteti,
-	fetchNrNxenesveShkolla,
+	fetchAll,
+	isLoading,
 	mashtShkolla,
 	mashtGjinia,
 	mashtGjenerata,
@@ -31,18 +23,8 @@ function MASHT({
 	filters,
 }) {
 	useEffect(() => {
-		fetchMashtShkolla(filters);
-		fetchMashtGjinia(filters);
-		fetchMashtGjenerata(filters);
-		fetchMashtEtnia(filters);
-		fetchMashtRajoniKomuna(filters);
-		fetchMashtKlasa(filters);
-		fetchMashtQendraBurimoreDemtimi(filters);
-		fetchMashtQendraBurimoreGjenerata(filters);
-		fetchShkollaRajoniKomuna(filters);
-		fetchGjiniaEtniteti(filters);
-		fetchNrNxenesveShkolla(filters);
-	}, [filters]);
+		fetchAll(filters);
+	}, [fetchAll, filters]);
 
 	// DONE: except percentage, nrNxenesveShkolla
 
@@ -132,112 +114,113 @@ function MASHT({
 	});
 	return (
 		<>
-			<Chart
-				title="Numri i nxenesve"
-				type="bar"
-				data={{
-					labels: sortLabels(Object.keys(groupBy(mashtShkolla, "shkolla"))),
-					datasets: mashtShkollaDataSets,
-				}}
-			/>
-			<Chart
-				title="Numri i nxenesve sipas gjinise"
-				type="bar"
-				data={{
-					labels: sortLabels(Object.keys(groupBy(mashtGjinia, "gjinia"))),
-					datasets: mashtGjiniaDataSets,
-				}}
-			/>
-			<Chart
-				title="Numri i nxenesve sipas gjenerates"
-				type="bar"
-				data={{
-					labels: sortLabels(Object.keys(groupBy(mashtGjenerata, "gjenerata"))),
-					datasets: mashtGjenerataDataSets,
-				}}
-			/>
-			<Chart
-				title="Numri i nxenesve sipas etniteteve"
-				type="bar"
-				data={{
-					labels: sortLabels(Object.keys(groupBy(mashtEtnia, "entiteti"))),
-					datasets: mashtEtniaDataSets,
-				}}
-			/>
-			<Chart
-				title="Numri i nxenesve sipas komunave"
-				type="bar"
-				data={{
-					labels: sortLabels(Object.keys(groupBy(mashtRajoniKomuna, "komunaemri"))),
-					datasets: mashtRajoniKomunaDataSets,
-				}}
-			/>
-			<Chart
-				title="Numri i nxenesve sipas klasave"
-				type="bar"
-				data={{
-					labels: sortLabels(Object.keys(groupBy(mashtKlasa, "klasa"))),
-					datasets: mashtKlasaDataSets,
-				}}
-			/>
-			<Chart
-				title="Numri i nxenesve sipas demtimeve - qendra burimore"
-				type="bar"
-				data={{
-					labels: sortLabels(Object.keys(groupBy(mashtQendraBurimoreDemtimi, "demtimi"))),
-					datasets: mashtQendraBurimoreDemtimiDataSets,
-				}}
-			/>
-			<Chart
-				title="Numri i nxenesve sipas gjenerates - qendra burimore"
-				type="bar"
-				data={{
-					labels: sortLabels(
-						Object.keys(groupBy(mashtQendraBurimoreGjenerata, "gjenerata")),
-					),
-					datasets: mashtQendraBurimoreGjenerataDataSets,
-				}}
-			/>
-			<Chart
-				title="Numri i nxenesve sipas komunave"
-				type="bar"
-				data={{
-					labels: sortLabels(Object.keys(groupBy(shkollaRajoniKomuna, "komunaemri"))),
-					datasets: shkollaRajoniKomunaDataSets,
-				}}
-			/>
-			<Chart
-				title="Numri i nxenesve femra ne baze te etniteteve"
-				type="bar"
-				data={{
-					labels: sortLabels(Object.keys(groupBy(gjiniaEtniteti, "entiteti"))),
-					datasets: gjiniaEntitetiFemraDataSets,
-				}}
-			/>
-			<Chart
-				title="Numri i nxenesve meshkuj ne baze te etniteteve"
-				type="bar"
-				data={{
-					labels: sortLabels(Object.keys(groupBy(gjiniaEtniteti, "entiteti"))),
-					datasets: gjiniaEntitetiMeshkujDataSets,
-				}}
-			/>
+			{isLoading && <Loader />}
+			{!isLoading && (
+				<>
+					<Chart
+						title="Numri i nxenesve"
+						type="bar"
+						data={{
+							labels: sortLabels(Object.keys(groupBy(mashtShkolla, "shkolla"))),
+							datasets: mashtShkollaDataSets,
+						}}
+					/>
+					<Chart
+						title="Numri i nxenesve sipas gjinise"
+						type="bar"
+						data={{
+							labels: sortLabels(Object.keys(groupBy(mashtGjinia, "gjinia"))),
+							datasets: mashtGjiniaDataSets,
+						}}
+					/>
+					<Chart
+						title="Numri i nxenesve sipas gjenerates"
+						type="bar"
+						data={{
+							labels: sortLabels(Object.keys(groupBy(mashtGjenerata, "gjenerata"))),
+							datasets: mashtGjenerataDataSets,
+						}}
+					/>
+					<Chart
+						title="Numri i nxenesve sipas etniteteve"
+						type="bar"
+						data={{
+							labels: sortLabels(Object.keys(groupBy(mashtEtnia, "entiteti"))),
+							datasets: mashtEtniaDataSets,
+						}}
+					/>
+					<Chart
+						title="Numri i nxenesve sipas komunave"
+						type="bar"
+						data={{
+							labels: sortLabels(
+								Object.keys(groupBy(mashtRajoniKomuna, "komunaemri")),
+							),
+							datasets: mashtRajoniKomunaDataSets,
+						}}
+					/>
+					<Chart
+						title="Numri i nxenesve sipas klasave"
+						type="bar"
+						data={{
+							labels: sortLabels(Object.keys(groupBy(mashtKlasa, "klasa"))),
+							datasets: mashtKlasaDataSets,
+						}}
+					/>
+					<Chart
+						title="Numri i nxenesve sipas demtimeve - qendra burimore"
+						type="bar"
+						data={{
+							labels: sortLabels(
+								Object.keys(groupBy(mashtQendraBurimoreDemtimi, "demtimi")),
+							),
+							datasets: mashtQendraBurimoreDemtimiDataSets,
+						}}
+					/>
+					<Chart
+						title="Numri i nxenesve sipas gjenerates - qendra burimore"
+						type="bar"
+						data={{
+							labels: sortLabels(
+								Object.keys(groupBy(mashtQendraBurimoreGjenerata, "gjenerata")),
+							),
+							datasets: mashtQendraBurimoreGjenerataDataSets,
+						}}
+					/>
+					<Chart
+						title="Numri i nxenesve sipas komunave"
+						type="bar"
+						data={{
+							labels: sortLabels(
+								Object.keys(groupBy(shkollaRajoniKomuna, "komunaemri")),
+							),
+							datasets: shkollaRajoniKomunaDataSets,
+						}}
+					/>
+					<Chart
+						title="Numri i nxenesve femra ne baze te etniteteve"
+						type="bar"
+						data={{
+							labels: sortLabels(Object.keys(groupBy(gjiniaEtniteti, "entiteti"))),
+							datasets: gjiniaEntitetiFemraDataSets,
+						}}
+					/>
+					<Chart
+						title="Numri i nxenesve meshkuj ne baze te etniteteve"
+						type="bar"
+						data={{
+							labels: sortLabels(Object.keys(groupBy(gjiniaEtniteti, "entiteti"))),
+							datasets: gjiniaEntitetiMeshkujDataSets,
+						}}
+					/>
+				</>
+			)}
 		</>
 	);
 }
 
 const mapDispatchToProps = {
-	fetchMashtShkolla: actions.fetchMashtShkolla,
-	fetchMashtGjinia: actions.fetchMashtGjinia,
-	fetchMashtGjenerata: actions.fetchMashtGjenerata,
-	fetchMashtEtnia: actions.fetchMashtEtnia,
-	fetchMashtRajoniKomuna: actions.fetchMashtRajoniKomuna,
-	fetchMashtKlasa: actions.fetchMashtKlasa,
-	fetchMashtQendraBurimoreDemtimi: actions.fetchMashtQendraBurimoreDemtimi,
-	fetchMashtQendraBurimoreGjenerata: actions.fetchMashtQendraBurimoreGjenerata,
-	fetchShkollaRajoniKomuna: actions.fetchShkollaRajoniKomuna,
-	fetchGjiniaEtniteti: actions.fetchGjiniaEtniteti,
-	fetchNrNxenesveShkolla: actions.fetchNrNxenesveShkolla,
+	fetchAll: actions.fetchAll,
 };
 const mapStateToProps = (state) => ({
 	mashtShkolla: state.app.industries.masht.mashtShkolla,
@@ -251,6 +234,7 @@ const mapStateToProps = (state) => ({
 	shkollaRajoniKomuna: state.app.industries.masht.shkollaRajoniKomuna,
 	gjiniaEtniteti: state.app.industries.masht.gjiniaEtniteti,
 	nrNxenesveShkolla: state.app.industries.masht.nrNxenesveShkolla,
+	isLoading: state.app.layout.index.loading,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MASHT);

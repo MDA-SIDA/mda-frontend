@@ -43,7 +43,11 @@ const getDatasets = ({
 	filterBy = null,
 	getPercentage,
 }) => {
-	const {komunat, regjionet, vendbanimet} = filters;
+	const {komunat, regjionet, vendbanimet} = filters || {
+		komunat: [],
+		regjionet: [],
+		vendbanimet: [],
+	};
 	const xLabels = sortLabels(Object.keys(groupBy(items, filterBy)));
 
 	if (komunat?.length === 0 && regjionet?.length === 0 && vendbanimet?.length === 0) {

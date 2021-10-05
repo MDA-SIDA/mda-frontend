@@ -5,20 +5,12 @@ import Chart from "@common/Chart";
 import PieChart from "@common/Chart/Pie";
 import {actions} from "@sagas/industries/up";
 import {groupBy} from "lodash";
+import Loader from "@common/Loader";
 import {getDatasets, getGjiniaDataset, sortLabels} from "./utils";
 
 const UP = ({
-	fetchStatusi,
-	fetchNiveli,
-	fetchKombiNumriStudenteve,
-	fetchGjinia,
-	fetchFakultetiNumriStudenteve,
-	fetchVitiDiplomimit,
-	fetchKomunaNumriStudenteve,
-	fetchDiplomuar,
-	fetchFakultetiNotaMesatare,
-	fetchKomunaNotaMesatare,
-	fetchKombiNotaMesatare,
+	fetchAll,
+	isLoading,
 	statusi,
 	niveli,
 	kombiNumriStudenteve,
@@ -33,18 +25,8 @@ const UP = ({
 	filters,
 }) => {
 	useEffect(() => {
-		fetchStatusi(filters);
-		fetchNiveli(filters);
-		fetchKombiNumriStudenteve(filters);
-		fetchGjinia(filters);
-		fetchFakultetiNumriStudenteve(filters);
-		fetchVitiDiplomimit(filters);
-		fetchKomunaNumriStudenteve(filters);
-		fetchDiplomuar(filters);
-		fetchFakultetiNotaMesatare(filters);
-		fetchKomunaNotaMesatare(filters);
-		fetchKombiNotaMesatare(filters);
-	}, [filters]);
+		fetchAll(filters);
+	}, [fetchAll, filters]);
 
 	// DONE: except percentage
 	const statusiDataSets = getDatasets({
@@ -150,72 +132,83 @@ const UP = ({
 
 	return (
 		<>
-			<Chart
-				title="Numri i studenteve sipas statusit"
-				type="bar"
-				data={{
-					labels: sortLabels(Object.keys(groupBy(statusi, "statusi"))),
-					datasets: statusiDataSets,
-				}}
-			/>
-			<Chart
-				title="Numri i studenteve sipas nivelit te studimeve"
-				type="bar"
-				data={{
-					labels: sortLabels(Object.keys(groupBy(niveli, "niveli"))),
-					datasets: niveliDataSets,
-				}}
-			/>
-			<Chart
-				title="Numri i studenteve sipas kombit"
-				type="bar"
-				data={{
-					labels: sortLabels(Object.keys(groupBy(kombiNumriStudenteve, "kombi"))),
-					datasets: kombiNumriStudenteveDataSets,
-				}}
-			/>
-			<Chart
-				title="Numri i studenteve sipas fakulteteve"
-				type="bar"
-				data={{
-					labels: sortLabels(Object.keys(groupBy(fakultetiNumriStudenteve, "fakulteti"))),
-					datasets: fakultetiNumriStudenteveDataSets,
-				}}
-			/>
-			<Chart
-				title="Numri i studenteve sipas vitit te diplomimit"
-				type="line"
-				data={{
-					labels: sortLabels(Object.keys(groupBy(vitiDiplomimit, "vitidiplomimit"))),
-					datasets: vitiDiplomimitDataSets,
-				}}
-			/>
-			<Chart
-				title="Numri i studenteve sipas komunave"
-				type="bar"
-				data={{
-					labels: sortLabels(Object.keys(groupBy(komunaNumriStudenteve, "komunaemri"))),
-					datasets: komunaNumriStudenteveDataSets,
-				}}
-			/>
-			<Chart
-				title="Numri i studenteve te diplomuar sipas komunave"
-				type="bar"
-				data={{
-					labels: sortLabels(Object.keys(groupBy(diplomuar, "komunaemri"))),
-					datasets: diplomuarDataSets,
-				}}
-			/>
-			<Chart
-				title="Nota mesatare sipas regjioneve"
-				type="bar"
-				data={{
-					labels: sortLabels(Object.keys(groupBy(fakultetiNotaMesatare, "regjioniemri"))),
-					datasets: fakultetiNotaMesatareDataSets,
-				}}
-			/>
-			{/* TODO: check */}
-			{/* <Chart
+			{isLoading && <Loader />}
+			{!isLoading && (
+				<>
+					<Chart
+						title="Numri i studenteve sipas statusit"
+						type="bar"
+						data={{
+							labels: sortLabels(Object.keys(groupBy(statusi, "statusi"))),
+							datasets: statusiDataSets,
+						}}
+					/>
+					<Chart
+						title="Numri i studenteve sipas nivelit te studimeve"
+						type="bar"
+						data={{
+							labels: sortLabels(Object.keys(groupBy(niveli, "niveli"))),
+							datasets: niveliDataSets,
+						}}
+					/>
+					<Chart
+						title="Numri i studenteve sipas kombit"
+						type="bar"
+						data={{
+							labels: sortLabels(Object.keys(groupBy(kombiNumriStudenteve, "kombi"))),
+							datasets: kombiNumriStudenteveDataSets,
+						}}
+					/>
+					<Chart
+						title="Numri i studenteve sipas fakulteteve"
+						type="bar"
+						data={{
+							labels: sortLabels(
+								Object.keys(groupBy(fakultetiNumriStudenteve, "fakulteti")),
+							),
+							datasets: fakultetiNumriStudenteveDataSets,
+						}}
+					/>
+					<Chart
+						title="Numri i studenteve sipas vitit te diplomimit"
+						type="line"
+						data={{
+							labels: sortLabels(
+								Object.keys(groupBy(vitiDiplomimit, "vitidiplomimit")),
+							),
+							datasets: vitiDiplomimitDataSets,
+						}}
+					/>
+					<Chart
+						title="Numri i studenteve sipas komunave"
+						type="bar"
+						data={{
+							labels: sortLabels(
+								Object.keys(groupBy(komunaNumriStudenteve, "komunaemri")),
+							),
+							datasets: komunaNumriStudenteveDataSets,
+						}}
+					/>
+					<Chart
+						title="Numri i studenteve te diplomuar sipas komunave"
+						type="bar"
+						data={{
+							labels: sortLabels(Object.keys(groupBy(diplomuar, "komunaemri"))),
+							datasets: diplomuarDataSets,
+						}}
+					/>
+					<Chart
+						title="Nota mesatare sipas regjioneve"
+						type="bar"
+						data={{
+							labels: sortLabels(
+								Object.keys(groupBy(fakultetiNotaMesatare, "regjioniemri")),
+							),
+							datasets: fakultetiNotaMesatareDataSets,
+						}}
+					/>
+					{/* TODO: check */}
+					{/* <Chart
 				title="Nota mesatare sipas komunave"
 				type="bar"
 				data={{
@@ -223,46 +216,40 @@ const UP = ({
 					datasets: komunaNotaMesatareDataSets,
 				}}
 			/> */}
-			<Chart
-				title="Nota mesatare sipas kombit"
-				type="bar"
-				data={{
-					labels: sortLabels(Object.keys(groupBy(kombiNotaMesatare, "kombi"))),
-					datasets: kombiNotaMesatareDataSets,
-				}}
-			/>
-			{gjiniaData?.map((item, index) => (
-				<PieChart
-					key={`${index} item=index`}
-					title={`Numri i studenteve sipas gjinise${item.label ? `: ${item.label}` : ""}`}
-					data={{
-						labels: ["F", "M"],
-						datasets: [
-							{
-								label: item.label,
-								data: [item.data?.totalfemra, item.data?.totalmeshkuj],
-								backgroundColor: ["#00517D", "#FCCB11"],
-							},
-						],
-					}}
-				/>
-			))}
+					<Chart
+						title="Nota mesatare sipas kombit"
+						type="bar"
+						data={{
+							labels: sortLabels(Object.keys(groupBy(kombiNotaMesatare, "kombi"))),
+							datasets: kombiNotaMesatareDataSets,
+						}}
+					/>
+					{gjiniaData?.map((item, index) => (
+						<PieChart
+							key={`${index} item=index`}
+							title={`Numri i studenteve sipas gjinise${
+								item.label ? `: ${item.label}` : ""
+							}`}
+							data={{
+								labels: ["F", "M"],
+								datasets: [
+									{
+										label: item.label,
+										data: [item.data?.totalfemra, item.data?.totalmeshkuj],
+										backgroundColor: ["#00517D", "#FCCB11"],
+									},
+								],
+							}}
+						/>
+					))}
+				</>
+			)}
 		</>
 	);
 };
 
 const mapDispatchToProps = {
-	fetchStatusi: actions.fetchStatusi,
-	fetchNiveli: actions.fetchNiveli,
-	fetchKombiNumriStudenteve: actions.fetchKombiNumriStudenteve,
-	fetchGjinia: actions.fetchGjinia,
-	fetchFakultetiNumriStudenteve: actions.fetchFakultetiNumriStudenteve,
-	fetchVitiDiplomimit: actions.fetchVitiDiplomimit,
-	fetchKomunaNumriStudenteve: actions.fetchKomunaNumriStudenteve,
-	fetchDiplomuar: actions.fetchDiplomuar,
-	fetchFakultetiNotaMesatare: actions.fetchFakultetiNotaMesatare,
-	fetchKomunaNotaMesatare: actions.fetchKomunaNotaMesatare,
-	fetchKombiNotaMesatare: actions.fetchKombiNotaMesatare,
+	fetchAll: actions.fetchAll,
 };
 
 const mapStateToProps = (state) => ({
@@ -277,6 +264,7 @@ const mapStateToProps = (state) => ({
 	fakultetiNotaMesatare: state.app.industries.up.fakultetiNotaMesatare,
 	komunaNotaMesatare: state.app.industries.up.komunaNotaMesatare,
 	kombiNotaMesatare: state.app.industries.up.kombiNotaMesatare,
+	isLoading: state.app.layout.index.loading,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UP);

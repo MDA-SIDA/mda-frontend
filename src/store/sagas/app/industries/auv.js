@@ -1,9 +1,10 @@
 /* eslint-disable max-len */
 import Logger from "@utils/logger";
 import produce from "immer";
-import {put, takeLatest} from "redux-saga/effects";
+import {put, takeLatest, all, call} from "redux-saga/effects";
 import createAction from "@utils/action-creator";
 import axios from "@utils/axios";
+import {actions as layoutActions} from "@sagas/layout";
 import {getParams} from "../utils";
 
 const PREFIX = "@app/AUV/index";
@@ -13,6 +14,7 @@ export const FETCH_AUV_KATEGORIA = `${PREFIX}FETCH_AUV_KATEGORIA`;
 export const FETCH_AUV_KATEGORIA_SUCCESS = `${PREFIX}FETCH_AUV_KATEGORIA_SUCCESS`;
 export const FETCH_AUV_KOMUNA_NR_KAFSHEVE = `${PREFIX}FETCH_AUV_KOMUNA_NR_KAFSHEVE`;
 export const FETCH_AUV_KOMUNA_NR_KAFSHEVE_SUCCESS = `${PREFIX}FETCH_AUV_KOMUNA_NR_KAFSHEVE_SUCCESS`;
+export const FETCH_ALL = `${PREFIX}FETCH_ALL`;
 
 const logger = new Logger("Saga>AUV>Index");
 const _state = {
@@ -51,6 +53,7 @@ export const actions = {
 	fetchAuvKomunaNrKafsheve: (payload) => createAction(FETCH_AUV_KOMUNA_NR_KAFSHEVE, {payload}),
 	fetchAuvKomunaNrKafsheveSuccess: (payload) =>
 		createAction(FETCH_AUV_KOMUNA_NR_KAFSHEVE_SUCCESS, {payload}),
+	fetchAll: (payload) => createAction(FETCH_ALL, {payload}),
 };
 
 export const sagas = {
@@ -63,6 +66,7 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchAuvRajoniKomunaSuccess(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
@@ -76,6 +80,7 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchAuvKategoriaSuccess(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
@@ -89,14 +94,22 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchAuvKomunaNrKafsheveSuccess(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
 	},
+	*fetchAll({payload}) {
+		yield put(layoutActions.setLoading(true));
+		yield all([
+			call(sagas.fetchAuvRajoniKomuna, {payload}),
+			call(sagas.fetchAuvKategoria, {payload}),
+			call(sagas.fetchAuvKomunaNrKafsheve, {payload}),
+		]);
+		yield put(layoutActions.setLoading(false));
+	},
 };
 
 export const watcher = function* w() {
-	yield takeLatest(FETCH_AUV_RAJONI_KOMUNA, sagas.fetchAuvRajoniKomuna);
-	yield takeLatest(FETCH_AUV_KATEGORIA, sagas.fetchAuvKategoria);
-	yield takeLatest(FETCH_AUV_KOMUNA_NR_KAFSHEVE, sagas.fetchAuvKomunaNrKafsheve);
+	yield takeLatest(FETCH_ALL, sagas.fetchAll);
 };

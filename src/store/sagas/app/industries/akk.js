@@ -1,9 +1,10 @@
 /* eslint-disable max-len */
 import Logger from "@utils/logger";
 import produce from "immer";
-import {put, takeLatest} from "redux-saga/effects";
+import {put, takeLatest, all, call} from "redux-saga/effects";
 import createAction from "@utils/action-creator";
 import axios from "@utils/axios";
+import {actions as layoutActions} from "@sagas/layout";
 import {getParams} from "../utils";
 
 const PREFIX = "@app/AKK/index";
@@ -19,6 +20,7 @@ export const FETCH_LLOJI_NDERTESES_NUMRI = `${PREFIX}FETCH_LLOJI_NDERTESES_NUMRI
 export const FETCH_LLOJI_NDERTESES_NUMRI_SUCCESS = `${PREFIX}FETCH_LLOJI_NDERTESES_NUMRI_SUCCESS`;
 export const FETCH_TIPI_PRONES_NUMRI = `${PREFIX}FETCH_TIPI_PRONES_NUMRI`;
 export const FETCH_TIPI_PRONES_NUMRI_SUCCESS = `${PREFIX}FETCH_TIPI_PRONES_NUMRI_SUCCESS`;
+export const FETCH_ALL = `${PREFIX}FETCH_ALL`;
 
 const logger = new Logger("Saga>AKK>Index");
 const _state = {
@@ -80,6 +82,7 @@ export const actions = {
 	fetchTipiPronesNumri: (payload) => createAction(FETCH_TIPI_PRONES_NUMRI, {payload}),
 	fetchTipiPronesNumriSuccess: (payload) =>
 		createAction(FETCH_TIPI_PRONES_NUMRI_SUCCESS, {payload}),
+	fetchAll: (payload) => createAction(FETCH_ALL, {payload}),
 };
 
 export const sagas = {
@@ -91,6 +94,7 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchKategoriaSuccess(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
@@ -103,6 +107,7 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchPronesiaSuccess(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
@@ -115,6 +120,7 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchKlasaSuccess(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
@@ -127,6 +133,7 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchLlojiNdertesesSiperfaqjaSuccess(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
@@ -139,6 +146,7 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchLlojiNdertesesNumriSuccess(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
@@ -151,17 +159,25 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchTipiPronesNumriSuccess(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
 	},
+	*fetchAll({payload}) {
+		yield put(layoutActions.setLoading(true));
+		yield all([
+			call(sagas.fetchKategoria, {payload}),
+			call(sagas.fetchPronesia, {payload}),
+			call(sagas.fetchKlasa, {payload}),
+			call(sagas.fetchLlojiNdertesesSiperfaqja, {payload}),
+			call(sagas.fetchLlojiNdertesesNumri, {payload}),
+			call(sagas.fetchTipiPronesNumri, {payload}),
+		]);
+		yield put(layoutActions.setLoading(false));
+	},
 };
 
 export const watcher = function* w() {
-	yield takeLatest(FETCH_KATEGORIA, sagas.fetchKategoria);
-	yield takeLatest(FETCH_PRONESIA, sagas.fetchPronesia);
-	yield takeLatest(FETCH_KLASA, sagas.fetchKlasa);
-	yield takeLatest(FETCH_LLOJI_NDERTESES_SIPERFAQJA, sagas.fetchLlojiNdertesesSiperfaqja);
-	yield takeLatest(FETCH_LLOJI_NDERTESES_NUMRI, sagas.fetchLlojiNdertesesNumri);
-	yield takeLatest(FETCH_TIPI_PRONES_NUMRI, sagas.fetchTipiPronesNumri);
+	yield takeLatest(FETCH_ALL, sagas.fetchAll);
 };

@@ -1,9 +1,10 @@
 /* eslint-disable max-len */
 import Logger from "@utils/logger";
 import produce from "immer";
-import {put, takeLatest} from "redux-saga/effects";
+import {put, takeLatest, all, call} from "redux-saga/effects";
 import createAction from "@utils/action-creator";
 import axios from "@utils/axios";
+import {actions as layoutActions} from "@sagas/layout";
 import {getParams} from "../utils";
 
 const PREFIX = "@app/MASHT/index";
@@ -29,6 +30,7 @@ export const FETCH_GJINIA_ETNITETI = `${PREFIX}FETCH_GJINIA_ETNITETI`;
 export const FETCH_GJINIA_ETNITETI_SUCCESS = `${PREFIX}FETCH_GJINIA_ETNITETI_SUCCESS`;
 export const FETCH_NR_NXENESVE_SHKOLLA = `${PREFIX}FETCH_NR_NXENESVE_SHKOLLA`;
 export const FETCH_NR_NXENESVE_SHKOLLA_SUCCESS = `${PREFIX}FETCH_NR_NXENESVE_SHKOLLA_SUCCESS`;
+export const FETCH_ALL = `${PREFIX}FETCH_ALL`;
 
 const logger = new Logger("Saga>MASHT>Index");
 const _state = {
@@ -128,6 +130,7 @@ export const actions = {
 	fetchNrNxenesveShkolla: (payload) => createAction(FETCH_NR_NXENESVE_SHKOLLA, {payload}),
 	fetchNrNxenesveShkollaSuccess: (payload) =>
 		createAction(FETCH_NR_NXENESVE_SHKOLLA_SUCCESS, {payload}),
+	fetchAll: (payload) => createAction(FETCH_ALL, {payload}),
 };
 
 export const sagas = {
@@ -140,6 +143,7 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchMashtShkollaSuccess(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
@@ -153,6 +157,7 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchMashtGjiniaSuccess(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
@@ -166,6 +171,7 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchMashtGjenerataSuccess(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
@@ -179,6 +185,7 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchMashtEtniaSuccess(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
@@ -192,6 +199,7 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchMashtRajoniKomunaSuccess(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
@@ -205,6 +213,7 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchMashtKlasaSuccess(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
@@ -218,6 +227,7 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchMashtQendraBurimoreDemtimiSuccess(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
@@ -231,6 +241,7 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchMashtQendraBurimoreGjenerataSuccess(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
@@ -244,6 +255,7 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchShkollaRajoniKomunaSuccess(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
@@ -257,6 +269,7 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchGjiniaEtnitetiSuccess(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
@@ -270,25 +283,30 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchNrNxenesveShkollaSuccess(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
 	},
+	*fetchAll({payload}) {
+		yield put(layoutActions.setLoading(true));
+		yield all([
+			call(sagas.fetchMashtShkolla, {payload}),
+			call(sagas.fetchMashtGjinia, {payload}),
+			call(sagas.fetchMashtGjenerata, {payload}),
+			call(sagas.fetchMashtEtnia, {payload}),
+			call(sagas.fetchMashtRajoniKomuna, {payload}),
+			call(sagas.fetchMashtKlasa, {payload}),
+			call(sagas.fetchMashtQendraBurimoreDemtimi, {payload}),
+			call(sagas.fetchMashtQendraBurimoreGjenerata, {payload}),
+			call(sagas.fetchShkollaRajoniKomuna, {payload}),
+			call(sagas.fetchGjiniaEtniteti, {payload}),
+			call(sagas.fetchNrNxenesveShkolla, {payload}),
+		]);
+		yield put(layoutActions.setLoading(false));
+	},
 };
 
 export const watcher = function* w() {
-	yield takeLatest(FETCH_MASHT_SHKOLLA, sagas.fetchMashtShkolla);
-	yield takeLatest(FETCH_MASHT_GJINIA, sagas.fetchMashtGjinia);
-	yield takeLatest(FETCH_MASHT_GJENERATA, sagas.fetchMashtGjenerata);
-	yield takeLatest(FETCH_MASHT_ETNIA, sagas.fetchMashtEtnia);
-	yield takeLatest(FETCH_MASHT_RAJONI_KOMUNA, sagas.fetchMashtRajoniKomuna);
-	yield takeLatest(FETCH_MASHT_KLASA, sagas.fetchMashtKlasa);
-	yield takeLatest(FETCH_MASHT_QENDRA_BURIMORE_DEMTIMI, sagas.fetchMashtQendraBurimoreDemtimi);
-	yield takeLatest(
-		FETCH_MASHT_QENDRA_BURIMORE_GJENERATA,
-		sagas.fetchMashtQendraBurimoreGjenerata,
-	);
-	yield takeLatest(FETCH_SHKOLLA_RAJONI_KOMUNA, sagas.fetchShkollaRajoniKomuna);
-	yield takeLatest(FETCH_GJINIA_ETNITETI, sagas.fetchGjiniaEtniteti);
-	yield takeLatest(FETCH_NR_NXENESVE_SHKOLLA, sagas.fetchNrNxenesveShkolla);
+	yield takeLatest(FETCH_ALL, sagas.fetchAll);
 };

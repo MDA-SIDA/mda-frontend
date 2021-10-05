@@ -1,10 +1,9 @@
-import React, {useState, useEffect} from "react";
-import {withRouter} from "react-router";
+import React from "react";
 import {connect} from "react-redux";
 import "./index.scss";
 import {useTranslation} from "react-i18next";
+import {isEqual} from "lodash";
 import excl from "../../assets/img/exclamation.svg";
-import {setIndustry, showGraphInitialState} from "./utils";
 import UP from "./UP";
 import ATK from "./ATK";
 import AKK from "./AKK";
@@ -17,18 +16,8 @@ import DOGANA from "./DOGANA";
 import RRUGET from "./RRUGET";
 import MF from "./MF";
 
-const Graphs = ({selectedFilters}) => {
-	const [isEmpty, setIsEmpty] = useState(false);
-	const [showGraph, setShowGraph] = useState(showGraphInitialState);
+const Graphs = ({selectedFilters, isEmpty, showGraph}) => {
 	const {t} = useTranslation();
-
-	useEffect(() => {
-		if (!selectedFilters?.industria?.value) {
-			setIsEmpty(true);
-			setShowGraph(showGraphInitialState);
-		} else setIsEmpty(false);
-		setIndustry(selectedFilters, setShowGraph, showGraph);
-	}, [selectedFilters]);
 
 	return (
 		<div className="content_graphs">
@@ -43,48 +32,16 @@ const Graphs = ({selectedFilters}) => {
 						</p>
 					</div>
 				)}
-				{!isEmpty && showGraph.UP && (
-					<UP filters={selectedFilters} changeIsEmpty={(state) => setIsEmpty(state)} />
-				)}
-				{!isEmpty && showGraph.ATK && (
-					<ATK filters={selectedFilters} changeIsEmpty={(state) => setIsEmpty(state)} />
-				)}
-				{!isEmpty && showGraph.AKK && (
-					<AKK filters={selectedFilters} changeIsEmpty={(state) => setIsEmpty(state)} />
-				)}
-				{!isEmpty && showGraph.ARBK && (
-					<ARBK filters={selectedFilters} changeIsEmpty={(state) => setIsEmpty(state)} />
-				)}
-				{!isEmpty && showGraph.AUV && (
-					<AUV filters={selectedFilters} changeIsEmpty={(state) => setIsEmpty(state)} />
-				)}
-				{!isEmpty && showGraph.MAPL && (
-					<MAPL filters={selectedFilters} changeIsEmpty={(state) => setIsEmpty(state)} />
-				)}
-				{!isEmpty && showGraph.MASHT && (
-					<MASHT filters={selectedFilters} changeIsEmpty={(state) => setIsEmpty(state)} />
-				)}
-				{!isEmpty && showGraph.MF && (
-					<MF filters={selectedFilters} changeIsEmpty={(state) => setIsEmpty(state)} />
-				)}
-				{!isEmpty && showGraph.RRUGET && (
-					<RRUGET
-						filters={selectedFilters}
-						changeIsEmpty={(state) => setIsEmpty(state)}
-					/>
-				)}
-				{!isEmpty && showGraph.MPBZhR && (
-					<MPBZhR
-						filters={selectedFilters}
-						changeIsEmpty={(state) => setIsEmpty(state)}
-					/>
-				)}
-				{!isEmpty && showGraph.DOGANA && (
-					<DOGANA
-						filters={selectedFilters}
-						changeIsEmpty={(state) => setIsEmpty(state)}
-					/>
-				)}
+				{!isEmpty && showGraph === "UP" && <UP filters={selectedFilters} />}
+				{!isEmpty && showGraph === "ATK" && <ATK filters={selectedFilters} />}
+				{!isEmpty && showGraph === "AKK" && <AKK filters={selectedFilters} />}
+				{!isEmpty && showGraph === "ARBK" && <ARBK filters={selectedFilters} />}
+				{!isEmpty && showGraph === "AUV" && <AUV filters={selectedFilters} />}
+				{!isEmpty && showGraph === "MAPL" && <MAPL filters={selectedFilters} />}
+				{!isEmpty && showGraph === "MASHT" && <MASHT filters={selectedFilters} />}
+				{!isEmpty && showGraph === "MF" && <MF filters={selectedFilters} />}
+				{!isEmpty && showGraph === "MPBZhR" && <MPBZhR filters={selectedFilters} />}
+				{!isEmpty && showGraph === "DOGANA" && <DOGANA filters={selectedFilters} />}
 			</div>
 		</div>
 	);
@@ -96,6 +53,21 @@ const mapStateToProps = (state) => ({
 	regjionet: state.app.filters.index.all.regjionet,
 	industrite: state.app.filters.index.all.industrite,
 	selectedFilters: state.app.filters.index.selected,
+	isLoading: state.app.layout.index.loading,
 });
 
-export default connect(mapStateToProps, null)(withRouter(Graphs));
+function propsAreEqual(prev, next) {
+	return (
+		prev.isLoading === next.isLoading &&
+		prev.isEmpty === next.isEmpty &&
+		prev.showGraph === next.showGraph &&
+		isEqual(prev.selectedFilters.industria, next.selectedFilters.industria) &&
+		isEqual(prev.selectedFilters.regjionet, next.selectedFilters.regjionet) &&
+		isEqual(prev.selectedFilters.komunat, next.selectedFilters.komunat) &&
+		isEqual(prev.selectedFilters.vendbanimet, next.selectedFilters.vendbanimet) &&
+		isEqual(prev.selectedFilters.vitet, next.selectedFilters.vitet) &&
+		isEqual(prev.selectedFilters.regime, next.selectedFilters.regime)
+	);
+}
+
+export default connect(mapStateToProps, null)(React.memo(Graphs, propsAreEqual));
