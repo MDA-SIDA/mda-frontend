@@ -3,15 +3,13 @@ import Chart from "@common/Chart";
 import {connect} from "react-redux";
 import {actions} from "@sagas/industries/mf";
 import {groupBy} from "lodash";
+import Loader from "@common/Loader";
 import {getDatasets, sortLabels} from "./utils";
 
-function MF({fetchMF81, fetchMF82, fetchMF83, fetchMF84, mf81, mf82, mf83, mf84}) {
+function MF({mf81, mf82, mf83, mf84, fetchAll, isLoading}) {
 	useEffect(() => {
-		fetchMF81();
-		fetchMF82();
-		fetchMF83();
-		fetchMF84();
-	}, []);
+		fetchAll();
+	}, [fetchAll]);
 
 	const mf81DataSets = getDatasets({
 		items: mf81,
@@ -40,16 +38,19 @@ function MF({fetchMF81, fetchMF82, fetchMF83, fetchMF84, mf81, mf82, mf83, mf84}
 
 	return (
 		<>
-			<Chart
-				title="Shpenzimet sipas programeve"
-				type="bar"
-				data={{
-					labels: sortLabels(Object.keys(groupBy(mf81, "organizata"))),
-					datasets: mf81DataSets,
-				}}
-			/>
-			{/* TODO: uncomment */}
-			{/* <Chart
+			{isLoading && <Loader />}
+			{!isLoading && (
+				<>
+					<Chart
+						title="Shpenzimet sipas programeve"
+						type="bar"
+						data={{
+							labels: sortLabels(Object.keys(groupBy(mf81, "organizata"))),
+							datasets: mf81DataSets,
+						}}
+					/>
+					{/* TODO: uncomment */}
+					{/* <Chart
 				title="Shpenzimet sipas programeve"
 				type="bar"
 				data={{
@@ -57,7 +58,7 @@ function MF({fetchMF81, fetchMF82, fetchMF83, fetchMF84, mf81, mf82, mf83, mf84}
 					datasets: mf82DataSets,
 				}}
 			/> */}
-			{/* <Chart
+					{/* <Chart
 				title="Kapitalet Lokale"
 				type="bar"
 				data={{
@@ -65,23 +66,22 @@ function MF({fetchMF81, fetchMF82, fetchMF83, fetchMF84, mf81, mf82, mf83, mf84}
 					datasets: mf83DataSets,
 				}}
 			/> */}
-			<Chart
-				title="Kapitalet Qendrore"
-				type="bar"
-				data={{
-					labels: sortLabels(Object.keys(groupBy(mf84, "organizata"))),
-					datasets: mf84DataSets,
-				}}
-			/>
+					<Chart
+						title="Kapitalet Qendrore"
+						type="bar"
+						data={{
+							labels: sortLabels(Object.keys(groupBy(mf84, "organizata"))),
+							datasets: mf84DataSets,
+						}}
+					/>
+				</>
+			)}
 		</>
 	);
 }
 
 const mapDispatchToProps = {
-	fetchMF81: actions.fetchMF81,
-	fetchMF82: actions.fetchMF82,
-	fetchMF83: actions.fetchMF83,
-	fetchMF84: actions.fetchMF84,
+	fetchAll: actions.fetchAll,
 };
 
 const mapStateToProps = (state) => ({
@@ -89,6 +89,7 @@ const mapStateToProps = (state) => ({
 	mf82: state.app.industries.mf.mf82,
 	mf83: state.app.industries.mf.mf83,
 	mf84: state.app.industries.mf.mf84,
+	isLoading: state.app.layout.index.loading,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MF);
