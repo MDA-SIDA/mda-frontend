@@ -40,7 +40,6 @@ const Graphs = ({selectedFilters, isEmpty, showGraph}) => {
 				{!isEmpty && showGraph === "MAPL" && <MAPL filters={selectedFilters} />}
 				{!isEmpty && showGraph === "MASHT" && <MASHT filters={selectedFilters} />}
 				{!isEmpty && showGraph === "MF" && <MF filters={selectedFilters} />}
-				{!isEmpty && showGraph === "RRUGET" && <RRUGET filters={selectedFilters} />}
 				{!isEmpty && showGraph === "MPBZhR" && <MPBZhR filters={selectedFilters} />}
 				{!isEmpty && showGraph === "DOGANA" && <DOGANA filters={selectedFilters} />}
 			</div>

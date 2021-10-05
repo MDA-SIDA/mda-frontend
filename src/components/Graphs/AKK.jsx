@@ -4,16 +4,13 @@ import {actions} from "@sagas/industries/akk";
 import Chart from "@common/Chart";
 import PieChart from "@common/Chart/Pie";
 import {groupBy} from "lodash";
+import Loader from "@common/Loader";
 import {getDatasets, sortLabels, getTipiPronesDataset} from "./utils";
 import RRUGET from "./RRUGET";
 
 function AKK({
-	fetchKategoria,
-	fetchPronesia,
-	fetchKlasa,
-	fetchLlojiNdertesesSiperfaqja,
-	fetchLlojiNdertesesNumri,
-	fetchTipiPronesNumri,
+	fetchAll,
+	isLoading,
 	kategoria,
 	pronesia,
 	klasa,
@@ -23,13 +20,8 @@ function AKK({
 	filters,
 }) {
 	useEffect(() => {
-		fetchKategoria(filters);
-		fetchPronesia(filters);
-		fetchKlasa(filters);
-		fetchLlojiNdertesesSiperfaqja(filters);
-		fetchLlojiNdertesesNumri(filters);
-		fetchTipiPronesNumri(filters);
-	}, [filters]);
+		fetchAll(filters);
+	}, [fetchAll, filters]);
 
 	const kategoriaDataSets = getDatasets({
 		filters,
@@ -75,80 +67,86 @@ function AKK({
 
 	return (
 		<>
-			<Chart
-				title="Siperfaqja sipas kategorise"
-				type="bar"
-				data={{
-					labels: sortLabels(Object.keys(groupBy(kategoria, "kategoria"))),
-					datasets: kategoriaDataSets,
-				}}
-			/>
-			<Chart
-				title="Siperfaqja sipas pronesise"
-				type="bar"
-				data={{
-					labels: sortLabels(Object.keys(groupBy(pronesia, "pronesia")))?.map((label) =>
-						label === "NULL" ? "N/A" : label,
-					),
-					datasets: pronesiaDataSets,
-				}}
-			/>
-			<Chart
-				title="Siperfaqja sipas klases"
-				type="bar"
-				data={{
-					labels: sortLabels(Object.keys(groupBy(klasa, "klasa"))),
-					datasets: klasaDataSets,
-				}}
-			/>
-			<Chart
-				title="Siperfaqja sipas llojit te nderteses"
-				type="bar"
-				data={{
-					labels: sortLabels(
-						Object.keys(groupBy(llojiNdertesesSiperfaqja, "llojinderteses")),
-					),
-					datasets: llojiNdertesesSiperfaqjaDataSets,
-				}}
-			/>
-			<Chart
-				title="Numri i ndertesave sipas llojit te nderteses"
-				type="bar"
-				data={{
-					labels: sortLabels(Object.keys(groupBy(llojiNdertesesNumri, "llojinderteses"))),
-					datasets: llojiNdertesesNumriDataSets,
-				}}
-			/>
-			<RRUGET filters={filters} />
-			{tipiPronesNumriData?.map((item, index) => (
-				<PieChart
-					key={`${index} item=index`}
-					title={`Numri i ndertesave sipas tipit te prones${
-						item.label ? `: ${item.label}` : ""
-					}`}
-					data={{
-						labels: ["Shoqerore", "Private", "N/A"],
-						datasets: [
-							{
-								label: item.label,
-								data: [item.data?.shoqerore, item.data?.privat, item.data?.na],
-								backgroundColor: ["#00517D", "#FCCB11", "#02BC77"],
-							},
-						],
-					}}
-				/>
-			))}
+			{isLoading && <Loader />}
+			{!isLoading && (
+				<>
+					<Chart
+						title="Siperfaqja sipas kategorise"
+						type="bar"
+						data={{
+							labels: sortLabels(Object.keys(groupBy(kategoria, "kategoria"))),
+							datasets: kategoriaDataSets,
+						}}
+					/>
+					<Chart
+						title="Siperfaqja sipas pronesise"
+						type="bar"
+						data={{
+							labels: sortLabels(Object.keys(groupBy(pronesia, "pronesia")))?.map(
+								(label) => (label === "NULL" ? "N/A" : label),
+							),
+							datasets: pronesiaDataSets,
+						}}
+					/>
+					<Chart
+						title="Siperfaqja sipas klases"
+						type="bar"
+						data={{
+							labels: sortLabels(Object.keys(groupBy(klasa, "klasa"))),
+							datasets: klasaDataSets,
+						}}
+					/>
+					<Chart
+						title="Siperfaqja sipas llojit te nderteses"
+						type="bar"
+						data={{
+							labels: sortLabels(
+								Object.keys(groupBy(llojiNdertesesSiperfaqja, "llojinderteses")),
+							),
+							datasets: llojiNdertesesSiperfaqjaDataSets,
+						}}
+					/>
+					<Chart
+						title="Numri i ndertesave sipas llojit te nderteses"
+						type="bar"
+						data={{
+							labels: sortLabels(
+								Object.keys(groupBy(llojiNdertesesNumri, "llojinderteses")),
+							),
+							datasets: llojiNdertesesNumriDataSets,
+						}}
+					/>
+					<RRUGET filters={filters} />
+					{tipiPronesNumriData?.map((item, index) => (
+						<PieChart
+							key={`${index} item=index`}
+							title={`Numri i ndertesave sipas tipit te prones${
+								item.label ? `: ${item.label}` : ""
+							}`}
+							data={{
+								labels: ["Shoqerore", "Private", "N/A"],
+								datasets: [
+									{
+										label: item.label,
+										data: [
+											item.data?.shoqerore,
+											item.data?.privat,
+											item.data?.na,
+										],
+										backgroundColor: ["#00517D", "#FCCB11", "#02BC77"],
+									},
+								],
+							}}
+						/>
+					))}
+				</>
+			)}
 		</>
 	);
 }
 
 const mapDispatchToProps = {
-	fetchKategoria: actions.fetchKategoria,
-	fetchPronesia: actions.fetchPronesia,
-	fetchKlasa: actions.fetchKlasa,
-	fetchLlojiNdertesesSiperfaqja: actions.fetchLlojiNdertesesSiperfaqja,
-	fetchLlojiNdertesesNumri: actions.fetchLlojiNdertesesNumri,
-	fetchTipiPronesNumri: actions.fetchTipiPronesNumri,
+	fetchAll: actions.fetchAll,
 };
 const mapStateToProps = (state) => ({
 	kategoria: state.app.industries.akk.kategoria,
@@ -157,6 +155,7 @@ const mapStateToProps = (state) => ({
 	llojiNdertesesSiperfaqja: state.app.industries.akk.llojiNdertesesSiperfaqja,
 	llojiNdertesesNumri: state.app.industries.akk.llojiNdertesesNumri,
 	tipiPronesNumri: state.app.industries.akk.tipiPronesNumri,
+	isLoading: state.app.layout.index.loading,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AKK);
