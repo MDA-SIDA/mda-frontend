@@ -1,10 +1,11 @@
 /* eslint-disable max-len */
 import Logger from "@utils/logger";
 import produce from "immer";
-import {put, takeLatest} from "redux-saga/effects";
+import {put, takeLatest, all, call} from "redux-saga/effects";
 import createAction from "@utils/action-creator";
 import axios from "@utils/axios";
 import {getParams} from "@sagas/utils";
+import {actions as layoutActions} from "@sagas/layout";
 
 const PREFIX = "@app/MPBZHR/index";
 export const FETCH_MPBZHR_MASA_SHUMA_PAGUAR = `${PREFIX}FETCH_MPBZHR_MASA_SHUMA_PAGUAR`;
@@ -60,6 +61,7 @@ export const FETCH_MPBZHR_VITI_2019_PULAVOJSE_M = `${PREFIX}FETCH_MPBZHR_VITI_20
 export const FETCH_MPBZHR_VITI_2019_PULAVOJSE_M_SUCCESS = `${PREFIX}FETCH_MPBZHR_VITI_2019_PULAVOJSE_M_SUCCESS`;
 export const FETCH_MPBZHR_VITI_2019_THELLEZA_M = `${PREFIX}FETCH_MPBZHR_VITI_2019_THELLEZA_M`;
 export const FETCH_MPBZHR_VITI_2019_THELLEZA_M_SUCCESS = `${PREFIX}FETCH_MPBZHR_VITI_2019_THELLEZA_M_SUCCESS`;
+export const FETCH_ALL = `${PREFIX}FETCH_ALL`;
 
 const logger = new Logger("Saga>MPBZHR>Index");
 const _state = {
@@ -287,6 +289,7 @@ export const actions = {
 		createAction(FETCH_MPBZHR_VITI_2019_THELLEZA_M, {payload}),
 	fetchMpbzhrViti2019ThellezaMSuccess: (payload) =>
 		createAction(FETCH_MPBZHR_VITI_2019_THELLEZA_M_SUCCESS, {payload}),
+	fetchAll: (payload) => createAction(FETCH_ALL, {payload}),
 };
 
 export const sagas = {
@@ -299,6 +302,7 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchMpbzhrMasaShumaPaguarSuccess(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
@@ -312,6 +316,7 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchMpbzhrVitiHaSuccess(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
@@ -325,6 +330,7 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchMpbzhrVitiKoshereSuccess(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
@@ -338,6 +344,7 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchMpbzhrVitiKrereSuccess(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
@@ -351,6 +358,7 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchMpbzhrVitiLiterSuccess(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
@@ -364,6 +372,7 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchMpbzhrVitiPulavojseSuccess(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
@@ -377,6 +386,7 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchMpbzhrVitiThellezaSuccess(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
@@ -391,6 +401,7 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchMpbzhrViti2019HaSuccess(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
@@ -404,6 +415,7 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchMpbzhrViti2019KoshereSuccess(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
@@ -417,6 +429,7 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchMpbzhrViti2019KrereSuccess(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
@@ -430,6 +443,7 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchMpbzhrViti2019LiterSuccess(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
@@ -443,6 +457,7 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchMpbzhrViti2019PulavojseSuccess(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
@@ -456,6 +471,7 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchMpbzhrViti2019ThellezaSuccess(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
@@ -470,6 +486,7 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchMpbzhrViti2019HaFSuccess(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
@@ -483,6 +500,7 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchMpbzhrViti2019KoshereFSuccess(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
@@ -496,6 +514,7 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchMpbzhrViti2019KrereFSuccess(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
@@ -509,6 +528,7 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchMpbzhrViti2019LiterFSuccess(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
@@ -522,6 +542,7 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchMpbzhrViti2019PulavojseFSuccess(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
@@ -535,6 +556,7 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchMpbzhrViti2019ThellezaFSuccess(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
@@ -549,6 +571,7 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchMpbzhrViti2019HaMSuccess(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
@@ -562,6 +585,7 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchMpbzhrViti2019KoshereMSuccess(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
@@ -575,6 +599,7 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchMpbzhrViti2019KrereMSuccess(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
@@ -588,6 +613,7 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchMpbzhrViti2019LiterMSuccess(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
@@ -601,6 +627,7 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchMpbzhrViti2019PulavojseMSuccess(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
@@ -614,39 +641,47 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchMpbzhrViti2019ThellezaMSuccess(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
 	},
+	*fetchAll({payload}) {
+		yield put(layoutActions.setLoading(true));
+		yield all([
+			call(sagas.fetchMpbzhrMasaShumaPaguar, {payload}),
+			call(sagas.fetchMpbzhrVitiHa, {payload}),
+			call(sagas.fetchMpbzhrVitiKoshere, {payload}),
+			call(sagas.fetchMpbzhrVitiKrere, {payload}),
+			call(sagas.fetchMpbzhrVitiLiter, {payload}),
+			call(sagas.fetchMpbzhrVitiPulavojse, {payload}),
+			call(sagas.fetchMpbzhrVitiThelleza, {payload}),
+
+			call(sagas.fetchMpbzhrViti2019Ha, {payload}),
+			call(sagas.fetchMpbzhrViti2019Koshere, {payload}),
+			call(sagas.fetchMpbzhrViti2019Krere, {payload}),
+			call(sagas.fetchMpbzhrViti2019Liter, {payload}),
+			call(sagas.fetchMpbzhrViti2019Pulavojse, {payload}),
+			call(sagas.fetchMpbzhrViti2019Thelleza, {payload}),
+
+			call(sagas.fetchMpbzhrViti2019HaF, {payload}),
+			call(sagas.fetchMpbzhrViti2019KoshereF, {payload}),
+			call(sagas.fetchMpbzhrViti2019KrereF, {payload}),
+			call(sagas.fetchMpbzhrViti2019LiterF, {payload}),
+			call(sagas.fetchMpbzhrViti2019PulavojseF, {payload}),
+			call(sagas.fetchMpbzhrViti2019ThellezaF, {payload}),
+
+			call(sagas.fetchMpbzhrViti2019HaM, {payload}),
+			call(sagas.fetchMpbzhrViti2019KoshereM, {payload}),
+			call(sagas.fetchMpbzhrViti2019KrereM, {payload}),
+			call(sagas.fetchMpbzhrViti2019LiterM, {payload}),
+			call(sagas.fetchMpbzhrViti2019PulavojseM, {payload}),
+			call(sagas.fetchMpbzhrViti2019ThellezaM, {payload}),
+		]);
+		yield put(layoutActions.setLoading(false));
+	},
 };
 
 export const watcher = function* w() {
-	yield takeLatest(FETCH_MPBZHR_MASA_SHUMA_PAGUAR, sagas.fetchMpbzhrMasaShumaPaguar);
-	yield takeLatest(FETCH_MPBZHR_VITI_HA, sagas.fetchMpbzhrVitiHa);
-	yield takeLatest(FETCH_MPBZHR_VITI_KOSHERE, sagas.fetchMpbzhrVitiKoshere);
-	yield takeLatest(FETCH_MPBZHR_VITI_KRERE, sagas.fetchMpbzhrVitiKrere);
-	yield takeLatest(FETCH_MPBZHR_VITI_LITER, sagas.fetchMpbzhrVitiLiter);
-	yield takeLatest(FETCH_MPBZHR_VITI_PULAVOJSE, sagas.fetchMpbzhrVitiPulavojse);
-	yield takeLatest(FETCH_MPBZHR_VITI_THELLEZA, sagas.fetchMpbzhrVitiThelleza);
-
-	yield takeLatest(FETCH_MPBZHR_VITI_2019_HA, sagas.fetchMpbzhrViti2019Ha);
-	yield takeLatest(FETCH_MPBZHR_VITI_2019_KOSHERE, sagas.fetchMpbzhrViti2019Koshere);
-	yield takeLatest(FETCH_MPBZHR_VITI_2019_KRERE, sagas.fetchMpbzhrViti2019Krere);
-	yield takeLatest(FETCH_MPBZHR_VITI_2019_LITER, sagas.fetchMpbzhrViti2019Liter);
-	yield takeLatest(FETCH_MPBZHR_VITI_2019_PULAVOJSE, sagas.fetchMpbzhrViti2019Pulavojse);
-	yield takeLatest(FETCH_MPBZHR_VITI_2019_THELLEZA, sagas.fetchMpbzhrViti2019Thelleza);
-
-	yield takeLatest(FETCH_MPBZHR_VITI_2019_HA_F, sagas.fetchMpbzhrViti2019HaF);
-	yield takeLatest(FETCH_MPBZHR_VITI_2019_KOSHERE_F, sagas.fetchMpbzhrViti2019KoshereF);
-	yield takeLatest(FETCH_MPBZHR_VITI_2019_KRERE_F, sagas.fetchMpbzhrViti2019KrereF);
-	yield takeLatest(FETCH_MPBZHR_VITI_2019_LITER_F, sagas.fetchMpbzhrViti2019LiterF);
-	yield takeLatest(FETCH_MPBZHR_VITI_2019_PULAVOJSE_F, sagas.fetchMpbzhrViti2019PulavojseF);
-	yield takeLatest(FETCH_MPBZHR_VITI_2019_THELLEZA_F, sagas.fetchMpbzhrViti2019ThellezaF);
-
-	yield takeLatest(FETCH_MPBZHR_VITI_2019_HA_M, sagas.fetchMpbzhrViti2019HaM);
-	yield takeLatest(FETCH_MPBZHR_VITI_2019_KOSHERE_M, sagas.fetchMpbzhrViti2019KoshereM);
-	yield takeLatest(FETCH_MPBZHR_VITI_2019_KRERE_M, sagas.fetchMpbzhrViti2019KrereM);
-	yield takeLatest(FETCH_MPBZHR_VITI_2019_LITER_M, sagas.fetchMpbzhrViti2019LiterM);
-	yield takeLatest(FETCH_MPBZHR_VITI_2019_PULAVOJSE_M, sagas.fetchMpbzhrViti2019PulavojseM);
-	yield takeLatest(FETCH_MPBZHR_VITI_2019_THELLEZA_M, sagas.fetchMpbzhrViti2019ThellezaM);
+	yield takeLatest(FETCH_ALL, sagas.fetchAll);
 };

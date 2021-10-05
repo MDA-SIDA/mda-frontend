@@ -4,17 +4,13 @@ import {actions} from "@sagas/industries/mpbzhr";
 import Chart from "@common/Chart";
 import {groupBy} from "lodash";
 import Card from "@common/Card";
+import Loader from "@common/Loader";
 import {getDatasets, sortLabels} from "./utils";
 
 function MPBZhR({
 	filters,
-	fetchMpbzhrMasaShumaPaguar,
-	fetchMpbzhrVitiHa,
-	fetchMpbzhrVitiKoshere,
-	fetchMpbzhrVitiKrere,
-	fetchMpbzhrVitiLiter,
-	fetchMpbzhrVitiPulavojse,
-	fetchMpbzhrVitiThelleza,
+	fetchAll,
+	isLoading,
 	mpbzhrMasaShumaPaguar,
 	mpbzhrVitiHa,
 	mpbzhrVitiKoshere,
@@ -23,12 +19,6 @@ function MPBZhR({
 	mpbzhrVitiPulavojse,
 	mpbzhrVitiThelleza,
 
-	fetchMpbzhrViti2019Ha,
-	fetchMpbzhrViti2019Koshere,
-	fetchMpbzhrViti2019Krere,
-	fetchMpbzhrViti2019Liter,
-	fetchMpbzhrViti2019Pulavojse,
-	fetchMpbzhrViti2019Thelleza,
 	mpbzhrViti2019Ha,
 	mpbzhrViti2019Koshere,
 	mpbzhrViti2019Krere,
@@ -36,12 +26,6 @@ function MPBZhR({
 	mpbzhrViti2019Pulavojse,
 	mpbzhrViti2019Thelleza,
 
-	fetchMpbzhrViti2019HaF,
-	fetchMpbzhrViti2019KoshereF,
-	fetchMpbzhrViti2019KrereF,
-	fetchMpbzhrViti2019LiterF,
-	fetchMpbzhrViti2019PulavojseF,
-	fetchMpbzhrViti2019ThellezaF,
 	mpbzhrViti2019HaF,
 	mpbzhrViti2019KoshereF,
 	mpbzhrViti2019KrereF,
@@ -49,12 +33,6 @@ function MPBZhR({
 	mpbzhrViti2019PulavojseF,
 	mpbzhrViti2019ThellezaF,
 
-	fetchMpbzhrViti2019HaM,
-	fetchMpbzhrViti2019KoshereM,
-	fetchMpbzhrViti2019KrereM,
-	fetchMpbzhrViti2019LiterM,
-	fetchMpbzhrViti2019PulavojseM,
-	fetchMpbzhrViti2019ThellezaM,
 	mpbzhrViti2019HaM,
 	mpbzhrViti2019KoshereM,
 	mpbzhrViti2019KrereM,
@@ -63,41 +41,8 @@ function MPBZhR({
 	mpbzhrViti2019ThellezaM,
 }) {
 	useEffect(() => {
-		fetchMpbzhrMasaShumaPaguar(filters);
-		fetchMpbzhrVitiHa(filters);
-		fetchMpbzhrVitiKoshere(filters);
-		fetchMpbzhrVitiKrere(filters);
-		fetchMpbzhrVitiLiter(filters);
-		fetchMpbzhrVitiPulavojse(filters);
-		fetchMpbzhrVitiThelleza(filters);
-	}, [filters]);
-
-	useEffect(() => {
-		fetchMpbzhrViti2019Ha(filters);
-		fetchMpbzhrViti2019Koshere(filters);
-		fetchMpbzhrViti2019Krere(filters);
-		fetchMpbzhrViti2019Liter(filters);
-		fetchMpbzhrViti2019Pulavojse(filters);
-		fetchMpbzhrViti2019Thelleza(filters);
-	}, [filters]);
-
-	useEffect(() => {
-		fetchMpbzhrViti2019HaF(filters);
-		fetchMpbzhrViti2019KoshereF(filters);
-		fetchMpbzhrViti2019KrereF(filters);
-		fetchMpbzhrViti2019LiterF(filters);
-		fetchMpbzhrViti2019PulavojseF(filters);
-		fetchMpbzhrViti2019ThellezaF(filters);
-	}, [filters]);
-
-	useEffect(() => {
-		fetchMpbzhrViti2019HaM(filters);
-		fetchMpbzhrViti2019KoshereM(filters);
-		fetchMpbzhrViti2019KrereM(filters);
-		fetchMpbzhrViti2019LiterM(filters);
-		fetchMpbzhrViti2019PulavojseM(filters);
-		fetchMpbzhrViti2019ThellezaM(filters);
-	}, [filters]);
+		fetchAll(filters);
+	}, [fetchAll, filters]);
 
 	const mpbzhrMasaShumaPaguarDataSets = getDatasets({
 		filters,
@@ -304,125 +249,124 @@ function MPBZhR({
 
 	return (
 		<>
-			<Chart
-				title="Shuma e paguar sipas mases"
-				type="bar"
-				data={{
-					labels: sortLabels(Object.keys(groupBy(mpbzhrMasaShumaPaguar, "masa"))),
-					datasets: mpbzhrMasaShumaPaguarDataSets,
-				}}
-			/>
-			<Chart
-				title="Ha"
-				type="line"
-				data={{
-					labels: sortLabels(Object.keys(groupBy(mpbzhrVitiHa, "viti"))),
-					datasets: mpbzhrVitiHaDataSets,
-				}}
-			/>
-			<Chart
-				title="Koshere"
-				type="line"
-				data={{
-					labels: sortLabels(Object.keys(groupBy(mpbzhrVitiKoshere, "viti"))),
-					datasets: mpbzhrVitiKoshereDataSets,
-				}}
-			/>
-			<Chart
-				title="Krere"
-				type="line"
-				data={{
-					labels: sortLabels(Object.keys(groupBy(mpbzhrVitiKrere, "viti"))),
-					datasets: mpbzhrVitiKrereDataSets,
-				}}
-			/>
-			<Chart
-				title="Liter"
-				type="line"
-				data={{
-					labels: sortLabels(Object.keys(groupBy(mpbzhrVitiLiter, "viti"))),
-					datasets: mpbzhrVitiLiterDataSets,
-				}}
-			/>
-			<Chart
-				title="Pulavojse"
-				type="line"
-				data={{
-					labels: sortLabels(Object.keys(groupBy(mpbzhrVitiPulavojse, "viti"))),
-					datasets: mpbzhrVitiPulavojseDataSets,
-				}}
-			/>
-			<Chart
-				title="Thelleza"
-				type="line"
-				data={{
-					labels: sortLabels(Object.keys(groupBy(mpbzhrVitiThelleza, "viti"))),
-					datasets: mpbzhrVitiThellezaDataSets,
-				}}
-			/>
-			{mpbzhrViti2019Ha && (
-				<div className="exclude">
-					<Item title="HA - 2019" items={mpbzhrViti2019HaDataSets} />
-					<Item title="Koshere - 2019" items={mpbzhrViti2019KoshereDataSets} />
-					<Item title="Krere - 2019" items={mpbzhrViti2019KrereDataSets} />
-					<Item title="Liter - 2019" items={mpbzhrViti2019LiterDataSets} />
-					<Item title="Pulavojse - 2019" items={mpbzhrViti2019PulavojseDataSets} />
-					<Item title="Thelleza - 2019" items={mpbzhrViti2019ThellezaDataSets} />
-				</div>
-			)}
-			{mpbzhrViti2019HaF && (
-				<div className="exclude">
-					<Item title="HA - 2019 - F" items={mpbzhrViti2019HaFDataSets} />
-					<Item title="Koshere - 2019 - F" items={mpbzhrViti2019KoshereFDataSets} />
-					<Item title="Krere - 2019 - F" items={mpbzhrViti2019KrereFDataSets} />
-					<Item title="Liter - 2019 - F" items={mpbzhrViti2019LiterFDataSets} />
-					<Item title="Pulavojse - 2019 - F" items={mpbzhrViti2019PulavojseFDataSets} />
-					<Item title="Thelleza - 2019 - F" items={mpbzhrViti2019ThellezaFDataSets} />
-				</div>
-			)}
-			{mpbzhrViti2019HaM && (
-				<div className="exclude">
-					<Item title="HA - 2019 - M" items={mpbzhrViti2019HaMDataSets} />
-					<Item title="Koshere - 2019 - M" items={mpbzhrViti2019KoshereMDataSets} />
-					<Item title="Krere - 2019 - M" items={mpbzhrViti2019KrereMDataSets} />
-					<Item title="Liter - 2019 - M" items={mpbzhrViti2019LiterMDataSets} />
-					<Item title="Pulavojse - 2019 - M" items={mpbzhrViti2019PulavojseMDataSets} />
-					<Item title="Thelleza - 2019 - M" items={mpbzhrViti2019ThellezaMDataSets} />
-				</div>
+			{isLoading && <Loader />}
+			{!isLoading && (
+				<>
+					<Chart
+						title="Shuma e paguar sipas mases"
+						type="bar"
+						data={{
+							labels: sortLabels(Object.keys(groupBy(mpbzhrMasaShumaPaguar, "masa"))),
+							datasets: mpbzhrMasaShumaPaguarDataSets,
+						}}
+					/>
+					<Chart
+						title="Ha"
+						type="line"
+						data={{
+							labels: sortLabels(Object.keys(groupBy(mpbzhrVitiHa, "viti"))),
+							datasets: mpbzhrVitiHaDataSets,
+						}}
+					/>
+					<Chart
+						title="Koshere"
+						type="line"
+						data={{
+							labels: sortLabels(Object.keys(groupBy(mpbzhrVitiKoshere, "viti"))),
+							datasets: mpbzhrVitiKoshereDataSets,
+						}}
+					/>
+					<Chart
+						title="Krere"
+						type="line"
+						data={{
+							labels: sortLabels(Object.keys(groupBy(mpbzhrVitiKrere, "viti"))),
+							datasets: mpbzhrVitiKrereDataSets,
+						}}
+					/>
+					<Chart
+						title="Liter"
+						type="line"
+						data={{
+							labels: sortLabels(Object.keys(groupBy(mpbzhrVitiLiter, "viti"))),
+							datasets: mpbzhrVitiLiterDataSets,
+						}}
+					/>
+					<Chart
+						title="Pulavojse"
+						type="line"
+						data={{
+							labels: sortLabels(Object.keys(groupBy(mpbzhrVitiPulavojse, "viti"))),
+							datasets: mpbzhrVitiPulavojseDataSets,
+						}}
+					/>
+					<Chart
+						title="Thelleza"
+						type="line"
+						data={{
+							labels: sortLabels(Object.keys(groupBy(mpbzhrVitiThelleza, "viti"))),
+							datasets: mpbzhrVitiThellezaDataSets,
+						}}
+					/>
+					{mpbzhrViti2019Ha && (
+						<div className="exclude">
+							<Item title="HA - 2019" items={mpbzhrViti2019HaDataSets} />
+							<Item title="Koshere - 2019" items={mpbzhrViti2019KoshereDataSets} />
+							<Item title="Krere - 2019" items={mpbzhrViti2019KrereDataSets} />
+							<Item title="Liter - 2019" items={mpbzhrViti2019LiterDataSets} />
+							<Item
+								title="Pulavojse - 2019"
+								items={mpbzhrViti2019PulavojseDataSets}
+							/>
+							<Item title="Thelleza - 2019" items={mpbzhrViti2019ThellezaDataSets} />
+						</div>
+					)}
+					{mpbzhrViti2019HaF && (
+						<div className="exclude">
+							<Item title="HA - 2019 - F" items={mpbzhrViti2019HaFDataSets} />
+							<Item
+								title="Koshere - 2019 - F"
+								items={mpbzhrViti2019KoshereFDataSets}
+							/>
+							<Item title="Krere - 2019 - F" items={mpbzhrViti2019KrereFDataSets} />
+							<Item title="Liter - 2019 - F" items={mpbzhrViti2019LiterFDataSets} />
+							<Item
+								title="Pulavojse - 2019 - F"
+								items={mpbzhrViti2019PulavojseFDataSets}
+							/>
+							<Item
+								title="Thelleza - 2019 - F"
+								items={mpbzhrViti2019ThellezaFDataSets}
+							/>
+						</div>
+					)}
+					{mpbzhrViti2019HaM && (
+						<div className="exclude">
+							<Item title="HA - 2019 - M" items={mpbzhrViti2019HaMDataSets} />
+							<Item
+								title="Koshere - 2019 - M"
+								items={mpbzhrViti2019KoshereMDataSets}
+							/>
+							<Item title="Krere - 2019 - M" items={mpbzhrViti2019KrereMDataSets} />
+							<Item title="Liter - 2019 - M" items={mpbzhrViti2019LiterMDataSets} />
+							<Item
+								title="Pulavojse - 2019 - M"
+								items={mpbzhrViti2019PulavojseMDataSets}
+							/>
+							<Item
+								title="Thelleza - 2019 - M"
+								items={mpbzhrViti2019ThellezaMDataSets}
+							/>
+						</div>
+					)}
+				</>
 			)}
 		</>
 	);
 }
 
 const mapDispatchToProps = {
-	fetchMpbzhrMasaShumaPaguar: actions.fetchMpbzhrMasaShumaPaguar,
-	fetchMpbzhrVitiHa: actions.fetchMpbzhrVitiHa,
-	fetchMpbzhrVitiKoshere: actions.fetchMpbzhrVitiKoshere,
-	fetchMpbzhrVitiKrere: actions.fetchMpbzhrVitiKrere,
-	fetchMpbzhrVitiLiter: actions.fetchMpbzhrVitiLiter,
-	fetchMpbzhrVitiPulavojse: actions.fetchMpbzhrVitiPulavojse,
-	fetchMpbzhrVitiThelleza: actions.fetchMpbzhrVitiThelleza,
-
-	fetchMpbzhrViti2019Ha: actions.fetchMpbzhrViti2019Ha,
-	fetchMpbzhrViti2019Koshere: actions.fetchMpbzhrViti2019Koshere,
-	fetchMpbzhrViti2019Krere: actions.fetchMpbzhrViti2019Krere,
-	fetchMpbzhrViti2019Liter: actions.fetchMpbzhrViti2019Liter,
-	fetchMpbzhrViti2019Pulavojse: actions.fetchMpbzhrViti2019Pulavojse,
-	fetchMpbzhrViti2019Thelleza: actions.fetchMpbzhrViti2019Thelleza,
-
-	fetchMpbzhrViti2019HaF: actions.fetchMpbzhrViti2019HaF,
-	fetchMpbzhrViti2019KoshereF: actions.fetchMpbzhrViti2019KoshereF,
-	fetchMpbzhrViti2019KrereF: actions.fetchMpbzhrViti2019KrereF,
-	fetchMpbzhrViti2019LiterF: actions.fetchMpbzhrViti2019LiterF,
-	fetchMpbzhrViti2019PulavojseF: actions.fetchMpbzhrViti2019PulavojseF,
-	fetchMpbzhrViti2019ThellezaF: actions.fetchMpbzhrViti2019ThellezaF,
-
-	fetchMpbzhrViti2019HaM: actions.fetchMpbzhrViti2019HaM,
-	fetchMpbzhrViti2019KoshereM: actions.fetchMpbzhrViti2019KoshereM,
-	fetchMpbzhrViti2019KrereM: actions.fetchMpbzhrViti2019KrereM,
-	fetchMpbzhrViti2019LiterM: actions.fetchMpbzhrViti2019LiterM,
-	fetchMpbzhrViti2019PulavojseM: actions.fetchMpbzhrViti2019PulavojseM,
-	fetchMpbzhrViti2019ThellezaM: actions.fetchMpbzhrViti2019ThellezaM,
+	fetchAll: actions.fetchAll,
 };
 const mapStateToProps = (state) => ({
 	mpbzhrMasaShumaPaguar: state.app.industries.mpbzhr.mpbzhrMasaShumaPaguar,
@@ -453,6 +397,7 @@ const mapStateToProps = (state) => ({
 	mpbzhrViti2019LiterM: state.app.industries.mpbzhr.mpbzhrViti2019LiterM,
 	mpbzhrViti2019PulavojseM: state.app.industries.mpbzhr.mpbzhrViti2019PulavojseM,
 	mpbzhrViti2019ThellezaM: state.app.industries.mpbzhr.mpbzhrViti2019ThellezaM,
+	isLoading: state.app.layout.index.loading,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MPBZhR);
