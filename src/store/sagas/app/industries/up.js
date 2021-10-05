@@ -1,10 +1,11 @@
 /* eslint-disable max-len */
 import Logger from "@utils/logger";
 import produce from "immer";
-import {put, takeLatest} from "redux-saga/effects";
+import {put, takeLatest, all, call} from "redux-saga/effects";
 import createAction from "@utils/action-creator";
 import axios from "@utils/axios";
 import {getParams} from "@sagas/utils";
+import {actions as layoutActions} from "@sagas/layout";
 
 const PREFIX = "@app/UP/index";
 export const FETCH_STATUSI = `${PREFIX}FETCH_STATUSI`;
@@ -29,6 +30,7 @@ export const FETCH_KOMUNA_NOTA_MESATARE = `${PREFIX}FETCH_KOMUNA_NOTA_MESATARE`;
 export const FETCH_KOMUNA_NOTA_MESATARE_SUCCESS = `${PREFIX}FETCH_KOMUNA_NOTA_MESATARE_SUCCESS`;
 export const FETCH_KOMBI_NOTA_MESATARE = `${PREFIX}FETCH_KOMBI_NOTA_MESATARE`;
 export const FETCH_KOMBI_NOTA_MESATARE_SUCCESS = `${PREFIX}FETCH_KOMBI_NOTA_MESATARE_SUCCESS`;
+export const FETCH_ALL = `${PREFIX}FETCH_ALL`;
 
 const logger = new Logger("Saga>UP>Index");
 const _state = {
@@ -127,6 +129,7 @@ export const actions = {
 	fetchKombiNotaMesatare: (payload) => createAction(FETCH_KOMBI_NOTA_MESATARE, {payload}),
 	fetchKombiNotaMesatareSuccess: (payload) =>
 		createAction(FETCH_KOMBI_NOTA_MESATARE_SUCCESS, {payload}),
+	fetchAll: (payload) => createAction(FETCH_ALL, {payload}),
 };
 
 export const sagas = {
@@ -139,6 +142,7 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchStatusiSuccess(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
@@ -152,6 +156,7 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchNiveliSuccess(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
@@ -165,6 +170,7 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchKombiNumriStudenteveSuccess(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
@@ -178,6 +184,7 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchGjiniaSuccess(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
@@ -191,6 +198,7 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchFakultetiNumriStudenteveSuccess(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
@@ -204,6 +212,7 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchVitiDiplomimitSuccess(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
@@ -217,6 +226,7 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchKomunaNumriStudenteveSuccess(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
@@ -230,6 +240,7 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchDiplomuarSuccess(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
@@ -243,6 +254,7 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchFakultetiNotaMesatareSuccess(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
@@ -256,6 +268,7 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchKomunaNotaMesatareSuccess(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
@@ -269,22 +282,30 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchKombiNotaMesatareSuccess(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
 	},
+	*fetchAll({payload}) {
+		yield put(layoutActions.setLoading(true));
+		yield all([
+			call(sagas.fetchStatusi, {payload}),
+			call(sagas.fetchNiveli, {payload}),
+			call(sagas.fetchKombiNumriStudenteve, {payload}),
+			call(sagas.fetchGjinia, {payload}),
+			call(sagas.fetchFakultetiNumriStudenteve, {payload}),
+			call(sagas.fetchVitiDiplomimit, {payload}),
+			call(sagas.fetchKomunaNumriStudenteve, {payload}),
+			call(sagas.fetchDiplomuar, {payload}),
+			call(sagas.fetchFakultetiNotaMesatare, {payload}),
+			call(sagas.fetchKomunaNotaMesatare, {payload}),
+			call(sagas.fetchKombiNotaMesatare, {payload}),
+		]);
+		yield put(layoutActions.setLoading(false));
+	},
 };
 
 export const watcher = function* w() {
-	yield takeLatest(FETCH_STATUSI, sagas.fetchStatusi);
-	yield takeLatest(FETCH_NIVELI, sagas.fetchNiveli);
-	yield takeLatest(FETCH_KOMBI_NUMRI_STUDENTEVE, sagas.fetchKombiNumriStudenteve);
-	yield takeLatest(FETCH_GJINIA, sagas.fetchGjinia);
-	yield takeLatest(FETCH_FAKULTETI_NUMRI_STUDENTEVE, sagas.fetchFakultetiNumriStudenteve);
-	yield takeLatest(FETCH_VITI_DIPLOMIMIT, sagas.fetchVitiDiplomimit);
-	yield takeLatest(FETCH_KOMUNA_NUMRI_STUDENTEVE, sagas.fetchKomunaNumriStudenteve);
-	yield takeLatest(FETCH_DIPLOMUAR, sagas.fetchDiplomuar);
-	yield takeLatest(FETCH_FAKULTETI_NOTA_MESATARE, sagas.fetchFakultetiNotaMesatare);
-	yield takeLatest(FETCH_KOMUNA_NOTA_MESATARE, sagas.fetchKomunaNotaMesatare);
-	yield takeLatest(FETCH_KOMBI_NOTA_MESATARE, sagas.fetchKombiNotaMesatare);
+	yield takeLatest(FETCH_ALL, sagas.fetchAll);
 };
