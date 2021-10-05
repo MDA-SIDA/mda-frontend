@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from "react";
-import {withRouter} from "react-router";
 import {connect} from "react-redux";
 import "./index.scss";
 import Header from "@components/Header";
@@ -8,10 +7,11 @@ import Filters from "@components/Filters";
 import Graphs from "@components/Graphs";
 import SideDrawer from "@components/Sidedrawer";
 import useWindowDimensions from "@utils/use_window_dimensions";
+import {isEqual} from "lodash";
 
 const Home = ({selectedFilters}) => {
 	const [sideDrawerIsVisible, setSideDrawerIsVisible] = useState(false);
-	const [isEmpty, setIsEmpty] = useState(false);
+	const [isEmpty, setIsEmpty] = useState(true);
 	const [showGraph, setShowGraph] = useState(null);
 	const {width} = useWindowDimensions();
 
@@ -30,6 +30,7 @@ const Home = ({selectedFilters}) => {
 			setShowGraph(selectedFilters?.industria?.value);
 		}
 	}, [selectedFilters?.industria?.value]);
+
 	return (
 		<div className="container">
 			<Header />
@@ -56,4 +57,15 @@ const mapStateToProps = (state) => ({
 	selectedFilters: state.app.filters.index.selected,
 });
 
-export default connect(mapStateToProps, null)(withRouter(Home));
+export default connect(mapStateToProps, null)(React.memo(Home, propsAreEqual));
+
+function propsAreEqual(prev, next) {
+	return (
+		isEqual(prev.selectedFilters.industria, next.selectedFilters.industria) &&
+		isEqual(prev.selectedFilters.regjionet, next.selectedFilters.regjionet) &&
+		isEqual(prev.selectedFilters.komunat, next.selectedFilters.komunat) &&
+		isEqual(prev.selectedFilters.vendbanimet, next.selectedFilters.vendbanimet) &&
+		isEqual(prev.selectedFilters.vitet, next.selectedFilters.vitet) &&
+		isEqual(prev.selectedFilters.regime, next.selectedFilters.regime)
+	);
+}

@@ -1,9 +1,10 @@
 /* eslint-disable max-len */
 import Logger from "@utils/logger";
 import produce from "immer";
-import {put, takeLatest} from "redux-saga/effects";
+import {put, takeLatest, all, call} from "redux-saga/effects";
 import createAction from "@utils/action-creator";
 import axios from "@utils/axios";
+import {actions as layoutActions} from "@sagas/layout";
 import {getParams} from "../utils";
 
 const PREFIX = "@app/DOGANA/index";
@@ -17,6 +18,7 @@ export const FETCH_DOGANA_73 = `${PREFIX}FETCH_DOGANA_73`;
 export const FETCH_DOGANA_73_SUCCESS = `${PREFIX}FETCH_DOGANA_73_SUCCESS`;
 export const FETCH_DOGANA_74 = `${PREFIX}FETCH_DOGANA_74`;
 export const FETCH_DOGANA_74_SUCCESS = `${PREFIX}FETCH_DOGANA_74_SUCCESS`;
+export const FETCH_ALL = `${PREFIX}FETCH_ALL`;
 
 const logger = new Logger("Saga>DOGANA>Index");
 const _state = {
@@ -67,6 +69,7 @@ export const actions = {
 	fetchDogana73Success: (payload) => createAction(FETCH_DOGANA_73_SUCCESS, {payload}),
 	fetchDogana74: (payload) => createAction(FETCH_DOGANA_74, {payload}),
 	fetchDogana74Success: (payload) => createAction(FETCH_DOGANA_74_SUCCESS, {payload}),
+	fetchAll: (payload) => createAction(FETCH_ALL, {payload}),
 };
 
 export const sagas = {
@@ -79,6 +82,7 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchDogana70Success(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
@@ -92,6 +96,7 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchDogana71Success(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
@@ -105,6 +110,7 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchDogana72Success(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
@@ -118,6 +124,7 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchDogana73Success(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
@@ -131,16 +138,24 @@ export const sagas = {
 			);
 
 			yield put(actions.fetchDogana74Success(response?.data));
+			return response.data;
 		} catch (error) {
 			logger.error(error);
 		}
 	},
+	*fetchAll({payload}) {
+		yield put(layoutActions.setLoading(true));
+		yield all([
+			call(sagas.fetchDogana70, {payload}),
+			call(sagas.fetchDogana71, {payload}),
+			call(sagas.fetchDogana72, {payload}),
+			call(sagas.fetchDogana73, {payload}),
+			call(sagas.fetchDogana74, {payload}),
+		]);
+		yield put(layoutActions.setLoading(false));
+	},
 };
 
 export const watcher = function* w() {
-	yield takeLatest(FETCH_DOGANA_70, sagas.fetchDogana70);
-	yield takeLatest(FETCH_DOGANA_71, sagas.fetchDogana71);
-	yield takeLatest(FETCH_DOGANA_72, sagas.fetchDogana72);
-	yield takeLatest(FETCH_DOGANA_73, sagas.fetchDogana73);
-	yield takeLatest(FETCH_DOGANA_74, sagas.fetchDogana74);
+	yield takeLatest(FETCH_ALL, sagas.fetchAll);
 };

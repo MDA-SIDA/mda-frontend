@@ -1,8 +1,8 @@
 import React from "react";
-import {withRouter} from "react-router";
 import {connect} from "react-redux";
 import "./index.scss";
 import {useTranslation} from "react-i18next";
+import {isEqual} from "lodash";
 import excl from "../../assets/img/exclamation.svg";
 import UP from "./UP";
 import ATK from "./ATK";
@@ -54,6 +54,21 @@ const mapStateToProps = (state) => ({
 	regjionet: state.app.filters.index.all.regjionet,
 	industrite: state.app.filters.index.all.industrite,
 	selectedFilters: state.app.filters.index.selected,
+	isLoading: state.app.layout.index.loading,
 });
 
-export default connect(mapStateToProps, null)(withRouter(Graphs));
+function propsAreEqual(prev, next) {
+	return (
+		prev.isLoading === next.isLoading &&
+		prev.isEmpty === next.isEmpty &&
+		prev.showGraph === next.showGraph &&
+		isEqual(prev.selectedFilters.industria, next.selectedFilters.industria) &&
+		isEqual(prev.selectedFilters.regjionet, next.selectedFilters.regjionet) &&
+		isEqual(prev.selectedFilters.komunat, next.selectedFilters.komunat) &&
+		isEqual(prev.selectedFilters.vendbanimet, next.selectedFilters.vendbanimet) &&
+		isEqual(prev.selectedFilters.vitet, next.selectedFilters.vitet) &&
+		isEqual(prev.selectedFilters.regime, next.selectedFilters.regime)
+	);
+}
+
+export default connect(mapStateToProps, null)(React.memo(Graphs, propsAreEqual));
