@@ -94,11 +94,6 @@ function DOGANA({fetchAll, dogana70, dogana71, dogana72, dogana73, dogana74, fil
 }
 
 const mapDispatchToProps = {
-	fetchDogana70: actions.fetchDogana70,
-	fetchDogana71: actions.fetchDogana71,
-	fetchDogana72: actions.fetchDogana72,
-	fetchDogana73: actions.fetchDogana73,
-	fetchDogana74: actions.fetchDogana74,
 	fetchAll: actions.fetchAll,
 };
 const mapStateToProps = (state) => ({
