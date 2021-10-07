@@ -83,7 +83,7 @@ const Chart = ({type = "line", data, options, title, value, showYears, className
 
 	const mobileChart = () => <div style={{overflowX: "scroll"}}>{desktopChart()}</div>;
 
-	return isMobile ? mobileChart() : desktopChart();
+	return data.datasets.length > 0 && (isMobile ? mobileChart() : desktopChart());
 };
 
 export default Chart;
