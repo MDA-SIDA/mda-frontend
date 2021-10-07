@@ -70,7 +70,7 @@ function Filters({
 		isDogana,
 	]);
 
-	const removeVendbanimiFilter = ["UP", "DOGANA", "MPBZhR", "MF"].includes(
+	const removeVendbanimiFilter = ["UP", "DOGANA", "MPBZhR", "MF", "MASHT"].includes(
 		selectedFilters?.industria?.value,
 	);
 
