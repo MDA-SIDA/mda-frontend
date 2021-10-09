@@ -60,14 +60,14 @@ const styles = {
 			background: "#005293",
 		},
 	}),
-	option: (base) => ({
+	option: (base, state) => ({
 		...base,
 		color: "#191919",
 		fontSize: 13,
 		":active, :focus": {
-			backgroundColor: "#F2F4FB",
+			backgroundColor: "hsl(0, 0%, 90%)",
 		},
-		backgroundColor: "inherit",
+		backgroundColor: state.isSelected ? "hsl(0, 0%, 90%)" : "inherit",
 		display: "flex",
 		flexDirection: "row",
 		alignItems: "center",
@@ -148,6 +148,15 @@ const Select = ({
 				onChange={onChange}
 				menuIsOpen={isOpenMenu}
 				isOptionDisabled={isOptionDisabled}
+				theme={(theme) => ({
+					...theme,
+					borderRadius: 0,
+					colors: {
+						...theme.colors,
+						primary25: "hotpink",
+						primary: "black",
+					},
+				})}
 			/>
 		</div>
 	);

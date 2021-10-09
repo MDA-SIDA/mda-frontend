@@ -12,7 +12,7 @@ const Option = ({
 	...props
 }) => (
 	<div>
-		<components.Option {...props}>
+		<components.Option {...{isSelected: !isMulti && isSelected, ...props}}>
 			<div
 				className="option"
 				onClick={() => {
