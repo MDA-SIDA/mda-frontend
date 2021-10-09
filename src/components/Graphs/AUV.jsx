@@ -4,7 +4,8 @@ import {actions} from "@sagas/industries/auv";
 import {groupBy} from "lodash";
 import Chart from "@common/Chart";
 import Loader from "@common/Loader";
-import {getDatasets, sortLabels} from "./utils";
+import Card from "@common/Card";
+import {getDatasets, sortLabels, areArraysEmpty} from "./utils";
 
 function AUV({fetchAll, isLoading, auvRajoniKomuna, auvKategoria, auvKomunaNrKafsheve, filters}) {
 	useEffect(() => {
@@ -16,16 +17,37 @@ function AUV({fetchAll, isLoading, auvRajoniKomuna, auvKategoria, auvKomunaNrKaf
 		items: auvRajoniKomuna,
 		singleItemLabel: "Numri fermave",
 		property: "numrifermave",
-		filterBy: "komunaemri",
 	});
 
-	// TODO
-	const auvKategoriaDataSets = getDatasets({
+	const auvKategoriaDeleDataSets = getDatasets({
 		filters,
 		items: auvKategoria,
 		singleItemLabel: "Numri i fermave",
-		property: "numrifermave",
-		filterBy: "komunaemri",
+		property: "dele",
+	});
+	const auvKategoriaDerraDataSets = getDatasets({
+		filters,
+		items: auvKategoria,
+		singleItemLabel: "Numri i fermave",
+		property: "derra",
+	});
+	const auvKategoriaDhiDataSets = getDatasets({
+		filters,
+		items: auvKategoria,
+		singleItemLabel: "Numri i fermave",
+		property: "dhi",
+	});
+	const auvKategoriaGjedheDataSets = getDatasets({
+		filters,
+		items: auvKategoria,
+		singleItemLabel: "Numri i fermave",
+		property: "gjedhe",
+	});
+	const auvKategoriaKuajDataSets = getDatasets({
+		filters,
+		items: auvKategoria,
+		singleItemLabel: "Numri i fermave",
+		property: "kuaj",
 	});
 
 	const auvKomunaNrKafsheveDataSets = getDatasets({
@@ -35,6 +57,7 @@ function AUV({fetchAll, isLoading, auvRajoniKomuna, auvKategoria, auvKomunaNrKaf
 		property: "numrikafsheve",
 		filterBy: "komunaemri",
 	});
+
 	return (
 		<>
 			{isLoading && <Loader />}
@@ -44,7 +67,19 @@ function AUV({fetchAll, isLoading, auvRajoniKomuna, auvKategoria, auvKomunaNrKaf
 						title="Numri i fermave"
 						type="bar"
 						data={{
-							labels: sortLabels(Object.keys(groupBy(auvRajoniKomuna, "komunaemri"))),
+							labels:
+								auvRajoniKomunaDataSets.length === 1 &&
+								areArraysEmpty({
+									arrays: [
+										filters.komunat,
+										filters.vendbanimet,
+										filters.regjionet,
+									],
+								})
+									? sortLabels(
+											Object.keys(groupBy(auvRajoniKomuna, "regjioniemri")),
+									  )
+									: sortLabels(auvRajoniKomunaDataSets.map((item) => item.label)),
 							datasets: auvRajoniKomunaDataSets,
 						}}
 					/>
@@ -52,12 +87,35 @@ function AUV({fetchAll, isLoading, auvRajoniKomuna, auvKategoria, auvKomunaNrKaf
 						title="Numri i kafsheve"
 						type="bar"
 						data={{
-							labels: sortLabels(
-								Object.keys(groupBy(auvKomunaNrKafsheve, "komunaemri")),
-							),
+							labels:
+								auvKomunaNrKafsheveDataSets.length === 1 &&
+								areArraysEmpty({
+									arrays: [
+										filters.komunat,
+										filters.vendbanimet,
+										filters.regjionet,
+									],
+								})
+									? sortLabels(
+											Object.keys(
+												groupBy(auvKomunaNrKafsheve, "regjioniemri"),
+											),
+									  )
+									: sortLabels(
+											auvKomunaNrKafsheveDataSets.map((item) => item.label),
+									  ),
 							datasets: auvKomunaNrKafsheveDataSets,
 						}}
 					/>
+					{auvKategoria && (
+						<div className="exclude">
+							<Item title="Dele" items={auvKategoriaDeleDataSets} />
+							<Item title="Derra" items={auvKategoriaDerraDataSets} />
+							<Item title="Dhi" items={auvKategoriaDhiDataSets} />
+							<Item title="Gjedhe" items={auvKategoriaGjedheDataSets} />
+							<Item title="Kuaj" items={auvKategoriaKuajDataSets} />
+						</div>
+					)}
 				</>
 			)}
 		</>
@@ -75,3 +133,16 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AUV);
+
+const Item = ({title, items}) => (
+	<div className="exclude_item">
+		<h1>{title}</h1>
+		{items?.map((item, index) => (
+			<Card
+				style={{backgroundColor: item.backgroundColor}}
+				number={new Intl.NumberFormat().format(Number(item.data[0]))}
+				key={`${item.number} ${index}`}
+			/>
+		))}
+	</div>
+);
