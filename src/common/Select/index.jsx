@@ -109,6 +109,8 @@ const Select = ({
 	hideSelectedOptions,
 	placeholder,
 	isDisabled,
+	isOptionDisabled,
+	handleDisableOptionClick,
 }) => {
 	const [isOpenMenu, setisOpenMenu] = useState(true);
 	return (
@@ -127,7 +129,13 @@ const Select = ({
 					),
 					IndicatorSeparator: () => null,
 					DropdownIndicator: () => null,
-					Option: (props) => <Option {...props} isMulti={isMulti} />,
+					Option: (props) => (
+						<Option
+							{...props}
+							isMulti={isMulti}
+							handleDisableOptionClick={handleDisableOptionClick}
+						/>
+					),
 					ValueContainer: (props) => (
 						<ValueContainer
 							{...props}
@@ -139,6 +147,7 @@ const Select = ({
 				styles={styles}
 				onChange={onChange}
 				menuIsOpen={isOpenMenu}
+				isOptionDisabled={isOptionDisabled}
 			/>
 		</div>
 	);

@@ -70,7 +70,7 @@ function Filters({
 		isDogana,
 	]);
 
-	const removeVendbanimiFilter = ["UP", "DOGANA", "MPBZhR", "MF", "MASHT"].includes(
+	const removeVendbanimiFilter = ["UP", "DOGANA", "MPBZhR", "MF", "MASHT", "AKK"].includes(
 		selectedFilters?.industria?.value,
 	);
 
@@ -92,50 +92,67 @@ function Filters({
 				<>
 					<Select
 						value={selectedRegjionet}
-						options={regjionet?.map((regjioni) => ({
-							value: regjioni.regjioniid,
-							label: regjioni.regjioniemri,
-						}))}
+						options={regjionet?.map((regjioni) => {
+							if (selectedFilters?.regjionet?.length >= 3) {
+								const ids = selectedFilters.regjionet?.map((item) => item.value);
+								if (!ids.includes(regjioni.regjioniid)) {
+									return {
+										value: regjioni.regjioniid,
+										label: regjioni.regjioniemri,
+										disable: true,
+									};
+								}
+							}
+							return {
+								value: regjioni.regjioniid,
+								label: regjioni.regjioniemri,
+							};
+						})}
 						isSearchable
 						isMulti
-						isDisabled={isDisabled.regjionet}
 						closeMenuOnSelect={false}
 						hideSelectedOptions={false}
 						onChange={(value) => {
-							if (selectedFilters?.regjionet?.length >= 3) {
-								setIsDisabled((state) => ({...state, regjionet: true}));
-								setError(t("filters-info-message"));
-							} else {
-								setError(null);
-								setSelectedRegjionet(value);
-							}
+							if (error) setError(null);
+							setSelectedRegjionet(value);
 						}}
 						placeholder={t("filters-region")}
+						isOptionDisabled={(option) => option.disable}
+						handleDisableOptionClick={() => setError(t("filters-info-message"))}
 					/>
 					{error && selectedFilters?.regjionet?.length >= 3 && (
 						<div className="info">{t("filters-info-message")}</div>
 					)}
 					<Select
 						value={selectedKomunat}
-						options={komunat?.map((komuna) => ({
-							value: komuna.komunaid,
-							label: komuna.komunaemri,
-						}))}
+						options={komunat?.map((komuna) => {
+							if (selectedFilters?.komunat?.length >= 3) {
+								const ids = selectedFilters.komunat?.map((item) => item.value);
+								if (!ids.includes(komuna.komunaid)) {
+									return {
+										value: komuna.komunaid,
+										label: komuna.komunaemri,
+										disable: true,
+									};
+								}
+							}
+							return {
+								value: komuna.komunaid,
+								label: komuna.komunaemri,
+							};
+						})}
 						isSearchable
 						isDisabled={isDisabled.komunat}
 						isMulti
 						closeMenuOnSelect={false}
 						hideSelectedOptions={false}
 						onChange={(value) => {
-							if (selectedFilters?.komunat?.length >= 3) {
-								setIsDisabled((state) => ({...state, komunat: true}));
-								setError(t("filters-info-message"));
-							} else {
-								setSelectedKomunat(value);
-								setError(null);
-							}
+							if (error) setError(null);
+							setSelectedKomunat(value);
 						}}
 						placeholder={t("filters-municipality")}
+						isOptionDisabled={(option) => option.disable}
+						handleDisableOptionClick={() => setError(t("filters-info-message"))}
 					/>
 					{error && selectedFilters?.komunat?.length >= 3 && (
 						<div className="info">{t("filters-info-message")}</div>
@@ -146,25 +163,34 @@ function Filters({
 				<>
 					<Select
 						value={selectedVendbanimet}
-						options={vendbanimet?.map((vendbanimi) => ({
-							value: vendbanimi.vendbanimiid,
-							label: vendbanimi.vendbanimiemri,
-						}))}
+						options={vendbanimet?.map((vendbanimi) => {
+							if (selectedFilters?.vendbanimet?.length >= 3) {
+								const ids = selectedFilters.vendbanimet?.map((item) => item.value);
+								if (!ids.includes(vendbanimi.vendbanimiid)) {
+									return {
+										value: vendbanimi.vendbanimiid,
+										label: vendbanimi.vendbanimiemri,
+										disable: true,
+									};
+								}
+							}
+							return {
+								value: vendbanimi.vendbanimiid,
+								label: vendbanimi.vendbanimiemri,
+							};
+						})}
 						isSearchable
 						isMulti
 						isDisabled={isDisabled.vendbanimet}
 						closeMenuOnSelect={false}
 						hideSelectedOptions={false}
 						onChange={(value) => {
-							if (selectedFilters?.vendbanimet?.length >= 3) {
-								setIsDisabled((state) => ({...state, vendbanimet: true}));
-								setError(t("filters-info-message"));
-							} else {
-								setSelectedVendbanimet(value);
-								setError(null);
-							}
+							if (error) setError(null);
+							setSelectedVendbanimet(value);
 						}}
 						placeholder={t("filters-village")}
+						isOptionDisabled={(option) => option.disable}
+						handleDisableOptionClick={() => setError(t("filters-info-message"))}
 					/>
 					{error && selectedFilters?.vendbanimet?.length >= 3 && (
 						<div className="info">{t("filters-info-message")}</div>
