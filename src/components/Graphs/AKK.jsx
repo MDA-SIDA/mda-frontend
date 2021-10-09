@@ -83,7 +83,7 @@ function AKK({
 						type="bar"
 						data={{
 							labels: sortLabels(Object.keys(groupBy(pronesia, "pronesia")))?.map(
-								(label) => (label === "NULL" ? "N/A" : label),
+								(label) => (label === "NULL" ? "Prone e paidentifikuar" : label),
 							),
 							datasets: pronesiaDataSets,
 						}}
@@ -117,7 +117,7 @@ function AKK({
 						}}
 					/>
 					<RRUGET filters={filters} />
-					{tipiPronesNumriData?.map((item, index) => (
+					{/* {tipiPronesNumriData?.map((item, index) => (
 						<PieChart
 							key={`${index} item=index`}
 							title={`Numri i ndertesave sipas tipit te prones${
@@ -138,7 +138,7 @@ function AKK({
 								],
 							}}
 						/>
-					))}
+					))} */}
 				</>
 			)}
 		</>

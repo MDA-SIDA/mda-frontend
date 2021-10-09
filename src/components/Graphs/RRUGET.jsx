@@ -58,7 +58,7 @@ function RRUGET({
 	return (
 		<>
 			<Chart
-				title="Rruget - Gjatesia e segmenteve"
+				title="Rruget - Numri i segmenteve"
 				type="bar"
 				data={{
 					labels: sortLabels(Object.keys(groupBy(rruget18, "komunaemri"))),
