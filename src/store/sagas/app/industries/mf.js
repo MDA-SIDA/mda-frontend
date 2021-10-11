@@ -6,7 +6,7 @@ import createAction from "@utils/action-creator";
 import axios from "@utils/axios";
 import {actions as layoutActions} from "@sagas/layout";
 
-const PREFIX = "@app/ATK/index";
+const PREFIX = "@app/MF/index";
 export const FETCH_MF_81 = `${PREFIX}FETCH_MF_81`;
 export const FETCH_MF_81_SUCCESS = `${PREFIX}FETCH_MF_81_SUCCESS`;
 export const FETCH_MF_82 = `${PREFIX}FETCH_MF_82`;
@@ -17,7 +17,7 @@ export const FETCH_MF_84 = `${PREFIX}FETCH_MF_84`;
 export const FETCH_MF_84_SUCCESS = `${PREFIX}FETCH_MF_84_SUCCESS`;
 export const FETCH_ALL = `${PREFIX}FETCH_ALL`;
 
-const logger = new Logger("Saga>ATK>Index");
+const logger = new Logger("Saga>MF>Index");
 const _state = {
 	mf81: null,
 	mf82: null,
