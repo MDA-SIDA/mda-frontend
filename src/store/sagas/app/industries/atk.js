@@ -1,9 +1,10 @@
 /* eslint-disable max-len */
 import Logger from "@utils/logger";
 import produce from "immer";
-import {put, takeLatest} from "redux-saga/effects";
+import {put, all, call, takeLatest} from "redux-saga/effects";
 import createAction from "@utils/action-creator";
 import axios from "@utils/axios";
+import {actions as layoutActions} from "@sagas/layout";
 import {getParams} from "../utils";
 
 const PREFIX = "@app/ATK/index";
@@ -15,6 +16,7 @@ export const FETCH_ATK_SEKTORI_OBLIGIMI = `${PREFIX}FETCH_ATK_SEKTORI_OBLIGIMI`;
 export const FETCH_ATK_SEKTORI_OBLIGIMI_SUCCESS = `${PREFIX}FETCH_ATK_SEKTORI_OBLIGIMI_SUCCESS`;
 export const FETCH_ATK_AKTIVITETI_OBLIGIMI = `${PREFIX}FETCH_ATK_AKTIVITETI_OBLIGIMI`;
 export const FETCH_ATK_AKTIVITETI_OBLIGIMI_SUCCESS = `${PREFIX}FETCH_ATK_AKTIVITETI_OBLIGIMI_SUCCESS`;
+export const FETCH_ALL = `${PREFIX}FETCH_ALL`;
 
 const logger = new Logger("Saga>ATK>Index");
 const _state = {
@@ -63,6 +65,7 @@ export const actions = {
 	fetchAtkAktivitetiObligimi: (payload) => createAction(FETCH_ATK_AKTIVITETI_OBLIGIMI, {payload}),
 	fetchAtkAktivitetiObligimiSuccess: (payload) =>
 		createAction(FETCH_ATK_AKTIVITETI_OBLIGIMI_SUCCESS, {payload}),
+	fetchAll: (payload) => createAction(FETCH_ALL, {payload}),
 };
 
 export const sagas = {
@@ -119,11 +122,18 @@ export const sagas = {
 			logger.error(error);
 		}
 	},
+	*fetchAll({payload}) {
+		yield put(layoutActions.setLoading(true));
+		yield all([
+			// call(sagas.fetchAtkVitiObligimi, {payload}),
+			call(sagas.fetchAtkKomunaVitiObligimi, {payload}),
+			call(sagas.fetchAtkSektoriObligimi, {payload}),
+			call(sagas.fetchAtkAktivitetiObligimi, {payload}),
+		]);
+		yield put(layoutActions.setLoading(false));
+	},
 };
 
 export const watcher = function* w() {
-	yield takeLatest(FETCH_ATK_VITI_OBLIGIMI, sagas.fetchAtkVitiObligimi);
-	yield takeLatest(FETCH_ATK_KOMUNA_VITI_OBLIGIMI, sagas.fetchAtkKomunaVitiObligimi);
-	yield takeLatest(FETCH_ATK_SEKTORI_OBLIGIMI, sagas.fetchAtkSektoriObligimi);
-	yield takeLatest(FETCH_ATK_AKTIVITETI_OBLIGIMI, sagas.fetchAtkAktivitetiObligimi);
+	yield takeLatest(FETCH_ALL, sagas.fetchAll);
 };
