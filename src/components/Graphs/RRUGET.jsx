@@ -1,28 +1,10 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {connect} from "react-redux";
-import {actions} from "@sagas/industries/rruget";
 import Chart from "@common/Chart";
 import {groupBy} from "lodash";
-import {getDatasets, sortLabels} from "./utils";
+import {getDatasets, sortLabels, areArraysEmpty} from "./utils";
 
-function RRUGET({
-	filters,
-	fetchRruget18,
-	fetchRruget19,
-	fetchRruget20,
-	fetchRruget21,
-	rruget18,
-	rruget19,
-	rruget20,
-	rruget21,
-}) {
-	useEffect(() => {
-		fetchRruget18(filters);
-		fetchRruget19(filters);
-		fetchRruget20(filters);
-		fetchRruget21(filters);
-	}, [filters]);
-
+function RRUGET({filters, rruget18, rruget19}) {
 	const rruget18DataSets = getDatasets({
 		filters,
 		items: rruget18,
@@ -39,29 +21,19 @@ function RRUGET({
 		filterBy: "komunaemri",
 	});
 
-	const rruget20DataSets = getDatasets({
-		filters,
-		items: rruget20,
-		singleItemLabel: "Gjatesia e segmenteve",
-		property: "gjatesiasegmenteve",
-		filterBy: "komunaemri",
-	});
-
-	const rruget21DataSets = getDatasets({
-		filters,
-		items: rruget21,
-		singleItemLabel: "Gjatesia e segmenteve",
-		property: "gjatesiasegmenteve",
-		filterBy: "komunaemri",
-	});
-
 	return (
 		<>
 			<Chart
 				title="Rruget - Numri i segmenteve"
 				type="bar"
 				data={{
-					labels: sortLabels(Object.keys(groupBy(rruget18, "komunaemri"))),
+					labels:
+						rruget18DataSets.length === 1 &&
+						areArraysEmpty({
+							arrays: [filters.komunat, filters.vendbanimet, filters.regjionet],
+						})
+							? sortLabels(Object.keys(groupBy(rruget18, "komunaemri")))
+							: sortLabels(rruget18DataSets.map((item) => item.label)),
 					datasets: rruget18DataSets,
 				}}
 			/>
@@ -69,37 +41,21 @@ function RRUGET({
 				title="Rruget - Gjatesia e segmenteve"
 				type="bar"
 				data={{
-					labels: sortLabels(Object.keys(groupBy(rruget19, "komunaemri"))),
+					labels:
+						rruget19DataSets.length === 1 &&
+						areArraysEmpty({
+							arrays: [filters.komunat, filters.vendbanimet, filters.regjionet],
+						})
+							? sortLabels(Object.keys(groupBy(rruget19, "komunaemri")))
+							: sortLabels(rruget19DataSets.map((item) => item.label)),
 					datasets: rruget19DataSets,
 				}}
 			/>
-			{/* TODO: uncomment */}
-			{/* <Chart
-				title="Rruget - Gjatesia e segmenteve"
-				type="bar"
-				data={{
-					labels: sortLabels(Object.keys(groupBy(rruget20, "komunaemri"))),
-					datasets: rruget20DataSets,
-				}}
-			/>
-			<Chart
-				title="Rruget - Gjatesia e segmenteve"
-				type="bar"
-				data={{
-					labels: sortLabels(Object.keys(groupBy(rruget21, "komunaemri"))),
-					datasets: rruget21DataSets,
-				}}
-			/> */}
 		</>
 	);
 }
 
-const mapDispatchToProps = {
-	fetchRruget18: actions.fetchRruget18,
-	fetchRruget19: actions.fetchRruget19,
-	fetchRruget20: actions.fetchRruget20,
-	fetchRruget21: actions.fetchRruget21,
-};
+const mapDispatchToProps = {};
 const mapStateToProps = (state) => ({
 	rruget18: state.app.industries.rruget.rruget18,
 	rruget19: state.app.industries.rruget.rruget19,

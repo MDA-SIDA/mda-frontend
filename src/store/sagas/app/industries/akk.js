@@ -6,6 +6,7 @@ import createAction from "@utils/action-creator";
 import axios from "@utils/axios";
 import {actions as layoutActions} from "@sagas/layout";
 import {getParams} from "../utils";
+import {sagas as rrugetSagas} from "./rruget";
 
 const PREFIX = "@app/AKK/index";
 export const FETCH_KATEGORIA = `${PREFIX}FETCH_KATEGORIA`;
@@ -173,6 +174,10 @@ export const sagas = {
 			call(sagas.fetchLlojiNdertesesSiperfaqja, {payload}),
 			call(sagas.fetchLlojiNdertesesNumri, {payload}),
 			call(sagas.fetchTipiPronesNumri, {payload}),
+			call(rrugetSagas.fetchRruget18, {payload}),
+			call(rrugetSagas.fetchRruget19, {payload}),
+			call(rrugetSagas.fetchRruget20, {payload}),
+			call(rrugetSagas.fetchRruget21, {payload}),
 		]);
 		yield put(layoutActions.setLoading(false));
 	},

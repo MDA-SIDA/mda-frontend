@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 import Logger from "@utils/logger";
 import produce from "immer";
-import {put, takeLatest} from "redux-saga/effects";
+import {put} from "redux-saga/effects";
 import createAction from "@utils/action-creator";
 import axios from "@utils/axios";
 import {getParams} from "../utils";
@@ -115,9 +115,5 @@ export const sagas = {
 	},
 };
 
-export const watcher = function* w() {
-	yield takeLatest(FETCH_RRUGET_18, sagas.fetchRruget18);
-	yield takeLatest(FETCH_RRUGET_19, sagas.fetchRruget19);
-	yield takeLatest(FETCH_RRUGET_20, sagas.fetchRruget20);
-	yield takeLatest(FETCH_RRUGET_21, sagas.fetchRruget21);
-};
+// eslint-disable-next-line no-empty-function
+export const watcher = function* w() {};
