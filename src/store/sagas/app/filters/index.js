@@ -184,27 +184,33 @@ export const actions = {
 export const sagas = {
 	*fetchIndustrite() {
 		try {
-			const industrite = yield axios.get(`/filters/?name=industrite`);
-
-			yield put(actions.fetchIndustriteSuccess(industrite?.data));
+			const industrite = yield select((state) => state.app.filters?.index?.all?.industrite);
+			if (industrite?.length === 0) {
+				const response = yield axios.get(`/filters/?name=industrite`);
+				yield put(actions.fetchIndustriteSuccess(response?.data));
+			}
 		} catch (error) {
 			logger.error(error);
 		}
 	},
 	*fetchRegjionet() {
 		try {
-			const regjionet = yield axios.get(`/filters/?name=regjioni`);
-
-			yield put(actions.fetchRegjionetSuccess(regjionet?.data));
+			const regjionet = yield select((state) => state.app.filters?.index?.all?.regjionet);
+			if (regjionet?.length === 0) {
+				const response = yield axios.get(`/filters/?name=regjioni`);
+				yield put(actions.fetchRegjionetSuccess(response?.data));
+			}
 		} catch (error) {
 			logger.error(error);
 		}
 	},
 	*fetchKomunat() {
 		try {
-			const komunat = yield axios.get(`/filters/?name=komuna`);
-
-			yield put(actions.fetchKomunatSuccess(komunat?.data));
+			const komunat = yield select((state) => state.app.filters?.index?.all?.komunat);
+			if (komunat?.length === 0) {
+				const response = yield axios.get(`/filters/?name=komuna`);
+				yield put(actions.fetchKomunatSuccess(response?.data));
+			}
 		} catch (error) {
 			logger.error(error);
 		}
@@ -232,23 +238,28 @@ export const sagas = {
 	},
 	*fetchRegime() {
 		try {
-			const regime = yield axios.get(`/filters/?name=regime`);
+			const regime = yield select((state) => state.app.filters?.index?.all?.regime);
 
-			yield put(actions.fetchRegimeSuccess(regime?.data));
+			if (regime?.length === 0) {
+				const response = yield axios.get(`/filters/?name=regime`);
+				yield put(actions.fetchRegimeSuccess(response?.data));
+			}
 		} catch (error) {
 			logger.error(error);
 		}
 	},
 	*fetchVendbanimet() {
 		try {
-			const vendbanimet = yield axios.get(`/filters/?name=vendbanimi`);
+			const vendbanimet = yield select((state) => state.app.filters?.index?.all?.vendbanimet);
 
-			const capitalizedVendbanimet = vendbanimet?.data.map((vendbanimi) => {
-				vendbanimi.vendbanimiemri = capitalizeFirstLetter(vendbanimi.vendbanimiemri);
-				return vendbanimi;
-			});
-
-			yield put(actions.fetchVendbanimetSuccess(capitalizedVendbanimet));
+			if (vendbanimet?.length === 0) {
+				const response = yield axios.get(`/filters/?name=vendbanimi`);
+				const capitalizedVendbanimet = response?.data.map((vendbanimi) => {
+					vendbanimi.vendbanimiemri = capitalizeFirstLetter(vendbanimi.vendbanimiemri);
+					return vendbanimi;
+				});
+				yield put(actions.fetchVendbanimetSuccess(capitalizedVendbanimet));
+			}
 		} catch (error) {
 			logger.error(error);
 		}
