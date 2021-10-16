@@ -120,7 +120,7 @@ function ARBK({
 							title={`Statusi i bizneseve${item.label ? `: ${item.label}` : ""}`}
 							type="pie"
 							data={{
-								labels: ["Aktiv", "Jo aktiv"],
+								labels: ["Aktiv", "Shuar"],
 								datasets: [
 									{
 										label: item.label,
