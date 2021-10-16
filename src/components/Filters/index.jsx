@@ -98,14 +98,14 @@ function Filters({
 								if (!ids.includes(regjioni.regjioniid)) {
 									return {
 										value: regjioni.regjioniid,
-										label: regjioni.regjioniemri,
+										label: t(regjioni.regjioniemri),
 										disable: true,
 									};
 								}
 							}
 							return {
 								value: regjioni.regjioniid,
-								label: regjioni.regjioniemri,
+								label: t(regjioni.regjioniemri),
 							};
 						})}
 						isSearchable

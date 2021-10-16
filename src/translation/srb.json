@@ -6,5 +6,12 @@
     "filters-village": "село",
     "filters-year": "године",
     "filters-clear": "прозирни филтери",
-    "filters-info-message": "Дозвољено вам је да изаберете највише 3 опције. Мораћете да обришете филтере да бисте могли да изаберете друге опције."
+    "filters-info-message": "Дозвољено вам је да изаберете највише 3 опције. Мораћете да обришете филтере да бисте могли да изаберете друге опције.",
+    "Prishtinë": "Priština",
+    "Mitrovicë": "Mitrovica",
+    "Pejë": "Peć",
+    "Prizren": "Prizren",
+    "Ferizaj": "Uroševac",
+    "Gjilan": "Gnjilane",
+    "Gjakovë": "Đakovica"
 }

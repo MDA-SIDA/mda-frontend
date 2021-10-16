@@ -6,5 +6,12 @@
     "filters-village": "Village",
     "filters-year": "Year",
     "filters-clear": "Clear Filters",
-    "filters-info-message": "You are allowed to select only a maximum of 3 options. You will need to clear filters to be able to choose other options."
+    "filters-info-message": "You are allowed to select only a maximum of 3 options. You will need to clear filters to be able to choose other options.",
+    "Prishtinë": "Prishtinë",
+    "Mitrovicë": "Mitrovicë",
+    "Pejë": "Pejë",
+    "Prizren": "Prizren",
+    "Ferizaj": "Ferizaj",
+    "Gjilan": "Gjilan",
+    "Gjakovë": "Gjakovë"
 }
