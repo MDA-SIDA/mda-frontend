@@ -52,5 +52,19 @@
     "Malisheva": "Malisheva",
     "Mamusha": "Mamusha",
     "Prizreni": "Prizreni",
-    "Theranda": "Theranda"
+    "Theranda": "Theranda",
+
+    "Biznes individual": "Individual business",
+    "Ortakëri e përgjithshme": "General partnership",
+    "Shoqëri aksionare": "Joint stock company",
+    "Ndërmarrje tjera nën juridiksion të AKM": "Other companies under the jurisdiction of the KTA",
+    "Shoqëri me përgjegjësi të kufizuara": "Limited liability company",
+    "Ortakëri e kufizuar": "Limited partnership",
+    "Ndërmarrje shoqërore": "Socially owned enterprise",
+    "Dega e Shoqërisë së Huaj": "Foreign company branch",
+    "Kooperativa Bujqësore": "Agricultural cooperative",
+    "Ndërmarrje publike": "Publicly owned enterprise",
+    "Zyra e Përfaqësisë në Kosovë": "Affiliate office in Kosovo",
+    "Aktiv": "Active",
+    "Shuar": "Closed"
 }
