@@ -3,6 +3,7 @@ import "./index.scss";
 import ReactChart from "react-chartjs-2";
 import useWindowDimensions from "@utils/use_window_dimensions";
 import {useTranslation} from "react-i18next";
+import {getTranslatedLabels} from "./helpers";
 
 const Chart = ({type = "line", data, options, title, value, showYears, className}) => {
 	const {width} = useWindowDimensions();
@@ -92,5 +93,4 @@ const Chart = ({type = "line", data, options, title, value, showYears, className
 	return data.datasets.length > 0 && (isMobile ? mobileChart() : desktopChart());
 };
 
-const getTranslatedLabels = (labels, t) => labels?.map((label) => t(label));
 export default Chart;
