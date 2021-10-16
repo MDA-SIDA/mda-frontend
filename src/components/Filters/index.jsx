@@ -131,14 +131,14 @@ function Filters({
 								if (!ids.includes(komuna.komunaid)) {
 									return {
 										value: komuna.komunaid,
-										label: komuna.komunaemri,
+										label: t(komuna.komunaemri),
 										disable: true,
 									};
 								}
 							}
 							return {
 								value: komuna.komunaid,
-								label: komuna.komunaemri,
+								label: t(komuna.komunaemri),
 							};
 						})}
 						isSearchable
