@@ -80,7 +80,7 @@ function Filters({
 				value={selectedIndustria}
 				options={industrite?.map((industria) => ({
 					value: industria.industriaemri,
-					label: industria.pershkrimi,
+					label: t(industria.industriaemri),
 				}))}
 				isSearchable
 				isMulti={false}
