@@ -10,18 +10,23 @@ import {configureStore} from "./store";
 import * as serviceWorker from "./serviceWorker";
 import "@assets/scss/index.scss";
 import "./i18n";
+import Internal from "./internal";
 
 const store = configureStore();
 setupAxios(store);
 
 ReactDOM.render(
-	<BrowserRouter>
-		<Provider store={store}>
-			<ConnectedRouter history={history}>
-				<App />
-			</ConnectedRouter>
-		</Provider>
-	</BrowserRouter>,
+	history.location?.pathname === "/internal" ? (
+		<Internal />
+	) : (
+		<BrowserRouter>
+			<Provider store={store}>
+				<ConnectedRouter history={history}>
+					<App />
+				</ConnectedRouter>
+			</Provider>
+		</BrowserRouter>
+	),
 	document.querySelector("#root"),
 );
 serviceWorker.unregister();

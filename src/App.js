@@ -1,5 +1,5 @@
 import ProtectedRoute from "@common/ProtectedRoute";
-import React, {useState} from "react";
+import React from "react";
 import {Redirect, Route, Switch, Router} from "react-router-dom";
 import history from "@utils/history";
 import Home from "@components/Home";
