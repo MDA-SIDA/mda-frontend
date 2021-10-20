@@ -18,45 +18,45 @@ function AUV({fetchAll, isLoading, auvRajoniKomuna, auvKategoria, auvKomunaNrKaf
 	const auvRajoniKomunaDataSets = getDatasets({
 		filters,
 		items: auvRajoniKomuna,
-		singleItemLabel: "Numri fermave",
+		singleItemLabel: t("Numri i fermave"),
 		property: "numrifermave",
 	});
 
 	const auvKategoriaDeleDataSets = getDatasets({
 		filters,
 		items: auvKategoria,
-		singleItemLabel: "Numri i fermave",
+		singleItemLabel: t("Numri i fermave"),
 		property: "dele",
 	});
 	const auvKategoriaDerraDataSets = getDatasets({
 		filters,
 		items: auvKategoria,
-		singleItemLabel: "Numri i fermave",
+		singleItemLabel: t("Numri i fermave"),
 		property: "derra",
 	});
 	const auvKategoriaDhiDataSets = getDatasets({
 		filters,
 		items: auvKategoria,
-		singleItemLabel: "Numri i fermave",
+		singleItemLabel: t("Numri i fermave"),
 		property: "dhi",
 	});
 	const auvKategoriaGjedheDataSets = getDatasets({
 		filters,
 		items: auvKategoria,
-		singleItemLabel: "Numri i fermave",
+		singleItemLabel: t("Numri i fermave"),
 		property: "gjedhe",
 	});
 	const auvKategoriaKuajDataSets = getDatasets({
 		filters,
 		items: auvKategoria,
-		singleItemLabel: "Numri i fermave",
+		singleItemLabel: t("Numri i fermave"),
 		property: "kuaj",
 	});
 
 	const auvKomunaNrKafsheveDataSets = getDatasets({
 		filters,
 		items: auvKomunaNrKafsheve,
-		singleItemLabel: "Numri i kafsheve",
+		singleItemLabel: t("Numri i kafsheve"),
 		property: "numrikafsheve",
 		filterBy: "komunaemri",
 	});

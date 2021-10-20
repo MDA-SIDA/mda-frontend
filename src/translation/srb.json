@@ -1127,7 +1127,9 @@
     "Siperfaqja sipas llojit te nderteses": "Površina po vrsti izgradnje",
     "Numri i ndertesave sipas llojit te nderteses": "Broj zgrada po vrsti izgradnje ",
     "Rruget-Gjatesia e segmenteve": "Putevi - dužina segmenta",
+    "Gjatesia e segmenteve": "Dužina segmenta",
     "Rruget-Numri i segmenteve": "Putevi - broj segmenta",
+    "Numri i segmenteve": "Broj segmenta",
     "Numri i ndertesave sipas tipit te prones": "Broj zgrada po tipu vlasništva",
     "Numri i fermave": "Broj gazdinstva",
     "Numri i kafsheve": "Broj životinja",
@@ -1156,8 +1158,10 @@
     "Te ardhurat bruto sipas aktiviteteve": "Bruto prihod po delatnostima",
     "Te ardhurat bruto sipas vitit": "Bruto prihod po godinama",
     "Te ardhurat bruto sipas sektorit": "Bruto prihod po sektorima",
+    "Te ardhurat bruto": "Bruto prihod",
     "Shpenzimet sipas programit": "Troškovi po programu ",
     "Kapitale Qendrore": "Centralni kapital",
+    "Kapitalet": "kapital",
     "I rregullt": "Redovan",
     "Me korrespodence": "Vanredan",
     "Bacelor": "Bačelor",
@@ -1180,5 +1184,9 @@
     "Fakulteti i Ndertimtarise": "Građevinski fakultet ",
     "Fakulteti i Ndertimtarise dhe Arkitektures": "Građevinsko-arhitektonski fakultet",
     "Fakulteti i Shkencave Matematike  Natyrore": "Prirodno -matematički fakultet",
-    "Fakulteti i Shkencave te Aplikuara ne Ferizaj": "Fakultet primenjenih nauka u Uroševcu"
+    "Fakulteti i Shkencave te Aplikuara ne Ferizaj": "Fakultet primenjenih nauka u Uroševcu",
+    "Numri": "Broj",
+    "Nota mesatare": "Prosečna ocena",
+    "Siperfaqja": "Površina",
+    "Numri i ndertesave": "Broj zgrada"
 }

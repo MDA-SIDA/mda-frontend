@@ -1122,7 +1122,9 @@
     "Siperfaqja sipas llojit te nderteses": "Sipërfaqja sipas llojit të ndërtesës",
     "Numri i ndertesave sipas llojit te nderteses": "Numri i ndërtesave sipas llojit të ndërtesës",
     "Rruget-Gjatesia e segmenteve": "Rrugët-gjatësia e segmenteve",
+    "Gjatesia e segmenteve": "Gjatesia e segmenteve",
     "Rruget-Numri i segmenteve": "Rrugët-numri i segmenteve",
+    "Numri i segmenteve": "Numri i segmenteve",
     "Numri i ndertesave sipas tipit te prones": "Numri i ndërtesave sipas tipit të pronës",
     "Numri i fermave": "Numri i fermave",
     "Numri i kafsheve": "Numri i kafshëve",
@@ -1151,8 +1153,10 @@
     "Te ardhurat bruto sipas aktiviteteve": "Të ardhurat bruto sipas aktiviteteve",
     "Te ardhurat bruto sipas vitit": "Të ardhurat bruto sipas vitit",
     "Te ardhurat bruto sipas sektorit": "Të ardhurat bruto sipas sektorit",
+    "Te ardhurat bruto": "Te ardhurat bruto",
     "Shpenzimet sipas programit": "Shpenzimet sipas programit",
     "Kapitale Qendrore": "Kapitale Qendrore",
+    "Kapitalet": "Kapitalet",
     "I rregullt": "I rregullt",
     "Me korrespodence": "Me korrespodence",
     "Bacelor": "Bacelor",
@@ -1175,5 +1179,9 @@
     "Fakulteti i Ndertimtarise": "Fakulteti i Ndertimtarise",
     "Fakulteti i Ndertimtarise dhe Arkitektures": "Fakulteti i Ndertimtarise dhe Arkitektures",
     "Fakulteti i Shkencave Matematike  Natyrore": "Fakulteti i Shkencave Matematike  Natyrore",
-    "Fakulteti i Shkencave te Aplikuara ne Ferizaj": "Fakulteti i Shkencave te Aplikuara ne Ferizaj"
+    "Fakulteti i Shkencave te Aplikuara ne Ferizaj": "Fakulteti i Shkencave te Aplikuara ne Ferizaj",
+    "Numri": "Numri",
+    "Nota mesatare": "Nota mesatare",
+    "Siperfaqja": "Siperfaqja",
+    "Numri i ndertesave": "Numri i ndertesave"
 }

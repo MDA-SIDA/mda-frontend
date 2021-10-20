@@ -4,34 +4,37 @@ import {connect} from "react-redux";
 import {actions} from "@sagas/industries/mf";
 import {groupBy} from "lodash";
 import Loader from "@common/Loader";
+import {useTranslation} from "react-i18next";
 import {getDatasets, sortLabels} from "./utils";
 
 function MF({mf81, mf82, mf83, mf84, fetchAll, isLoading}) {
+	const {t} = useTranslation();
+
 	useEffect(() => {
 		fetchAll();
 	}, [fetchAll]);
 
 	const mf81DataSets = getDatasets({
 		items: mf81,
-		singleItemLabel: "Shpenzimet sipas programeve",
+		singleItemLabel: t("Shpenzimet sipas programit"),
 		property: "paga",
 		filterBy: "organizata",
 	});
 	const mf82DataSets = getDatasets({
 		items: mf82,
-		singleItemLabel: "Shpenzimet sipas programeve",
+		singleItemLabel: t("Shpenzimet sipas programit"),
 		property: "paga",
 		filterBy: "organizata",
 	});
 	const mf83DataSets = getDatasets({
 		items: mf83,
-		singleItemLabel: "Kapitalet",
+		singleItemLabel: t("Kapitalet"),
 		property: "buxheti",
 		filterBy: "organizata",
 	});
 	const mf84DataSets = getDatasets({
 		items: mf84,
-		singleItemLabel: "Kapitalet",
+		singleItemLabel: t("Kapitalet"),
 		property: "buxheti",
 		filterBy: "organizata",
 	});

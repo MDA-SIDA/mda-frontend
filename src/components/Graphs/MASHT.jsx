@@ -4,6 +4,7 @@ import {actions} from "@sagas/industries/masht";
 import Chart from "@common/Chart";
 import {groupBy} from "lodash";
 import Loader from "@common/Loader";
+import {useTranslation} from "react-i18next";
 import {getDatasets, sortLabels} from "./utils";
 
 function MASHT({
@@ -22,6 +23,8 @@ function MASHT({
 	nrNxenesveShkolla,
 	filters,
 }) {
+	const {t} = useTranslation();
+
 	useEffect(() => {
 		fetchAll(filters);
 	}, [fetchAll, filters]);
@@ -31,7 +34,7 @@ function MASHT({
 	const mashtShkollaDataSets = getDatasets({
 		filters,
 		items: mashtShkolla,
-		singleItemLabel: "Numri i nxenesve",
+		singleItemLabel: t("Numri i nxenesve"),
 		property: "numrinxenesve",
 		filterBy: "shkolla",
 	});
@@ -39,7 +42,7 @@ function MASHT({
 	const mashtGjiniaDataSets = getDatasets({
 		filters,
 		items: mashtGjinia,
-		singleItemLabel: "Numri i nxenesve",
+		singleItemLabel: t("Numri i nxenesve"),
 		property: "numrinxenesve",
 		filterBy: "gjinia",
 	});
@@ -47,7 +50,7 @@ function MASHT({
 	const mashtGjenerataDataSets = getDatasets({
 		filters,
 		items: mashtGjenerata,
-		singleItemLabel: "Numri i nxenesve",
+		singleItemLabel: t("Numri i nxenesve"),
 		property: "numrinxenesve",
 		filterBy: "gjenerata",
 	});
@@ -55,7 +58,7 @@ function MASHT({
 	const mashtEtniaDataSets = getDatasets({
 		filters,
 		items: mashtEtnia,
-		singleItemLabel: "Numri i nxenesve",
+		singleItemLabel: t("Numri i nxenesve"),
 		property: "numrinxenesve",
 		filterBy: "entiteti",
 	});
@@ -63,14 +66,14 @@ function MASHT({
 	const mashtRajoniKomunaDataSets = getDatasets({
 		filters,
 		items: mashtRajoniKomuna,
-		singleItemLabel: "Numri i nxenesve",
+		singleItemLabel: t("Numri i nxenesve"),
 		property: "numrinxenesve",
 	});
 
 	const mashtKlasaDataSets = getDatasets({
 		filters,
 		items: mashtKlasa,
-		singleItemLabel: "Numri i nxenesve",
+		singleItemLabel: t("Numri i nxenesve"),
 		property: "numrinxenesve",
 		filterBy: "klasa",
 	});
@@ -78,7 +81,7 @@ function MASHT({
 	const mashtQendraBurimoreDemtimiDataSets = getDatasets({
 		filters,
 		items: mashtQendraBurimoreDemtimi,
-		singleItemLabel: "Numri i nxenesve",
+		singleItemLabel: t("Numri i nxenesve"),
 		property: "numrinxenesve",
 		filterBy: "demtimi",
 	});
@@ -86,7 +89,7 @@ function MASHT({
 	const mashtQendraBurimoreGjenerataDataSets = getDatasets({
 		filters,
 		items: mashtQendraBurimoreGjenerata,
-		singleItemLabel: "Numri i nxenesve",
+		singleItemLabel: t("Numri i nxenesve"),
 		property: "numrinxenesve",
 		filterBy: "gjenerata",
 	});
@@ -94,13 +97,13 @@ function MASHT({
 	const shkollaRajoniKomunaDataSets = getDatasets({
 		filters,
 		items: shkollaRajoniKomuna,
-		singleItemLabel: "Numri i shkollave",
+		singleItemLabel: t("Numri i shkollave"),
 		property: "countshkolla",
 	});
 	const gjiniaEntitetiFemraDataSets = getDatasets({
 		filters,
 		items: gjiniaEtniteti,
-		singleItemLabel: "Numri i nxenesve femra ne baze te etniteteve",
+		singleItemLabel: t("Numri i nxenesve femra ne baze te etniteteve"),
 		property: "femra",
 		filterBy: "entiteti",
 	});
@@ -108,7 +111,7 @@ function MASHT({
 	const gjiniaEntitetiMeshkujDataSets = getDatasets({
 		filters,
 		items: gjiniaEtniteti,
-		singleItemLabel: "Numri i nxenesve meshkuj ne baze te etniteteve",
+		singleItemLabel: t("Numri i nxenesve meshkuj ne baze te etniteteve"),
 		property: "meshkuj",
 		filterBy: "entiteti",
 	});

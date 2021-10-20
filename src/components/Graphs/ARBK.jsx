@@ -28,7 +28,7 @@ function ARBK({
 	const arbkLlojiBiznesiDataSets = getDatasets({
 		filters,
 		items: arbkLlojiBiznesit,
-		singleItemLabel: "Numri i bizneseve",
+		singleItemLabel: t("Numri i bizneseve"),
 		property: "numribizneseve",
 		filterBy: "llojibiznesit",
 	});
@@ -36,7 +36,7 @@ function ARBK({
 	const arbkVitiDataSets = getDatasets({
 		filters,
 		items: arbkViti,
-		singleItemLabel: "Numri i bizneseve",
+		singleItemLabel: t("Numri i bizneseve"),
 		property: "numribizneseve",
 		filterBy: "viti",
 	});
@@ -44,7 +44,7 @@ function ARBK({
 	const arbkSektoriDataSets = getDatasets({
 		filters,
 		items: arbkSektori,
-		singleItemLabel: "Numri i bizneseve",
+		singleItemLabel: t("Numri i bizneseve"),
 		property: "numribizneseve",
 		filterBy: "sektori",
 	});
@@ -52,7 +52,7 @@ function ARBK({
 	const arbkKomunaDataSets = getDatasets({
 		filters,
 		items: arbkStatusi,
-		singleItemLabel: "Numri i bizneseve",
+		singleItemLabel: t("Numri i bizneseve"),
 		property: "numribizneseve",
 		filterBy: "komunaemri",
 	});

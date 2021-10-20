@@ -50,7 +50,7 @@ function MPBZhR({
 	const mpbzhrMasaShumaPaguarDataSets = getDatasets({
 		filters,
 		items: mpbzhrMasaShumaPaguar,
-		singleItemLabel: "Shuma",
+		singleItemLabel: t("Shuma"),
 		property: "shuma",
 		filterBy: "masa",
 	});
@@ -58,7 +58,7 @@ function MPBZhR({
 	const mpbzhrVitiHaDataSets = getDatasets({
 		filters,
 		items: mpbzhrVitiHa,
-		singleItemLabel: "Numri",
+		singleItemLabel: t("Numri"),
 		property: "ha",
 		filterBy: "viti",
 	});
@@ -66,7 +66,7 @@ function MPBZhR({
 	const mpbzhrVitiKoshereDataSets = getDatasets({
 		filters,
 		items: mpbzhrVitiKoshere,
-		singleItemLabel: "Numri",
+		singleItemLabel: t("Numri"),
 		property: "koshere",
 		filterBy: "viti",
 	});
@@ -74,7 +74,7 @@ function MPBZhR({
 	const mpbzhrVitiKrereDataSets = getDatasets({
 		filters,
 		items: mpbzhrVitiKrere,
-		singleItemLabel: "Numri",
+		singleItemLabel: t("Numri"),
 		property: "krere",
 		filterBy: "viti",
 	});
@@ -82,7 +82,7 @@ function MPBZhR({
 	const mpbzhrVitiLiterDataSets = getDatasets({
 		filters,
 		items: mpbzhrVitiLiter,
-		singleItemLabel: "Numri",
+		singleItemLabel: t("Numri"),
 		property: "liter",
 		filterBy: "viti",
 	});
@@ -90,7 +90,7 @@ function MPBZhR({
 	const mpbzhrVitiPulavojseDataSets = getDatasets({
 		filters,
 		items: mpbzhrVitiPulavojse,
-		singleItemLabel: "Numri",
+		singleItemLabel: t("Numri"),
 		property: "pulavojse",
 		filterBy: "viti",
 	});
@@ -98,7 +98,7 @@ function MPBZhR({
 	const mpbzhrVitiThellezaDataSets = getDatasets({
 		filters,
 		items: mpbzhrVitiThelleza,
-		singleItemLabel: "Numri",
+		singleItemLabel: t("Numri"),
 		property: "thelleza",
 		filterBy: "viti",
 	});
@@ -107,7 +107,7 @@ function MPBZhR({
 	const mpbzhrViti2019HaDataSets = getDatasets({
 		filters,
 		items: mpbzhrViti2019Ha,
-		singleItemLabel: "Numri",
+		singleItemLabel: t("Numri"),
 		property: "ha",
 		filterBy: "viti",
 	});
@@ -115,7 +115,7 @@ function MPBZhR({
 	const mpbzhrViti2019KoshereDataSets = getDatasets({
 		filters,
 		items: mpbzhrViti2019Koshere,
-		singleItemLabel: "Numri",
+		singleItemLabel: t("Numri"),
 		property: "koshere",
 		filterBy: "viti",
 	});
@@ -123,7 +123,7 @@ function MPBZhR({
 	const mpbzhrViti2019KrereDataSets = getDatasets({
 		filters,
 		items: mpbzhrViti2019Krere,
-		singleItemLabel: "Numri",
+		singleItemLabel: t("Numri"),
 		property: "krere",
 		filterBy: "viti",
 	});
@@ -131,7 +131,7 @@ function MPBZhR({
 	const mpbzhrViti2019LiterDataSets = getDatasets({
 		filters,
 		items: mpbzhrViti2019Liter,
-		singleItemLabel: "Numri",
+		singleItemLabel: t("Numri"),
 		property: "liter",
 		filterBy: "viti",
 	});
@@ -139,7 +139,7 @@ function MPBZhR({
 	const mpbzhrViti2019PulavojseDataSets = getDatasets({
 		filters,
 		items: mpbzhrViti2019Pulavojse,
-		singleItemLabel: "Numri",
+		singleItemLabel: t("Numri"),
 		property: "pulavojse",
 		filterBy: "viti",
 	});
@@ -147,7 +147,7 @@ function MPBZhR({
 	const mpbzhrViti2019ThellezaDataSets = getDatasets({
 		filters,
 		items: mpbzhrViti2019Thelleza,
-		singleItemLabel: "Numri",
+		singleItemLabel: t("Numri"),
 		property: "thelleza",
 		filterBy: "viti",
 	});
@@ -156,7 +156,7 @@ function MPBZhR({
 	const mpbzhrViti2019HaFDataSets = getDatasets({
 		filters,
 		items: mpbzhrViti2019HaF,
-		singleItemLabel: "Numri",
+		singleItemLabel: t("Numri"),
 		property: "ha",
 		filterBy: "viti",
 	});
@@ -164,7 +164,7 @@ function MPBZhR({
 	const mpbzhrViti2019KoshereFDataSets = getDatasets({
 		filters,
 		items: mpbzhrViti2019KoshereF,
-		singleItemLabel: "Numri",
+		singleItemLabel: t("Numri"),
 		property: "koshere",
 		filterBy: "viti",
 	});
@@ -172,7 +172,7 @@ function MPBZhR({
 	const mpbzhrViti2019KrereFDataSets = getDatasets({
 		filters,
 		items: mpbzhrViti2019KrereF,
-		singleItemLabel: "Numri",
+		singleItemLabel: t("Numri"),
 		property: "krere",
 		filterBy: "viti",
 	});
@@ -180,7 +180,7 @@ function MPBZhR({
 	const mpbzhrViti2019LiterFDataSets = getDatasets({
 		filters,
 		items: mpbzhrViti2019LiterF,
-		singleItemLabel: "Numri",
+		singleItemLabel: t("Numri"),
 		property: "liter",
 		filterBy: "viti",
 	});
@@ -188,7 +188,7 @@ function MPBZhR({
 	const mpbzhrViti2019PulavojseFDataSets = getDatasets({
 		filters,
 		items: mpbzhrViti2019PulavojseF,
-		singleItemLabel: "Numri",
+		singleItemLabel: t("Numri"),
 		property: "pulavojse",
 		filterBy: "viti",
 	});
@@ -196,7 +196,7 @@ function MPBZhR({
 	const mpbzhrViti2019ThellezaFDataSets = getDatasets({
 		filters,
 		items: mpbzhrViti2019ThellezaF,
-		singleItemLabel: "Numri",
+		singleItemLabel: t("Numri"),
 		property: "thelleza",
 		filterBy: "viti",
 	});
@@ -205,7 +205,7 @@ function MPBZhR({
 	const mpbzhrViti2019HaMDataSets = getDatasets({
 		filters,
 		items: mpbzhrViti2019HaM,
-		singleItemLabel: "Numri",
+		singleItemLabel: t("Numri"),
 		property: "ha",
 		filterBy: "viti",
 	});
@@ -213,7 +213,7 @@ function MPBZhR({
 	const mpbzhrViti2019KoshereMDataSets = getDatasets({
 		filters,
 		items: mpbzhrViti2019KoshereM,
-		singleItemLabel: "Numri",
+		singleItemLabel: t("Numri"),
 		property: "koshere",
 		filterBy: "viti",
 	});
@@ -221,7 +221,7 @@ function MPBZhR({
 	const mpbzhrViti2019KrereMDataSets = getDatasets({
 		filters,
 		items: mpbzhrViti2019KrereM,
-		singleItemLabel: "Numri",
+		singleItemLabel: t("Numri"),
 		property: "krere",
 		filterBy: "viti",
 	});
@@ -229,7 +229,7 @@ function MPBZhR({
 	const mpbzhrViti2019LiterMDataSets = getDatasets({
 		filters,
 		items: mpbzhrViti2019LiterM,
-		singleItemLabel: "Numri",
+		singleItemLabel: t("Numri"),
 		property: "liter",
 		filterBy: "viti",
 	});
@@ -237,7 +237,7 @@ function MPBZhR({
 	const mpbzhrViti2019PulavojseMDataSets = getDatasets({
 		filters,
 		items: mpbzhrViti2019PulavojseM,
-		singleItemLabel: "Numri",
+		singleItemLabel: t("Numri"),
 		property: "pulavojse",
 		filterBy: "viti",
 	});
@@ -245,7 +245,7 @@ function MPBZhR({
 	const mpbzhrViti2019ThellezaMDataSets = getDatasets({
 		filters,
 		items: mpbzhrViti2019ThellezaM,
-		singleItemLabel: "Numri",
+		singleItemLabel: t("Numri"),
 		property: "thelleza",
 		filterBy: "viti",
 	});

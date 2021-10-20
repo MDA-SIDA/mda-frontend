@@ -2,13 +2,16 @@ import React from "react";
 import {connect} from "react-redux";
 import Chart from "@common/Chart";
 import {groupBy} from "lodash";
+import {useTranslation} from "react-i18next";
 import {getDatasets, sortLabels, areArraysEmpty} from "./utils";
 
 function RRUGET({filters, rruget18, rruget19}) {
+	const {t} = useTranslation();
+
 	const rruget18DataSets = getDatasets({
 		filters,
 		items: rruget18,
-		singleItemLabel: "Gjatesia e segmenteve",
+		singleItemLabel: t("Numri i segmenteve"),
 		property: "gjatesiasegmenteve",
 		filterBy: "komunaemri",
 	});
@@ -16,7 +19,7 @@ function RRUGET({filters, rruget18, rruget19}) {
 	const rruget19DataSets = getDatasets({
 		filters,
 		items: rruget19,
-		singleItemLabel: "Gjatesia e segmenteve",
+		singleItemLabel: t("Gjatesia e segmenteve"),
 		property: "gjatesiasegmenteve",
 		filterBy: "komunaemri",
 	});

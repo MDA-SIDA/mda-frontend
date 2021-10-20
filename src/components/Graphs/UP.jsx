@@ -35,7 +35,7 @@ const UP = ({
 	const statusiDataSets = getDatasets({
 		filters,
 		items: statusi,
-		singleItemLabel: "Numri i studenteve",
+		singleItemLabel: t("Numri i studenteve"),
 		property: "numristudenteve",
 		filterBy: "statusi",
 	});
@@ -44,7 +44,7 @@ const UP = ({
 	const niveliDataSets = getDatasets({
 		filters,
 		items: niveli,
-		singleItemLabel: "Niveli i studimeve",
+		singleItemLabel: t("Numri i studenteve"),
 		property: "numristudenteve",
 		filterBy: "niveli",
 	});
@@ -53,7 +53,7 @@ const UP = ({
 	const kombiNumriStudenteveDataSets = getDatasets({
 		filters,
 		items: kombiNumriStudenteve,
-		singleItemLabel: "Numri i studenteve",
+		singleItemLabel: t("Numri i studenteve"),
 		property: "numristudenteve",
 		filterBy: "kombi",
 	});
@@ -62,7 +62,7 @@ const UP = ({
 	const gjiniaDataSets = getDatasets({
 		filters,
 		items: gjinia,
-		singleItemLabel: "Numri i studenteve",
+		singleItemLabel: t("Numri i studenteve"),
 		property: "numristudenteve",
 		filterBy: "gjinia",
 	});
@@ -71,7 +71,7 @@ const UP = ({
 	const fakultetiNumriStudenteveDataSets = getDatasets({
 		filters,
 		items: fakultetiNumriStudenteve,
-		singleItemLabel: "Numri i studenteve",
+		singleItemLabel: t("Numri i studenteve"),
 		property: "numristudenteve",
 		filterBy: "fakulteti",
 	});
@@ -80,7 +80,7 @@ const UP = ({
 	const vitiDiplomimitDataSets = getDatasets({
 		filters,
 		items: vitiDiplomimit,
-		singleItemLabel: "Numri i studenteve",
+		singleItemLabel: t("Numri i studenteve"),
 		property: "studentetediplomuar",
 		filterBy: "vitidiplomimit",
 	});
@@ -89,7 +89,7 @@ const UP = ({
 	const komunaNumriStudenteveDataSets = getDatasets({
 		filters,
 		items: komunaNumriStudenteve,
-		singleItemLabel: "Numri i studenteve",
+		singleItemLabel: t("Numri i studenteve"),
 		property: "numristudenteve",
 		filterBy: "regjioniemri",
 	});
@@ -98,7 +98,7 @@ const UP = ({
 	const diplomuarDataSets = getDatasets({
 		filters,
 		items: diplomuar,
-		singleItemLabel: "Numri i studenteve",
+		singleItemLabel: t("Numri i studenteve"),
 		property: "studentetediplomuar",
 		filterBy: "komunaemri",
 	});
@@ -106,7 +106,7 @@ const UP = ({
 	const fakultetiNotaMesatareDataSets = getDatasets({
 		filters,
 		items: fakultetiNotaMesatare,
-		singleItemLabel: "Nota mesatare",
+		singleItemLabel: t("Nota mesatare"),
 		property: "notamesatare",
 		filterBy: "regjioniemri",
 		getPercentage: true,
@@ -116,7 +116,7 @@ const UP = ({
 	const komunaNotaMesatareDataSets = getDatasets({
 		filters,
 		items: komunaNotaMesatare,
-		singleItemLabel: "Nota mesatare",
+		singleItemLabel: t("Nota mesatare"),
 		property: "numristudenteve",
 		filterBy: "komunaemri",
 		getPercentage: true,
@@ -125,7 +125,7 @@ const UP = ({
 	const kombiNotaMesatareDataSets = getDatasets({
 		filters,
 		items: kombiNotaMesatare,
-		singleItemLabel: "Nota mesatare",
+		singleItemLabel: t("Nota mesatare"),
 		property: "notamesatare",
 		filterBy: "kombi",
 		getPercentage: true,

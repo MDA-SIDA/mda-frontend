@@ -808,6 +808,7 @@
     "Të Ardhurat me Burim të Huaj": "Foreign source income",
     "Arkëtimi i Borxheve të Këqija ": "Bad debt collection",
     "Fitimet Kapitale": "Capital gains",
+    "Kapitalet": "Capitals",
     "Dividentet": "Dividends",
     "Të ardhura/fitime të tjera": "Other income/profits",
     "Rregullimi total në të ardhura (mblidh kutijat [11] deri[15])": "Total income adjustment (add boxes [11] to [15])",
@@ -1127,7 +1128,9 @@
     "Siperfaqja sipas llojit te nderteses": "Area by type of building",
     "Numri i ndertesave sipas llojit te nderteses": "Number of buildings by type of building",
     "Rruget-Gjatesia e segmenteve": "Roads - section length",
+    "Gjatesia e segmenteve": "Section length",
     "Rruget-Numri i segmenteve": "Roads - section number",
+    "Numri i segmenteve": "Section number",
     "Numri i ndertesave sipas tipit te prones": "Number of buildings by type of property",
     "Numri i fermave": "Number of farms",
     "Numri i kafsheve": "Number of animals",
@@ -1156,6 +1159,7 @@
     "Te ardhurat bruto sipas aktiviteteve": "Gross revenue by activity",
     "Te ardhurat bruto sipas vitit": "Gross revenue by year",
     "Te ardhurat bruto sipas sektorit": "Gross revenue by sector",
+    "Te ardhurat bruto": "Gross revenue",
     "Shpenzimet sipas programit": "Expenditure by program",
     "Kapitale Qendrore": "Central Capital",
     "I rregullt": "Full-time",
@@ -1180,5 +1184,9 @@
     "Fakulteti i Ndertimtarise": "Faculty of Civil Engineering",
     "Fakulteti i Ndertimtarise dhe Arkitektures": "Faculty of Civil Engineering and Architecture",
     "Fakulteti i Shkencave Matematike  Natyrore": "Faculty of Mathematical Natural Sciences",
-    "Fakulteti i Shkencave te Aplikuara ne Ferizaj": "Faculty of Applied Sciences in Ferizaj/Uroševac"
+    "Fakulteti i Shkencave te Aplikuara ne Ferizaj": "Faculty of Applied Sciences in Ferizaj/Uroševac",
+    "Numri": "Number",
+    "Nota mesatare": "Average grade",
+    "Siperfaqja": "Area",
+    "Numri i ndertesave": "Number of buildings"
 }

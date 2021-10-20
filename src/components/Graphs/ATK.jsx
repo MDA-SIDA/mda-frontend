@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import {actions} from "@sagas/industries/atk";
 import {groupBy} from "lodash";
 import Loader from "@common/Loader";
+import {useTranslation} from "react-i18next";
 
 import {getDatasets, sortLabels} from "./utils";
 
@@ -15,6 +16,8 @@ function ATK({
 	isLoading,
 	filters,
 }) {
+	const {t} = useTranslation();
+
 	useEffect(() => {
 		fetchAll(filters);
 	}, [fetchAll, filters]);
@@ -22,7 +25,7 @@ function ATK({
 	const atkAktivitetiObligimiDataSets = getDatasets({
 		filters,
 		items: atkAktivitetiObligimi,
-		singleItemLabel: "Te ardhurat bruto",
+		singleItemLabel: t("Te ardhurat bruto"),
 		property: "brutoteardhurat",
 		filterBy: "aktiviteti",
 	});
@@ -30,7 +33,7 @@ function ATK({
 	const atkKomunaVitiObligimiDataSets = getDatasets({
 		filters,
 		items: atkKomunaVitiObligimi,
-		singleItemLabel: "Te ardhurat bruto",
+		singleItemLabel: t("Te ardhurat bruto"),
 		property: "brutoteardhurat",
 		filterBy: "viti",
 	});
@@ -38,7 +41,7 @@ function ATK({
 	const atkSektoriObligimiDataSets = getDatasets({
 		filters,
 		items: atkSektoriObligimi,
-		singleItemLabel: "Te ardhurat bruto",
+		singleItemLabel: t("Te ardhurat bruto"),
 		property: "brutoteardhurat",
 		filterBy: "sektori",
 	});

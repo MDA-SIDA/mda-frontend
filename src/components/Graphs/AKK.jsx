@@ -5,6 +5,7 @@ import Chart from "@common/Chart";
 import PieChart from "@common/Chart/Pie";
 import {groupBy} from "lodash";
 import Loader from "@common/Loader";
+import {useTranslation} from "react-i18next";
 import {getDatasets, sortLabels, getTipiPronesDataset} from "./utils";
 import RRUGET from "./RRUGET";
 
@@ -19,6 +20,8 @@ function AKK({
 	tipiPronesNumri,
 	filters,
 }) {
+	const {t} = useTranslation();
+
 	useEffect(() => {
 		fetchAll(filters);
 	}, [fetchAll, filters]);
@@ -26,7 +29,7 @@ function AKK({
 	const kategoriaDataSets = getDatasets({
 		filters,
 		items: kategoria,
-		singleItemLabel: "Siperfaqja",
+		singleItemLabel: t("Siperfaqja"),
 		property: "siperfaqja",
 		filterBy: "kategoria",
 	});
@@ -34,7 +37,7 @@ function AKK({
 	const pronesiaDataSets = getDatasets({
 		filters,
 		items: pronesia,
-		singleItemLabel: "Siperfaqja",
+		singleItemLabel: t("Siperfaqja"),
 		property: "siperfaqja",
 		filterBy: "pronesia",
 	});
@@ -42,7 +45,7 @@ function AKK({
 	const klasaDataSets = getDatasets({
 		filters,
 		items: klasa,
-		singleItemLabel: "Siperfaqja",
+		singleItemLabel: t("Siperfaqja"),
 		property: "siperfaqja",
 		filterBy: "klasa",
 	});
@@ -50,7 +53,7 @@ function AKK({
 	const llojiNdertesesSiperfaqjaDataSets = getDatasets({
 		filters,
 		items: llojiNdertesesSiperfaqja,
-		singleItemLabel: "Siperfaqja",
+		singleItemLabel: t("Siperfaqja"),
 		property: "siperfaqja",
 		filterBy: "llojinderteses",
 	});
@@ -58,7 +61,7 @@ function AKK({
 	const llojiNdertesesNumriDataSets = getDatasets({
 		filters,
 		items: llojiNdertesesNumri,
-		singleItemLabel: "Numri i ndertesave",
+		singleItemLabel: t("Numri i ndertesave"),
 		property: "nrndertesave",
 		filterBy: "llojinderteses",
 	});
