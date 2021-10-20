@@ -5,9 +5,12 @@ import {groupBy} from "lodash";
 import Chart from "@common/Chart";
 import Loader from "@common/Loader";
 import Card from "@common/Card";
+import {useTranslation} from "react-i18next";
 import {getDatasets, sortLabels, areArraysEmpty} from "./utils";
 
 function AUV({fetchAll, isLoading, auvRajoniKomuna, auvKategoria, auvKomunaNrKafsheve, filters}) {
+	const {t} = useTranslation();
+
 	useEffect(() => {
 		fetchAll(filters);
 	}, [fetchAll, filters]);
@@ -109,11 +112,11 @@ function AUV({fetchAll, isLoading, auvRajoniKomuna, auvKategoria, auvKomunaNrKaf
 					/>
 					{auvKategoria && (
 						<div className="exclude">
-							<Item title="Dele" items={auvKategoriaDeleDataSets} />
-							<Item title="Derra" items={auvKategoriaDerraDataSets} />
-							<Item title="Dhi" items={auvKategoriaDhiDataSets} />
-							<Item title="Gjedhe" items={auvKategoriaGjedheDataSets} />
-							<Item title="Kuaj" items={auvKategoriaKuajDataSets} />
+							<Item title={`${t("Dele")}`} items={auvKategoriaDeleDataSets} />
+							<Item title={`${t("Derra")}`} items={auvKategoriaDerraDataSets} />
+							<Item title={`${t("Dhi")}`} items={auvKategoriaDhiDataSets} />
+							<Item title={`${t("Gjedhe")}`} items={auvKategoriaGjedheDataSets} />
+							<Item title={`${t("Kuaj")}`} items={auvKategoriaKuajDataSets} />
 						</div>
 					)}
 				</>

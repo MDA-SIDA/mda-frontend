@@ -168,7 +168,7 @@ function MASHT({
 						}}
 					/>
 					<Chart
-						title="Numri i nxenesve sipas demtimeve - qendra burimore"
+						title="Numri i nxenesve sipas demtimeve-qendra burimore"
 						type="bar"
 						data={{
 							labels: sortLabels(
@@ -178,7 +178,7 @@ function MASHT({
 						}}
 					/>
 					<Chart
-						title="Numri i nxenesve sipas gjenerates - qendra burimore"
+						title="Numri i nxenesve sipas gjenerates-qendra burimore"
 						type="bar"
 						data={{
 							labels: sortLabels(

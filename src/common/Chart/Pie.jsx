@@ -10,7 +10,7 @@ const PieChart = ({data, options, title, className}) => {
 	return (
 		<div className="pie_chart_container">
 			<div className="chart_title">
-				<p style={{display: "flex", paddingBottom: 10}}>{title}</p>
+				<p style={{display: "flex", paddingBottom: 10}}>{t(title)}</p>
 			</div>
 			<ReactChart
 				type="pie"

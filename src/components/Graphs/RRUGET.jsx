@@ -24,7 +24,7 @@ function RRUGET({filters, rruget18, rruget19}) {
 	return (
 		<>
 			<Chart
-				title="Rruget - Numri i segmenteve"
+				title="Rruget-Numri i segmenteve"
 				type="bar"
 				data={{
 					labels:
@@ -38,7 +38,7 @@ function RRUGET({filters, rruget18, rruget19}) {
 				}}
 			/>
 			<Chart
-				title="Rruget - Gjatesia e segmenteve"
+				title="Rruget-Gjatesia e segmenteve"
 				type="bar"
 				data={{
 					labels:
