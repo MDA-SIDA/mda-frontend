@@ -5,6 +5,7 @@ import Chart from "@common/Chart";
 import PieChart from "@common/Chart/Pie";
 import {groupBy} from "lodash";
 import Loader from "@common/Loader";
+import {useTranslation} from "react-i18next";
 import {getDatasets, sortLabels, getStatusiBizneseveDataset, getGjiniaDataset} from "./utils";
 
 function ARBK({
@@ -21,6 +22,8 @@ function ARBK({
 	useEffect(() => {
 		fetchAll(filters);
 	}, [fetchAll, filters]);
+
+	const {t} = useTranslation();
 
 	const arbkLlojiBiznesiDataSets = getDatasets({
 		filters,
@@ -99,8 +102,8 @@ function ARBK({
 					{gjiniaData?.map((item, index) => (
 						<PieChart
 							key={`${index} item=index`}
-							title={`Numri i bizneseve sipas gjinise${
-								item.label ? `: ${item.label}` : ""
+							title={`${t(`Numri i bizneseve sipas gjinise`)}${
+								item.label ? `: ${t(item.label)}` : ""
 							}`}
 							data={{
 								labels: ["F", "M"],
@@ -117,10 +120,12 @@ function ARBK({
 					{statusiBizneseveData?.map((item, index) => (
 						<PieChart
 							key={`${index} item=index`}
-							title={`Statusi i bizneseve${item.label ? `: ${item.label}` : ""}`}
+							title={`${t(`Statusi i bizneseve`)}${
+								item.label ? `: ${t(item.label)}` : ""
+							}`}
 							type="pie"
 							data={{
-								labels: ["Aktiv", "Jo aktiv"],
+								labels: ["Aktiv", "Shuar"],
 								datasets: [
 									{
 										label: item.label,

@@ -6,6 +6,7 @@ import PieChart from "@common/Chart/Pie";
 import {actions} from "@sagas/industries/up";
 import {groupBy} from "lodash";
 import Loader from "@common/Loader";
+import {useTranslation} from "react-i18next";
 import {getDatasets, getGjiniaDataset, sortLabels} from "./utils";
 
 const UP = ({
@@ -24,6 +25,8 @@ const UP = ({
 	kombiNotaMesatare,
 	filters,
 }) => {
+	const {t} = useTranslation();
+
 	useEffect(() => {
 		fetchAll(filters);
 	}, [fetchAll, filters]);
@@ -227,8 +230,8 @@ const UP = ({
 					{gjiniaData?.map((item, index) => (
 						<PieChart
 							key={`${index} item=index`}
-							title={`Numri i studenteve sipas gjinise${
-								item.label ? `: ${item.label}` : ""
+							title={`${t("Numri i studenteve sipas gjinise")}${
+								item.label ? `: ${t(item.label)}` : ""
 							}`}
 							data={{
 								labels: ["F", "M"],

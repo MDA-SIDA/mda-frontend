@@ -80,7 +80,7 @@ function Filters({
 				value={selectedIndustria}
 				options={industrite?.map((industria) => ({
 					value: industria.industriaemri,
-					label: industria.pershkrimi,
+					label: t(industria.industriaemri),
 				}))}
 				isSearchable
 				isMulti={false}
@@ -98,14 +98,14 @@ function Filters({
 								if (!ids.includes(regjioni.regjioniid)) {
 									return {
 										value: regjioni.regjioniid,
-										label: regjioni.regjioniemri,
+										label: t(regjioni.regjioniemri),
 										disable: true,
 									};
 								}
 							}
 							return {
 								value: regjioni.regjioniid,
-								label: regjioni.regjioniemri,
+								label: t(regjioni.regjioniemri),
 							};
 						})}
 						isSearchable
@@ -131,14 +131,14 @@ function Filters({
 								if (!ids.includes(komuna.komunaid)) {
 									return {
 										value: komuna.komunaid,
-										label: komuna.komunaemri,
+										label: t(komuna.komunaemri),
 										disable: true,
 									};
 								}
 							}
 							return {
 								value: komuna.komunaid,
-								label: komuna.komunaemri,
+								label: t(komuna.komunaemri),
 							};
 						})}
 						isSearchable

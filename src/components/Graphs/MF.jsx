@@ -42,7 +42,7 @@ function MF({mf81, mf82, mf83, mf84, fetchAll, isLoading}) {
 			{!isLoading && (
 				<>
 					<Chart
-						title="Shpenzimet sipas programeve"
+						title="Shpenzimet sipas programit"
 						type="bar"
 						data={{
 							labels: sortLabels(Object.keys(groupBy(mf81, "organizata"))),
@@ -67,7 +67,7 @@ function MF({mf81, mf82, mf83, mf84, fetchAll, isLoading}) {
 				}}
 			/> */}
 					<Chart
-						title="Kapitalet Qendrore"
+						title="Kapitale Qendrore"
 						type="bar"
 						data={{
 							labels: sortLabels(Object.keys(groupBy(mf84, "organizata"))),

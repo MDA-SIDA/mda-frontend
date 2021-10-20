@@ -5,6 +5,7 @@ import Chart from "@common/Chart";
 import {groupBy} from "lodash";
 import Card from "@common/Card";
 import Loader from "@common/Loader";
+import {useTranslation} from "react-i18next";
 import {getDatasets, sortLabels} from "./utils";
 
 function MPBZhR({
@@ -43,6 +44,8 @@ function MPBZhR({
 	useEffect(() => {
 		fetchAll(filters);
 	}, [fetchAll, filters]);
+
+	const {t} = useTranslation();
 
 	const mpbzhrMasaShumaPaguarDataSets = getDatasets({
 		filters,
@@ -310,51 +313,81 @@ function MPBZhR({
 					/>
 					{mpbzhrViti2019Ha && (
 						<div className="exclude">
-							<Item title="HA - 2019" items={mpbzhrViti2019HaDataSets} />
-							<Item title="Koshere - 2019" items={mpbzhrViti2019KoshereDataSets} />
-							<Item title="Krere - 2019" items={mpbzhrViti2019KrereDataSets} />
-							<Item title="Liter - 2019" items={mpbzhrViti2019LiterDataSets} />
+							<Item title={`${t("Ha")} - 2019`} items={mpbzhrViti2019HaDataSets} />
 							<Item
-								title="Pulavojse - 2019"
+								title={`${t("Koshere")} - 2019`}
+								items={mpbzhrViti2019KoshereDataSets}
+							/>
+							<Item
+								title={`${t("Krere")} - 2019`}
+								items={mpbzhrViti2019KrereDataSets}
+							/>
+							<Item
+								title={`${t("Liter")} - 2019`}
+								items={mpbzhrViti2019LiterDataSets}
+							/>
+							<Item
+								title={`${t("Pulavojse")} - 2019`}
 								items={mpbzhrViti2019PulavojseDataSets}
 							/>
-							<Item title="Thelleza - 2019" items={mpbzhrViti2019ThellezaDataSets} />
+							<Item
+								title={`${t("Thelleza")} - 2019`}
+								items={mpbzhrViti2019ThellezaDataSets}
+							/>
 						</div>
 					)}
 					{mpbzhrViti2019HaF && (
 						<div className="exclude">
-							<Item title="HA - 2019 - F" items={mpbzhrViti2019HaFDataSets} />
 							<Item
-								title="Koshere - 2019 - F"
+								title={`${t("Ha")} - 2019 - ${t("F")}`}
+								items={mpbzhrViti2019HaFDataSets}
+							/>
+							<Item
+								title={`${t("Koshere")} - 2019 - ${t("F")}`}
 								items={mpbzhrViti2019KoshereFDataSets}
 							/>
-							<Item title="Krere - 2019 - F" items={mpbzhrViti2019KrereFDataSets} />
-							<Item title="Liter - 2019 - F" items={mpbzhrViti2019LiterFDataSets} />
 							<Item
-								title="Pulavojse - 2019 - F"
+								title={`${t("Krere")} - 2019 - ${t("F")}`}
+								items={mpbzhrViti2019KrereFDataSets}
+							/>
+							<Item
+								title={`${t("Liter")} - 2019 - ${t("F")}`}
+								items={mpbzhrViti2019LiterFDataSets}
+							/>
+							<Item
+								title={`${t("Pulavojse")} - 2019 - ${t("F")}`}
 								items={mpbzhrViti2019PulavojseFDataSets}
 							/>
 							<Item
-								title="Thelleza - 2019 - F"
+								title={`${t("Thelleza")} - 2019 - ${t("F")}`}
 								items={mpbzhrViti2019ThellezaFDataSets}
 							/>
 						</div>
 					)}
 					{mpbzhrViti2019HaM && (
 						<div className="exclude">
-							<Item title="HA - 2019 - M" items={mpbzhrViti2019HaMDataSets} />
 							<Item
-								title="Koshere - 2019 - M"
+								title={`${t("Ha")} - 2019 - ${t("M")}`}
+								items={mpbzhrViti2019HaMDataSets}
+							/>
+							<Item
+								title={`${t("Koshere")} - 2019 - ${t("M")}`}
 								items={mpbzhrViti2019KoshereMDataSets}
 							/>
-							<Item title="Krere - 2019 - M" items={mpbzhrViti2019KrereMDataSets} />
-							<Item title="Liter - 2019 - M" items={mpbzhrViti2019LiterMDataSets} />
 							<Item
-								title="Pulavojse - 2019 - M"
+								title={`${t("Krere")} - 2019 - ${t("M")}`}
+								items={mpbzhrViti2019KrereMDataSets}
+							/>
+							<Item
+								title={`${t("Liter")} - 2019 - ${t("M")}`}
+								items={mpbzhrViti2019LiterMDataSets}
+							/>
+							<Item
+								title={`${t("Pulavojse")} - 2019 - ${t("M")}`}
 								items={mpbzhrViti2019PulavojseMDataSets}
 							/>
 							<Item
-								title="Thelleza - 2019 - M"
+								title={`${t("Thelleza")} - 2019 - ${t("M")}`}
 								items={mpbzhrViti2019ThellezaMDataSets}
 							/>
 						</div>

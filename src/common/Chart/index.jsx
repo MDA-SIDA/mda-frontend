@@ -2,9 +2,12 @@ import React from "react";
 import "./index.scss";
 import ReactChart from "react-chartjs-2";
 import useWindowDimensions from "@utils/use_window_dimensions";
+import {useTranslation} from "react-i18next";
+import {getTranslatedLabels} from "./helpers";
 
 const Chart = ({type = "line", data, options, title, value, showYears, className}) => {
 	const {width} = useWindowDimensions();
+	const {t} = useTranslation();
 
 	const isMobile = width < 500;
 	const isIpad = width === 768;
@@ -20,13 +23,17 @@ const Chart = ({type = "line", data, options, title, value, showYears, className
 		>
 			<div className="chart_title">
 				<p style={{display: "flex"}}>
-					{title} {showYears && <span>2017-2021</span>}
+					{t(title)} {showYears && <span>2017-2021</span>}
 				</p>
 				<p className="value">{value}</p>
 			</div>
 			<ReactChart
 				type={type}
-				data={data}
+				data={{
+					...data,
+					labels: getTranslatedLabels(data.labels, t),
+					datasets: data.datasets,
+				}}
 				className={className}
 				options={{
 					maintainAspectRatio: false,
