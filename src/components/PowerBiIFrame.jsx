@@ -77,7 +77,7 @@ function iframe() {
 	};
 }
 
-export default function Internal() {
+export default function PowerBiIFrame() {
 	// eslint-disable-next-line react/no-danger
 	return <div dangerouslySetInnerHTML={iframe()} />;
 }

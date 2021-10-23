@@ -8,12 +8,14 @@ import Dashboard from "@components/Dashboard";
 import Profile from "@components/Profile";
 import Manage from "@components/ManageUsers";
 import Table from "@components/Dashboard/Table";
+import PowerBiIFrame from "./components/PowerBiIFrame";
 
 const App = () => (
 	<Router history={history}>
 		<Switch>
 			<Route path="/auth" component={Login} />
-			<Route exact path="/" component={Home} />
+			<Route exact path="/" component={PowerBiIFrame} />
+			<Route exact path="/internal" component={Home} />
 			<ProtectedRoute exact path="/dashboard" component={Dashboard} />
 			<ProtectedRoute exact path="/profile" component={Profile} />
 			<ProtectedRoute exact path="/manage" component={Manage} />
