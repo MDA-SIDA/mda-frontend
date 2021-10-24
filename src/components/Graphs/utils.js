@@ -51,12 +51,17 @@ const getDatasets = ({
 	const xLabels = sortLabels(Object.keys(groupBy(items, filterBy)));
 
 	if (komunat?.length === 0 && regjionet?.length === 0 && vendbanimet?.length === 0) {
+		const data = filterBy
+			? getFilteredItems({items, filterBy, property, xLabels, getPercentage})
+			: items?.map((item) => item[property]);
+
+		if (data?.length === 0) {
+			return [];
+		}
 		return [
 			{
 				label: singleItemLabel,
-				data: filterBy
-					? getFilteredItems({items, filterBy, property, xLabels, getPercentage})
-					: items?.map((item) => item[property]),
+				data,
 				backgroundColor: colors[0],
 			},
 		];
