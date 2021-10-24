@@ -3,9 +3,10 @@ import {connect} from "react-redux";
 import Chart from "@common/Chart";
 import {groupBy} from "lodash";
 import {useTranslation} from "react-i18next";
+import Card from "@common/Card";
 import {getDatasets, sortLabels, areArraysEmpty} from "./utils";
 
-function RRUGET({filters, rruget18, rruget19}) {
+function RRUGET({filters, rruget18, rruget19, rruget20, rruget21}) {
 	const {t} = useTranslation();
 
 	const rruget18DataSets = getDatasets({
@@ -22,6 +23,20 @@ function RRUGET({filters, rruget18, rruget19}) {
 		singleItemLabel: t("Gjatesia e segmenteve"),
 		property: "gjatesiasegmenteve",
 		filterBy: "komunaemri",
+	});
+
+	const rruget20DataSets = getDatasets({
+		filters,
+		items: rruget20,
+		singleItemLabel: "Gjatesia e segmenteve",
+		property: "gjatesiasegmenteve",
+	});
+
+	const rruget21DataSets = getDatasets({
+		filters,
+		items: rruget21,
+		singleItemLabel: "Gjatesia e segmenteve",
+		property: "gjatesiasegmenteve",
 	});
 
 	return (
@@ -54,6 +69,9 @@ function RRUGET({filters, rruget18, rruget19}) {
 					datasets: rruget19DataSets,
 				}}
 			/>
+			{/* TODO: ask for approvment */}
+			{/* <Item title={`${t("Gjatesia e segmenteve")}`} items={rruget20DataSets} />
+			<Item title={`${t("Gjatesia e segmenteve")}`} items={rruget21DataSets} /> */}
 		</>
 	);
 }
@@ -67,3 +85,16 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RRUGET);
+
+const Item = ({title, items}) => (
+	<div className="exclude_item">
+		<h1>{title}</h1>
+		{items?.map((item, index) => (
+			<Card
+				style={{backgroundColor: item?.backgroundColor}}
+				number={new Intl.NumberFormat().format(Number(item?.data?.[0]))}
+				key={`${item?.number} ${index}`}
+			/>
+		))}
+	</div>
+);

@@ -26,7 +26,6 @@ export default function* root() {
 		navigation(),
 		admins(),
 		profile(),
-		arbk(),
 		universitetiiprishtines(),
 		up(),
 		atk(),
