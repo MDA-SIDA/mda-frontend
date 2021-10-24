@@ -13,7 +13,6 @@ import MAPL from "./MAPL";
 import MASHT from "./MASHT";
 import MPBZhR from "./MPBZhR";
 import DOGANA from "./DOGANA";
-import RRUGET from "./RRUGET";
 import MF from "./MF";
 
 const Graphs = ({selectedFilters, isEmpty, showGraph}) => {
