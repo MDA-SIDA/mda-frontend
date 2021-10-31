@@ -47,6 +47,12 @@ function DOGANA({fetchAll, dogana70, dogana71, dogana72, dogana73, dogana74, fil
 		filterBy: "shtetiEksportimit",
 	});
 
+	const showImport =
+		filters.regime?.length === 0 || filters.regime?.map((item) => item.value).includes("IM4");
+
+	const showExport =
+		filters.regime?.length === 0 || filters.regime?.map((item) => item.value).includes("EX1");
+
 	return (
 		<>
 			{isLoading && <Loader />}
@@ -60,40 +66,51 @@ function DOGANA({fetchAll, dogana70, dogana71, dogana72, dogana73, dogana74, fil
 							datasets: dogana70DataSets,
 						}}
 					/>
-					<Chart
-						title="Customs Value / viti, only regime IM4"
-						type="line"
-						data={{
-							labels: sortLabels(Object.keys(groupBy(dogana71, "viti"))),
-							datasets: dogana71DataSets,
-						}}
-					/>
-					<Chart
-						title="Customs Value / viti, only regime EX1"
-						type="line"
-						data={{
-							labels: sortLabels(Object.keys(groupBy(dogana72, "viti"))),
-							datasets: dogana72DataSets,
-						}}
-					/>
-					<Chart
-						title={t("Top 15 shtetet qe Kosova Importon me se shumti")}
-						type="bar"
-						data={{
-							labels: sortLabels(
-								Object.keys(groupBy(dogana73, "shtetiDestinacioni")),
-							),
-							datasets: dogana73DataSets,
-						}}
-					/>
-					<Chart
-						title={t("Top 15 shtetet qe Kosova Eksporton me se shumti")}
-						type="bar"
-						data={{
-							labels: sortLabels(Object.keys(groupBy(dogana74, "shtetiEksportimit"))),
-							datasets: dogana74DataSets,
-						}}
-					/>
+					{showImport && (
+						<Chart
+							title={t("Vlera e importit sipas viteve")}
+							type="line"
+							data={{
+								labels: sortLabels(Object.keys(groupBy(dogana71, "viti"))),
+								datasets: dogana71DataSets,
+							}}
+						/>
+					)}
+					{showExport && (
+						<Chart
+							title={t("Vlera e eksportit sipas viteve")}
+							type="line"
+							data={{
+								labels: sortLabels(Object.keys(groupBy(dogana72, "viti"))),
+								datasets: dogana72DataSets,
+							}}
+						/>
+					)}
+					{showImport && (
+						<Chart
+							title={t("Top 15 shtetet qe Kosova Importon me se shumti")}
+							type="bar"
+							data={{
+								labels: sortLabels(
+									Object.keys(groupBy(dogana73, "shtetiDestinacioni")),
+								),
+								datasets: dogana73DataSets,
+							}}
+						/>
+					)}
+
+					{showExport && (
+						<Chart
+							title={t("Top 15 shtetet qe Kosova Eksporton me se shumti")}
+							type="bar"
+							data={{
+								labels: sortLabels(
+									Object.keys(groupBy(dogana74, "shtetiEksportimit")),
+								),
+								datasets: dogana74DataSets,
+							}}
+						/>
+					)}
 				</>
 			)}
 		</>
