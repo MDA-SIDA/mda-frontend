@@ -4,42 +4,45 @@ import {actions} from "@sagas/industries/dogana";
 import Chart from "@common/Chart";
 import {groupBy} from "lodash";
 import Loader from "@common/Loader";
+import {useTranslation} from "react-i18next";
 import {getDatasets, sortLabels} from "./utils";
 
 function DOGANA({fetchAll, dogana70, dogana71, dogana72, dogana73, dogana74, filters, isLoading}) {
+	const {t} = useTranslation();
+
 	useEffect(() => {
 		fetchAll(filters);
 	}, [fetchAll, filters]);
 
 	const dogana70DataSets = getDatasets({
 		items: dogana70,
-		singleItemLabel: "Customs Value",
+		singleItemLabel: t("Vlera doganore"),
 		property: "customsValue",
 		filterBy: "viti",
 	});
 	const dogana71DataSets = getDatasets({
 		items: dogana71,
-		singleItemLabel: "Customs Value",
+		singleItemLabel: t("Vlera doganore"),
 		property: "customsValue",
 		filterBy: "viti",
 	});
 	const dogana72DataSets = getDatasets({
 		items: dogana72,
-		singleItemLabel: "Customs Value",
+		singleItemLabel: t("Vlera doganore"),
 		property: "customsValue",
 		filterBy: "viti",
 	});
 	const dogana73DataSets = getDatasets({
 		items: dogana73,
-		singleItemLabel: "Customs Value",
+		singleItemLabel: t("Vlera doganore"),
 		property: "customsValue",
-		filterBy: "viti",
+		filterBy: "shtetiDestinacioni",
 	});
 	const dogana74DataSets = getDatasets({
 		items: dogana74,
-		singleItemLabel: "Customs Value",
+		singleItemLabel: t("Vlera doganore"),
 		property: "customsValue",
-		filterBy: "viti",
+		filterBy: "shtetiEksportimit",
 	});
 
 	return (
@@ -48,7 +51,7 @@ function DOGANA({fetchAll, dogana70, dogana71, dogana72, dogana73, dogana74, fil
 			{!isLoading && (
 				<>
 					<Chart
-						title="Customs Value / viti"
+						title={t("Vlera e eksportit dhe importit sipas viteve")}
 						type="bar"
 						data={{
 							labels: sortLabels(Object.keys(groupBy(dogana70, "viti"))),
@@ -72,18 +75,20 @@ function DOGANA({fetchAll, dogana70, dogana71, dogana72, dogana73, dogana74, fil
 						}}
 					/>
 					<Chart
-						title="Viti 2020 (top 15 importing countries), only regime IM4"
+						title={t("Top 15 shtetet qe Kosova Importon me se shumti")}
 						type="bar"
 						data={{
-							labels: sortLabels(Object.keys(groupBy(dogana73, "viti"))),
+							labels: sortLabels(
+								Object.keys(groupBy(dogana73, "shtetiDestinacioni")),
+							),
 							datasets: dogana73DataSets,
 						}}
 					/>
 					<Chart
-						title="Viti 2020 (top 15 importing countries), only regime EX1"
+						title={t("Top 15 shtetet qe Kosova Eksporton me se shumti")}
 						type="bar"
 						data={{
-							labels: sortLabels(Object.keys(groupBy(dogana74, "viti"))),
+							labels: sortLabels(Object.keys(groupBy(dogana74, "shtetiEksportimit"))),
 							datasets: dogana74DataSets,
 						}}
 					/>
