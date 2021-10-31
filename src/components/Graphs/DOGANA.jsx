@@ -4,43 +4,54 @@ import {actions} from "@sagas/industries/dogana";
 import Chart from "@common/Chart";
 import {groupBy} from "lodash";
 import Loader from "@common/Loader";
-import {getDatasets, sortLabels} from "./utils";
+import {useTranslation} from "react-i18next";
+import {getDatasets, sortLabels, generateDatasets} from "./utils";
 
 function DOGANA({fetchAll, dogana70, dogana71, dogana72, dogana73, dogana74, filters, isLoading}) {
+	const {t} = useTranslation();
+
 	useEffect(() => {
 		fetchAll(filters);
 	}, [fetchAll, filters]);
 
-	const dogana70DataSets = getDatasets({
+	const dogana70DataSets = generateDatasets({
 		items: dogana70,
-		singleItemLabel: "Customs Value",
+		groupByLabel: "regime",
 		property: "customsValue",
 		filterBy: "viti",
+		xLabels: sortLabels(Object.keys(groupBy(dogana70, "viti"))),
 	});
+
 	const dogana71DataSets = getDatasets({
 		items: dogana71,
-		singleItemLabel: "Customs Value",
+		singleItemLabel: t("Vlera doganore"),
 		property: "customsValue",
 		filterBy: "viti",
 	});
 	const dogana72DataSets = getDatasets({
 		items: dogana72,
-		singleItemLabel: "Customs Value",
+		singleItemLabel: t("Vlera doganore"),
 		property: "customsValue",
 		filterBy: "viti",
 	});
 	const dogana73DataSets = getDatasets({
 		items: dogana73,
-		singleItemLabel: "Customs Value",
+		singleItemLabel: t("Vlera doganore"),
 		property: "customsValue",
-		filterBy: "viti",
+		filterBy: "shtetiDestinacioni",
 	});
 	const dogana74DataSets = getDatasets({
 		items: dogana74,
-		singleItemLabel: "Customs Value",
+		singleItemLabel: t("Vlera doganore"),
 		property: "customsValue",
-		filterBy: "viti",
+		filterBy: "shtetiEksportimit",
 	});
+
+	const showImport =
+		filters.regime?.length === 0 || filters.regime?.map((item) => item.value).includes("IM4");
+
+	const showExport =
+		filters.regime?.length === 0 || filters.regime?.map((item) => item.value).includes("EX1");
 
 	return (
 		<>
@@ -48,45 +59,58 @@ function DOGANA({fetchAll, dogana70, dogana71, dogana72, dogana73, dogana74, fil
 			{!isLoading && (
 				<>
 					<Chart
-						title="Customs Value / viti"
+						title={t("Vlera e eksportit dhe importit sipas viteve")}
 						type="bar"
 						data={{
 							labels: sortLabels(Object.keys(groupBy(dogana70, "viti"))),
 							datasets: dogana70DataSets,
 						}}
 					/>
-					<Chart
-						title="Customs Value / viti, only regime IM4"
-						type="line"
-						data={{
-							labels: sortLabels(Object.keys(groupBy(dogana71, "viti"))),
-							datasets: dogana71DataSets,
-						}}
-					/>
-					<Chart
-						title="Customs Value / viti, only regime EX1"
-						type="line"
-						data={{
-							labels: sortLabels(Object.keys(groupBy(dogana72, "viti"))),
-							datasets: dogana72DataSets,
-						}}
-					/>
-					<Chart
-						title="Viti 2020 (top 15 importing countries), only regime IM4"
-						type="bar"
-						data={{
-							labels: sortLabels(Object.keys(groupBy(dogana73, "viti"))),
-							datasets: dogana73DataSets,
-						}}
-					/>
-					<Chart
-						title="Viti 2020 (top 15 importing countries), only regime EX1"
-						type="bar"
-						data={{
-							labels: sortLabels(Object.keys(groupBy(dogana74, "viti"))),
-							datasets: dogana74DataSets,
-						}}
-					/>
+					{showImport && (
+						<Chart
+							title={t("Vlera e importit sipas viteve")}
+							type="line"
+							data={{
+								labels: sortLabels(Object.keys(groupBy(dogana71, "viti"))),
+								datasets: dogana71DataSets,
+							}}
+						/>
+					)}
+					{showExport && (
+						<Chart
+							title={t("Vlera e eksportit sipas viteve")}
+							type="line"
+							data={{
+								labels: sortLabels(Object.keys(groupBy(dogana72, "viti"))),
+								datasets: dogana72DataSets,
+							}}
+						/>
+					)}
+					{showImport && (
+						<Chart
+							title={t("Top 15 shtetet qe Kosova Importon me se shumti")}
+							type="bar"
+							data={{
+								labels: sortLabels(
+									Object.keys(groupBy(dogana73, "shtetiDestinacioni")),
+								),
+								datasets: dogana73DataSets,
+							}}
+						/>
+					)}
+
+					{showExport && (
+						<Chart
+							title={t("Top 15 shtetet qe Kosova Eksporton me se shumti")}
+							type="bar"
+							data={{
+								labels: sortLabels(
+									Object.keys(groupBy(dogana74, "shtetiEksportimit")),
+								),
+								datasets: dogana74DataSets,
+							}}
+						/>
+					)}
 				</>
 			)}
 		</>

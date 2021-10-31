@@ -1098,6 +1098,8 @@
     "Numri i bizneseve": "Broj preduzeća",
     "Femer": "Žene",
     "Mashkull": "Muškarci",
+    "Femra": "Žene",
+    "Meshkuj": "Muškarci",
     "F": "Žene",
     "M": "Muškarci",
     "Statusi i bizneseve": "Status preduzeća",
@@ -1584,5 +1586,10 @@
     "Tramjanka": "",
     "I përzirë": "",
     "Viogner": "",
-    "Pa varitet": ""
+    "Pa varitet": "",
+    "Vlera e eksportit dhe importit sipas viteve": "Vrednost izvoza i uvoza po godinama",
+    "Top 15 shtetet qe Kosova Importon me se shumti": "Top 15 zemalja koje Kosovo najviše uvozi",
+    "Top 15 shtetet qe Kosova Eksporton me se shumti": "Top 15 zemalja koje Kosovo najviše izvozi",
+    "Vlera e eksportit sipas viteve": "Vrednost izvoza po godinama",
+    "Vlera e importit sipas viteve": "Vrednost uvoza po godinama"
 }

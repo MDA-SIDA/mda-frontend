@@ -1095,6 +1095,8 @@
     "Numri i bizneseve": "Numri i bizneseve",
     "Femer": "Femer",
     "Mashkull": "Mashkull",
+    "Femra": "Femra",
+    "Meshkuj": "Meshkuj",
     "Statusi i bizneseve": "Statusi i bizneseve",
     "Shuma e paguar sipas mases": "Shuma e paguar sipas masës",
     "Shuma": "Shuma",
@@ -1579,5 +1581,10 @@
     "Tramjanka": "Tramjanka",
     "I përzirë": "I përzirë",
     "Viogner": "Viogner",
-    "Pa varitet": "Pa varitet"
+    "Pa varitet": "Pa varitet",
+    "Vlera e eksportit dhe importit sipas viteve": "Vlera e eksportit dhe importit sipas viteve",
+    "Top 15 shtetet qe Kosova Importon me se shumti": "Top 15 shtetet që Kosova importon më së shumti",
+    "Top 15 shtetet qe Kosova Eksporton me se shumti": "Top 15 shtetet që Kosova eksporton më së shumti",
+    "Vlera e eksportit sipas viteve": "Vlera e eksportit sipas viteve",
+    "Vlera e importit sipas viteve": "Vlera e importit sipas viteve"
 }
