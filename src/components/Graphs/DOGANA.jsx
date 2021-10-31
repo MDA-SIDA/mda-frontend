@@ -5,7 +5,7 @@ import Chart from "@common/Chart";
 import {groupBy} from "lodash";
 import Loader from "@common/Loader";
 import {useTranslation} from "react-i18next";
-import {getDatasets, sortLabels} from "./utils";
+import {getDatasets, sortLabels, generateDatasets} from "./utils";
 
 function DOGANA({fetchAll, dogana70, dogana71, dogana72, dogana73, dogana74, filters, isLoading}) {
 	const {t} = useTranslation();
@@ -14,12 +14,14 @@ function DOGANA({fetchAll, dogana70, dogana71, dogana72, dogana73, dogana74, fil
 		fetchAll(filters);
 	}, [fetchAll, filters]);
 
-	const dogana70DataSets = getDatasets({
+	const dogana70DataSets = generateDatasets({
 		items: dogana70,
-		singleItemLabel: t("Vlera doganore"),
+		groupByLabel: "regime",
 		property: "customsValue",
 		filterBy: "viti",
+		xLabels: sortLabels(Object.keys(groupBy(dogana70, "viti"))),
 	});
+
 	const dogana71DataSets = getDatasets({
 		items: dogana71,
 		singleItemLabel: t("Vlera doganore"),
