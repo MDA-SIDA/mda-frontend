@@ -20,6 +20,7 @@ function AUV({fetchAll, isLoading, auvRajoniKomuna, auvKategoria, auvKomunaNrKaf
 		items: auvRajoniKomuna,
 		singleItemLabel: t("Numri i fermave"),
 		property: "numrifermave",
+		filterBy: "regjioniemri",
 	});
 
 	const auvKategoriaDeleDataSets = getDatasets({
