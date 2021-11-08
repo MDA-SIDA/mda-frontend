@@ -221,7 +221,7 @@ function Filters({
 						value={selectedRegime}
 						options={regime?.map((regime) => ({
 							value: regime?.regime,
-							label: regime?.regime,
+							label: t(regime?.regime),
 						}))}
 						isSearchable
 						isMulti
@@ -230,7 +230,7 @@ function Filters({
 						onChange={(value) => {
 							setSelectedRegime(value);
 						}}
-						placeholder="Tariff code regime"
+						placeholder={t("Kodi tarifor")}
 					/>
 				</>
 			)}

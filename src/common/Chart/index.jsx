@@ -32,7 +32,12 @@ const Chart = ({type = "line", data, options, title, value, showYears, className
 				data={{
 					...data,
 					labels: getTranslatedLabels(data.labels, t),
-					datasets: data.datasets,
+					datasets: data.datasets?.map((item) => {
+						if (item.label) {
+							item.label = t(item.label);
+						}
+						return item;
+					}),
 				}}
 				className={className}
 				options={{
